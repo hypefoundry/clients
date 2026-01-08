@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple, transparent pricing. $3,495 AUD/month for unlimited design and web. Pause or cancel anytime. No contracts, no surprises.">
+  <meta name="keywords" content="design pricing, unlimited design pricing, design subscription cost, flat rate design">
+  <meta name="author" content="Hype Foundry">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hypefoundry.com/pricing">
+  <meta property="og:title" content="Pricing — Hype Foundry">
+  <meta property="og:description" content="$3,495 AUD/month for unlimited design and web. Pause or cancel anytime.">
+  <meta property="og:image" content="https://hypefoundry.com/assets/images/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://hypefoundry.com/pricing">
+  <meta name="twitter:title" content="Pricing — Hype Foundry">
+  <meta name="twitter:description" content="$3,495 AUD/month for unlimited design and web. Pause or cancel anytime.">
+  <meta name="twitter:image" content="https://hypefoundry.com/assets/images/og-image.jpg">
+
+  <title>Pricing — Hype Foundry</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- ================================
+       NAVIGATION
+       ================================ -->
+  <header class="header">
+    <nav class="nav">
+      <a href="/index.html" class="nav__logo">Hype Foundry</a>
+
+      <ul class="nav__menu">
+        <li><a href="/index.html" class="nav__link">Home</a></li>
+        <li><a href="/pricing.html" class="nav__link">Pricing</a></li>
+        <li><a href="/how-it-works.html" class="nav__link">How It Works</a></li>
+        <li><a href="/work.html" class="nav__link">Work</a></li>
+        <li><a href="/about.html" class="nav__link">About</a></li>
+        <li class="nav__cta">
+          <a href="/contact.html" class="btn btn--primary">Book a Call</a>
+        </li>
+      </ul>
+
+      <button class="nav__toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ================================
+       PRICING HERO
+       ================================ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content" data-animate>
+        <h1 class="hero__title">Simple, transparent pricing</h1>
+        <p class="hero__subtitle">One plan. Everything included. No contracts. No surprises. Just good work, fast.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       PRICING SECTION
+       ================================ -->
+  <section class="section">
+    <div class="container">
+      <!-- Pricing Toggle -->
+      <div class="pricing-toggle">
+        <span class="pricing-toggle__label pricing-toggle__label--active" data-pricing="monthly">Monthly</span>
+        <div class="toggle" role="switch" aria-checked="false" tabindex="0">
+          <div class="toggle__slider"></div>
+        </div>
+        <span class="pricing-toggle__label" data-pricing="quarterly">Quarterly <span style="color: #10B981; font-weight: 600;">(Save 10%)</span></span>
+      </div>
+
+      <!-- Pricing Card -->
+      <div class="pricing-card" data-animate>
+        <span class="pricing-card__badge">Most Popular</span>
+        <div class="pricing-card__price" data-price-display>$3,495</div>
+        <p class="pricing-card__price-note" data-price-note>per month</p>
+
+        <ul class="pricing-card__features">
+          <li class="pricing-card__feature">Unlimited design requests</li>
+          <li class="pricing-card__feature">24-48 hour turnaround</li>
+          <li class="pricing-card__feature">Unlimited revisions</li>
+          <li class="pricing-card__feature">One request at a time</li>
+          <li class="pricing-card__feature">Pause or cancel anytime</li>
+          <li class="pricing-card__feature">Logo & brand assets</li>
+          <li class="pricing-card__feature">Social media graphics</li>
+          <li class="pricing-card__feature">Pitch decks & presentations</li>
+          <li class="pricing-card__feature">Marketing collateral</li>
+          <li class="pricing-card__feature">Landing page design</li>
+          <li class="pricing-card__feature">Website design</li>
+          <li class="pricing-card__feature">Framer development</li>
+          <li class="pricing-card__feature">Async communication (Trello, Notion, Loom)</li>
+        </ul>
+
+        <!-- CTA Button with Stripe Payment Link -->
+        <!-- Replace the href with your actual Stripe Payment Links -->
+        <a href="https://buy.stripe.com/MONTHLY_PLACEHOLDER" class="btn btn--primary btn--large pricing-card__cta" data-pricing-cta>Get Started</a>
+
+        <p class="text-center mt-lg" style="font-size: 0.875rem; color: #6B7280;">
+          No contracts. Pause or cancel anytime.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       WHAT'S INCLUDED (DETAILED)
+       ================================ -->
+  <section class="section section--grey">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">What's included</h2>
+        <p class="section-header__subtitle">Everything you need to look sharp and ship fast.</p>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card" data-animate>
+          <div class="card__icon">✨</div>
+          <h3 class="card__title">Branding</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Logo refinements</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Brand assets & guidelines</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Colour palettes</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Typography systems</li>
+          </ul>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">📱</div>
+          <h3 class="card__title">Social Media Graphics</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Instagram posts & stories</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• LinkedIn banners & graphics</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Twitter headers & images</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Facebook ads & posts</li>
+          </ul>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">🎯</div>
+          <h3 class="card__title">Pitch Decks & Presentations</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Investor pitch decks</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Sales presentations</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Internal decks</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• One-pagers</li>
+          </ul>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">🖼️</div>
+          <h3 class="card__title">Marketing Collateral</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Flyers & posters</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Email headers & templates</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Ad creatives (digital)</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Brochures & catalogues</li>
+          </ul>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">🌐</div>
+          <h3 class="card__title">Landing Pages</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Lead generation pages</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Product launch pages</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Campaign pages</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Conversion-focused design</li>
+          </ul>
+        </div>
+
+        <div class="card" data-animate>
+          <div class="card__icon">💻</div>
+          <h3 class="card__title">Website Design & Framer</h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Full website design</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Framer development</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Responsive & mobile-first</li>
+            <li style="padding: 0.5rem 0; color: #6B7280;">• Up to 5 pages per request</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       WHAT'S NOT INCLUDED
+       ================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">What's NOT included</h2>
+        <p class="section-header__subtitle">To keep things focused and maintain quality, here's what I don't offer.</p>
+      </div>
+
+      <div style="max-width: 700px; margin: 0 auto;">
+        <div class="feature-list">
+          <div class="feature-list__item" data-animate>
+            <div class="feature-list__icon" style="background: rgba(239, 68, 68, 0.2); color: #DC2626;">✕</div>
+            <div class="feature-list__text">
+              <strong style="color: #111827;">Complex multi-page websites</strong> — Websites with 5+ pages per request. Break them into stages instead.
+            </div>
+          </div>
+
+          <div class="feature-list__item" data-animate>
+            <div class="feature-list__icon" style="background: rgba(239, 68, 68, 0.2); color: #DC2626;">✕</div>
+            <div class="feature-list__text">
+              <strong style="color: #111827;">Custom code beyond Framer</strong> — React, Vue, custom JavaScript apps. I focus on design and Framer.
+            </div>
+          </div>
+
+          <div class="feature-list__item" data-animate>
+            <div class="feature-list__icon" style="background: rgba(239, 68, 68, 0.2); color: #DC2626;">✕</div>
+            <div class="feature-list__text">
+              <strong style="color: #111827;">Video editing & motion graphics</strong> — Video production, After Effects animations, or complex motion work.
+            </div>
+          </div>
+
+          <div class="feature-list__item" data-animate>
+            <div class="feature-list__icon" style="background: rgba(239, 68, 68, 0.2); color: #DC2626;">✕</div>
+            <div class="feature-list__text">
+              <strong style="color: #111827;">3D modelling</strong> — Blender, Cinema 4D, or any 3D asset creation.
+            </div>
+          </div>
+
+          <div class="feature-list__item" data-animate>
+            <div class="feature-list__icon" style="background: rgba(239, 68, 68, 0.2); color: #DC2626;">✕</div>
+            <div class="feature-list__text">
+              <strong style="color: #111827;">Illustration from scratch</strong> — Custom illustrations or character design. I can work with existing assets.
+            </div>
+          </div>
+
+          <div class="feature-list__item" data-animate>
+            <div class="feature-list__icon" style="background: rgba(239, 68, 68, 0.2); color: #DC2626;">✕</div>
+            <div class="feature-list__text">
+              <strong style="color: #111827;">Print production management</strong> — Liaising with printers or managing print runs. I'll provide print-ready files.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center mt-3xl" style="color: #6B7280; font-size: 1.125rem;">
+        Not sure if your project fits? <a href="/contact.html" style="color: #10B981; font-weight: 600;">Book a call</a> and let's talk about it.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================================
+       MEMBERSHIP BENEFITS
+       ================================ -->
+  <section class="section section--grey">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">Membership benefits</h2>
+        <p class="section-header__subtitle">Why founders choose Hype Foundry.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <div class="card" data-animate>
+          <h3 class="card__title">⚡ Fast turnaround</h3>
+          <p class="card__description">Most requests completed in 24-48 hours. No waiting weeks. Get what you need when you need it.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <h3 class="card__title">🎨 Quality you can count on</h3>
+          <p class="card__description">12+ years of experience. Every project handled personally. No juniors, no outsourcing, no inconsistency.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <h3 class="card__title">🔄 Unlimited revisions</h3>
+          <p class="card__description">Don't love it? I'll revise it. No limits, no questions asked. We keep going until you're happy.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <h3 class="card__title">⏸️ Pause or cancel anytime</h3>
+          <p class="card__description">Slow month? Pause your subscription. Need to stop? Cancel. No hard feelings, no penalties.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <h3 class="card__title">📋 One request at a time</h3>
+          <p class="card__description">I work on one request at a time to maintain quality. Add as many to the queue as you like.</p>
+        </div>
+
+        <div class="card" data-animate>
+          <h3 class="card__title">🤝 No meetings, no fluff</h3>
+          <p class="card__description">All communication is async. Skip the status calls and get back to work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       HOW PAUSING WORKS
+       ================================ -->
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;" data-animate>
+        <h2 class="section-header__title mb-lg">How pausing works</h2>
+        <p style="font-size: 1.125rem; color: #6B7280; line-height: 1.75; margin-bottom: 2rem;">
+          Billing is based on a 31-day cycle. Let's say you sign up and use the service for 15 days, then decide to pause. You'll have 16 days of service banked for when you're ready to resume.
+        </p>
+        <p style="font-size: 1.125rem; color: #6B7280; line-height: 1.75;">
+          There's no expiry date on your unused days. Come back in a month, six months, or a year — your time will be waiting for you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       FAQ SECTION
+       ================================ -->
+  <section class="section section--grey">
+    <div class="container">
+      <div class="section-header" data-animate>
+        <h2 class="section-header__title">Common questions</h2>
+        <p class="section-header__subtitle">Still have questions? I've got answers.</p>
+      </div>
+
+      <div class="faq">
+        <!-- FAQ Item 1 -->
+        <div class="faq__item">
+          <button class="faq__question">
+            <span>What if I only need work for one month?</span>
+            <span class="faq__icon">↓</span>
+          </button>
+          <div class="faq__answer">
+            <div class="faq__answer-content">
+              That's fine. There's no minimum commitment. Use it for a month, pause, or cancel — whatever works for you.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq__item">
+          <button class="faq__question">
+            <span>Can I upgrade or downgrade my plan?</span>
+            <span class="faq__icon">↓</span>
+          </button>
+          <div class="faq__answer">
+            <div class="faq__answer-content">
+              There's only one plan — unlimited everything. You can switch between monthly and quarterly billing anytime through your Stripe dashboard.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq__item">
+          <button class="faq__question">
+            <span>Do you offer refunds?</span>
+            <span class="faq__icon">↓</span>
+          </button>
+          <div class="faq__answer">
+            <div class="faq__answer-content">
+              I offer a 75% refund if you're not satisfied within the first 7 days. After that, no refunds for partially used months, but you can cancel anytime.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq__item">
+          <button class="faq__question">
+            <span>Are there any additional fees?</span>
+            <span class="faq__icon">↓</span>
+          </button>
+          <div class="faq__answer">
+            <div class="faq__answer-content">
+              Nope. The monthly or quarterly fee covers everything. No hidden charges, no surprise invoices.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq__item">
+          <button class="faq__question">
+            <span>What happens if I don't use the service for a while?</span>
+            <span class="faq__icon">↓</span>
+          </button>
+          <div class="faq__answer">
+            <div class="faq__answer-content">
+              Just pause your subscription. You won't be charged while paused, and your unused days will be banked for when you're ready to resume.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       FINAL CTA SECTION
+       ================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-section" data-animate>
+        <h2 class="cta-section__title">Ready to get started?</h2>
+        <p class="cta-section__description">Subscribe now and get your first request in within minutes. No onboarding calls, no hassle.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="https://buy.stripe.com/MONTHLY_PLACEHOLDER" class="btn btn--secondary btn--large" data-pricing-cta>Subscribe Now</a>
+          <a href="/contact.html" class="btn btn--outline btn--large" style="color: white; border-color: white;">Book a Call First</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================
+       FOOTER
+       ================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <!-- About Section -->
+        <div>
+          <h3 class="footer__section-title">Hype Foundry</h3>
+          <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.75;">
+            Your design team of one. Fast, flexible unlimited design and web subscription for founders.
+          </p>
+          <div class="footer__social mt-lg">
+            <a href="https://twitter.com" class="footer__social-link" aria-label="Twitter">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg>
+            </a>
+            <a href="https://linkedin.com" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="https://instagram.com" class="footer__social-link" aria-label="Instagram">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="footer__section-title">Quick Links</h3>
+          <ul class="footer__nav">
+            <li class="footer__nav-item"><a href="/index.html" class="footer__nav-link">Home</a></li>
+            <li class="footer__nav-item"><a href="/pricing.html" class="footer__nav-link">Pricing</a></li>
+            <li class="footer__nav-item"><a href="/how-it-works.html" class="footer__nav-link">How It Works</a></li>
+            <li class="footer__nav-item"><a href="/work.html" class="footer__nav-link">Work</a></li>
+            <li class="footer__nav-item"><a href="/about.html" class="footer__nav-link">About</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h3 class="footer__section-title">Get in Touch</h3>
+          <ul class="footer__nav">
+            <li class="footer__nav-item"><a href="/contact.html" class="footer__nav-link">Book a Call</a></li>
+            <li class="footer__nav-item"><a href="mailto:hello@hypefoundry.com" class="footer__nav-link">hello@hypefoundry.com</a></li>
+            <li class="footer__nav-item" style="color: rgba(255, 255, 255, 0.7);">Adelaide, Australia</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 Hype Foundry. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
