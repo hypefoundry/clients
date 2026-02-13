@@ -1,582 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Your design team of one. Fast, flexible unlimited design and web subscription for early-stage founders. $3,495 AUD/month, pause or cancel anytime.">
-  <meta name="keywords" content="design subscription, unlimited design, web design, branding, design as a service, startup design, freelance designer">
-  <meta name="author" content="Hype Foundry">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hype Foundry — Client Portal</title>
+    <link rel="icon" type="image/png" href="/discovery/HSS/hf-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-bg: #F7F7F5;
+            --color-hint: #777777;
+            --color-accent: #D5FF02;
+            --font-family: 'Bricolage Grotesque', sans-serif;
+        }
 
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hypefoundry.com/">
-  <meta property="og:title" content="Hype Foundry — Your Design Team of One">
-  <meta property="og:description" content="Fast, flexible unlimited design and web subscription for founders. Never explain yourself twice.">
-  <meta property="og:image" content="https://hypefoundry.com/assets/images/og-image.jpg">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://hypefoundry.com/">
-  <meta name="twitter:title" content="Hype Foundry — Your Design Team of One">
-  <meta name="twitter:description" content="Fast, flexible unlimited design and web subscription for founders. Never explain yourself twice.">
-  <meta name="twitter:image" content="https://hypefoundry.com/assets/images/og-image.jpg">
+        body {
+            font-family: var(--font-family);
+            background: var(--color-bg);
+            color: var(--color-black);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
 
-  <title>Hype Foundry — Your Design Team of One</title>
+        .container {
+            text-align: center;
+            max-width: 480px;
+        }
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 48px;
+        }
 
-  <!-- Fonts - Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        h1 {
+            font-weight: 800;
+            font-size: clamp(32px, 6vw, 48px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="/css/styles.css">
+        p {
+            font-size: 17px;
+            color: var(--color-hint);
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        a {
+            font-family: var(--font-family);
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--color-black);
+            text-decoration: none;
+            border-bottom: 2px solid var(--color-accent);
+            padding-bottom: 2px;
+            transition: border-color 0.2s ease;
+        }
+
+        a:hover {
+            border-color: var(--color-black);
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 32px;
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
-
-  <!-- ================================
-       NAVIGATION
-       ================================ -->
-  <header class="header">
-    <nav class="nav">
-      <a href="/index.html" class="nav__logo">Hype Foundry</a>
-
-      <ul class="nav__menu">
-        <li><a href="/index.html" class="nav__link">Home</a></li>
-        <li><a href="/pricing.html" class="nav__link">Pricing</a></li>
-        <li><a href="/how-it-works.html" class="nav__link">How It Works</a></li>
-        <li><a href="/work.html" class="nav__link">Work</a></li>
-        <li><a href="/about.html" class="nav__link">About</a></li>
-        <li class="nav__cta">
-          <a href="/contact.html" class="btn btn--primary">Book a Call</a>
-        </li>
-      </ul>
-
-      <button class="nav__toggle" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
-  </header>
-
-  <!-- ================================
-       HERO SECTION
-       ================================ -->
-  <section class="hero">
     <div class="container">
-      <div class="hero__content" data-animate>
-        <h1 class="hero__title">Your design team of one. Fast, flexible, and you never have to explain yourself twice.</h1>
-        <p class="hero__subtitle">I handle your brand and web so you can focus on building. Unlimited design for one flat monthly fee. Pause or cancel anytime.</p>
-        <div class="hero__cta">
-          <a href="/contact.html" class="btn btn--primary btn--large">Book a Call</a>
-          <a href="/pricing.html" class="btn btn--secondary btn--large">See Pricing</a>
-        </div>
-        <p class="hero__note">No contracts. No surprises. Just good work, fast.</p>
-      </div>
+        <img src="/discovery/HSS/hf-logo@2x.png" alt="Hype Foundry" class="logo">
+        <h1>Client Portal</h1>
+        <p>This space is reserved for Hype Foundry clients. If you've been sent a link, please check your email for the direct URL.</p>
+        <a href="mailto:hello@hypefoundry.studio">hello@hypefoundry.studio</a>
     </div>
-  </section>
-
-  <!-- ================================
-       TRUST / SOCIAL PROOF SECTION
-       ================================ -->
-  <section class="trust-section">
-    <div class="container">
-      <p class="trust-section__label">Trusted by founders building real products</p>
-      <div class="trust-logos">
-        <!-- Placeholder for client logos -->
-        <div style="width: 120px; height: 40px; background: #E5E7EB; border-radius: 8px;"></div>
-        <div style="width: 120px; height: 40px; background: #E5E7EB; border-radius: 8px;"></div>
-        <div style="width: 120px; height: 40px; background: #E5E7EB; border-radius: 8px;"></div>
-        <div style="width: 120px; height: 40px; background: #E5E7EB; border-radius: 8px;"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       HOW IT WORKS
-       ================================ -->
-  <section class="section section--grey">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">How it works</h2>
-        <p class="section-header__subtitle">No back-and-forth. No endless revisions. Just a simple process that gets you what you need.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step" data-animate>
-          <div class="step__number">1</div>
-          <h3 class="step__title">Subscribe</h3>
-          <p class="step__description">Pick your plan and you're in. Get access to your shared request board instantly. No onboarding calls, no hassle.</p>
-        </div>
-
-        <div class="step" data-animate>
-          <div class="step__number">2</div>
-          <h3 class="step__title">Request</h3>
-          <p class="step__description">Add requests to your queue whenever you need. Share briefs, links, files — whatever helps. I work through them one at a time.</p>
-        </div>
-
-        <div class="step" data-animate>
-          <div class="step__number">3</div>
-          <h3 class="step__title">Receive</h3>
-          <p class="step__description">Get your designs in 24-48 hours. Request revisions until you're happy. Rinse and repeat. Pause or cancel when you need to.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       WHAT'S INCLUDED
-       ================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">What's included</h2>
-        <p class="section-header__subtitle">Everything you need to look sharp and ship fast.</p>
-      </div>
-
-      <div class="grid grid--3">
-        <div class="card" data-animate>
-          <div class="card__icon">✨</div>
-          <h3 class="card__title">Branding</h3>
-          <p class="card__description">Logo refinements, brand assets, colour palettes, and visual identity that actually makes sense.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card__icon">📱</div>
-          <h3 class="card__title">Social & Marketing</h3>
-          <p class="card__description">Social media graphics, ad creatives, email headers, LinkedIn banners — all the digital bits you need.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card__icon">🎯</div>
-          <h3 class="card__title">Presentations</h3>
-          <p class="card__description">Pitch decks, investor presentations, sales decks. Make them look as good as your idea sounds.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card__icon">🖼️</div>
-          <h3 class="card__title">Marketing Collateral</h3>
-          <p class="card__description">Flyers, posters, one-pagers, brochures. If it's print or digital marketing, I've got you.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card__icon">🌐</div>
-          <h3 class="card__title">Landing Pages</h3>
-          <p class="card__description">Clean, conversion-focused page designs. Perfect for campaigns, product launches, or lead gen.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card__icon">💻</div>
-          <h3 class="card__title">Website Design & Framer</h3>
-          <p class="card__description">Full website design and Framer development. Responsive, fast, and ready to launch.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       MEMBERSHIP BENEFITS
-       ================================ -->
-  <section class="section section--grey">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">Why Hype Foundry</h2>
-        <p class="section-header__subtitle">Here's the deal — I built this because I know what founders need.</p>
-      </div>
-
-      <div class="grid grid--2">
-        <div class="card" data-animate>
-          <h3 class="card__title">⚡ Fast turnaround</h3>
-          <p class="card__description">Most requests done in 24-48 hours. No waiting weeks for feedback or approvals. You get what you need when you need it.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <h3 class="card__title">🎨 Quality you can count on</h3>
-          <p class="card__description">12+ years of experience. Every project is handled by me personally — no juniors, no outsourcing, no inconsistency.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <h3 class="card__title">🔄 Unlimited revisions</h3>
-          <p class="card__description">Don't love it? I'll revise it. No limits, no questions asked. We keep going until you're happy.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <h3 class="card__title">⏸️ Pause or cancel anytime</h3>
-          <p class="card__description">Slow month? Pause your subscription. Need to stop? Cancel. No hard feelings, no penalties. It just works.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <h3 class="card__title">📋 One request at a time</h3>
-          <p class="card__description">I work on one request at a time to maintain quality. Add as many to the queue as you like — I'll work through them systematically.</p>
-        </div>
-
-        <div class="card" data-animate>
-          <h3 class="card__title">🤝 No meetings, no fluff</h3>
-          <p class="card__description">All communication is async via your preferred platform (Trello, Notion, Loom). Skip the status calls and get back to work.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       RECENT WORK PREVIEW
-       ================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">Recent work</h2>
-        <p class="section-header__subtitle">A quick look at what I've been working on lately.</p>
-      </div>
-
-      <div class="work-grid">
-        <!-- Placeholder work items -->
-        <div class="work-item" data-category="branding" data-animate>
-          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-          <div class="work-item__overlay">
-            <h3 class="work-item__title">Brand Identity</h3>
-            <p class="work-item__category">Branding</p>
-          </div>
-        </div>
-
-        <div class="work-item" data-category="web" data-animate>
-          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-          <div class="work-item__overlay">
-            <h3 class="work-item__title">Landing Page</h3>
-            <p class="work-item__category">Web Design</p>
-          </div>
-        </div>
-
-        <div class="work-item" data-category="marketing" data-animate>
-          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-          <div class="work-item__overlay">
-            <h3 class="work-item__title">Social Campaign</h3>
-            <p class="work-item__category">Marketing</p>
-          </div>
-        </div>
-
-        <div class="work-item" data-category="web" data-animate>
-          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
-          <div class="work-item__overlay">
-            <h3 class="work-item__title">SaaS Website</h3>
-            <p class="work-item__category">Web Design</p>
-          </div>
-        </div>
-
-        <div class="work-item" data-category="branding" data-animate>
-          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
-          <div class="work-item__overlay">
-            <h3 class="work-item__title">Startup Branding</h3>
-            <p class="work-item__category">Branding</p>
-          </div>
-        </div>
-
-        <div class="work-item" data-category="marketing" data-animate>
-          <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
-          <div class="work-item__overlay">
-            <h3 class="work-item__title">Pitch Deck</h3>
-            <p class="work-item__category">Marketing</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center mt-3xl">
-        <a href="/work.html" class="btn btn--secondary btn--large">View All Work</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       PRICING SECTION
-       ================================ -->
-  <section class="section section--grey">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">Simple, transparent pricing</h2>
-        <p class="section-header__subtitle">One plan. Everything included. No surprises.</p>
-      </div>
-
-      <!-- Pricing Toggle -->
-      <div class="pricing-toggle">
-        <span class="pricing-toggle__label pricing-toggle__label--active" data-pricing="monthly">Monthly</span>
-        <div class="toggle" role="switch" aria-checked="false" tabindex="0">
-          <div class="toggle__slider"></div>
-        </div>
-        <span class="pricing-toggle__label" data-pricing="quarterly">Quarterly <span style="color: #10B981; font-weight: 600;">(Save 10%)</span></span>
-      </div>
-
-      <!-- Pricing Card -->
-      <div class="pricing-card" data-animate>
-        <span class="pricing-card__badge">Unlimited Design</span>
-        <div class="pricing-card__price" data-price-display>$3,495</div>
-        <p class="pricing-card__price-note" data-price-note>per month</p>
-
-        <ul class="pricing-card__features">
-          <li class="pricing-card__feature">Unlimited design requests</li>
-          <li class="pricing-card__feature">24-48 hour turnaround</li>
-          <li class="pricing-card__feature">Unlimited revisions</li>
-          <li class="pricing-card__feature">Pause or cancel anytime</li>
-          <li class="pricing-card__feature">One request at a time</li>
-          <li class="pricing-card__feature">Branding, web, marketing & more</li>
-        </ul>
-
-        <!-- CTA Button with Stripe Payment Link -->
-        <!-- Replace the href with your actual Stripe Payment Links -->
-        <a href="https://buy.stripe.com/MONTHLY_PLACEHOLDER" class="btn btn--primary btn--large pricing-card__cta" data-pricing-cta>Get Started</a>
-
-        <p class="text-center mt-lg" style="font-size: 0.875rem; color: #6B7280;">
-          No contracts. Pause or cancel anytime.
-        </p>
-      </div>
-
-      <div class="text-center mt-3xl">
-        <a href="/pricing.html" class="nav__link">View full pricing details →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       TESTIMONIALS
-       ================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">What founders say</h2>
-        <p class="section-header__subtitle">Here's what some of my clients have to say about working with me.</p>
-      </div>
-
-      <div class="testimonials">
-        <!-- Testimonial 1 -->
-        <div class="testimonial" data-animate>
-          <p class="testimonial__quote">"Working with Hype Foundry has been a game-changer. Fast turnaround, quality work, and I never have to chase for updates. It just works."</p>
-          <div class="testimonial__author">
-            <div class="testimonial__avatar">JS</div>
-            <div>
-              <div class="testimonial__name">James Smith</div>
-              <div class="testimonial__title">Founder, TechStart</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 2 -->
-        <div class="testimonial" data-animate>
-          <p class="testimonial__quote">"I needed a designer who understood startups and could move fast. This subscription model is perfect — no contracts, no overhead, just great work."</p>
-          <div class="testimonial__author">
-            <div class="testimonial__avatar">EL</div>
-            <div>
-              <div class="testimonial__name">Emma Lewis</div>
-              <div class="testimonial__title">Co-founder, GrowthLab</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Testimonial 3 -->
-        <div class="testimonial" data-animate>
-          <p class="testimonial__quote">"Best decision I made for my startup. Hype Foundry handles everything from branding to web, and I can actually focus on building my product."</p>
-          <div class="testimonial__author">
-            <div class="testimonial__avatar">MJ</div>
-            <div>
-              <div class="testimonial__name">Michael Johnson</div>
-              <div class="testimonial__title">CEO, BuildKit</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       FAQ SECTION
-       ================================ -->
-  <section class="section section--grey">
-    <div class="container">
-      <div class="section-header" data-animate>
-        <h2 class="section-header__title">Frequently asked questions</h2>
-        <p class="section-header__subtitle">Got questions? I've got answers.</p>
-      </div>
-
-      <div class="faq">
-        <!-- FAQ Item 1 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>How fast will I receive my designs?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              Most requests are completed in 24-48 hours. More complex requests like full website designs are broken into stages and delivered progressively.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 2 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>How do I submit requests?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              Once you subscribe, you'll get access to a shared Trello board where you can submit and track requests. Prefer Notion or Loom? That works too.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 3 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>What if I don't like the design?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              No problem. I'll revise it until you're happy. Unlimited revisions are included.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 4 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>Is there a limit to how many requests I can make?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              No limit. Add as many requests as you like to the queue. I work through them one at a time to ensure quality.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 5 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>How does pausing work?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              Billing is based on a 31-day cycle. If you pause after 15 days, you'll have 16 days banked for when you're ready to resume.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 6 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>What if I only need work for one month?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              That's fine. There's no minimum commitment. Use it for a month, pause, or cancel — whatever works for you.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 7 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>Do you offer refunds?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              I offer a 75% refund if you're not satisfied within the first 7 days. After that, no refunds for partially used months, but you can cancel anytime.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ Item 8 -->
-        <div class="faq__item">
-          <button class="faq__question">
-            <span>What's NOT included?</span>
-            <span class="faq__icon">↓</span>
-          </button>
-          <div class="faq__answer">
-            <div class="faq__answer-content">
-              Video editing, motion graphics, 3D modelling, complex custom code, illustration from scratch, and print production management. If you're unsure, just ask.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       FINAL CTA SECTION
-       ================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="cta-section" data-animate>
-        <h2 class="cta-section__title">Ready to get started?</h2>
-        <p class="cta-section__description">Book a quick call to see if we're a good fit. No sales pitch, just a conversation about your needs.</p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="/contact.html" class="btn btn--secondary btn--large">Book a Call</a>
-          <a href="/pricing.html" class="btn btn--outline btn--large" style="color: white; border-color: white;">View Pricing</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================================
-       FOOTER
-       ================================ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__content">
-        <!-- About Section -->
-        <div>
-          <h3 class="footer__section-title">Hype Foundry</h3>
-          <p style="color: rgba(255, 255, 255, 0.7); line-height: 1.75;">
-            Your design team of one. Fast, flexible unlimited design and web subscription for founders.
-          </p>
-          <div class="footer__social mt-lg">
-            <a href="https://twitter.com" class="footer__social-link" aria-label="Twitter">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg>
-            </a>
-            <a href="https://linkedin.com" class="footer__social-link" aria-label="LinkedIn">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="https://instagram.com" class="footer__social-link" aria-label="Instagram">
-              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h3 class="footer__section-title">Quick Links</h3>
-          <ul class="footer__nav">
-            <li class="footer__nav-item"><a href="/index.html" class="footer__nav-link">Home</a></li>
-            <li class="footer__nav-item"><a href="/pricing.html" class="footer__nav-link">Pricing</a></li>
-            <li class="footer__nav-item"><a href="/how-it-works.html" class="footer__nav-link">How It Works</a></li>
-            <li class="footer__nav-item"><a href="/work.html" class="footer__nav-link">Work</a></li>
-            <li class="footer__nav-item"><a href="/about.html" class="footer__nav-link">About</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact -->
-        <div>
-          <h3 class="footer__section-title">Get in Touch</h3>
-          <ul class="footer__nav">
-            <li class="footer__nav-item"><a href="/contact.html" class="footer__nav-link">Book a Call</a></li>
-            <li class="footer__nav-item"><a href="mailto:hello@hypefoundry.com" class="footer__nav-link">hello@hypefoundry.com</a></li>
-            <li class="footer__nav-item" style="color: rgba(255, 255, 255, 0.7);">Adelaide, Australia</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer__bottom">
-        <p>&copy; 2026 Hype Foundry. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- JavaScript -->
-  <script src="/js/main.js"></script>
-
+    <div class="footer">Hype Foundry</div>
 </body>
 </html>
