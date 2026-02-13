@@ -261,13 +261,7 @@
         <p>A few questions to kick off the Hamptons Spotless Service project. Don't overthink these — short answers are fine, and anything we don't cover here we can sort out as we go.</p>
     </div>
 
-    <form id="discovery-form" class="form-container" action="https://formsubmit.co/hello@hypefoundry.studio" method="POST">
-
-        <!-- Formsubmit config -->
-        <input type="hidden" name="_subject" value="HSS Discovery — New Response">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" style="display:none">
+    <form id="discovery-form" class="form-container" action="https://formspree.io/f/xqedpydo" method="POST">
 
         <!-- Your Services -->
         <div class="form-section">
@@ -380,7 +374,38 @@
         <p>Prepared by <a href="mailto:hello@hypefoundry.studio">Hype Foundry</a></p>
     </footer>
 
-    <!-- JS submit handler disabled during Formsubmit activation. Will re-enable after. -->
+    <script>
+        document.getElementById('discovery-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const btn = form.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(response) {
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('success').classList.add('visible');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Responses';
+                    alert('Something went wrong — please try again or email hello@hypefoundry.studio directly.');
+                }
+            }).catch(function() {
+                btn.disabled = false;
+                btn.textContent = 'Submit Responses';
+                alert('Something went wrong — please try again or email hello@hypefoundry.studio directly.');
+            });
+        });
+    </script>
 
 </body>
 </html>
