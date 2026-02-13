@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSS Logo Refinement & Landing Page Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #1A1A1A;
+            --color-gray-bg: #D9D9D9;
+            --color-white: #FFFFFF;
+            --color-divider: #E0E0E0;
+            --color-accent: #D5FF02;
+            --font-family: 'Bricolage Grotesque', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-weight: 400;
+            font-size: 10.5pt;
+            line-height: 1.5;
+            color: var(--color-black);
+            background: var(--color-white);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 32px 40px;
+            position: relative;
+            page-break-after: always;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Cover & End Pages */
+        .page-cover,
+        .page-end {
+            background-image: url('hf-graphic.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Content Pages */
+        .page-content {
+            background: var(--color-white);
+        }
+
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 32px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: #999999;
+        }
+
+        /* Logo */
+        .logo {
+            width: 142px;
+            height: auto;
+        }
+
+        /* Header with logo and line */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .header-line {
+            border: none;
+            border-top: 1px solid var(--color-divider);
+            margin-top: 16px;
+        }
+
+        /* Typography */
+        .title-main {
+            font-weight: 800;
+            font-size: 48pt;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-weight: 400;
+            font-size: 11pt;
+            color: var(--color-black);
+        }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 24pt;
+            margin-bottom: 8px;
+            margin-top: 32px;
+        }
+
+        .page-title {
+            font-weight: 400;
+            font-size: 11pt;
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 18pt;
+            margin-bottom: 16px;
+        }
+
+        .subsection-title {
+            font-weight: 500;
+            font-size: 14pt;
+            margin-bottom: 12px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--color-divider);
+            margin: 24px 0;
+        }
+
+        /* Body text */
+        p {
+            margin-bottom: 12px;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 2px;
+        }
+
+        ul.nested {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        ul.nested li {
+            margin-bottom: 1px;
+        }
+
+        /* Bold text */
+        strong {
+            font-weight: 600;
+        }
+
+        /* Cover page title area */
+        .cover-content {
+            margin-top: auto;
+        }
+
+        /* End page contact area */
+        .contact-section {
+            margin-top: auto;
+        }
+
+        .contact-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-top: 1px solid rgba(128, 128, 128, 0.5);
+        }
+
+        .contact-row:last-child {
+            border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+        }
+
+        .contact-label {
+            font-weight: 400;
+        }
+
+        .contact-value {
+            font-weight: 400;
+            text-align: right;
+        }
+
+        /* Print specific */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .page {
+                margin: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .page-cover,
+            .page-end {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* Screen preview */
+        @media screen {
+            body {
+                background: #f0f0f0;
+                padding: 20px;
+            }
+
+            .page {
+                margin: 0 auto 20px auto;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1: Cover -->
+    <div class="page page-cover">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo" style="width: 213px;">
+        </div>
+        <div class="cover-content">
+            <h1 class="title-main">Hamptons<br>Spotless Service<br>Logo & Website<br>Proposal</h1>
+            <p class="subtitle">Prepared for Hamptons Spotless Service</p>
+        </div>
+    </div>
+
+    <!-- Page 2: Overview & Delivery Approach -->
+    <div class="page page-content">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo">
+            <hr class="header-line">
+        </div>
+
+        <h2 class="brand-name">Hamptons Spotless Service</h2>
+        <p class="page-title">Logo Refinement & Landing Page Proposal</p>
+
+        <hr class="divider" style="margin-top: 0;">
+
+        <h3 class="section-title">Overview</h3>
+        <p style="font-size: 12.5pt;">Hamptons Spotless Service is a new cleaning business launching in the Hamptons, New York. The business has an existing logo concept that requires refinement, and needs a professional static website to establish its online presence.</p>
+        <p style="font-size: 12.5pt;">The purpose of this engagement is to finalise the logo and deliver a clean, credible landing page that positions the business appropriately from day one, with the flexibility to build out additional functionality over time.</p>
+        <p style="font-size: 12.5pt;">This project is delivered as a single, cohesive engagement covering logo refinement and website design and build, to ensure visual consistency and a strong first impression across all touchpoints.</p>
+
+        <hr class="divider">
+
+        <h3 class="section-title">Delivery Approach</h3>
+        <p>The project is delivered sequentially to reduce risk and maintain clarity:</p>
+        <ol>
+            <li>Refine and finalise the logo</li>
+            <li>Establish the visual direction for the website</li>
+            <li>Design and build the landing page</li>
+            <li>Review, refine, and launch</li>
+        </ol>
+        <p>This approach ensures the logo is locked in before the website is designed around it, resulting in a cohesive and professional outcome.</p>
+
+        <hr class="divider">
+
+        <h3 class="section-title">Review & Feedback</h3>
+        <p>Each phase of the project includes structured review and feedback to ensure alignment before progressing.</p>
+        <ul>
+            <li>Feedback is consolidated and provided in a single round per phase</li>
+            <li>Revisions focus on refinement and alignment, not re-direction</li>
+            <li>Each phase is signed off before moving to the next to maintain timeline and momentum</li>
+        </ul>
+        <p>This approach keeps the project efficient while ensuring decisions are considered and intentional.</p>
+    </div>
+
+    <!-- Page 3: Scope of Work -->
+    <div class="page page-content">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo">
+            <hr class="header-line">
+        </div>
+
+        <h3 class="section-title">Scope of Work</h3>
+
+        <h4 class="subsection-title">1. Logo Refinement</h4>
+        <p>Review and refinement of the existing logo concept to ensure it communicates the right level of professionalism and trust for the Hamptons market.</p>
+        <p>This includes:</p>
+        <ul>
+            <li>Assessment of the current logo and identification of areas for improvement</li>
+            <li>Presentation of 2–3 refined variations for review</li>
+            <li>One round of refinement on the selected direction</li>
+            <li>Final logo delivered in multiple formats:
+                <ul class="nested">
+                    <li>SVG (scalable, web-ready)</li>
+                    <li>PNG (transparent background, multiple sizes)</li>
+                    <li>Print-ready files</li>
+                </ul>
+            </li>
+        </ul>
+        <p>The goal is to retain the intent of the original concept while elevating its execution to a professional standard.</p>
+
+        <hr class="divider">
+
+        <h4 class="subsection-title">2. Landing Page Design & Build</h4>
+        <p>Design and development of a static, single-page website that establishes credibility and drives enquiries.</p>
+        <p>The landing page will include:</p>
+        <ul>
+            <li>Hero section with clear value proposition</li>
+            <li>Services overview</li>
+            <li>About / trust-building section</li>
+            <li>Testimonials (placeholder content if not yet available)</li>
+            <li>Contact section with form or call-to-action</li>
+            <li>Fully responsive across desktop, tablet, and mobile</li>
+        </ul>
+        <p>Design direction will reference lazysusanscleaning.com as a benchmark for structure and conversion focus, adapted to suit the Hamptons market and positioning.</p>
+
+        <hr class="divider">
+
+        <h4 class="subsection-title">Design Approach</h4>
+        <p>The website will be built as a static site, optimised for speed and simplicity, with a clean structure that supports future expansion.</p>
+        <ul>
+            <li>Clean, professional aesthetic appropriate for the Hamptons market</li>
+            <li>Trust-building elements throughout (credentials, social proof)</li>
+            <li>Clear calls-to-action for booking or enquiries</li>
+            <li>SEO-optimised HTML structure</li>
+            <li>Built with future scalability in mind</li>
+        </ul>
+    </div>
+
+    <!-- Page 4: Investment, Timeline, Next Steps -->
+    <div class="page page-content">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo">
+            <hr class="header-line">
+        </div>
+
+        <h3 class="section-title">Investment</h3>
+        <ul>
+            <li><strong>$2,000 AUD (excl GST)</strong></li>
+            <li>Covers logo refinement and landing page as a single, cohesive engagement</li>
+            <li>Includes two rounds of revisions and all source files</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h3 class="section-title">Payment Terms</h3>
+        <ul>
+            <li>50% initial deposit to commence work</li>
+            <li>50% on final handover prior to launch</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h3 class="section-title">Timeline</h3>
+        <ul>
+            <li>Approximately four (4) weeks end-to-end</li>
+            <li>Week 1: Discovery and logo refinement concepts</li>
+            <li>Week 2: Logo finalisation and website design</li>
+            <li>Week 3: Website development and client review</li>
+            <li>Week 4: Revisions, polish, and launch</li>
+        </ul>
+        <p>Timeline is dependent on prompt feedback and material provision. May be accelerated with quick turnaround on approvals.</p>
+
+        <hr class="divider">
+
+        <h3 class="section-title">Next Steps</h3>
+        <p>Upon approval:</p>
+        <ul>
+            <li>Confirm scope and timing</li>
+            <li>Share existing logo file and any brand materials</li>
+            <li>Complete a short discovery questionnaire (provided separately)</li>
+            <li>Lock in project commencement with initial deposit</li>
+        </ul>
+
+        <hr class="divider">
+
+        <h3 class="section-title">Optional: Ongoing Support</h3>
+        <p>Following launch, optional ongoing support is available to assist with website updates, additional pages, and future feature development as the business grows. Support is offered on a flexible basis and can be discussed post-launch.</p>
+
+        <div class="page-footer">
+            <span>Prepared for Hamptons Spotless Service</span>
+            <span>Prepared: February 2025</span>
+        </div>
+    </div>
+
+    <!-- Page 5: End Page (Contact) -->
+    <div class="page page-end">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo" style="width: 213px;">
+        </div>
+        <div class="contact-section">
+            <div class="contact-row">
+                <span class="contact-label">Clark Spendelow</span>
+                <span class="contact-value">Creative Director & Designer</span>
+            </div>
+            <div class="contact-row">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">hello@hypefoundry.studio</span>
+            </div>
+            <div class="contact-row">
+                <span class="contact-label">Phone</span>
+                <span class="contact-value">0433061993</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

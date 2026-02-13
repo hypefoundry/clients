@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started — Hamptons Spotless Service</title>
+    <link rel="icon" type="image/png" href="hf-favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #1A1A1A;
+            --color-white: #FFFFFF;
+            --color-divider: #E0E0E0;
+            --color-accent: #D5FF02;
+            --color-bg: #F7F7F5;
+            --color-hint: #777777;
+            --font-family: 'Bricolage Grotesque', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--color-black);
+            background: var(--color-bg);
+        }
+
+        /* Header */
+        .site-header {
+            padding: 32px 40px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 142px;
+            height: auto;
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 40px 0;
+        }
+
+        .hero h1 {
+            font-weight: 800;
+            font-size: clamp(36px, 6vw, 56px);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--color-hint);
+            max-width: 540px;
+            margin-bottom: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        /* Section */
+        .form-section {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 36px 32px;
+            margin-bottom: 20px;
+            border: 1px solid var(--color-divider);
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 28px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--color-accent);
+            display: inline-block;
+        }
+
+        /* Question */
+        .question {
+            margin-bottom: 28px;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .question label {
+            display: block;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+            color: var(--color-black);
+        }
+
+        .question .context {
+            font-size: 14px;
+            color: var(--color-hint);
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+
+        .question input[type="text"],
+        .question textarea {
+            width: 100%;
+            font-family: var(--font-family);
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--color-black);
+            background: var(--color-bg);
+            border: 1px solid var(--color-divider);
+            border-radius: 8px;
+            padding: 12px 16px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            resize: vertical;
+        }
+
+        .question input[type="text"]:focus,
+        .question textarea:focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(213, 255, 2, 0.2);
+        }
+
+        .question input[type="text"]::placeholder,
+        .question textarea::placeholder {
+            color: #B0B0B0;
+        }
+
+        .question textarea {
+            min-height: 100px;
+        }
+
+        .question textarea.short {
+            min-height: 72px;
+        }
+
+        /* Submit */
+        .submit-section {
+            text-align: center;
+            padding: 8px 0 60px;
+        }
+
+        .submit-btn {
+            font-family: var(--font-family);
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--color-black);
+            background: var(--color-accent);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 48px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(213, 255, 2, 0.35);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Success State */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
+        .success-message h2 {
+            font-weight: 800;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            font-size: 17px;
+            color: var(--color-hint);
+        }
+
+        /* Footer */
+        .site-footer {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 40px 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #999999;
+        }
+
+        .site-footer a {
+            color: #999999;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            color: var(--color-black);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .site-header,
+            .hero,
+            .form-container,
+            .site-footer {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .form-section {
+                padding: 28px 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo">
+    </header>
+
+    <div class="hero">
+        <h1>Getting Started</h1>
+        <p>A few questions to kick off the Hamptons Spotless Service project. Don't overthink these — short answers are fine, and anything we don't cover here we can sort out as we go.</p>
+    </div>
+
+    <form id="discovery-form" class="form-container">
+
+        <!-- Your Services -->
+        <div class="form-section">
+            <h2 class="section-title">Your Services</h2>
+
+            <div class="question">
+                <label for="q1">What cleaning services will you be offering?</label>
+                <p class="context">Just a list is fine. For example: regular house cleaning, deep cleans, move-in/move-out, vacation rental turnovers, post-renovation, etc.</p>
+                <textarea id="q1" name="services" placeholder="e.g. Regular cleaning, deep cleans, vacation rental turnovers..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="q2">Which areas of the Hamptons will you service?</label>
+                <p class="context">Specific towns or a general area — this will go on the website so customers know if you cover them.</p>
+                <textarea id="q2" name="service_areas" class="short" placeholder="e.g. Southampton, East Hampton, Montauk..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="q3">Are you targeting residential homes, commercial properties, or both?</label>
+                <p class="context">And within that — is this more everyday homes, or are you going after the luxury estate market?</p>
+                <textarea id="q3" name="target_market" class="short" placeholder="e.g. Residential, luxury estates..."></textarea>
+            </div>
+        </div>
+
+        <!-- The Logo -->
+        <div class="form-section">
+            <h2 class="section-title">The Logo</h2>
+
+            <div class="question">
+                <label for="q4">What do you like about the current logo?</label>
+                <p class="context">Anything you'd want to keep — a colour, the icon, the general idea, the font, etc.</p>
+                <textarea id="q4" name="logo_likes" class="short" placeholder="e.g. I like the general concept, the icon feels right..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="q4b">What do you dislike about the current logo?</label>
+                <p class="context">Even general impressions help — "it looks too corporate", "the colours feel off", "it doesn't feel premium enough", etc.</p>
+                <textarea id="q4b" name="logo_dislikes" class="short" placeholder="e.g. It feels too generic, the font isn't right..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="q5">Do you have any colour preferences, or are you open to exploring?</label>
+                <input type="text" id="q5" name="colour_preferences" placeholder="e.g. Blues and whites, or open to suggestions">
+            </div>
+        </div>
+
+        <!-- Brand & Positioning -->
+        <div class="form-section">
+            <h2 class="section-title">Brand & Positioning</h2>
+
+            <div class="question">
+                <label for="q6">How would you describe the impression you want to give customers?</label>
+                <p class="context">Think about the first impression when someone lands on your website. Premium and polished? Friendly and reliable? Luxury concierge-level? Something else entirely?</p>
+                <textarea id="q6" name="brand_impression" placeholder="e.g. Premium but approachable..."></textarea>
+            </div>
+
+            <div class="question">
+                <label for="q7">What's the one thing you'd want a potential customer to take away from the website?</label>
+                <p class="context">For example: "These people are serious professionals", or "I trust them in my home", or "They understand the Hamptons market".</p>
+                <textarea id="q7" name="key_takeaway" class="short" placeholder="e.g. They're trustworthy professionals who know the Hamptons"></textarea>
+            </div>
+        </div>
+
+        <!-- Practical Details -->
+        <div class="form-section">
+            <h2 class="section-title">Practical Details</h2>
+
+            <div class="question">
+                <label for="q8">How should customers contact you?</label>
+                <p class="context">Phone, email, a form on the website, or a combination? This determines the main call-to-action on the site.</p>
+                <textarea id="q8" name="contact_method" class="short" placeholder="e.g. Phone and email, or a contact form"></textarea>
+            </div>
+
+            <div class="question">
+                <label for="q9_phone">Contact details for the website</label>
+                <p class="context">Phone number and email address you'd like displayed publicly.</p>
+                <input type="text" id="q9_phone" name="contact_phone" placeholder="Phone number" style="margin-bottom: 8px;">
+                <input type="text" id="q9_email" name="contact_email" placeholder="Email address">
+            </div>
+
+            <div class="question">
+                <label for="q10">Do you have any photos we can use?</label>
+                <p class="context">Team photos, before/after shots, anything showing your work. If not, no problem — we'll source quality imagery that fits.</p>
+                <input type="text" id="q10" name="photos" placeholder="e.g. Yes, I'll send some over / No, please source stock">
+            </div>
+        </div>
+
+        <!-- Anything Else -->
+        <div class="form-section">
+            <h2 class="section-title">Anything Else</h2>
+
+            <div class="question">
+                <label for="q11">Is there anything else that would be useful for me to know?</label>
+                <p class="context">Anything about the business, your customers, or the market that might shape the direction.</p>
+                <textarea id="q11" name="anything_else" placeholder="Optional — anything that comes to mind"></textarea>
+            </div>
+        </div>
+
+        <div class="submit-section">
+            <button type="submit" class="submit-btn">Submit Responses</button>
+        </div>
+    </form>
+
+    <div id="success" class="success-message">
+        <h2>Thank you!</h2>
+        <p>Your responses have been saved. I'll review everything and be in touch shortly to get started.</p>
+    </div>
+
+    <footer class="site-footer">
+        <p>Prepared by <a href="mailto:hello@hypefoundry.studio">Hype Foundry</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('discovery-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const data = {};
+            const formData = new FormData(form);
+
+            formData.forEach(function(value, key) {
+                if (value.trim()) {
+                    data[key] = value.trim();
+                }
+            });
+
+            data.submitted_at = new Date().toISOString();
+            data.project = 'Hamptons Spotless Service';
+
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hss-discovery-responses.json';
+            a.click();
+            URL.revokeObjectURL(url);
+
+            form.style.display = 'none';
+            document.getElementById('success').classList.add('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
