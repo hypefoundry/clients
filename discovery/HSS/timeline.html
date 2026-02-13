@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSS — Project Timeline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #1A1A1A;
+            --color-gray-bg: #D9D9D9;
+            --color-white: #FFFFFF;
+            --color-divider: #E0E0E0;
+            --color-accent: #D5FF02;
+            --font-family: 'Bricolage Grotesque', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-weight: 400;
+            font-size: 10.5pt;
+            line-height: 1.5;
+            color: var(--color-black);
+            background: var(--color-white);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 32px 40px;
+            position: relative;
+            page-break-after: always;
+            overflow: hidden;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Cover Page */
+        .page-cover {
+            background-image: url('hf-graphic.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Content Pages */
+        .page-content {
+            background: var(--color-white);
+        }
+
+        /* Logo */
+        .logo {
+            width: 142px;
+            height: auto;
+        }
+
+        /* Header with logo and line */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .header-line {
+            border: none;
+            border-top: 1px solid var(--color-divider);
+            margin-top: 16px;
+        }
+
+        /* Typography */
+        .title-main {
+            font-weight: 800;
+            font-size: 48pt;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-weight: 400;
+            font-size: 11pt;
+            color: var(--color-black);
+        }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 24pt;
+            margin-bottom: 8px;
+            margin-top: 32px;
+        }
+
+        .page-title {
+            font-weight: 600;
+            font-size: 18pt;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 14pt;
+            margin-bottom: 8px;
+        }
+
+        .phase-date {
+            font-weight: 500;
+            font-size: 10pt;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--color-divider);
+            margin: 16px 0;
+        }
+
+        /* Body text */
+        p {
+            margin-bottom: 10px;
+        }
+
+        /* Lists */
+        ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin-bottom: 2px;
+            font-size: 10pt;
+        }
+
+        /* Cover page title area */
+        .cover-content {
+            margin-top: auto;
+        }
+
+        /* Launch dates highlight */
+        .launch-dates {
+            background: #f5f5f5;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            border-left: 3px solid var(--color-black);
+        }
+
+        .launch-dates p {
+            margin-bottom: 4px;
+            font-size: 11pt;
+        }
+
+        .launch-dates strong {
+            font-weight: 600;
+        }
+
+        /* Phase block */
+        .phase {
+            margin-bottom: 20px;
+        }
+
+        .phase-outcome {
+            font-style: italic;
+            font-size: 10pt;
+            margin-top: 8px;
+            padding-left: 12px;
+            border-left: 2px solid var(--color-divider);
+        }
+
+        /* Milestone blocks */
+        .milestone {
+            background: #f9f9f9;
+            padding: 8px 16px;
+            margin-bottom: 8px;
+        }
+
+        .milestone .section-title {
+            margin-bottom: 4px;
+        }
+
+        .milestone .phase-date {
+            margin-bottom: 8px;
+        }
+
+        /* Important note */
+        .important-note {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 8px 16px;
+            margin-top: 12px;
+        }
+
+        .important-note strong {
+            font-weight: 600;
+        }
+
+        /* Signature section */
+        .signature-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-divider);
+        }
+
+        .signature-title {
+            font-weight: 600;
+            font-size: 14pt;
+            margin-bottom: 24px;
+        }
+
+        .signature-grid {
+            display: flex;
+            gap: 40px;
+        }
+
+        .signature-box {
+            flex: 1;
+        }
+
+        .signature-label {
+            font-weight: 500;
+            font-size: 10pt;
+            margin-bottom: 8px;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid var(--color-black);
+            height: 50px;
+            margin-bottom: 8px;
+        }
+
+        .signature-name-line {
+            border-bottom: 1px solid var(--color-divider);
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        .signature-field-label {
+            font-size: 8pt;
+            color: #999;
+        }
+
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 32px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: #999999;
+        }
+
+        /* Print specific */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .page {
+                margin: 0;
+                border: none;
+                box-shadow: none;
+            }
+
+            .page-cover {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* Screen preview */
+        @media screen {
+            body {
+                background: #f0f0f0;
+                padding: 20px;
+            }
+
+            .page {
+                margin: 0 auto 20px auto;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page 1: Cover -->
+    <div class="page page-cover">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo" style="width: 213px;">
+        </div>
+        <div class="cover-content">
+            <h1 class="title-main">Hamptons<br>Spotless Service<br>Project Timeline</h1>
+            <p class="subtitle">Prepared for Hamptons Spotless Service</p>
+        </div>
+    </div>
+
+    <!-- Page 2: Timeline Overview -->
+    <div class="page page-content">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo">
+            <hr class="header-line">
+        </div>
+
+        <h2 class="brand-name">Hamptons Spotless Service</h2>
+        <p class="page-title">Project Timeline</p>
+
+        <div class="launch-dates">
+            <p><strong>Project Kick-off:</strong> Wednesday 18 February 2026</p>
+            <p><strong>Launch Target:</strong> Wednesday 18 March 2026</p>
+        </div>
+
+        <div class="phase">
+            <h3 class="section-title">Phase 1 — Discovery & Logo Concepts</h3>
+            <p class="phase-date">18 – 25 February</p>
+            <ul>
+                <li>Review discovery questionnaire responses</li>
+                <li>Assessment of existing logo and identification of areas for improvement</li>
+                <li>Competitor and market review (Hamptons cleaning landscape)</li>
+                <li>Presentation of 2–3 refined logo variations</li>
+                <li>Alignment on brand direction and website tone</li>
+            </ul>
+            <p class="phase-outcome">Outcome: Logo direction selected by 25 February</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="phase">
+            <h3 class="section-title">Phase 2 — Logo Finalisation & Website Design</h3>
+            <p class="phase-date">26 February – 4 March</p>
+            <ul>
+                <li>Refinement and finalisation of selected logo direction</li>
+                <li>Logo delivered in all formats (SVG, PNG, print-ready)</li>
+                <li>Landing page layout and visual design</li>
+                <li>Content structure and copy direction</li>
+                <li>Mobile-responsive design considerations</li>
+            </ul>
+            <p class="phase-outcome">Outcome: Logo finalised and website design approved by 4 March</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="phase">
+            <h3 class="section-title">Phase 3 — Website Development & Review</h3>
+            <p class="phase-date">5 – 11 March</p>
+            <ul>
+                <li>Full landing page build (HTML/CSS/JS)</li>
+                <li>Content population and imagery</li>
+                <li>Contact form and call-to-action setup</li>
+                <li>Responsive testing across devices</li>
+                <li>Client review and feedback</li>
+            </ul>
+            <p class="phase-outcome">Outcome: Website ready for review by 11 March</p>
+        </div>
+
+    </div>
+
+    <!-- Page 3: Phase 4, Launch & Sign-off -->
+    <div class="page page-content">
+        <div class="header">
+            <img src="hf-logo@2x.png" alt="Hype Foundry" class="logo">
+            <hr class="header-line">
+        </div>
+
+        <div class="phase">
+            <h3 class="section-title">Phase 4 — Revisions, Polish & Launch</h3>
+            <p class="phase-date">12 – 18 March</p>
+            <ul>
+                <li>Revisions based on client feedback</li>
+                <li>Final copy and imagery adjustments</li>
+                <li>SEO and performance optimisation</li>
+                <li>Hosting setup and domain configuration</li>
+                <li>Final pre-launch checks</li>
+            </ul>
+            <p class="phase-outcome">Outcome: Website live by 18 March</p>
+        </div>
+
+        <hr class="divider">
+
+        <div class="milestone">
+            <h3 class="section-title">Launch</h3>
+            <p class="phase-date">Wednesday 18 March</p>
+            <ul>
+                <li>Website goes live</li>
+                <li>Final source files delivered (logo, all formats)</li>
+                <li>Handover and basic documentation</li>
+            </ul>
+        </div>
+
+        <div class="important-note">
+            <p><strong>Important Assumption</strong></p>
+            <p>To maintain this schedule, consolidated feedback is required within 48 hours at each review stage. Timeline may be accelerated with prompt turnaround on approvals.</p>
+        </div>
+
+        <div class="signature-section">
+            <h3 class="signature-title">Approval & Sign-off</h3>
+
+            <div class="signature-grid">
+                <div class="signature-box">
+                    <p class="signature-label">Hype Foundry</p>
+                    <div class="signature-line"></div>
+                    <div class="signature-name-line"></div>
+                    <p class="signature-field-label">Name</p>
+                    <div class="signature-name-line"></div>
+                    <p class="signature-field-label">Date</p>
+                </div>
+                <div class="signature-box">
+                    <p class="signature-label">Hamptons Spotless Service</p>
+                    <div class="signature-line"></div>
+                    <div class="signature-name-line"></div>
+                    <p class="signature-field-label">Name</p>
+                    <div class="signature-name-line"></div>
+                    <p class="signature-field-label">Date</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>Prepared for Hamptons Spotless Service</span>
+            <span>Prepared: February 2026</span>
+        </div>
+    </div>
+
+</body>
+</html>
