@@ -380,38 +380,7 @@
         <p>Prepared by <a href="mailto:hello@hypefoundry.studio">Hype Foundry</a></p>
     </footer>
 
-    <script>
-        document.getElementById('discovery-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const btn = form.querySelector('.submit-btn');
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
-
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            }).then(function(response) {
-                if (response.ok) {
-                    form.style.display = 'none';
-                    document.getElementById('success').classList.add('visible');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    btn.disabled = false;
-                    btn.textContent = 'Submit Responses';
-                    alert('Something went wrong — please try again or email hello@hypefoundry.studio directly.');
-                }
-            }).catch(function() {
-                btn.disabled = false;
-                btn.textContent = 'Submit Responses';
-                alert('Something went wrong — please try again or email hello@hypefoundry.studio directly.');
-            });
-        });
-    </script>
+    <!-- JS submit handler disabled during Formsubmit activation. Will re-enable after. -->
 
 </body>
 </html>
