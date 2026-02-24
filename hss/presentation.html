@@ -374,9 +374,21 @@
       .small-device-notice { display: flex; }
       .slide { display: none; }
     }
+
+    /* ── Entrance fade ── */
+    .entrance-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #E2E1DE;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .entrance-overlay.fade { opacity: 0; }
   </style>
 </head>
 <body>
+
+<div class="entrance-overlay" id="entrance-overlay"></div>
 
 <div class="small-device-notice">
   <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="notice-logo">
@@ -836,12 +848,22 @@
 })();
 </script>
 
-<!-- ── Auth gate ── -->
+<!-- ── Auth gate & entrance fade ── -->
 <script>
 (function() {
   if (sessionStorage.getItem('hss-auth') !== 'true') {
     window.location.replace('index.html');
+    return;
   }
+  window.addEventListener('load', function() {
+    var overlay = document.getElementById('entrance-overlay');
+    if (overlay) {
+      requestAnimationFrame(function() {
+        overlay.classList.add('fade');
+        setTimeout(function() { overlay.remove(); }, 700);
+      });
+    }
+  });
 })();
 </script>
 

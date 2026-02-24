@@ -5,64 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hype Foundry / Client Access</title>
   <link rel="icon" type="image/png" href="assets/hf-favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #E2E1DE;
-      --primary: #111111;
-      --tertiary: #999999;
-      --accent: #C8FF00;
-    }
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
-      background: var(--bg);
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
       height: 100vh;
       display: flex; align-items: center; justify-content: center;
       -webkit-font-smoothing: antialiased;
     }
 
     .login-card {
-      text-align: center; max-width: 340px; width: 100%; padding: 0 24px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      text-align: center;
+      max-width: 420px; width: 100%;
+      padding: 48px 40px;
+      margin: 0 20px;
+      position: relative; z-index: 1;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .login-card.fade-out {
+      opacity: 0; transform: scale(0.97);
     }
     .login-logo {
-      height: 26px; width: auto; margin-bottom: 48px; opacity: 0.5;
+      height: 32px; width: auto; margin-bottom: 32px;
     }
-    .login-label {
-      font-size: 11px; font-weight: 400; color: var(--tertiary);
-      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 32px;
+    .login-heading {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 24px; font-weight: 500; color: #111111;
+      letter-spacing: -0.02em; margin-bottom: 8px;
     }
-    .login-input-wrap { margin-bottom: 20px; position: relative; }
+    .login-subtext {
+      font-size: 13px; font-weight: 400; color: #999999;
+      margin-bottom: 32px;
+    }
+    .login-input-wrap {
+      margin-bottom: 8px; position: relative;
+    }
     .login-input {
-      width: 100%; padding: 14px 16px;
+      width: 100%; padding: 16px 16px;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 15px; color: var(--primary);
-      background: #ffffff; border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 6px; outline: none; text-align: center;
+      font-size: 15px; color: #111111;
+      background: #ffffff;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px; outline: none;
+      text-align: left;
       transition: border-color 0.2s;
     }
-    .login-input:focus { border-color: rgba(0,0,0,0.25); }
+    .login-input:focus {
+      border-color: #111111;
+    }
+    .login-input::placeholder {
+      color: transparent;
+    }
+    .login-float-label {
+      position: absolute; left: 16px;
+      top: 17px;
+      font-size: 15px; line-height: 1; color: #999999;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      background: #ffffff; padding: 0 4px;
+    }
+    .login-input:focus ~ .login-float-label,
+    .login-input:not(:placeholder-shown) ~ .login-float-label {
+      top: -6px; font-size: 11px; color: #666666;
+    }
     .login-input.error { border-color: #C0392B; }
+    .login-input.error ~ .login-float-label { color: #C0392B; }
     .login-error {
       font-size: 12px; color: #C0392B; margin-top: 8px;
+      text-align: left;
       opacity: 0; transition: opacity 0.2s;
     }
     .login-error.visible { opacity: 1; }
     .login-button {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
-      color: var(--primary); background: var(--accent);
-      border: none; border-radius: 6px; padding: 12px 32px;
-      cursor: pointer; transition: opacity 0.2s;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.02em;
+      color: #ffffff; background: #111111;
+      border: none; border-radius: 6px;
+      padding: 14px 32px; width: 100%;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
     }
-    .login-button:hover { opacity: 0.85; }
+    .login-button:hover { background: #2a2a2a; transform: translateY(-1px); }
+    .login-button:focus-visible {
+      outline: 2px solid #111111; outline-offset: 2px;
+    }
 
     /* ── Loading spinner ── */
     .login-spinner {
       display: none;
-      margin: 0 auto;
+      position: absolute;
+      inset: 0; margin: auto;
       width: 28px; height: 28px;
-      border: 2.5px solid rgba(200,255,0,0.2);
-      border-top-color: var(--accent);
+      border: 2.5px solid rgba(200,255,0,0.25);
+      border-top-color: #C8FF00;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
     }
@@ -71,22 +112,30 @@
       to { transform: rotate(360deg); }
     }
 
-    .login-card.loading .login-input,
-    .login-card.loading .login-button,
-    .login-card.loading .login-error { display: none; }
-    .login-card.loading .login-input-wrap { display: none; }
+    .login-card.loading .login-input-wrap,
+    .login-card.loading .login-button {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .login-card.loading .login-subtext {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
   </style>
 </head>
 <body>
 
 <div class="login-card" id="login-card">
-  <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="login-logo">
-  <p class="login-label">Client Presentation</p>
+  <img src="assets/hf-logo.svg" alt="Hype Foundry" class="login-logo">
+  <h1 class="login-heading">Your presentation is ready</h1>
+  <p class="login-subtext">Enter your access code to view</p>
   <div class="login-input-wrap">
-    <input type="password" id="login-password" class="login-input" placeholder="Enter access code" autocomplete="off" autofocus>
+    <input type="password" id="login-password" class="login-input" placeholder="Access code" autocomplete="off" autofocus>
+    <label class="login-float-label" for="login-password">Access code</label>
     <p class="login-error" id="login-error">Incorrect code. Please try again.</p>
   </div>
-  <button id="login-submit" class="login-button">View Presentation</button>
+  <button id="login-submit" class="login-button">Continue</button>
   <div class="login-spinner" id="login-spinner"></div>
 </div>
 
@@ -119,8 +168,11 @@
       card.classList.add('loading');
       spinner.classList.add('visible');
       setTimeout(function() {
-        window.location.href = 'presentation.html';
-      }, 1200);
+        card.classList.add('fade-out');
+        setTimeout(function() {
+          window.location.href = 'presentation.html';
+        }, 500);
+      }, 1000);
     } else {
       input.classList.add('error');
       errorEl.classList.add('visible');
