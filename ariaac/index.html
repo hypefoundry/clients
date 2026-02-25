@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARIA Air Conditioning — Website Audit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #1a1a1a;
+      --body: #444;
+      --muted: #888;
+      --border: #e0e0e0;
+      --surface: #f7f7f7;
+      --white: #fff;
+      --mark: #ffe066;
+      --negative: #d44;
+      --positive: #2a9d5c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--body);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 32px 32px 0;
+    }
+
+    .page-header img {
+      height: 20px;
+      width: auto;
+      display: block;
+      opacity: 1;
+    }
+
+    /* ─── HEADER ─── */
+    .doc-header {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 32px 0;
+    }
+
+    .doc-header .meta {
+      font-size: 12px;
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .doc-header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .doc-header .subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 48px;
+    }
+
+    .doc-header .header-rule {
+      border: none;
+      border-top: 1px solid var(--text);
+      margin-bottom: 0;
+    }
+
+    /* ─── CONTENT AREA ─── */
+    .content {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-top: 64px;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 40px;
+      margin-bottom: 8px;
+    }
+
+    h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 32px;
+      margin-bottom: 6px;
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    code {
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85em;
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    /* ─── LISTS ─── */
+    ul, ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+      line-height: 1.6;
+    }
+
+    li::marker {
+      color: var(--muted);
+    }
+
+    /* ─── TABLES ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.7rem;
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .td-label {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ─── STATS ─── */
+    .stat-row {
+      display: flex;
+      gap: 0;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .stat-card {
+      flex: 1;
+      padding: 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-card:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── CALLOUT ─── */
+    .callout {
+      padding: 16px 20px;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      background: transparent;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout-negative {
+      border-left-color: var(--negative);
+    }
+
+    .callout-accent {
+      border-left-color: var(--text);
+    }
+
+    .callout ul {
+      margin-top: 0.5rem;
+    }
+
+    /* ─── SCREENSHOTS ─── */
+    .screenshot-container {
+      position: relative;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .screenshot-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .annotation-marker {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      z-index: 10;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    .annotation-marker.positive {
+      background: var(--positive);
+      color: var(--white);
+    }
+
+    .annotation-marker.negative {
+      background: var(--negative);
+      color: var(--white);
+    }
+
+    .annotation-ring {
+      position: absolute;
+      border: 2px dashed;
+      border-radius: 2px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .annotation-ring.negative { border-color: var(--negative); }
+    .annotation-ring.positive { border-color: var(--positive); }
+
+    /* ─── LEGEND ─── */
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 1.5rem 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .legend-marker {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .legend-marker.positive {
+      background: var(--positive);
+      color: var(--white);
+    }
+
+    .legend-marker.negative {
+      background: var(--negative);
+      color: var(--white);
+    }
+
+    .legend-text h5 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .legend-text p {
+      font-size: 0.8rem;
+      color: var(--body);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ─── COMPARISON ─── */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 1.5rem 0;
+    }
+
+    .comparison-card {
+      border: 1px solid var(--border);
+    }
+
+    .comparison-card .card-screenshot {
+      height: 140px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .comparison-card .card-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .comparison-card .card-body {
+      padding: 14px;
+    }
+
+    .comparison-card .card-body h5 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .comparison-card .card-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .comparison-card .card-body li {
+      font-size: 0.8rem;
+      color: var(--body);
+      line-height: 1.5;
+      padding-left: 12px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .comparison-card .card-body li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    /* ─── PATTERN CARDS ─── */
+    .pattern-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      background: var(--border);
+    }
+
+    .pattern-card {
+      padding: 16px;
+      background: var(--white);
+    }
+
+    .pattern-card h5 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .pattern-card p {
+      font-size: 0.8rem;
+      color: var(--body);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ─── REC CARDS ─── */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 24px;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .rec-card {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rec-number {
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .rec-card h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .rec-card p {
+      font-size: 0.8rem;
+      color: var(--body);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ─── PRIORITY LABEL ─── */
+    .priority-label {
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: var(--surface);
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+    }
+
+    /* ─── STEPS ─── */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    .steps-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      margin: 0;
+    }
+
+    .steps-list li:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .step-num {
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 24px;
+      margin-top: 2px;
+    }
+
+    .step-content h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .step-content p {
+      font-size: 0.85rem;
+      color: var(--body);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ─── STYLE DIRECTION ─── */
+    .style-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 1.5rem 0;
+    }
+
+    .style-card {
+      padding: 0;
+    }
+
+    .style-card-icon {
+      display: none;
+    }
+
+    .style-card h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .style-card p {
+      font-size: 0.8rem;
+      color: var(--body);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* ─── SWATCH ROW ─── */
+    .swatch-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 10px;
+    }
+
+    .swatch-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 0;
+    }
+
+    /* ─── REF GRID ─── */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 1.5rem 0;
+    }
+
+    .ref-card {
+      border: 1px solid var(--border);
+    }
+
+    .ref-card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      display: block;
+      background: var(--surface);
+    }
+
+    .ref-card-body {
+      padding: 10px 12px;
+    }
+
+    .ref-card-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .ref-card-note {
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .ref-card-note strong {
+      color: var(--body);
+    }
+
+    /* ─── FOOTER ─── */
+    .doc-footer {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 64px 32px 32px;
+      border-top: 2px solid var(--text);
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      color: var(--muted);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 680px) {
+      .doc-header { padding: 48px 20px 0; }
+      .doc-header h1 { font-size: 1.8rem; }
+      .content { padding: 0 20px; }
+      .doc-footer { padding: 48px 20px 24px; }
+      .stat-row { flex-direction: column; }
+      .stat-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-card:last-child { border-bottom: none; }
+      .legend { grid-template-columns: 1fr; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .rec-grid { grid-template-columns: 1fr; }
+      .pattern-grid { grid-template-columns: 1fr; }
+      .style-grid { grid-template-columns: 1fr; }
+      .ref-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      h2 { page-break-after: avoid; }
+      .divider { page-break-after: avoid; }
+      .login-overlay { display: none !important; }
+      .audit-content { display: block !important; }
+    }
+
+    /* ─── LOGIN OVERLAY ─── */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+    .login-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .login-card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      padding: 48px 40px;
+      margin: 0 20px;
+      position: relative;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .login-card.loading .login-input-wrap,
+    .login-card.loading .login-button {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .login-card.loading .login-subtext {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .login-logo {
+      height: 32px;
+      width: auto;
+      margin-bottom: 32px;
+    }
+    .login-heading {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: #111111;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .login-subtext {
+      font-size: 13px;
+      font-weight: 400;
+      color: #999;
+      margin-bottom: 24px;
+    }
+    .login-input-wrap {
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .login-input {
+      width: 100%;
+      padding: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      font-size: 15px;
+      color: #1a1a1a;
+      background: #fff;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      outline: none;
+      text-align: left;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus {
+      border-color: #1a1a1a;
+    }
+    .login-input::placeholder {
+      color: transparent;
+    }
+    .login-float-label {
+      position: absolute;
+      left: 16px;
+      top: 17px;
+      font-size: 15px;
+      line-height: 1;
+      color: #999;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      background: #fff;
+      padding: 0 4px;
+    }
+    .login-input:focus ~ .login-float-label,
+    .login-input:not(:placeholder-shown) ~ .login-float-label {
+      top: -6px;
+      font-size: 11px;
+      color: #666;
+    }
+    .login-input.error {
+      border-color: #C0392B;
+    }
+    .login-input.error ~ .login-float-label {
+      color: #C0392B;
+    }
+    .login-error {
+      font-size: 12px;
+      color: #C0392B;
+      margin-top: 8px;
+      text-align: left;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .login-error.visible {
+      opacity: 1;
+    }
+    .login-button {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #fff;
+      background: #1a1a1a;
+      border: none;
+      border-radius: 6px;
+      padding: 14px 32px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 12px;
+    }
+    .login-button:hover {
+      background: #333;
+      transform: translateY(-1px);
+    }
+    .login-spinner {
+      display: none;
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 28px;
+      height: 28px;
+      border: 2.5px solid rgba(0,0,0,0.1);
+      border-top-color: #1a1a1a;
+      border-radius: 50%;
+      animation: login-spin 0.7s linear infinite;
+    }
+    .login-spinner.visible {
+      display: block;
+    }
+    @keyframes login-spin {
+      to { transform: rotate(360deg); }
+    }
+    .audit-content {
+      display: none;
+    }
+    .audit-content.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ LOGIN OVERLAY ═══ -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-card" id="login-card">
+      <img src="assets/hf-logo.png" alt="Hype Foundry" class="login-logo">
+      <h1 class="login-heading">Welcome, ARIA AC</h1>
+      <p class="login-subtext">Enter your access code to view</p>
+      <div class="login-input-wrap">
+        <input type="password" id="login-password" class="login-input" placeholder=" " autocomplete="off">
+        <label class="login-float-label">Access code</label>
+      </div>
+      <div class="login-error" id="login-error">Incorrect code. Please try again.</div>
+      <button class="login-button" id="login-submit">Continue</button>
+      <div class="login-spinner" id="login-spinner"></div>
+    </div>
+  </div>
+
+  <!-- ═══ AUDIT CONTENT ═══ -->
+  <div class="audit-content" id="audit-content">
+
+  <!-- ═══ PAGE HEADER ═══ -->
+  <div class="page-header">
+    <img src="assets/hf-logo.png" alt="Hype Foundry">
+  </div>
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="doc-header">
+    <div class="meta">Website Audit &middot; February 2026</div>
+    <h1>ARIA Air Conditioning</h1>
+    <div class="subtitle">Audit findings, competitor analysis, and recommendations for ariaac.com.au</div>
+    <hr class="header-rule">
+  </div>
+
+  <!-- ═══ CONTENT ═══ -->
+  <div class="content">
+
+    <!-- ═══════════════════════════════════════
+         1. INTRODUCTION
+    ═══════════════════════════════════════ -->
+    <h2>Introduction</h2>
+
+    <p>We audited ariaac.com.au against industry best practices and HVAC national and international competitor websites to identify clear, high-impact opportunities to turn more visitors into customers.</p>
+
+    <p>This document walks through what we found, how ARIA compares to the competition, and exactly what we recommend doing about it.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-number">90%</div>
+        <div class="stat-label">of customers check reviews before choosing a trades business</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3 sec</div>
+        <div class="stat-label">is how long visitors take to decide if they&rsquo;ll stay or leave</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">72%</div>
+        <div class="stat-label">of HVAC searches happen on mobile, often during emergencies</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         2. CURRENT SITE
+    ═══════════════════════════════════════ -->
+    <h2>Current Site</h2>
+
+    <p>Green markers show what&rsquo;s working. Red markers highlight the biggest opportunities.</p>
+
+    <div class="screenshot-container">
+      <img src="assets/screenshot-ariaac-hero.png" alt="ARIA AC current homepage">
+      <div class="annotation-marker positive" style="top: 2%; left: 1%;">1</div>
+      <div class="annotation-marker positive" style="top: 2%; left: 42%;">2</div>
+      <div class="annotation-marker negative" style="top: 38%; left: 15%;">3</div>
+      <div class="annotation-ring negative" style="top: 28%; left: 3%; width: 40%; height: 30%;"></div>
+      <div class="annotation-marker negative" style="top: 2%; left: 82%;">4</div>
+      <div class="annotation-ring negative" style="top: 0%; left: 70%; width: 22%; height: 8%;"></div>
+      <div class="annotation-marker negative" style="top: 62%; left: 50%;">5</div>
+      <div class="annotation-marker negative" style="top: 82%; left: 50%;">6</div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-marker positive">1</div>
+        <div class="legend-text">
+          <h5>Strong Brand Identity</h5>
+          <p>The ARIA logo and blue-teal palette are clean, professional, and well-suited to the AC industry.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-marker positive">2</div>
+        <div class="legend-text">
+          <h5>Clear Navigation</h5>
+          <p>Residential, Commercial, Service and Repair, Contact Us. Logical structure is already in place.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-marker negative">3</div>
+        <div class="legend-text">
+          <h5>Hero Message Opportunity</h5>
+          <p>&ldquo;Experience More Comfort&rdquo; could be more specific - telling visitors what ARIA does, where, and why to choose them.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-marker negative">4</div>
+        <div class="legend-text">
+          <h5>Phone &amp; Action Button</h5>
+          <p>There&rsquo;s space in the header for a phone number and a &ldquo;Get a Quote&rdquo; button - currently only social icons are shown.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-marker negative">5</div>
+        <div class="legend-text">
+          <h5>Social Proof Opportunity</h5>
+          <p>There&rsquo;s room to add Google reviews, star ratings, certifications, guarantees, or years-in-business messaging.</p>
+        </div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-marker negative">6</div>
+        <div class="legend-text">
+          <h5>Below-the-Fold Content</h5>
+          <p>Installation photos are a good start - adding service descriptions, a &ldquo;How It Works&rdquo; section, and reasons to choose ARIA would give visitors more to engage with.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         3. THE FIRST 3 SECONDS
+    ═══════════════════════════════════════ -->
+    <h2>The First 3 Seconds</h2>
+
+    <p>When someone lands on your homepage, this is what they see. In those first few seconds, they&rsquo;re looking for answers to three questions: &ldquo;What do you do?&rdquo;, &ldquo;Can I trust you?&rdquo;, and &ldquo;How do I contact you?&rdquo;</p>
+
+    <div class="screenshot-container">
+      <img src="assets/screenshot-ariaac-hero.png" alt="ARIA AC hero section">
+      <div class="annotation-ring negative" style="top: 0%; left: 65%; width: 34%; height: 8%;"></div>
+      <div class="annotation-ring negative" style="top: 25%; left: 2%; width: 45%; height: 35%;"></div>
+      <div class="annotation-ring negative" style="top: 68%; left: 2%; width: 96%; height: 8%;"></div>
+    </div>
+
+    <h3>What We&rsquo;d Add</h3>
+    <ul>
+      <li><strong>Specific headline</strong> - &ldquo;Experience More Comfort&rdquo; could be more direct. Something that says who ARIA is, what they do, and where.</li>
+      <li><strong>Phone number</strong> - adding a visible phone number in the header makes it easy for customers to call, especially on mobile.</li>
+      <li><strong>CTA button</strong> - a prominent &ldquo;Get a Free Quote&rdquo; or &ldquo;Book Now&rdquo; button gives visitors a clear next step.</li>
+      <li><strong>Trust bar</strong> - star ratings, review counts, years in business, or certification badges build confidence instantly.</li>
+    </ul>
+
+    <h3>What Competitors Are Showing Here</h3>
+    <ul>
+      <li><strong>Service Today Adelaide</strong> - 5,600+ reviews displayed above the fold</li>
+      <li><strong>Air Comfort Services</strong> - &ldquo;Operating since 1981&rdquo; plus ISO certifications</li>
+      <li><strong>Industry standard</strong> - sticky header with phone + CTA always visible</li>
+      <li><strong>Best practice</strong> - a 3-step &ldquo;How It Works&rdquo; section builds confidence</li>
+    </ul>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         4. THE REST OF THE SITE
+    ═══════════════════════════════════════ -->
+    <h2>The Rest of the Site</h2>
+
+    <p>We reviewed every page accessible from the ARIA navigation. All five subpages are live and have solid content foundations. Below is a page-by-page audit with specific findings and recommendations for each.</p>
+
+    <!-- ── RESIDENTIAL ── -->
+    <h3>Residential</h3>
+
+    <div class="screenshot-container" style="margin: 1rem 0;">
+      <img src="assets/screenshot-residential-full.png" alt="ARIA Residential page full">
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Improvement</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">URL</td><td>Update from <strong>/residental</strong> to <strong>/residential</strong> - correcting the typo improves SEO and builds trust in shared links.</td></tr>
+        <tr><td class="td-label">Layout</td><td>The three text columns cover good topics (Air Conditioning Systems, New Builds, Existing Homes). Adding visual hierarchy, icons, and imagery would make this content much easier to scan.</td></tr>
+        <tr><td class="td-label">CTAs</td><td>Replace the &ldquo;Book a consult.&rdquo; text links with prominent, high-contrast buttons. Making the CTA impossible to miss will improve conversion rates.</td></tr>
+        <tr><td class="td-label">Content</td><td>The page already mentions split systems, ducted, reverse cycle, and cassette systems - great foundation. Giving each system type its own section with pricing indicators and a &ldquo;what to expect&rdquo; process would make this content work much harder.</td></tr>
+        <tr><td class="td-label">Photography</td><td>Swap stock imagery for real ARIA installation photos and Adelaide homes. Authentic photography builds confidence far more than generic stock.</td></tr>
+        <tr><td class="td-label">Trust</td><td>Add Google Reviews, certifications, years of experience, and licence numbers. These trust signals give visitors the confidence to take the next step.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>Proposed new structure for /residential</strong></p>
+      <ul style="margin: 0.5rem 0 0 1.25rem;">
+        <li>Lifestyle hero of a comfortable Adelaide home</li>
+        <li>Dedicated sub-pages for each system type:
+          <ul style="margin: 0.25rem 0 0.25rem 1.25rem;">
+            <li><strong>/residential/split-systems</strong></li>
+            <li><strong>/residential/ducted</strong></li>
+            <li><strong>/residential/reverse-cycle</strong></li>
+          </ul>
+        </li>
+        <li>Parent page links to all three with a visual overview</li>
+        <li>Pricing indicators (&ldquo;Split systems from $X installed&rdquo;)</li>
+        <li>&ldquo;How It Works&rdquo; 3-step process</li>
+        <li>Real ARIA installation photos</li>
+        <li>Google Reviews widget</li>
+        <li>Prominent &ldquo;Get a Free Quote&rdquo; button</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── COMMERCIAL ── -->
+    <h3>Commercial</h3>
+
+    <div class="screenshot-container" style="margin: 1rem 0;">
+      <img src="assets/screenshot-commercial-full.png" alt="ARIA Commercial page full">
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Improvement</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">URL</td><td>Update from <strong>/air-conditioning-commerical</strong> to <strong>/commercial</strong> - correcting the typo and shortening the slug for cleaner SEO and easier sharing.</td></tr>
+        <tr><td class="td-label">Layout</td><td>The two-column structure covers solid ground (Commercial Install and Service Agreements). Expanding this into a fuller page with dedicated sections would give the commercial offering the presence it deserves.</td></tr>
+        <tr><td class="td-label">Content</td><td>The page already mentions builders, shop fitters, property managers, schools, and hospitals, plus VRV and multi-head systems - these are valuable differentiators. Giving each audience and system type its own section would make them easier to find and more persuasive.</td></tr>
+        <tr><td class="td-label">Service agreements</td><td>For Commercial Service Agreements, include detail about what&rsquo;s included, pricing tiers, and why a business should sign up. This creates an additional recurring revenue opportunity.</td></tr>
+        <tr><td class="td-label">Photography</td><td>Replace construction framing and warehouse shots with completed ARIA commercial installations. Real project photos build credibility with property managers and business owners.</td></tr>
+        <tr><td class="td-label">Trust</td><td>Add case studies, project examples, and industry-specific references. Showing completed work gives property managers and business owners the evidence they need to get in touch.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>Proposed new structure for /commercial</strong></p>
+      <ul style="margin: 0.5rem 0 0 1.25rem;">
+        <li>Industry-specific sections (retail, hospitality, healthcare, education)</li>
+        <li>Dedicated sub-page at <strong>/commercial/service-agreements</strong> with clear inclusions, pricing tiers, and benefits</li>
+        <li>Project gallery with completed commercial installations</li>
+        <li>Relevant certifications and insurance details</li>
+        <li>Testimonials from commercial clients</li>
+        <li>&ldquo;Request a Commercial Quote&rdquo; form</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── SERVICE & REPAIR ── -->
+    <h3>Service &amp; Repair</h3>
+
+    <div class="screenshot-container" style="margin: 1rem 0;">
+      <img src="assets/screenshot-service-repair-full.png" alt="ARIA Service and Repair page full">
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Improvement</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Content quality</td><td>This is the strongest content on the site - genuine descriptions of preventative maintenance, diagnostic reports, and repair capabilities. ARIA&rsquo;s expertise really comes through here. With better presentation, this content would be a powerful conversion tool.</td></tr>
+        <tr><td class="td-label">Layout</td><td>The page covers air filters, airflow optimisation, diagnostic reports, and long-term repair solutions - all valuable. Breaking this into scannable sections with headings and icons would make the content much more accessible.</td></tr>
+        <tr><td class="td-label">CTAs</td><td>Upgrade &ldquo;Book a service.&rdquo; and &ldquo;Book a repair.&rdquo; text links to prominent, high-contrast buttons. For emergency situations, a visible phone number and CTA button within 2 seconds of landing helps customers take action fast.</td></tr>
+        <tr><td class="td-label">Pricing</td><td>Adding pricing indicators (e.g. &ldquo;Standard service from $X&rdquo;) reduces friction and sets clear expectations for customers.</td></tr>
+        <tr><td class="td-label">Emergency</td><td>Include after-hours availability, emergency call-out details, and estimated response times. Most customers searching for AC repair need help urgently - this information helps them choose ARIA.</td></tr>
+        <tr><td class="td-label">Photography</td><td>Replace stock imagery with professional photos of the ARIA team in action. Real team photos build confidence and show the care behind the work.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>Proposed new structure for /service-repair</strong></p>
+      <ul style="margin: 0.5rem 0 0 1.25rem;">
+        <li>Parent page with full service overview and &ldquo;Common Issues We Fix&rdquo; section</li>
+        <li>Dedicated sub-pages:
+          <ul style="margin: 0.25rem 0 0.25rem 1.25rem;">
+            <li><strong>/service-repair/maintenance</strong> - scheduled servicing</li>
+            <li><strong>/service-repair/emergency</strong> - urgent repairs</li>
+          </ul>
+        </li>
+        <li>Pricing transparency (&ldquo;Standard service from $X&rdquo;)</li>
+        <li>Prominent &ldquo;Book a Service&rdquo; and &ldquo;Book a Repair&rdquo; buttons</li>
+        <li>&ldquo;Signs You Need a Service&rdquo; checklist</li>
+        <li>Seasonal maintenance reminders</li>
+        <li>Before-and-after examples</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── CONTACT ── -->
+    <h3>Contact Us</h3>
+
+    <div class="screenshot-container" style="margin: 1rem 0;">
+      <img src="assets/screenshot-contact-full.png" alt="ARIA Contact page full">
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Improvement</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">URL</td><td>Update from <strong>/request-a-free-quote</strong> to <strong>/contact</strong> - aligning the URL with the navigation label (&ldquo;Contact Us&rdquo;) gives the page a single clear purpose for both users and search engines.</td></tr>
+        <tr><td class="td-label">Form</td><td>Simplify from six fields to four: Name, Phone, Service Type (dropdown), and Message. Fewer fields means higher completion rates - every field removed reduces friction.</td></tr>
+        <tr><td class="td-label">CTA button</td><td>Make the submit button full-width, high-contrast, and action-specific (&ldquo;Get Your Free Quote&rdquo; rather than &ldquo;Send Request&rdquo;). Clear, confident CTAs drive more submissions.</td></tr>
+        <tr><td class="td-label">Phone number</td><td>Make the phone number the most prominent element on the page - large, clickable, and visible immediately. Many AC customers prefer to call, especially for urgent issues.</td></tr>
+        <tr><td class="td-label">Response time</td><td>Updating the response promise from 48 hours to something faster (&ldquo;We typically respond within 2 hours during business hours&rdquo;) sets ARIA apart from competitors and gives customers confidence.</td></tr>
+        <tr><td class="td-label">Map</td><td>The Google Map embed showing the Prospect location is a great element to keep - it reinforces local presence and helps with local SEO.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>Proposed new structure for /contact</strong></p>
+      <ul style="margin: 0.5rem 0 0 1.25rem;">
+        <li>Large, clickable phone number at the top</li>
+        <li>Simplified 4-field form: Name, Phone, Service Type, Message</li>
+        <li>Full-width, high-contrast CTA button (&ldquo;Get Your Free Quote&rdquo;)</li>
+        <li>Emergency contact section for urgent repairs with direct phone link</li>
+        <li>Business hours</li>
+        <li>Google Map embed (keep existing)</li>
+        <li>Faster response promise (&ldquo;We typically respond within 2 hours&rdquo;)</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── CROSS-SITE SUMMARY ── -->
+    <h3>Improvements Across All Pages</h3>
+
+    <p>These opportunities apply across the whole site - addressing them in the new build will lift every page at once.</p>
+
+    <table>
+      <thead>
+        <tr><th>Opportunity</th><th>Improvement</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Distinct page purpose</td><td>Each page should have a clear focus - its own hero image, tailored content, and a specific conversion goal. This helps visitors immediately understand what the page is about and what to do next.</td></tr>
+        <tr><td class="td-label">Trust signals</td><td>Add Google Reviews, certifications, team photos, and years-of-experience messaging to every page. These elements give visitors the confidence to take the next step.</td></tr>
+        <tr><td class="td-label">Prominent CTAs</td><td>Replace text-link CTAs with high-contrast buttons on every page. A clear, visible call-to-action is the single biggest conversion lever.</td></tr>
+        <tr><td class="td-label">Clean URL structure</td><td>Correct the two URL typos and adopt short, keyword-rich slugs across the new site. Clean URLs improve SEO and look professional in shared links.</td></tr>
+        <tr><td class="td-label">Real photography</td><td>Replace stock imagery with photos of the ARIA team, completed installations, and Adelaide homes. Authentic photography builds trust far more than generic stock.</td></tr>
+        <tr><td class="td-label">Consistent footer CTA</td><td>The blue &ldquo;free quote&rdquo; bar in the current footer is a strong pattern - bringing this CTA energy to the top of every page (not just the bottom) will capture visitors before they leave.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>The opportunity:</strong> ARIA has 15+ years of experience and the content on the Service &amp; Repair page proves the team knows their craft. The new build is a chance to let that expertise shine through every page - with its own purpose, its own content strategy, and its own conversion path, so each page works as hard as the business behind it.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         SEO & CONTENT STRATEGY
+    ═══════════════════════════════════════ -->
+    <h2>SEO &amp; Content Strategy</h2>
+
+    <p>SEO (Search Engine Optimisation) is how your site gets found on Google. We ran an audit across all six live pages, checking the behind-the-scenes elements that Google uses to understand and rank content - things like page titles, headings, and structured data. Here&rsquo;s what we found and what the new build should include.</p>
+
+    <!-- ── TECHNICAL SEO TABLE ── -->
+    <h3>Technical SEO Overview</h3>
+
+    <p>Every page was checked for the fundamentals: <strong>title tags</strong> (the clickable headline in Google results), <strong>H1 headings</strong> (the main heading on the page that tells Google what it&rsquo;s about), and <strong>schema markup</strong> (hidden structured data that helps Google show rich results like star ratings and business info).</p>
+
+    <table>
+      <thead>
+        <tr><th>Page</th><th>Title Tag</th><th>H1</th><th>Schema</th><th>Opportunity</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-label">Homepage</td>
+          <td>Aria Air Conditioning | Air Conditioning Installs &amp; Repairs Adelaide</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td>WebSite only</td>
+          <td>Add an H1 tag. Upgrade schema from generic WebSite to LocalBusiness with address and phone.</td>
+        </tr>
+        <tr>
+          <td class="td-label">Residential</td>
+          <td><span style="color: var(--negative);">Products</span> | Aria Air Conditioning&hellip;</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td>Title says &ldquo;Products&rdquo; not &ldquo;Residential&rdquo;. Uses H6 as main heading. Shares meta description with 2 other pages.</td>
+        </tr>
+        <tr>
+          <td class="td-label">Commercial</td>
+          <td><span style="color: var(--negative);">Products</span> | Aria Air Conditioning&hellip;</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td>Identical title and meta description to Residential page - unique titles will help each page rank for its own keywords.</td>
+        </tr>
+        <tr>
+          <td class="td-label">Service &amp; Repair</td>
+          <td><span style="color: var(--negative);">Products</span> | Aria Air Conditioning&hellip;</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td>Third page sharing the same &ldquo;Products&rdquo; title. Uses H3 and H6 but no H1.</td>
+        </tr>
+        <tr>
+          <td class="td-label">Contact</td>
+          <td>Request a Free Quote | Aria Air Conditioning | Air Conditioning <span style="color: var(--negative);">Instal</span></td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td>Title is truncated mid-word (&ldquo;Instal&rdquo;). No heading tags on the page.</td>
+        </tr>
+        <tr>
+          <td class="td-label">About Us</td>
+          <td>About us | <span style="color: var(--negative);">ariaairconditioning</span></td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td style="color: var(--muted); font-style: italic;">Missing</td>
+          <td>Title uses raw site name. Heading says &ldquo;PUBLIC&rdquo; (placeholder). Image alts use Wix defaults.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>H1 tags - an easy win.</strong> The H1 is the main heading that tells Google what each page is about. Currently none of the six pages have one, which means search engines are guessing. Adding a clear, keyword-focused H1 to every page in the new build is one of the simplest and highest-impact SEO improvements we can make.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── DUPLICATE META ── -->
+    <h3>Duplicate Content Signals</h3>
+
+    <p>Three pages - Residential, Commercial, and Service &amp; Repair - share the <strong>exact same title tag</strong> and <strong>exact same meta description</strong>:</p>
+
+    <div class="callout">
+      <p><strong>Title:</strong> &ldquo;Products | Aria Air Conditioning | Air Conditioning Installs &amp; Repairs&rdquo;</p>
+      <p><strong>Description:</strong> &ldquo;Wall Split Systems, Ducted Reverse Cycle, Bulkhead Systems are the products we offer at Aria Air Conditioning. Air Conditioning Installs &amp; Repairs in Adelaide. Residential &amp; Commercial. Get A Free Quote&rdquo;</p>
+    </div>
+
+    <p>When multiple pages share the same title and description, Google treats them as near-duplicates. Instead of three pages each ranking for their own keyword cluster, they end up competing against each other for the same generic terms. Unique titles and descriptions for each page will fix this.</p>
+
+    <hr class="divider">
+
+    <!-- ── SITEMAP ── -->
+    <h3>Sitemap &amp; Orphan Pages</h3>
+
+    <p>ARIA&rsquo;s sitemap lists <strong>21 URLs</strong> - but only 6 are linked from the navigation. The other 15 are orphan pages, duplicates, or Wix artefacts that Google is being told to crawl and index.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-number">21</div>
+        <div class="stat-label">URLs in sitemap</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Pages in navigation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15</div>
+        <div class="stat-label">Orphan / duplicate pages</div>
+      </div>
+    </div>
+
+    <p>Orphan pages include URLs like <code>/copy-of-builders-and-architects-1</code>, <code>/copy-of-builders-and-architects-2</code>, <code>/copy-of-builders-and-architects-3</code>, <code>/copy-of-products</code>, <code>/copy-of-split-vs-ducted-air-conditi</code> (truncated), and <code>/home</code> (duplicate of root). These extra pages spread Google&rsquo;s attention across content that isn&rsquo;t meant to be public, making it harder for the real pages to stand out.</p>
+
+    <div class="callout">
+      <p><strong>Good news: the robots.txt is set up correctly</strong> - it allows full crawling and points to the sitemap. The opportunity is in the sitemap itself: a clean version listing only real, valuable pages will help Google focus on the content that matters. This is straightforward to set up in the new build.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── URL STRUCTURE ── -->
+    <h3>URL Structure</h3>
+
+    <p>Clean, descriptive URLs are a ranking signal and a trust signal. ARIA&rsquo;s current URLs have multiple problems:</p>
+
+    <table>
+      <thead>
+        <tr><th>Current URL</th><th>Problem</th><th>Recommended</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">/residental</td><td>Misspelled (missing &lsquo;i&rsquo;)</td><td style="color: var(--positive);">/residential</td></tr>
+        <tr><td class="td-label">/air-conditioning-commerical</td><td>Misspelled (missing &lsquo;r&rsquo;)</td><td style="color: var(--positive);">/commercial</td></tr>
+        <tr><td class="td-label">/air-conditioning-service-repair</td><td>Unnecessarily long</td><td style="color: var(--positive);">/service-repair</td></tr>
+        <tr><td class="td-label">/request-a-free-quote</td><td>Doesn&rsquo;t match nav label</td><td style="color: var(--positive);">/contact</td></tr>
+        <tr><td class="td-label">/copy-of-builders-and-architects-1</td><td>Wix auto-generated slug</td><td style="color: var(--positive);">Merge into /residential</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- ── SCHEMA ── -->
+    <h3>Schema Markup</h3>
+
+    <p>Schema markup is code added behind the scenes that tells Google exactly what your business is, what services you offer, and where you operate. Think of it as a structured fact sheet for search engines. ARIA&rsquo;s site has one schema entry - a generic <code>WebSite</code> tag on the homepage with the site name set to &ldquo;ariaairconditioning&rdquo; (no spaces, no proper branding).</p>
+
+    <p>Missing schema that the new build should include:</p>
+
+    <table>
+      <thead>
+        <tr><th>Schema Type</th><th>Purpose</th><th>Where</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">LocalBusiness</td><td>Business name, address, phone, hours, service area - powers Google Business Profile and local pack results</td><td>Sitewide</td></tr>
+        <tr><td class="td-label">Service</td><td>Individual service descriptions with pricing indicators</td><td>Each service page</td></tr>
+        <tr><td class="td-label">FAQ</td><td>Common questions - can trigger FAQ rich results in search</td><td>Service &amp; detail pages</td></tr>
+        <tr><td class="td-label">BreadcrumbList</td><td>Navigation path - improves how URLs display in search results</td><td>Sitewide</td></tr>
+        <tr><td class="td-label">AggregateRating</td><td>Star ratings from Google Reviews - eye-catching in search results</td><td>Homepage, service pages</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- ── IMAGE SEO ── -->
+    <h3>Image SEO</h3>
+
+    <p>Image alt tags help Google understand visual content and improve accessibility. Most ARIA images have alt text, which is a good start - but the descriptions themselves need improvement:</p>
+
+    <table>
+      <thead>
+        <tr><th>Page</th><th>Images</th><th>With Alt</th><th>Quality</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Homepage</td><td>8</td><td>7 of 8</td><td>Generic: &ldquo;WALL SPLIT SYSTEM AIR CONDITIONER&rdquo; (all caps, no context)</td></tr>
+        <tr><td class="td-label">Residential</td><td>8</td><td>8 of 8</td><td>Includes &ldquo;AIRTOUCH 5&rdquo; brand name but &ldquo;TECHNOLEDGE&rdquo; is misspelled</td></tr>
+        <tr><td class="td-label">Service &amp; Repair</td><td>7</td><td>7 of 7</td><td>Raw filenames as alts: &ldquo;shutterstock_1948672126.jpg&rdquo;, &ldquo;Screenshot 2024-06-04&hellip;&rdquo;</td></tr>
+        <tr><td class="td-label">About Us</td><td>8</td><td>8 of 8</td><td>Wix defaults: &ldquo;I&rsquo;m an image title.&rdquo; on all 4 content images</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>For the new build:</strong> Every image should have a descriptive, keyword-relevant alt tag. Example: instead of &ldquo;WALL SPLIT SYSTEM AIR CONDITIONER&rdquo;, use &ldquo;Daikin split system installation in an Adelaide living room by ARIA Air Conditioning&rdquo;. This helps with image search rankings and accessibility compliance.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ── RECOMMENDED SITE STRUCTURE ── -->
+    <h3>Recommended Site Structure</h3>
+
+    <p>The current site has 6 pages covering a lot of ground, but without a clear keyword strategy behind them. The new build should use a tiered content structure where each page targets a specific keyword cluster and links to related pages.</p>
+
+    <h4>Tier 1 - Core Pages</h4>
+
+    <table>
+      <thead>
+        <tr><th>Page</th><th>URL</th><th>Primary Keyword</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Home</td><td>/</td><td>air conditioning adelaide</td></tr>
+        <tr><td class="td-label">Residential</td><td>/residential</td><td>residential air conditioning adelaide</td></tr>
+        <tr><td class="td-label">Commercial</td><td>/commercial</td><td>commercial air conditioning adelaide</td></tr>
+        <tr><td class="td-label">Service &amp; Repair</td><td>/service-repair</td><td>air conditioning service adelaide</td></tr>
+        <tr><td class="td-label">About</td><td>/about</td><td>adelaide air conditioning company</td></tr>
+        <tr><td class="td-label">Contact</td><td>/contact</td><td>aria air conditioning contact</td></tr>
+        <tr><td class="td-label">Areas We Service</td><td>/areas</td><td>air conditioning service areas adelaide</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Tier 2 - Service Detail Pages</h4>
+
+    <p>These target specific high-intent search queries and link up to their parent Tier 1 page.</p>
+
+    <table>
+      <thead>
+        <tr><th>Page</th><th>URL</th><th>Keyword Target</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Split Systems</td><td>/residential/split-systems</td><td>split system installation adelaide</td></tr>
+        <tr><td class="td-label">Ducted AC</td><td>/residential/ducted</td><td>ducted air conditioning adelaide</td></tr>
+        <tr><td class="td-label">Reverse Cycle</td><td>/residential/reverse-cycle</td><td>reverse cycle air conditioning adelaide</td></tr>
+        <tr><td class="td-label">AC Maintenance</td><td>/service-repair/maintenance</td><td>air conditioning maintenance adelaide</td></tr>
+        <tr><td class="td-label">Emergency Repair</td><td>/service-repair/emergency</td><td>emergency ac repair adelaide</td></tr>
+        <tr><td class="td-label">Service Agreements</td><td>/commercial/service-agreements</td><td>commercial ac service agreement</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Tier 3 - Location Pages</h4>
+
+    <p>Target &ldquo;air conditioning + suburb&rdquo; searches. Each page references local projects and links to service pages.</p>
+
+    <table>
+      <thead>
+        <tr><th>Suburb</th><th>URL</th><th>Keyword Target</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Prospect</td><td>/areas/prospect</td><td>air conditioning prospect</td></tr>
+        <tr><td class="td-label">Adelaide CBD</td><td>/areas/adelaide-cbd</td><td>air conditioning adelaide cbd</td></tr>
+        <tr><td class="td-label">North Adelaide</td><td>/areas/north-adelaide</td><td>air conditioning north adelaide</td></tr>
+        <tr><td class="td-label">Norwood</td><td>/areas/norwood</td><td>air conditioning norwood</td></tr>
+        <tr><td class="td-label">Unley</td><td>/areas/unley</td><td>air conditioning unley</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Tier 4 - Blog / Resources</h4>
+
+    <p>Long-tail keyword capture and topical authority. Published monthly to build organic traffic over time.</p>
+
+    <table>
+      <thead>
+        <tr><th>Topic</th><th>URL</th><th>Keyword Target</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Split vs Ducted</td><td>/blog/split-vs-ducted</td><td>split vs ducted air conditioning</td></tr>
+        <tr><td class="td-label">Service Frequency</td><td>/blog/how-often-service-ac</td><td>how often service air conditioner</td></tr>
+        <tr><td class="td-label">Replacement Signs</td><td>/blog/signs-ac-needs-replacing</td><td>when to replace air conditioner</td></tr>
+        <tr><td class="td-label">Summer Tips</td><td>/blog/adelaide-summer-ac-tips</td><td>keeping cool adelaide summer</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- ── CONTENT REQUIREMENTS ── -->
+    <h3>Content Requirements</h3>
+
+    <table>
+      <thead>
+        <tr><th>Page Type</th><th>Min Words</th><th>Must Include</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Core service page</td><td>600&ndash;800</td><td>H1 with primary keyword, 2&ndash;3 H2 subheadings, CTA above the fold, schema markup, internal links to related services</td></tr>
+        <tr><td class="td-label">Service detail page</td><td>400&ndash;600</td><td>Specific system info, pricing indicators, FAQ section, link back to parent page</td></tr>
+        <tr><td class="td-label">Location page</td><td>300&ndash;500</td><td>Suburb name in H1 and title tag, local project references, service area map, NAP block</td></tr>
+        <tr><td class="td-label">Blog post</td><td>800&ndash;1,200</td><td>Target keyword in H1, 3&ndash;5 H2 subheadings, internal links to service pages, author byline</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- ── TECHNICAL FOUNDATIONS ── -->
+    <h3>Technical Foundations for the New Build</h3>
+
+    <p>Every page on the new site should include these on-page SEO essentials:</p>
+
+    <table>
+      <thead>
+        <tr><th>Element</th><th>Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Title tag</td><td>Unique per page. Template: <strong>[Service] Adelaide | ARIA Air Conditioning</strong>. Under 60 characters.</td></tr>
+        <tr><td class="td-label">Meta description</td><td>Unique per page. Include primary keyword + CTA. Under 155 characters.</td></tr>
+        <tr><td class="td-label">H1 tag</td><td>Exactly one per page. Contains the primary keyword.</td></tr>
+        <tr><td class="td-label">Canonical tag</td><td>A tag that tells Google &ldquo;this is the official version of this page&rdquo; - prevents duplicate content issues.</td></tr>
+        <tr><td class="td-label">Open Graph</td><td>Social sharing tags (og:title, og:description, og:image) that control how pages look when shared on Facebook, LinkedIn, etc.</td></tr>
+        <tr><td class="td-label">Image alts</td><td>Descriptive, keyword-relevant alt text on every image. No filenames, no Wix defaults.</td></tr>
+        <tr><td class="td-label">Internal linking</td><td>Every page links to 2&ndash;3 related pages. Service &rarr; detail &rarr; location &rarr; blog.</td></tr>
+        <tr><td class="td-label">Mobile-first</td><td>Responsive design. Core Web Vitals targets (Google&rsquo;s speed metrics): LCP &lt; 2.5s (page loads fast), CLS &lt; 0.1 (layout doesn&rsquo;t jump around), INP &lt; 200ms (buttons respond instantly).</td></tr>
+        <tr><td class="td-label">Sitemap</td><td>Clean XML sitemap listing only real pages. Submit to Google Search Console on launch.</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- ── WHAT MORE DATA WOULD TELL US ── -->
+    <h3>What We&rsquo;d Learn With More Data</h3>
+
+    <p>This audit was conducted using publicly accessible data. With access to ARIA&rsquo;s Google Search Console and Google Analytics, we could unlock significantly deeper insights:</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-number" style="font-size: 1rem;">Search Console</div>
+        <div class="stat-label">Which search queries are already driving impressions and clicks. Which pages Google has indexed (and which it hasn&rsquo;t). Crawl errors, mobile usability issues, and Core Web Vitals field data.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size: 1rem;">Google Analytics</div>
+        <div class="stat-label">Where traffic is coming from (organic, direct, social, referral). Which pages visitors land on and where they drop off. Bounce rates, session duration, and conversion paths.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size: 1rem;">SEMrush / Ahrefs</div>
+        <div class="stat-label">Keyword rankings and search volume data. Competitor keyword gaps. Backlink profile and domain authority. Content opportunities based on what competitors rank for.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Recommendation:</strong> Before the new site launches, we should set up Google Search Console and Google Analytics on the current site. Even a few weeks of data before the migration will give us a baseline to measure improvement against, and ensure we set up proper 301 redirects from old URLs to new ones.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         GEO — GENERATIVE ENGINE OPTIMISATION
+    ═══════════════════════════════════════ -->
+    <h2>GEO - AI Search Readiness</h2>
+
+    <p>SEO gets ARIA in front of people typing queries into Google. GEO (Generative Engine Optimisation) gets ARIA cited when those same people ask AI for answers - through Google AI Overviews, ChatGPT, Perplexity, and Siri. For local service businesses, AI-generated responses are increasingly the first thing customers see.</p>
+
+    <div class="callout">
+      <p><strong>What&rsquo;s changing:</strong> When someone asks &ldquo;Who&rsquo;s the best air conditioning company in Adelaide?&rdquo;, AI engines don&rsquo;t just list ten blue links. They synthesise an answer from structured data, reviews, content depth, and citation consistency - then recommend specific businesses by name. Being the business that AI trusts enough to cite is the next competitive advantage.</p>
+    </div>
+
+    <hr class="divider">
+
+    <h3>Google Business Profile</h3>
+
+    <p>For local service queries, Google AI Overviews pull directly from Google Business Profile data. This is the single biggest lever for AI visibility.</p>
+
+    <table>
+      <thead>
+        <tr><th>Element</th><th>What to Do</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Business info</td><td>Verify name, address, phone, hours, and service area are complete and accurate. Every field filled = more data for AI to reference.</td></tr>
+        <tr><td class="td-label">Service categories</td><td>Add every relevant service category: Air Conditioning Contractor, HVAC Contractor, Air Conditioning Repair Service, Heating Contractor.</td></tr>
+        <tr><td class="td-label">Service list</td><td>Add individual services with descriptions: Split System Installation, Ducted AC Installation, AC Repair, AC Maintenance, Commercial AC, Emergency Repair.</td></tr>
+        <tr><td class="td-label">Photos</td><td>Upload real ARIA project photos regularly. Completed installations, team at work, branded vehicles. AI engines cross-reference visual content with text claims.</td></tr>
+        <tr><td class="td-label">Posts</td><td>Publish GBP posts weekly: seasonal tips, completed projects, offers. Recent activity signals to AI that the business is active and current.</td></tr>
+        <tr><td class="td-label">Q&amp;A</td><td>Pre-populate the Q&amp;A section with common questions and detailed answers. AI engines treat these as direct source material.</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <h3>Review Strategy</h3>
+
+    <p>AI engines synthesise review content to form opinions about businesses. The volume, recency, and specificity of reviews all matter.</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-number" style="font-size: 1.1rem;">Volume</div>
+        <div class="stat-label">More reviews = more data for AI to draw from. Aim for 50+ Google Reviews as a baseline. Competitors like Service Today have hundreds.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size: 1.1rem;">Recency</div>
+        <div class="stat-label">AI weights recent reviews higher. A steady stream of 2&ndash;3 reviews per month signals an active, trusted business.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size: 1.1rem;">Specificity</div>
+        <div class="stat-label">Reviews mentioning services and suburbs feed AI directly. &ldquo;ARIA installed a ducted system in our Norwood home&rdquo; is gold.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Review generation tactic:</strong> Send a follow-up email 48 hours after every install with a direct GBP review link. Include a prompt: &ldquo;If you have a moment, we&rsquo;d love to hear what system we installed and how your experience was.&rdquo; This naturally encourages service-specific and location-specific language in reviews.</p>
+    </div>
+
+    <hr class="divider">
+
+    <h3>FAQ &amp; Conversational Content</h3>
+
+    <p>AI engines are trained to find direct answers to questions. Content structured as clear question-answer pairs is significantly more likely to be cited than paragraph-form marketing copy.</p>
+
+    <table>
+      <thead>
+        <tr><th>Question</th><th>Page</th><th>Why It Matters</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">How much does a split system cost in Adelaide?</td><td>/residential/split-systems</td><td>High-intent commercial query. A clear price range (&ldquo;$2,000&ndash;$4,500 installed&rdquo;) gets cited directly.</td></tr>
+        <tr><td class="td-label">How often should I service my air conditioner?</td><td>/service-repair/maintenance</td><td>Informational query that builds topical authority. Answer in 2&ndash;3 sentences, then expand.</td></tr>
+        <tr><td class="td-label">Split system vs ducted - which is better?</td><td>/blog/split-vs-ducted</td><td>Comparison query. AI loves structured pros/cons content it can summarise.</td></tr>
+        <tr><td class="td-label">Do I need a new air conditioner or just a repair?</td><td>/blog/signs-ac-needs-replacing</td><td>Decision-stage query. Clear criteria list is ideal for AI citation.</td></tr>
+        <tr><td class="td-label">What size air conditioner do I need?</td><td>/blog or /residential</td><td>Calculator or room-size guide. Practical utility content that AI can reference.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Each service page should include 5&ndash;8 FAQ pairs with <code>FAQ</code> schema markup. This can trigger rich results in traditional search and provides structured answers for AI engines.</p>
+
+    <hr class="divider">
+
+    <h3>Citation Consistency</h3>
+
+    <p>AI engines cross-reference business information across multiple sources to build confidence. If the name, address, and phone number (NAP) differ between the website, Google Business Profile, and directory listings, AI engines trust the data less.</p>
+
+    <table>
+      <thead>
+        <tr><th>Platform</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Google Business Profile</td><td>Verify and complete all fields. This is the primary source AI pulls from.</td></tr>
+        <tr><td class="td-label">Website</td><td>NAP in the footer of every page, matching GBP exactly. Include in LocalBusiness schema.</td></tr>
+        <tr><td class="td-label">Yellow Pages / True Local</td><td>Claim and update listings with identical NAP. Add service descriptions.</td></tr>
+        <tr><td class="td-label">HiPages / Oneflare</td><td>Claim profiles with consistent info. These are high-authority Australian trade directories.</td></tr>
+        <tr><td class="td-label">Facebook / Instagram</td><td>Match business name, address, phone. Link to website. Keep profiles active.</td></tr>
+        <tr><td class="td-label">Apple Business Connect</td><td>Claim the listing. Siri uses Apple Maps data for local recommendations.</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <h3>E-E-A-T Signals</h3>
+
+    <p>Google and AI engines evaluate content quality through E-E-A-T: <strong>Experience, Expertise, Authoritativeness, and Trustworthiness</strong>. For a trade business, these signals are built through real-world evidence, not marketing claims.</p>
+
+    <table>
+      <thead>
+        <tr><th>Signal</th><th>How ARIA Can Build It</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">Experience</td><td>Real project photos and case studies. &ldquo;We installed a Daikin ducted system for a 4-bedroom home in Prospect&rdquo; with photos proves hands-on experience.</td></tr>
+        <tr><td class="td-label">Expertise</td><td>Technical blog content written with genuine trade knowledge. Author bylines with qualifications (&ldquo;15 years in HVAC, ARC-licensed technician&rdquo;).</td></tr>
+        <tr><td class="td-label">Authoritativeness</td><td>Backlinks from industry bodies, local business directories, and Adelaide media. Guest articles on home improvement sites.</td></tr>
+        <tr><td class="td-label">Trustworthiness</td><td>Licence numbers on every page. ABN visible. Privacy policy. SSL certificate. Consistent NAP. Real team photos with names.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p><strong>The goal:</strong> When an AI engine is asked &ldquo;Who should I call for air conditioning in Adelaide?&rdquo;, it needs enough structured data, review evidence, and content depth to confidently name ARIA. The businesses that invest in this now - while competitors are still focused on traditional SEO alone - will have a significant first-mover advantage in AI-driven search.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         COMPETITOR ANALYSIS
+    ═══════════════════════════════════════ -->
+    <h2>Competitor Analysis</h2>
+
+    <p>We benchmarked ARIA against the leading air conditioning businesses in Adelaide. Here&rsquo;s how the competitive landscape looks and what the top performers are doing that ARIA can learn from.</p>
+
+    <h3>The Landscape</h3>
+
+    <table>
+      <thead>
+        <tr><th>Competitor</th><th>Est.</th><th>Google Reviews</th><th>24/7</th><th>Finance</th><th>Service Pages</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-label">ABA Air Conditioning</td><td>N/A</td><td>226 reviews, 4.6&star;</td><td>Yes</td><td>Yes</td><td>12+</td></tr>
+        <tr><td class="td-label">Service Today</td><td>N/A</td><td>5,600+</td><td>Yes</td><td>Yes</td><td>20+</td></tr>
+        <tr><td class="td-label">Rite Price Heating &amp; Cooling</td><td>35 yrs</td><td>4.5&star; (Trustindex)</td><td>No</td><td>Yes</td><td>40+</td></tr>
+        <tr><td class="td-label">Mannix Air &amp; Solar</td><td>60 yrs</td><td>~200 (5 locations)</td><td>No</td><td>Yes</td><td>8+</td></tr>
+        <tr><td class="td-label">Quick Fix Electrical &amp; AC</td><td>2007</td><td>151+, 4.6&star;</td><td>Yes</td><td>N/A</td><td>13+</td></tr>
+        <tr><td class="td-label">Air Comfort Services</td><td>1981</td><td>N/A</td><td>Yes</td><td>N/A</td><td>8+</td></tr>
+        <tr><td class="td-label">REQ Refrigeration &amp; AC</td><td>10+ yrs</td><td>Present</td><td>Same-day</td><td>Yes</td><td>7+</td></tr>
+        <tr><td class="td-label">Gas Works Adelaide</td><td>20+ yrs</td><td>Not prominent</td><td>No</td><td>N/A</td><td>28+</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <h3>Key Competitors</h3>
+
+    <h4>ABA Air Conditioning - the one to watch</h4>
+    <p>ABA has the strongest overall competitive position in Adelaide. Their guarantee stack is formidable: &ldquo;on time or it&rsquo;s free&rdquo;, no call-out fees, 20-year labour warranty, $100 trade-in on old units, and diagnostics from $99. They have 226 Google reviews at 4.6 stars, 24/7 emergency support with a 2-hour rapid response promise, and $0 deposit interest-free finance. This is the benchmark ARIA should aim to match.</p>
+
+    <h4>Rite Price Heating &amp; Cooling - the SEO leader</h4>
+    <p>Rite Price has over 40 service and location pages - the largest content footprint of any Adelaide HVAC business. They target specific suburbs, system types, and brands with dedicated landing pages. Their &ldquo;honest advice, without the upselling&rdquo; positioning directly addresses a common consumer fear. Fixed-price service checks at $250 and interest-free finance are prominently displayed.</p>
+
+    <h4>Service Today - the review powerhouse</h4>
+    <p>Service Today displays 5,600+ reviews above the fold - an overwhelming trust signal before the visitor even scrolls. Their sticky header with phone number and high-contrast CTAs is a conversion best practice. They operate at a national scale, which gives them a content and brand budget most local businesses can&rsquo;t match, but their page patterns are worth studying.</p>
+
+    <h4>Mannix Air &amp; Solar - the heritage play</h4>
+    <p>60 years in business across three generations, with five physical showrooms across Adelaide. Their longevity is their primary trust signal. Mannix shows that heritage messaging (&ldquo;family-owned since 1965&rdquo;) is a powerful differentiator that ARIA, with 15+ years, can begin to leverage.</p>
+
+    <hr class="divider">
+
+    <h3>What This Means for ARIA</h3>
+
+    <div class="pattern-grid">
+      <div class="pattern-card">
+        <h5>Review Volume</h5>
+        <p>Top competitors have 150&ndash;5,600+ Google reviews. A systematic review collection process is essential - ARIA should aim for 50+ as an immediate goal, 200+ within 12 months.</p>
+      </div>
+      <div class="pattern-card">
+        <h5>Content Is the Battleground</h5>
+        <p>Rite Price (40+ pages) and Gas Works (28+ pages) are winning organic search through sheer content volume. ARIA&rsquo;s 4-tier sitemap addresses this directly.</p>
+      </div>
+      <div class="pattern-card">
+        <h5>Guarantees Remove Barriers</h5>
+        <p>&ldquo;On time or free&rdquo;, &ldquo;no call-out fees&rdquo;, &ldquo;beat any quote&rdquo;, &ldquo;20-year warranty&rdquo;. ARIA should decide which guarantees it can credibly offer and feature them prominently.</p>
+      </div>
+      <div class="pattern-card">
+        <h5>Finance Is Table Stakes</h5>
+        <p>Nearly every competitor offers interest-free finance. Offering a finance option helps ARIA compete for larger residential and commercial installations.</p>
+      </div>
+      <div class="pattern-card">
+        <h5>Transparent Pricing Builds Trust</h5>
+        <p>ABA shows diagnostics from $99, Rite Price shows fixed-price service at $250. Even ballpark figures give customers a reason to call without fear of a surprise bill.</p>
+      </div>
+      <div class="pattern-card">
+        <h5>Heritage &amp; Community</h5>
+        <p>Mannix&rsquo;s 60-year family story and REQ&rsquo;s community sponsorships create emotional connections. ARIA&rsquo;s 15+ years of experience is an underused asset that the new site should make visible.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         STYLE DIRECTION
+    ═══════════════════════════════════════ -->
+    <h2>Style Direction</h2>
+
+    <p>Based on research from Behance, Dribbble, Awwwards, and contemporary design galleries. This is how we propose ARIA looks and feels - building on the existing brand, not replacing it.</p>
+
+    <div class="style-grid">
+      <div class="style-card">
+        <h5>Colour</h5>
+        <p>Keep ARIA&rsquo;s teal/cyan as the trust colour. Introduce a refined navy (#1A2B4A) as the dominant dark tone for headers and hero overlays. Warm light greys for section backgrounds. Red reserved strictly for CTA buttons. Three-colour discipline: navy, teal, red accent.</p>
+        <div class="swatch-row">
+          <div class="swatch-dot" style="background: #1A2B4A;" title="Navy"></div>
+          <div class="swatch-dot" style="background: #0088CB;" title="ARIA Teal"></div>
+          <div class="swatch-dot" style="background: #6BA8B2;" title="ARIA Cyan"></div>
+          <div class="swatch-dot" style="background: #ED1C24;" title="CTA Red"></div>
+          <div class="swatch-dot" style="background: #F5F5F3;" title="Warm Grey"></div>
+          <div class="swatch-dot" style="background: #FFFFFF; border: 1px solid #ddd;" title="White"></div>
+        </div>
+      </div>
+      <div class="style-card">
+        <h5>Typography</h5>
+        <p>Clean modern sans-serif like Inter or DM Sans. Light weights (300&ndash;400) for body text to create breathing room and elegance. Bold (700) for headlines only. Generous line-height and letter-spacing throughout. The type does the heavy lifting - confident scale, not decorative flair.</p>
+      </div>
+      <div class="style-card">
+        <h5>Layout</h5>
+        <p>Full-width hero with lifestyle photography and a semi-transparent overlay. Alternating text and image sections with generous whitespace between. 8px rounded corners on all cards and containers. Clear section rhythm - each block has one purpose. No visual clutter. Premium through restraint.</p>
+      </div>
+      <div class="style-card">
+        <h5>Photography</h5>
+        <p>Lifestyle-focused, not equipment close-ups. Comfortable Adelaide homes with natural light. The real ARIA team at work - not stock photos of people in hi-vis vests. Completed installations in context. Semi-transparent overlays ensure text legibility when placed over images.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>The vision:</strong> Modern but not trendy. Premium but approachable. The kind of site where you immediately feel like you&rsquo;re dealing with professionals who take their craft seriously. ARIA&rsquo;s brand already has the bones for this - the teal palette, the clean name, the diamond logo. We&rsquo;re not changing the identity. We&rsquo;re giving it a stage that matches its quality.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         OUR RECOMMENDATIONS
+    ═══════════════════════════════════════ -->
+    <h2>Our Recommendations</h2>
+
+    <p>Everything is organised into three priority tiers. Priority 1 delivers the biggest immediate conversion lift. Priority 2 builds the site structure for long-term growth. Priority 3 establishes the search and AI visibility strategy.</p>
+
+    <h3><span class="priority-label">Priority 1: Convert</span></h3>
+
+    <p>These changes have the highest impact on turning visitors into leads. They address the critical first-impression elements that drive phone calls and form submissions.</p>
+
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="rec-number">01</div>
+        <h5>Redesign the Hero</h5>
+        <p>Bold headline communicating what ARIA does and why. &ldquo;Get Your Free Quote&rdquo; CTA in a contrasting colour. Trust bar beneath with reviews and years in business.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">02</div>
+        <h5>Sticky Header</h5>
+        <p>ARIA logo left, navigation centre, phone number and &ldquo;Get a Quote&rdquo; button right. Always visible as visitors scroll. Compresses on mobile.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">03</div>
+        <h5>Social Proof</h5>
+        <p>Google Reviews widget on the homepage. Testimonial carousel mid-page. Review badges on every service page. Review generation campaign to build volume.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">04</div>
+        <h5>How It Works</h5>
+        <p>Three simple steps with icons: &ldquo;Get in Touch&rdquo;, &ldquo;We Assess &amp; Quote&rdquo;, &ldquo;We Deliver.&rdquo; Removes uncertainty and makes it easy to take the first step.</p>
+      </div>
+    </div>
+
+    <h3><span class="priority-label">Priority 2: Structure</span></h3>
+
+    <p>These changes build the content foundation - the 4-tier sitemap outlined in the SEO section - giving every service its own page and every page a clear purpose.</p>
+
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="rec-number">05</div>
+        <h5>Tiered Service Pages</h5>
+        <p>7 core pages plus dedicated sub-pages for each service type (split systems, ducted, reverse cycle, maintenance, emergency, service agreements). Each with unique content, imagery, and a specific keyword target.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">06</div>
+        <h5>Navigation &amp; URL Cleanup</h5>
+        <p>Clean URL structure: /residential, /commercial, /service-repair, /contact, /about. Clear nav: Home, Services (dropdown), About, Areas, Contact. Two clicks to anything.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">07</div>
+        <h5>Location Pages</h5>
+        <p>Suburb-specific pages (/areas/prospect, /areas/norwood, etc.) targeting &ldquo;air conditioning + suburb&rdquo; searches. Each references local projects and links to service pages.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">08</div>
+        <h5>Visual &amp; Brand Polish</h5>
+        <p>Refined type system, subtle animations, real photography of the ARIA team and completed installs, and a consistent brand voice across all pages.</p>
+      </div>
+    </div>
+
+    <h3><span class="priority-label">Priority 3: Search &amp; AI Visibility</span></h3>
+
+    <p>These changes ensure ARIA is found - not just in traditional search results, but in AI-generated answers from Google, ChatGPT, and Perplexity.</p>
+
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="rec-number">09</div>
+        <h5>Technical SEO Foundations</h5>
+        <p>Unique title tags and meta descriptions per page. Single H1 with primary keyword. Schema markup (LocalBusiness, Service, FAQ, BreadcrumbList). Clean XML sitemap. Canonical tags on all pages.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">10</div>
+        <h5>Google Business Profile</h5>
+        <p>Complete and optimise the GBP listing with all services, photos, Q&amp;A, and weekly posts. This is the primary data source AI engines pull from for local recommendations.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">11</div>
+        <h5>FAQ &amp; Conversational Content</h5>
+        <p>5&ndash;8 FAQ pairs on every service page with FAQ schema. Direct question-answer format that AI engines can cite. Blog content targeting long-tail queries monthly.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">12</div>
+        <h5>Citation &amp; Review Strategy</h5>
+        <p>Consistent NAP across all directories (GBP, Yellow Pages, HiPages, True Local, Apple Business Connect). Review generation campaign encouraging service-specific and suburb-specific language.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ═══════════════════════════════════════
+         NEXT STEPS
+    ═══════════════════════════════════════ -->
+    <h2>Next Steps</h2>
+
+    <p>Here&rsquo;s how we move forward once you&rsquo;ve had a chance to review this document.</p>
+
+    <ul class="steps-list">
+      <li>
+        <span class="step-num">1.</span>
+        <div class="step-content">
+          <h5>Review This Document</h5>
+          <p>Take your time with the audit findings, SEO strategy, and recommendations. Note any questions or areas you&rsquo;d like to discuss further.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">2.</span>
+        <div class="step-content">
+          <h5>Let&rsquo;s Discuss</h5>
+          <p>We&rsquo;ll walk through the findings together, answer any questions, and align on what scope and priorities make sense for ARIA&rsquo;s goals and budget.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">3.</span>
+        <div class="step-content">
+          <h5>Kickoff</h5>
+          <p>Once we&rsquo;ve agreed on scope, we&rsquo;ll align on timelines, gather any assets we need (logos, photos, content), and get the project moving.</p>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="doc-footer">
+    <span>Prepared for ARIA Air Conditioning</span>
+    <span>25 Feb 2026</span>
+  </div>
+
+  </div><!-- /audit-content -->
+
+  <script>
+    (function() {
+      var HASH = '72764f9fc132434d5f2fa21254957343f44a82934ade4bc16008af440c8bda05';
+      var overlay = document.getElementById('login-overlay');
+      var card = document.getElementById('login-card');
+      var content = document.getElementById('audit-content');
+      var input = document.getElementById('login-password');
+      var btn = document.getElementById('login-submit');
+      var errorEl = document.getElementById('login-error');
+      var spinner = document.getElementById('login-spinner');
+
+      if (sessionStorage.getItem('ariaac-auth') === 'true') {
+        overlay.style.display = 'none';
+        content.classList.add('visible');
+        return;
+      }
+
+      async function hash(pw) {
+        var data = new TextEncoder().encode(pw);
+        var buf = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(buf)).map(function(b) {
+          return b.toString(16).padStart(2, '0');
+        }).join('');
+      }
+
+      async function attempt() {
+        var h = await hash(input.value);
+        if (h === HASH) {
+          sessionStorage.setItem('ariaac-auth', 'true');
+          card.classList.add('loading');
+          spinner.classList.add('visible');
+          setTimeout(function() {
+            overlay.classList.add('fade-out');
+            content.classList.add('visible');
+            setTimeout(function() {
+              overlay.style.display = 'none';
+            }, 500);
+          }, 1000);
+        } else {
+          input.classList.add('error');
+          errorEl.classList.add('visible');
+          input.value = '';
+          input.focus();
+          setTimeout(function() {
+            input.classList.remove('error');
+          }, 1500);
+        }
+      }
+
+      btn.addEventListener('click', attempt);
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') attempt();
+        errorEl.classList.remove('visible');
+      });
+    })();
+  </script>
+
+</body>
+</html>
