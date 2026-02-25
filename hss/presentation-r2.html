@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamptons Spotless Services / Brand Direction — Round 2</title>
+  <link rel="icon" type="image/png" href="assets/hf-favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111111;
+      --secondary: #303030;
+      --tertiary: #777777;
+      --divider: #EDEDED;
+      --paper: #FFFFFF;
+      --accent: #C8FF00;
+      --cover-bg: #F0F0F0;
+      --cover-shape: #E2E1DE;
+      --black: #111111;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media print {
+      .slide { page-break-after: always; height: 100vh !important; }
+      .slide:last-child { page-break-after: avoid; }
+    }
+
+    /* ── Base slide ── */
+    .slide {
+      width: 100%; height: 100vh;
+      position: relative; overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    /* ── Shared header ── */
+    .slide-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px; z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .hf-bolt { height: 26px; width: auto; flex-shrink: 0; }
+    .header-center {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .header-right {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+    }
+
+    /* ── Shared top-content ── */
+    .top-content {
+      position: absolute; top: 100px; left: 36px; right: 36px; bottom: 36px;
+      display: flex; flex-direction: column; justify-content: space-between; z-index: 2;
+    }
+    .section-descriptions { display: flex; gap: 24px; margin-bottom: 32px; }
+    .section-description { max-width: 560px; }
+    .section-description p {
+      font-size: 25px; font-weight: 400; line-height: 1.45;
+      color: var(--secondary); letter-spacing: -0.01em; margin-bottom: 0;
+    }
+
+    /* ════════════════════════════════════
+       COVER
+    ════════════════════════════════════ */
+    .slide-cover {
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
+    }
+    .cover-logo { position: absolute; top: 36px; left: 36px; }
+    .cover-logo .hf-bolt { height: 27px; }
+    .cover-title { position: absolute; bottom: 36px; left: 36px; }
+    .cover-label {
+      font-size: 15px; font-weight: 700; color: var(--black);
+      letter-spacing: 0.06em; margin-bottom: 12px; display: block;
+    }
+    .cover-title h1 {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 120px; font-weight: 600; color: var(--black);
+      letter-spacing: -0.03em; line-height: 1.0;
+    }
+
+    /* ════════════════════════════════════
+       DIVIDER
+    ════════════════════════════════════ */
+    .slide-divider { background: var(--cover-shape); }
+    .divider-content {
+      position: absolute; left: 36px; bottom: 36px;
+      max-width: 720px; z-index: 2;
+    }
+    .divider-title {
+      font-size: 52px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;
+    }
+    .divider-body {
+      font-size: 20px; font-weight: 400; line-height: 1.5;
+      color: var(--secondary); letter-spacing: -0.01em;
+    }
+    .divider-body-lg {
+      font-size: 24px; font-weight: 400; line-height: 1.5;
+      color: var(--secondary); letter-spacing: -0.01em;
+    }
+
+    /* ── Dark theme modifier ── */
+    .slide-dark { background: var(--primary) !important; }
+    .slide-dark .divider-title { color: #E2E1DE; }
+    .slide-dark .divider-body,
+    .slide-dark .divider-body-lg { color: rgba(255,255,255,0.55); }
+    .slide-dark .concept-num { color: rgba(255,255,255,0.3); }
+    .slide-dark .header-center,
+    .slide-dark .header-right { color: rgba(255,255,255,0.25); }
+    .slide-dark .step-num { color: rgba(255,255,255,0.35); }
+    .slide-dark .step-text { color: rgba(255,255,255,0.55); }
+    .slide-dark .concept-big-num { color: rgba(255,255,255,0.08); }
+
+    /* ── Navy theme modifier ── */
+    .slide-navy { background: #0D1B2A !important; }
+    .slide-navy .divider-title { color: #E2E1DE; }
+    .slide-navy .divider-body { color: rgba(255,255,255,0.5); }
+    .slide-navy .concept-num { color: rgba(255,255,255,0.25); }
+    .slide-navy .concept-big-num { color: rgba(255,255,255,0.06); }
+    .slide-navy .header-center,
+    .slide-navy .header-right { color: rgba(255,255,255,0.2); }
+
+    /* ── Accent green slide ── */
+    .slide-accent-green {
+      background: var(--accent); overflow: hidden;
+    }
+    .bolt-bg {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      height: 50vh; width: auto; opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* ════════════════════════════════════
+       INTERNAL (grey bg)
+    ════════════════════════════════════ */
+    .slide-internal { background: var(--cover-shape); }
+
+    /* ════════════════════════════════════
+       CONTENT PANELS
+    ════════════════════════════════════ */
+    .content-panel {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 280px;
+      border-radius: 8px; overflow: hidden;
+    }
+    .content-panel img.fill {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* ── Full-bleed moodboard panel ── */
+    .content-panel-moodboard {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      border-radius: 8px; overflow: hidden;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .content-panel-moodboard img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      cursor: zoom-in;
+    }
+    .moodboard-hint {
+      position: absolute; bottom: 44px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--secondary);
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding: 5px 14px; border-radius: 100px;
+      pointer-events: none; z-index: 3;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .moodboard-hint svg {
+      width: 10px; height: 10px; flex-shrink: 0;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: grab;
+      overflow: hidden;
+    }
+    .lightbox.active {
+      opacity: 1; pointer-events: all;
+    }
+    .lightbox:active { cursor: grabbing; }
+    .lightbox-img {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 24px; right: 24px; z-index: 1001;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); border: none;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: ''; position: absolute;
+      width: 16px; height: 1.5px; background: #fff;
+    }
+    .lightbox-close::before { transform: rotate(45deg); }
+    .lightbox-close::after { transform: rotate(-45deg); }
+    .lightbox-zoom-hint {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%); z-index: 1001;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      pointer-events: none;
+      transition: opacity 0.5s ease 1.5s;
+    }
+    .lightbox-zoom-hint.hidden { opacity: 0; }
+
+    /* ── Translation cards ── */
+    .content-panel-translate {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
+      align-content: end;
+    }
+    .translate-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
+    }
+    .translate-card {
+      padding: 20px 0 16px; display: flex; flex-direction: column;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .translate-card h3 {
+      font-size: 11px; font-weight: 600; color: var(--black);
+      margin-bottom: 8px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .translate-card p {
+      font-size: 13px; font-weight: 400; line-height: 1.6;
+      color: var(--secondary); margin: 0;
+    }
+
+    /* ── Concept number badge ── */
+    .concept-num {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 16px;
+    }
+
+    /* ── Large concept number (bottom-right) ── */
+    .concept-big-num {
+      position: absolute; bottom: 24px; right: 36px;
+      font-size: 240px; font-weight: 400; line-height: 1;
+      color: var(--accent); letter-spacing: -0.04em;
+      z-index: 2; pointer-events: none;
+    }
+
+    /* ════════════════════════════════════
+       NEXT STEPS LIST
+    ════════════════════════════════════ */
+    .steps-list {
+      margin-top: 28px;
+    }
+    .steps-right {
+      position: absolute; right: 36px; bottom: 36px;
+      z-index: 2;
+    }
+    .step-item {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 12px 0;
+    }
+    .step-num {
+      font-size: 20px; font-weight: 400; color: var(--secondary);
+      letter-spacing: 0.02em; flex-shrink: 0; width: 32px;
+    }
+    .step-text {
+      font-size: 20px; font-weight: 400; color: var(--secondary);
+      line-height: 1.45;
+    }
+
+    /* ════════════════════════════════════
+       OUTRO / CONTACT
+    ════════════════════════════════════ */
+    .slide-outro { background: var(--cover-shape); }
+    .contact-block {
+      position: absolute; left: 36px; right: 36px; bottom: 36px;
+    }
+    .contact-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .contact-row:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .contact-label {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .contact-value {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .outro-tagline {
+      position: absolute; top: 110px; left: 36px; right: 36px;
+      font-size: 42px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.15; max-width: 600px;
+    }
+    .small-device-notice {
+      display: none;
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--bg);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 36px;
+    }
+    .small-device-notice p {
+      font-size: 15px; font-weight: 400; color: var(--tertiary);
+      line-height: 1.5; max-width: 260px;
+    }
+    .small-device-notice .notice-logo {
+      height: 24px; margin-bottom: 32px; opacity: 0.4;
+    }
+    @media (max-width: 1024px) {
+      .small-device-notice { display: flex; }
+      .slide { display: none; }
+    }
+
+    /* ── Entrance fade ── */
+    .entrance-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #E2E1DE;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .entrance-overlay.fade { opacity: 0; }
+  </style>
+</head>
+<body>
+
+<div class="entrance-overlay" id="entrance-overlay"></div>
+
+<div class="small-device-notice">
+  <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="notice-logo">
+  <p>This presentation is designed for larger screens. Please view on a desktop or laptop.</p>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 1: COVER
+════════════════════════════════════════════ -->
+<section class="slide slide-cover">
+  <div class="cover-logo">
+    <img class="hf-bolt" src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry">
+  </div>
+  <div class="cover-title">
+    <span class="cover-label">HAMPTONS SPOTLESS SERVICES</span>
+    <h1>Refined Brand<br>Direction</h1>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 2: THE HALLMARK — COVER
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-navy">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">The Hallmark</span>
+    <span class="header-right">Refined Direction</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num">The Chosen Direction</span>
+    <h1 class="divider-title">The Hallmark</h1>
+    <p class="divider-body">
+      A hallmark is a stamped guarantee of quality. For 700 years, this
+      visual language has meant one thing: the standard has been met.
+      The H mark carries that same authority. A seal placed where quality
+      has been confirmed. Monogram-forward. Warm and structured.
+      Formal without being stiff. Here is where we&rsquo;ve taken it.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 4: THE HALLMARK — REFINED MOODBOARD
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">The Hallmark</span>
+    <span class="header-right">Refined Moodboard</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/hss-hallmark-r2.jpg" alt="The Hallmark refined mood board" data-lightbox>
+    <span class="moodboard-hint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.2" y1="10.2" x2="14" y2="14"/></svg>Click to explore</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 5: THE HALLMARK — LOGO LOCKUPS
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">The Hallmark</span>
+    <span class="header-right">Logo Lockups</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/hss-hallmark-lockups.jpg" alt="Refined logo lockups" data-lightbox>
+    <span class="moodboard-hint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.2" y1="10.2" x2="14" y2="14"/></svg>Click to explore</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 6: THE HALLMARK — IN PRACTICE
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">The Hallmark</span>
+    <span class="header-right">Refined Direction</span>
+  </div>
+  <div class="top-content">
+    <div class="section-descriptions">
+      <div class="section-description">
+        <p>
+          This round explores alternate logo lockups, increasing
+          the size of the brand symbol and &lsquo;Spotless&rsquo;
+          within the mark system. We also replaced the moodboard
+          hero image with something more approachable while keeping
+          the same warmth and structure.
+        </p>
+      </div>
+    </div>
+    <div class="translate-grid">
+      <div class="translate-card">
+        <h3>Colour &amp; Material</h3>
+        <p>Navy (#0D1B2A) leads as the primary dark ground. Cream (#E2E1DE) and warm stone (#C4B8A4) provide warmth and depth. The palette leans warm. Every touchpoint should feel considered and premium, whether on screen or in hand.</p>
+      </div>
+      <div class="translate-card">
+        <h3>Typography</h3>
+        <p>A medium-weight serif with confident, wide proportions and generous tracking. The serif carries the personality. A clean sans-serif (Inter or similar) carries the information. The pairing should feel like a private members&rsquo; club. Reference typefaces: Canela, Freight Display, GT Sectra, Noe Display.</p>
+      </div>
+      <div class="translate-card">
+        <h3>Mark System</h3>
+        <p>The H monogram inside a refined container, with the brand symbol increased in scale to carry more presence at the centre. &lsquo;Spotless&rsquo; has been given greater visual weight within the lockup, bringing the full name closer to parity with &lsquo;Hamptons&rsquo;. Secondary: HSS wordmark in tracked serif. Tertiary: standalone H for compact applications.</p>
+      </div>
+      <div class="translate-card">
+        <h3>Applications</h3>
+        <p>Website on dark ground with serif navigation and editorial simplicity. Service confirmation emails carrying the H mark as a digital seal. Vehicle livery where the hallmark reads as an official stamp. Branded uniforms with an embroidered H as a quality badge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 7: NEXT STEPS
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-dark">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Direction</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="divider-content" style="max-width: 480px;">
+    <span class="concept-num">Next Steps</span>
+    <h1 class="divider-title" style="white-space: nowrap;">Approve the Direction.<br>We Build from Here.</h1>
+  </div>
+  <div class="steps-right">
+    <div class="steps-list">
+      <div class="step-item">
+        <span class="step-num">01</span>
+        <span class="step-text">Review the refined moodboard and logo lockups</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">02</span>
+        <span class="step-text">Confirm the direction or share any final adjustments</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">03</span>
+        <span class="step-text">Move on to website design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 8: CONTACT / OUTRO
+════════════════════════════════════════════ -->
+<section class="slide slide-outro">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Direction</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="contact-block">
+    <div class="contact-row">
+      <span class="contact-label">Clark Spendelow</span>
+      <span class="contact-value">Creative Director &amp; Designer</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">hello@hypefoundry.studio</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">0433 061 993</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Lightbox ── -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close"></button>
+  <img class="lightbox-img" id="lightbox-img" draggable="false">
+  <span class="lightbox-zoom-hint" id="lightbox-hint">Scroll to zoom &middot; Drag to pan</span>
+</div>
+
+<script>
+(function() {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbHint = document.getElementById('lightbox-hint');
+
+  let scale = 1, minScale = 0.5, maxScale = 4;
+  let posX = 0, posY = 0;
+  let isDragging = false, startX = 0, startY = 0, startPosX = 0, startPosY = 0;
+  let imgW = 0, imgH = 0;
+
+  function open(src) {
+    const img = new Image();
+    img.onload = function() {
+      imgW = img.naturalWidth;
+      imgH = img.naturalHeight;
+
+      // Fit height to viewport, let width overflow for panning
+      const vh = window.innerHeight * 0.85;
+      scale = vh / imgH;
+      minScale = scale * 0.8;
+      maxScale = scale * 5;
+
+      // Centre vertically, start at left edge with padding
+      posX = 40;
+      posY = (window.innerHeight - imgH * scale) / 2;
+
+      lbImg.src = src;
+      lbImg.style.width = imgW + 'px';
+      lbImg.style.height = imgH + 'px';
+      applyTransform();
+
+      lb.classList.add('active');
+      lbHint.classList.remove('hidden');
+      setTimeout(function() { lbHint.classList.add('hidden'); }, 3000);
+      document.documentElement.style.overflow = 'hidden';
+    };
+    img.src = src;
+  }
+
+  function close() {
+    lb.classList.remove('active');
+    document.documentElement.style.overflow = '';
+  }
+
+  function applyTransform() {
+    lbImg.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+  }
+
+  function clampPosition() {
+    var sw = imgW * scale, sh = imgH * scale;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    if (sw <= vw) {
+      posX = (vw - sw) / 2;
+    } else {
+      if (posX > 40) posX = 40;
+      if (posX < vw - sw - 40) posX = vw - sw - 40;
+    }
+    if (sh <= vh) {
+      posY = (vh - sh) / 2;
+    } else {
+      if (posY > 40) posY = 40;
+      if (posY < vh - sh - 40) posY = vh - sh - 40;
+    }
+  }
+
+  // Click moodboard images to open
+  document.querySelectorAll('[data-lightbox]').forEach(function(img) {
+    img.addEventListener('click', function() { open(img.src); });
+  });
+
+  // Close
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) close();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('active')) close();
+  });
+
+  // Drag to pan
+  lb.addEventListener('mousedown', function(e) {
+    if (e.target === lbClose) return;
+    isDragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startPosX = posX; startPosY = posY;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    posX = startPosX + (e.clientX - startX);
+    posY = startPosY + (e.clientY - startY);
+    clampPosition();
+    applyTransform();
+  });
+  window.addEventListener('mouseup', function() { isDragging = false; });
+
+  // Scroll to zoom (centred on cursor)
+  lb.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var rect = lb.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    var prevScale = scale;
+    var delta = e.deltaY > 0 ? 0.9 : 1.1;
+    scale = Math.min(maxScale, Math.max(minScale, scale * delta));
+
+    // Zoom toward cursor position
+    posX = mx - (mx - posX) * (scale / prevScale);
+    posY = my - (my - posY) * (scale / prevScale);
+    clampPosition();
+    applyTransform();
+  }, { passive: false });
+
+  // Touch support for mobile
+  var lastTouchDist = 0, lastTouchScale = 1;
+  lb.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      startPosX = posX; startPosY = posY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      lastTouchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      lastTouchScale = scale;
+    }
+  }, { passive: false });
+  lb.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDragging) {
+      posX = startPosX + (e.touches[0].clientX - startX);
+      posY = startPosY + (e.touches[0].clientY - startY);
+      clampPosition();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      var dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      scale = Math.min(maxScale, Math.max(minScale, lastTouchScale * (dist / lastTouchDist)));
+      clampPosition();
+      applyTransform();
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', function() { isDragging = false; });
+})();
+</script>
+
+<!-- ── Auth gate & entrance fade ── -->
+<script>
+(function() {
+  if (sessionStorage.getItem('hss-auth') !== 'true') {
+    window.location.replace('index.html');
+    return;
+  }
+  window.addEventListener('load', function() {
+    var overlay = document.getElementById('entrance-overlay');
+    if (overlay) {
+      requestAnimationFrame(function() {
+        overlay.classList.add('fade');
+        setTimeout(function() { overlay.remove(); }, 700);
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

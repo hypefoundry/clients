@@ -149,7 +149,7 @@
   var spinner = document.getElementById('login-spinner');
 
   if (sessionStorage.getItem('hss-auth') === 'true') {
-    window.location.replace('presentation.html');
+    window.location.replace('presentation-r2.html');
     return;
   }
 
@@ -170,7 +170,7 @@
       setTimeout(function() {
         card.classList.add('fade-out');
         setTimeout(function() {
-          window.location.href = 'presentation.html';
+          window.location.href = 'presentation-r2.html';
         }, 500);
       }, 1000);
     } else {
