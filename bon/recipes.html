@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipes & Tips — Bon Apperoo</title>
+  <style>
+    :root {
+      --bg: #F2F0ED;
+      --bg-warm: #EBE8E3;
+      --walnut: #7B5C42;
+      --brass: #B59E78;
+      --stone: #A8A39F;
+      --amber: #D4A843;
+      --text: #2A2A2A;
+      --text-secondary: #5A5A5A;
+      --text-tertiary: #8A8A8A;
+      --border: #D6D2CC;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cera Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 40px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s;
+    }
+
+    nav.scrolled {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-left { display: flex; gap: 28px; }
+
+    .nav-left a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-left a { color: var(--text); }
+    .nav-left a:hover { color: var(--white); }
+    nav.scrolled .nav-left a:hover { color: var(--walnut); }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-logo { color: var(--text); }
+
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+      gap: 28px;
+    }
+
+    .nav-right a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-right a { color: var(--text); }
+    .nav-right a:hover { color: var(--white); }
+    nav.scrolled .nav-right a:hover { color: var(--walnut); }
+
+    /* ═══════════════════════════════════
+       PAGE HERO
+    ═══════════════════════════════════ */
+    .page-hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--walnut);
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .page-hero-bg .placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+      background: var(--walnut);
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 40px 80px;
+      max-width: 700px;
+    }
+
+    .page-hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 24px;
+    }
+
+    .page-hero-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .page-hero-desc {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--brass);
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════
+       RECIPE GRID
+    ═══════════════════════════════════ */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 40px;
+    }
+
+    .recipes-section {
+      padding: 80px 40px;
+    }
+
+    .recipes-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .recipes-section-header h2 {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text);
+    }
+
+    .recipes-section-header .recipe-count {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px 24px;
+    }
+
+    .recipe-card {
+      display: block;
+      cursor: pointer;
+    }
+
+    .recipe-card-image {
+      aspect-ratio: 4/3;
+      background: var(--bg-warm);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .recipe-card-image .placeholder {
+      font-size: 12px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .recipe-card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .recipe-card:hover .recipe-card-image img { transform: scale(1.04); }
+
+    .recipe-card-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+
+    .recipe-card h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .recipe-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .recipe-card .card-link {
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .recipe-card:hover .card-link {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    /* ═══════════════════════════════════
+       RECIPE DETAIL EXPAND (inline)
+    ═══════════════════════════════════ */
+    .recipe-detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      background: var(--white);
+    }
+
+    .recipe-detail.reverse { direction: rtl; }
+    .recipe-detail.reverse > * { direction: ltr; }
+
+    .recipe-detail-image {
+      background: var(--bg-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .recipe-detail-image .placeholder {
+      font-size: 13px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .recipe-detail-content {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .recipe-detail-tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
+    }
+
+    .recipe-detail-content h2 {
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.35;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .recipe-detail-content > p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 400px;
+      margin-bottom: 12px;
+    }
+
+    .recipe-ingredients-preview {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .recipe-ingredients-preview h4 {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
+    }
+
+    .ingredients-inline {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .recipe-detail-content .pro-tip-inline {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--bg);
+      border-radius: 4px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .pro-tip-inline strong {
+      font-weight: 500;
+      color: var(--walnut);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ═══════════════════════════════════
+       COMMUNITY / CTA
+    ═══════════════════════════════════ */
+    .community {
+      background: var(--walnut);
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .community h2 {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .community p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--brass);
+      font-weight: 300;
+    }
+
+    .community-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .community-form input {
+      flex: 1;
+      padding: 14px 20px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .community-form input::placeholder { color: var(--brass); }
+    .community-form input:focus { border-color: var(--brass); }
+
+    .community-form button {
+      padding: 14px 28px;
+      background: var(--white);
+      color: var(--walnut);
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .community-form button:hover {
+      background: var(--brass);
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    footer {
+      padding: 60px 40px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 20px;
+      max-width: 260px;
+    }
+
+    .footer-socials { display: flex; gap: 20px; }
+
+    .footer-socials a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover { color: var(--walnut); }
+
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--walnut); }
+
+    .footer-bottom {
+      padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .recipes-grid { grid-template-columns: repeat(2, 1fr); }
+      .recipe-detail { grid-template-columns: 1fr; }
+      .recipe-detail.reverse { direction: ltr; }
+      .recipe-detail-content { padding: 40px; }
+      .community { grid-template-columns: 1fr; gap: 40px; }
+      footer { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-left, .nav-right { gap: 16px; }
+      .page-hero-content { padding: 80px 20px 60px; }
+      .recipes-section { padding: 60px 20px; }
+      .recipes-grid { grid-template-columns: 1fr; }
+      .recipe-detail-content { padding: 32px 20px; }
+      .community { padding: 60px 20px; }
+      footer { grid-template-columns: 1fr; padding: 40px 20px; gap: 32px; }
+      .footer-bottom { padding: 20px; flex-direction: column; gap: 8px; }
+      .community-form { flex-direction: column; }
+      .divider { margin: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html#products">Shop</a>
+    <a href="index.html#about">About</a>
+    <a href="recipes.html">Recipes</a>
+  </div>
+  <a href="index.html" class="nav-logo">Bon Apperoo</a>
+  <div class="nav-right">
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ PAGE HERO ═══════════════ -->
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <div class="placeholder">Recipes Hero Background</div>
+  </div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Explore &amp; Create</div>
+    <h1 class="page-hero-title">Recipes &amp; Tips</h1>
+    <p class="page-hero-desc">Take your cooking to the next level with real wood smoke. Simple recipes for appetisers, charcuterie, desserts, and more.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ RECIPE GRID ═══════════════ -->
+<div class="recipes-section">
+  <div class="recipes-section-header">
+    <h2>Recipes &amp; Tips</h2>
+    <span class="recipe-count">7 recipes</span>
+  </div>
+  <div class="recipes-grid">
+
+    <a class="recipe-card reveal" href="#smoked-cheese-dip">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Appetiser</div>
+      <h3>Smoked Cheese Dip</h3>
+      <p>A creamy and smoky cheese dip that's perfect for parties and gatherings.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+    <a class="recipe-card reveal" href="#smoked-deviled-eggs">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Appetiser</div>
+      <h3>Smoked Deviled Eggs</h3>
+      <p>Classic deviled eggs with a smoky twist, ideal for parties and gatherings.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+    <a class="recipe-card reveal" href="#smoked-olives">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Appetiser</div>
+      <h3>Smoked Olives</h3>
+      <p>An easy appetiser that adds a unique, smoky flavour to your favourite olives.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+    <a class="recipe-card reveal" href="#smoked-chocolate-mousse">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Dessert</div>
+      <h3>Desserts</h3>
+      <p>Great for special occasions or adventurous dessert lovers. Smoked chocolate mousse and smoked fruit compote.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+    <a class="recipe-card reveal" href="#smoked-charcuterie">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Charcuterie</div>
+      <h3>Charcuterie Small Meats</h3>
+      <p>Perfect addition for charcuterie boards and gourmet snacks.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+    <a class="recipe-card reveal" href="#smoked-cheese-board">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Charcuterie</div>
+      <h3>Cheese Board</h3>
+      <p>Create an impressive smoked cheese board for dinner parties or wine and cheese nights.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+    <a class="recipe-card reveal" href="#smoked-salmon">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="recipe-card-tag">Seafood</div>
+      <h3>Sliced Salmon</h3>
+      <p>Perfect for brunch gatherings or elegant appetisers, offering a rich smoky flavour complementing cream cheese and bagels.</p>
+      <span class="card-link">View recipe</span>
+    </a>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ RECIPE DETAIL: CHEESE DIP ═══════════════ -->
+<div class="recipe-detail reveal" id="smoked-cheese-dip">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Smoked Cheese Dip Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Appetiser</div>
+    <h2>Smoked Cheese Dip</h2>
+    <p>Take your cheese dip to the next level with a rich, smoky flavour. Perfect for parties, gatherings, or any occasion where you want to impress your guests.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Shredded cheddar &middot; Smoked gouda &middot; Cream cheese &middot; Sour cream &middot; Garlic &middot; Smoked paprika &middot; Hickory or apple wood chips</p>
+    </div>
+    <div class="pro-tip-inline">
+      <strong>Pro Tip</strong>
+      Add hot sauce or crushed red pepper flakes for extra kick.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ RECIPE DETAIL: DEVILED EGGS ═══════════════ -->
+<div class="recipe-detail reverse reveal" id="smoked-deviled-eggs">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Smoked Deviled Eggs Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Appetiser</div>
+    <h2>Smoked Deviled Eggs</h2>
+    <p>Elevate your next party with Smoked Deviled Eggs. This classic appetiser gets a delicious upgrade with a hint of smoky flavour from apple or cherry wood chips.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Large eggs &middot; Mayonnaise &middot; Dijon mustard &middot; White vinegar &middot; Paprika &middot; Apple or cherry wood chips</p>
+    </div>
+    <div class="pro-tip-inline">
+      <strong>Pro Tip</strong>
+      Add chopped chives or crispy bacon bits to the yolk mixture for extra flavour.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ RECIPE DETAIL: OLIVES ═══════════════ -->
+<div class="recipe-detail reveal" id="smoked-olives">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Smoked Olives Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Appetiser</div>
+    <h2>Smoked Olives</h2>
+    <p>Add a delightful smoky twist to your appetiser spread. This quick and simple recipe is perfect for entertaining guests or enhancing your favourite salads and dishes.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Mixed olives &middot; Garlic &middot; Olive oil &middot; Rosemary &middot; Thyme &middot; Lemon zest &middot; Oak or hickory wood chips</p>
+    </div>
+    <div class="pro-tip-inline">
+      <strong>Pro Tip</strong>
+      Add balsamic vinegar for extra flavour before smoking.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ DESSERTS DETAIL ═══════════════ -->
+<div class="recipe-detail reverse reveal" id="smoked-chocolate-mousse">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Smoked Chocolate Mousse Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Dessert</div>
+    <h2>Smoked Chocolate Mousse</h2>
+    <p>Surprise your guests with this innovative treat. Dark chocolate mousse finished with a short burst of cherry or apple wood smoke — ideal for special occasions or adventurous dessert lovers.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Dark chocolate &middot; Eggs &middot; Sugar &middot; Heavy cream &middot; Vanilla extract &middot; Cherry or apple wood chips</p>
+    </div>
+  </div>
+</div>
+
+<div class="recipe-detail reveal" id="smoked-fruit-compote">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Smoked Fruit Compote Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Dessert</div>
+    <h2>Smoked Fruit Compote</h2>
+    <p>Mixed berries cooked down and finished with apple or cherry wood smoke. A versatile topping for pancakes, ice cream, or served as a standalone dessert.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Mixed berries &middot; Sugar &middot; Lemon juice &middot; Vanilla extract &middot; Apple or cherry wood chips</p>
+    </div>
+    <div class="pro-tip-inline">
+      <strong>Pro Tip</strong>
+      Garnish with fresh mint or whipped cream for elegance.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ RECIPE DETAIL: CHARCUTERIE ═══════════════ -->
+<div class="recipe-detail reverse reveal" id="smoked-charcuterie">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Charcuterie Small Meats Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Charcuterie</div>
+    <h2>Charcuterie Small Meats</h2>
+    <p>Elevate your charcuterie board experience with smoked small meats. These exquisitely smoked delicacies bring a gourmet flair to your snacks, making them perfect for charcuterie boards or a refined treat for your guests.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Prosciutto &middot; Salami &middot; Chorizo &middot; Sausage &middot; Cheeses &middot; Crackers &middot; Fresh fruit &middot; Olives &middot; Nuts &middot; Apple, cherry or hickory wood chips</p>
+    </div>
+    <div class="pro-tip-inline">
+      <strong>Pro Tip</strong>
+      Pair with fine wines or craft beers to enhance the smoky flavours.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ RECIPE DETAIL: CHEESE BOARD ═══════════════ -->
+<div class="recipe-detail reveal" id="smoked-cheese-board">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Smoked Cheese Board Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Charcuterie</div>
+    <h2>Cheese Board</h2>
+    <p>Create an impressive smoked cheese board for dinner parties or wine and cheese nights. This centerpiece features a delightful mix of smoked cheeses with rich flavours and sophisticated aromas.</p>
+    <div class="recipe-ingredients-preview">
+      <h4>Key Ingredients</h4>
+      <p class="ingredients-inline">Cheddar &middot; Brie &middot; Gouda &middot; Blue cheese &middot; Crackers &middot; Fresh fruit &middot; Nuts &middot; Honey &middot; Fresh herbs &middot; Oak, hickory or apple wood chips</p>
+    </div>
+    <div class="pro-tip-inline">
+      <strong>Pro Tip</strong>
+      Pair with fine wines to enhance the smoky flavours.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ RECIPE DETAIL: SALMON ═══════════════ -->
+<div class="recipe-detail reverse reveal" id="smoked-salmon">
+  <div class="recipe-detail-image">
+    <span class="placeholder">Sliced Salmon Image</span>
+  </div>
+  <div class="recipe-detail-content">
+    <div class="recipe-detail-tag">Seafood</div>
+    <h2>Sliced Salmon</h2>
+    <p>Smoked sliced salmon is perfect for brunch gatherings or elegant appetisers, offering a rich smoky flavour that complements cream cheese and bagels.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ COMMUNITY ═══════════════ -->
+<div class="community">
+  <div>
+    <h2>Join our community for new products, recipes, and discounts</h2>
+    <p>Want even more recipes or discounts on our sophisticated indoor culinary smokers? Of course you do! All you have to do is join our community.</p>
+  </div>
+  <form class="community-form" onsubmit="event.preventDefault()">
+    <input type="email" placeholder="Email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-brand">
+    <p>Born from backyard chaos, built for flavour. Safe, simple smokers for unforgettable meals.</p>
+    <div class="footer-socials">
+      <a href="https://instagram.com/culinarysmokers">Instagram</a>
+      <a href="https://facebook.com/culinarysmokers">Facebook</a>
+      <a href="https://youtube.com/@BonApperoo">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h5>Shop</h5>
+    <a href="index.html#products">1 Glass Smoker</a>
+    <a href="index.html#products">2 Glass Smoker</a>
+    <a href="index.html#products">4 Glass Smoker</a>
+    <a href="#">Wood Chips</a>
+  </div>
+  <div class="footer-col">
+    <h5>Explore</h5>
+    <a href="recipes.html">Recipes</a>
+    <a href="index.html#about">About Us</a>
+    <a href="#">Our Story</a>
+  </div>
+  <div class="footer-col">
+    <h5>Support</h5>
+    <a href="mailto:support@bonapperoo.com">Contact Us</a>
+    <a href="#">Shipping</a>
+    <a href="#">Returns</a>
+    <a href="mailto:support@bonapperoo.com">support@bonapperoo.com</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2026 Bon Apperoo&trade;. All Rights Reserved.</p>
+  <p>Designed with care.</p>
+</div>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  // Nav: switch to solid background on scroll
+  const nav = document.querySelector('nav');
+  const hero = document.querySelector('.page-hero');
+  const navObserver = new IntersectionObserver(([entry]) => {
+    nav.classList.toggle('scrolled', !entry.isIntersecting);
+  }, { threshold: 0 });
+  navObserver.observe(hero);
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bon Apperoo — Culinary Smokers</title>
+  <style>
+    :root {
+      --bg: #F2F0ED;
+      --bg-warm: #EBE8E3;
+      --walnut: #7B5C42;
+      --brass: #B59E78;
+      --stone: #A8A39F;
+      --amber: #D4A843;
+      --text: #2A2A2A;
+      --text-secondary: #5A5A5A;
+      --text-tertiary: #8A8A8A;
+      --border: #D6D2CC;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cera Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 40px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s;
+    }
+
+    nav.scrolled {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-left {
+      display: flex; gap: 28px;
+    }
+
+    .nav-left a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-left a { color: var(--text); }
+    .nav-left a:hover { color: var(--white); }
+    nav.scrolled .nav-left a:hover { color: var(--walnut); }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-logo { color: var(--text); }
+
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+      gap: 28px;
+    }
+
+    .nav-right a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-right a { color: var(--text); }
+    .nav-right a:hover { color: var(--white); }
+    nav.scrolled .nav-right a:hover { color: var(--walnut); }
+
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--walnut);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-bg .placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+      background: var(--walnut);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 40px 80px;
+      max-width: 600px;
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--white);
+      margin-bottom: 36px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 12px 32px;
+      border-radius: 100px;
+      transition: all 0.3s;
+    }
+
+    .hero-cta:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    /* ═══════════════════════════════════
+       TEXT SECTION
+    ═══════════════════════════════════ */
+    .text-section {
+      padding: 100px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .text-section-wide {
+      max-width: 900px;
+    }
+
+    .text-section h2 {
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--text);
+      letter-spacing: -0.005em;
+      margin-bottom: 24px;
+    }
+
+    .text-section p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .text-section .link-arrow {
+      display: inline-block;
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .text-section .link-arrow:hover {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    /* ═══════════════════════════════════
+       DIVIDER
+    ═══════════════════════════════════ */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 40px;
+    }
+
+    /* ═══════════════════════════════════
+       PRODUCT GRID
+    ═══════════════════════════════════ */
+    .products-section {
+      padding: 80px 40px;
+    }
+
+    .products-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .products-section-header h2 {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text);
+    }
+
+    .products-section-header a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .products-section-header a:hover {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      display: block;
+      cursor: pointer;
+    }
+
+    .product-card-image {
+      aspect-ratio: 1;
+      background: var(--bg-warm);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-card-image .placeholder-label {
+      font-size: 13px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .product-card-image img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+      transition: transform 0.5s;
+    }
+
+    .product-card:hover .product-card-image img { transform: scale(1.04); }
+
+    .product-card-status {
+      position: absolute;
+      top: 14px; left: 14px;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+    }
+
+    .product-card h3 {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .product-card .product-card-sub {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+
+    .product-card .product-card-price {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ═══════════════════════════════════
+       SPLIT FEATURE
+    ═══════════════════════════════════ */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+
+    .split-image {
+      background: var(--bg-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .split-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .split-image .placeholder {
+      font-size: 13px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .split-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px;
+    }
+
+    .split-content h2 {
+      font-size: 28px;
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .split-content p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 380px;
+      margin-bottom: 16px;
+    }
+
+    .split-content .link-arrow {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      align-self: flex-start;
+    }
+
+    .split-content .link-arrow:hover {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    /* ═══════════════════════════════════
+       THREE COLUMN
+    ═══════════════════════════════════ */
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .three-col-item {
+      padding: 60px 40px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .three-col-item:last-child { border-right: none; }
+
+    .three-col-item .col-image {
+      aspect-ratio: 4/3;
+      background: var(--bg-warm);
+      border-radius: 4px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .three-col-item .col-image .placeholder {
+      font-size: 12px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .three-col-item .col-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 10px;
+    }
+
+    .three-col-item h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .three-col-item p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .three-col-item .link-arrow {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      align-self: flex-start;
+    }
+
+    .three-col-item .link-arrow:hover {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    /* ═══════════════════════════════════
+       REVIEWS
+    ═══════════════════════════════════ */
+    .reviews-section {
+      padding: 80px 40px;
+    }
+
+    .reviews-header {
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reviews-header h2 {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .review-card {
+      padding: 36px;
+      border-right: 1px solid var(--border);
+    }
+
+    .review-card:last-child { border-right: none; }
+
+    .review-stars {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--walnut);
+      margin-bottom: 20px;
+    }
+
+    .review-text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .review-author {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .review-verified {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════
+       COMMUNITY / CTA
+    ═══════════════════════════════════ */
+    .community {
+      background: var(--walnut);
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .community h2 {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .community p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--brass);
+      font-weight: 300;
+    }
+
+    .community-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .community-form input {
+      flex: 1;
+      padding: 14px 20px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .community-form input::placeholder {
+      color: var(--brass);
+    }
+
+    .community-form input:focus {
+      border-color: var(--brass);
+    }
+
+    .community-form button {
+      padding: 14px 28px;
+      background: var(--white);
+      color: var(--walnut);
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .community-form button:hover {
+      background: var(--brass);
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    footer {
+      padding: 60px 40px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 20px;
+      max-width: 260px;
+    }
+
+    .footer-socials {
+      display: flex; gap: 20px;
+    }
+
+    .footer-socials a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover { color: var(--walnut); }
+
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--walnut); }
+
+    .footer-bottom {
+      padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .hero-content { padding: 100px 32px 60px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .split { grid-template-columns: 1fr; }
+      .split-content { padding: 60px 40px; }
+      .three-col { grid-template-columns: 1fr; }
+      .three-col-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .three-col-item:last-child { border-bottom: none; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .review-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .review-card:last-child { border-bottom: none; }
+      .community { grid-template-columns: 1fr; gap: 40px; }
+      footer { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-left, .nav-right { gap: 16px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .hero-content { padding: 80px 20px 60px; }
+      section, .products-section, .reviews-section { padding: 60px 20px; }
+      .text-section { padding: 60px 20px; }
+      .split-content { padding: 40px 20px; }
+      .community { padding: 60px 20px; }
+      footer { grid-template-columns: 1fr; padding: 40px 20px; gap: 32px; }
+      .footer-bottom { padding: 20px; flex-direction: column; gap: 8px; }
+      .community-form { flex-direction: column; }
+      .divider { margin: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <div class="nav-left">
+    <a href="#products">Shop</a>
+    <a href="#about">About</a>
+    <a href="#recipes">Recipes</a>
+  </div>
+  <a href="#" class="nav-logo">Bon Apperoo</a>
+  <div class="nav-right">
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="placeholder">Hero Background Image</div>
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-title">Flavour, simplicity,<br>and a bit of <em>drama</em></h1>
+    <a href="#products" class="hero-cta">Shop Now</a>
+  </div>
+</section>
+
+<!-- ═══════════════ INTRO ═══════════════ -->
+<div class="text-section text-section-wide reveal">
+  <h2>Bring real wood smoke to your cheese, charcuterie, desserts, and drinks — no bulky setup, no cleanup stress. Compact, beautiful, and surprisingly powerful.</h2>
+  <a href="#about" class="link-arrow">Discover more</a>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ PRODUCTS ═══════════════ -->
+<div class="products-section" id="products">
+  <div class="products-section-header">
+    <h2>Culinary Smoker Range</h2>
+    <a href="#">View all</a>
+  </div>
+  <div class="products-grid">
+    <a class="product-card reveal" href="#">
+      <div class="product-card-image">
+        <span class="placeholder-label">1 Glass</span>
+        <span class="product-card-status">Sold out</span>
+      </div>
+      <h3>1 Glass Smoker</h3>
+      <p class="product-card-sub">Single serve, personal pour</p>
+      <span class="product-card-price">$49.99</span>
+    </a>
+    <a class="product-card reveal" href="#">
+      <div class="product-card-image">
+        <span class="placeholder-label">2 Glass</span>
+      </div>
+      <h3>2 Glass Smoker</h3>
+      <p class="product-card-sub">Date night, dual cocktails</p>
+      <span class="product-card-price">$69.99</span>
+    </a>
+    <a class="product-card reveal" href="#">
+      <div class="product-card-image">
+        <span class="placeholder-label">4 Glass</span>
+      </div>
+      <h3>4 Glass Smoker</h3>
+      <p class="product-card-sub">Dinner party, group experience</p>
+      <span class="product-card-price">$89.99</span>
+    </a>
+    <a class="product-card reveal" href="#">
+      <div class="product-card-image">
+        <span class="placeholder-label">Pro Dome</span>
+        <span class="product-card-status">Coming soon</span>
+      </div>
+      <h3>Pro Dome Smoker</h3>
+      <p class="product-card-sub">Full-size, professional grade</p>
+      <span class="product-card-price">TBA</span>
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div class="split" id="about">
+  <div class="split-image">
+    <span class="placeholder">Product Lifestyle Image</span>
+  </div>
+  <div class="split-content reveal">
+    <h2>Born from backyard chaos, built for flavour</h2>
+    <p>Crafted from natural Acacia wood, our Culinary Smoker Box is designed for quick and maximum smokiness, perfect for enhancing various dishes year-round.</p>
+    <p>Safe, simple smokers for unforgettable meals — no bulky setup, no cleanup stress.</p>
+    <a href="#" class="link-arrow">Read our story</a>
+  </div>
+</div>
+
+<!-- ═══════════════ FEATURES ═══════════════ -->
+<div class="three-col">
+  <div class="three-col-item reveal">
+    <div class="col-image">
+      <span class="placeholder">Feature Image</span>
+    </div>
+    <span class="col-tag">Versatile</span>
+    <h3>Perfect for Any Use</h3>
+    <p>Portable and lightweight — perfect for kitchens, patios, camping trips, and RV adventures.</p>
+  </div>
+  <div class="three-col-item reveal">
+    <div class="col-image">
+      <span class="placeholder">Feature Image</span>
+    </div>
+    <span class="col-tag">Craftsmanship</span>
+    <h3>Sophisticated Aesthetics</h3>
+    <p>Handcrafted from natural Acacia wood with a warm, refined finish worthy of any table setting.</p>
+  </div>
+  <div class="three-col-item reveal">
+    <div class="col-image">
+      <span class="placeholder">Feature Image</span>
+    </div>
+    <span class="col-tag">Practical</span>
+    <h3>Easy Clean Design</h3>
+    <p>Detachable chimney and filter make cleanup effortless after every smoking session.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ NATURAL SMOKE ═══════════════ -->
+<div class="split">
+  <div class="split-content reveal">
+    <h2>Add natural smoky flavours, not chemicals</h2>
+    <p>Hate the taste of liquid smoke and all the harmful carcinogens that come with it? So do we. Our Acacia culinary smoker box infuses natural smokiness into small meats, cheeses, charcuterie items, and even that weird smoked cake recipe you've been wanting to try.</p>
+    <a href="#" class="link-arrow">Explore wood chips</a>
+  </div>
+  <div class="split-image">
+    <span class="placeholder">Woodchips Image</span>
+  </div>
+</div>
+
+<!-- ═══════════════ WOODCHIPS ═══════════════ -->
+<div class="text-section reveal">
+  <h2>Four distinct wood chip flavours</h2>
+  <p>Each variety — apple, oak, cherry, and hickory — has been selected to complement different ingredients and occasions. From delicate seafood to bold cocktails, there's a flavour for every creation.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ RECIPES ═══════════════ -->
+<div class="products-section" id="recipes">
+  <div class="products-section-header">
+    <h2>Explore new smoky recipes</h2>
+    <a href="#">View all</a>
+  </div>
+</div>
+<div class="three-col">
+  <div class="three-col-item reveal">
+    <div class="col-image">
+      <span class="placeholder">Recipe Image</span>
+    </div>
+    <span class="col-tag">Featured</span>
+    <h3>Smoked Cheese Dip</h3>
+    <p>A rich, creamy dip elevated with real wood smoke — perfect for gatherings and charcuterie boards.</p>
+    <a href="#" class="link-arrow">View recipe</a>
+  </div>
+  <div class="three-col-item reveal">
+    <div class="col-image">
+      <span class="placeholder">Recipe Image</span>
+    </div>
+    <span class="col-tag">Appetiser</span>
+    <h3>Smoked Deviled Eggs</h3>
+    <p>Classic deviled eggs with a subtle smoky twist using cherry wood chips for added depth.</p>
+    <a href="#" class="link-arrow">View recipe</a>
+  </div>
+  <div class="three-col-item reveal">
+    <div class="col-image">
+      <span class="placeholder">Recipe Image</span>
+    </div>
+    <span class="col-tag">Cocktail</span>
+    <h3>Smoked Old Fashioned</h3>
+    <p>The quintessential smoked cocktail — bourbon, bitters, and a blanket of hickory smoke.</p>
+    <a href="#" class="link-arrow">View recipe</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ COLLAB ═══════════════ -->
+<div class="split">
+  <div class="split-image">
+    <span class="placeholder">@gentlemenzpour Image</span>
+  </div>
+  <div class="split-content reveal">
+    <h2>Our recent collabs</h2>
+    <p>A certified culinary gangsta serving up bold, smoked, and grilled flavour experiences. McKenzie brings serious heat to the table as a ServSafe-certified pitmaster, chef, and digital creator.</p>
+    <a href="#" class="link-arrow">Check it out @gentlemenzpour</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ REVIEWS ═══════════════ -->
+<div class="reviews-section" id="reviews">
+  <div class="reviews-header">
+    <h2>Hear from our new home chefs</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card reveal">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"I bought this smoking box for a friend. The size of the box is perfect for a tumbler, cheese, salami or garnish. Really impressive. Would buy again."</p>
+      <div class="review-author">MM</div>
+      <div class="review-verified">Verified Buyer</div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"I couldn't wait to upgrade my previous drink smoker and expand the option to smoke cheese and meats for when I make my charcuterie."</p>
+      <div class="review-author">Dudley</div>
+      <div class="review-verified">Verified Buyer</div>
+    </div>
+    <div class="review-card reveal">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"I was searching for a smaller smoker for my RV kitchen, and this one is ideal. It's easy to use without needing extra tools."</p>
+      <div class="review-author">De Fleming</div>
+      <div class="review-verified">Verified Buyer</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ COMMUNITY ═══════════════ -->
+<div class="community" id="contact">
+  <div>
+    <h2>Join our community for new products, recipes, and discounts</h2>
+    <p>Want even more recipes or discounts on our sophisticated indoor culinary smokers? Of course you do! All you have to do is join our community.</p>
+  </div>
+  <form class="community-form" onsubmit="event.preventDefault()">
+    <input type="email" placeholder="Email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-brand">
+    <p>Born from backyard chaos, built for flavour. Safe, simple smokers for unforgettable meals.</p>
+    <div class="footer-socials">
+      <a href="https://instagram.com/culinarysmokers">Instagram</a>
+      <a href="https://facebook.com/culinarysmokers">Facebook</a>
+      <a href="https://youtube.com/@BonApperoo">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h5>Shop</h5>
+    <a href="#">1 Glass Smoker</a>
+    <a href="#">2 Glass Smoker</a>
+    <a href="#">4 Glass Smoker</a>
+    <a href="#">Wood Chips</a>
+  </div>
+  <div class="footer-col">
+    <h5>Explore</h5>
+    <a href="#">Recipes</a>
+    <a href="#">About Us</a>
+    <a href="#">Our Story</a>
+  </div>
+  <div class="footer-col">
+    <h5>Support</h5>
+    <a href="mailto:support@bonapperoo.com">Contact Us</a>
+    <a href="#">Shipping</a>
+    <a href="#">Returns</a>
+    <a href="mailto:support@bonapperoo.com">support@bonapperoo.com</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2026 Bon Apperoo&trade;. All Rights Reserved.</p>
+  <p>Designed with care.</p>
+</div>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  // Nav: switch to light theme when scrolled past hero
+  const nav = document.querySelector('nav');
+  const hero = document.querySelector('.hero');
+  const navObserver = new IntersectionObserver(([entry]) => {
+    nav.classList.toggle('scrolled', !entry.isIntersecting);
+  }, { threshold: 0 });
+  navObserver.observe(hero);
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

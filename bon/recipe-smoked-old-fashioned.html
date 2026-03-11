@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smoked Old Fashioned — Bon Apperoo</title>
+  <style>
+    :root {
+      --bg: #F2F0ED;
+      --bg-warm: #EBE8E3;
+      --walnut: #7B5C42;
+      --brass: #B59E78;
+      --stone: #A8A39F;
+      --amber: #D4A843;
+      --text: #2A2A2A;
+      --text-secondary: #5A5A5A;
+      --text-tertiary: #8A8A8A;
+      --border: #D6D2CC;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cera Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 40px;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s;
+    }
+
+    nav.scrolled {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-left { display: flex; gap: 28px; }
+
+    .nav-left a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-left a { color: var(--text); }
+    .nav-left a:hover { color: var(--white); }
+    nav.scrolled .nav-left a:hover { color: var(--walnut); }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-logo { color: var(--text); }
+
+    .nav-right {
+      display: flex;
+      justify-content: flex-end;
+      gap: 28px;
+    }
+
+    .nav-right a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-right a { color: var(--text); }
+    .nav-right a:hover { color: var(--white); }
+    nav.scrolled .nav-right a:hover { color: var(--walnut); }
+
+    /* ═══════════════════════════════════
+       RECIPE HERO
+    ═══════════════════════════════════ */
+    .recipe-hero {
+      position: relative;
+      min-height: 85vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .recipe-hero-image {
+      position: relative;
+      background: var(--walnut);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .recipe-hero-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .recipe-hero-image .placeholder {
+      font-size: 13px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    .recipe-hero-content {
+      background: var(--walnut);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 80px 80px;
+    }
+
+    .recipe-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 40px;
+    }
+
+    .recipe-breadcrumb a {
+      color: var(--brass);
+      transition: color 0.2s;
+    }
+
+    .recipe-breadcrumb a:hover { color: var(--white); }
+
+    .recipe-breadcrumb .sep { opacity: 0.4; }
+
+    .recipe-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      border: 1px solid rgba(212,168,67,0.3);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      align-self: flex-start;
+    }
+
+    .recipe-hero-title {
+      font-size: clamp(36px, 4.5vw, 52px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .recipe-hero-desc {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--brass);
+      font-weight: 300;
+      max-width: 400px;
+      margin-bottom: 40px;
+    }
+
+    .recipe-meta {
+      display: flex;
+      gap: 32px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .recipe-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .recipe-meta-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .recipe-meta-value {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════
+       RECIPE BODY
+    ═══════════════════════════════════ */
+    .recipe-body {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Ingredients sidebar */
+    .recipe-ingredients {
+      padding: 60px 40px;
+      border-right: 1px solid var(--border);
+      position: sticky;
+      top: 64px;
+      align-self: start;
+    }
+
+    .recipe-ingredients h3 {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ingredient-group {
+      margin-bottom: 32px;
+    }
+
+    .ingredient-group-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .ingredient-list {
+      list-style: none;
+    }
+
+    .ingredient-list li {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      font-weight: 300;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .ingredient-list li:last-child { border-bottom: none; }
+
+    .ingredient-amount {
+      color: var(--text);
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    /* Method steps */
+    .recipe-method {
+      padding: 60px 60px 60px 60px;
+    }
+
+    .recipe-method h3 {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .method-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0;
+      margin-bottom: 0;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .method-step:last-of-type { border-bottom: none; }
+
+    .step-number {
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--brass);
+      line-height: 1.4;
+    }
+
+    .step-content h4 {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════
+       PRO TIP
+    ═══════════════════════════════════ */
+    .pro-tip {
+      background: var(--bg-warm);
+      margin: 0 40px;
+      padding: 48px 60px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .pro-tip-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--walnut);
+      padding: 6px 16px;
+      border: 1px solid var(--walnut);
+      border-radius: 100px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .pro-tip-content p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .pro-tip-content p + p {
+      margin-top: 12px;
+    }
+
+    /* ═══════════════════════════════════
+       SPLIT IMAGE BREAK
+    ═══════════════════════════════════ */
+    .recipe-image-break {
+      margin: 60px 40px;
+      aspect-ratio: 21/9;
+      background: var(--bg-warm);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .recipe-image-break img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .recipe-image-break .placeholder {
+      font-size: 13px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════════════
+       PAIRING
+    ═══════════════════════════════════ */
+    .pairing-section {
+      padding: 60px 40px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pairing-header {
+      margin-bottom: 40px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pairing-header h3 {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .pairing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .pairing-item {
+      padding: 28px 32px 28px 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .pairing-item:last-child { border-right: none; padding-right: 0; }
+
+    .pairing-item h4 {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .pairing-item p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════
+       MORE RECIPES
+    ═══════════════════════════════════ */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 40px;
+    }
+
+    .more-recipes {
+      padding: 80px 40px;
+    }
+
+    .more-recipes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .more-recipes-header h2 {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--text);
+    }
+
+    .more-recipes-header a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--text-secondary);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .more-recipes-header a:hover {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    .recipes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .recipe-card {
+      padding: 0 24px;
+      border-right: 1px solid var(--border);
+      display: block;
+    }
+
+    .recipe-card:first-child { padding-left: 0; }
+    .recipe-card:last-child { border-right: none; padding-right: 0; }
+
+    .recipe-card-image {
+      aspect-ratio: 4/3;
+      background: var(--bg-warm);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .recipe-card-image .placeholder {
+      font-size: 12px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+
+    .recipe-card .card-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+
+    .recipe-card h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .recipe-card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .recipe-card .link-arrow {
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .recipe-card .link-arrow:hover {
+      color: var(--walnut);
+      border-color: var(--walnut);
+    }
+
+    /* ═══════════════════════════════════
+       COMMUNITY / CTA
+    ═══════════════════════════════════ */
+    .community {
+      background: var(--walnut);
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .community h2 {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .community p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--brass);
+      font-weight: 300;
+    }
+
+    .community-form {
+      display: flex;
+      gap: 12px;
+    }
+
+    .community-form input {
+      flex: 1;
+      padding: 14px 20px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .community-form input::placeholder { color: var(--brass); }
+    .community-form input:focus { border-color: var(--brass); }
+
+    .community-form button {
+      padding: 14px 28px;
+      background: var(--white);
+      color: var(--walnut);
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .community-form button:hover {
+      background: var(--brass);
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    footer {
+      padding: 60px 40px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 20px;
+      max-width: 260px;
+    }
+
+    .footer-socials { display: flex; gap: 20px; }
+
+    .footer-socials a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover { color: var(--walnut); }
+
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--walnut); }
+
+    .footer-bottom {
+      padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .recipe-hero { grid-template-columns: 1fr; min-height: auto; }
+      .recipe-hero-image { min-height: 50vh; }
+      .recipe-hero-content { padding: 60px 40px; }
+      .recipe-body { grid-template-columns: 1fr; }
+      .recipe-ingredients {
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .recipe-method { padding: 60px 40px; }
+      .pairing-grid { grid-template-columns: 1fr; }
+      .pairing-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 20px 0;
+      }
+      .pairing-item:last-child { border-bottom: none; }
+      .recipes-grid { grid-template-columns: 1fr; }
+      .recipe-card {
+        padding: 0 0 32px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 32px;
+      }
+      .recipe-card:last-child { border-bottom: none; margin-bottom: 0; }
+      .community { grid-template-columns: 1fr; gap: 40px; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .pro-tip {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin: 0 20px;
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .nav-left, .nav-right { gap: 16px; }
+      .recipe-hero-content { padding: 40px 20px; }
+      .recipe-ingredients { padding: 40px 20px; }
+      .recipe-method { padding: 40px 20px; }
+      .recipe-meta { flex-wrap: wrap; gap: 20px; }
+      .pairing-section { padding: 40px 20px; }
+      .more-recipes { padding: 60px 20px; }
+      .community { padding: 60px 20px; }
+      footer { grid-template-columns: 1fr; padding: 40px 20px; gap: 32px; }
+      .footer-bottom { padding: 20px; flex-direction: column; gap: 8px; }
+      .community-form { flex-direction: column; }
+      .divider { margin: 0 20px; }
+      .recipe-image-break { margin: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html#products">Shop</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#recipes">Recipes</a>
+  </div>
+  <a href="index.html" class="nav-logo">Bon Apperoo</a>
+  <div class="nav-right">
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ RECIPE HERO ═══════════════ -->
+<section class="recipe-hero">
+  <div class="recipe-hero-image">
+    <span class="placeholder">Smoked Old Fashioned Hero Image</span>
+  </div>
+  <div class="recipe-hero-content">
+    <div class="recipe-breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="index.html#recipes">Recipes</a>
+      <span class="sep">/</span>
+      <span>Smoked Old Fashioned</span>
+    </div>
+    <span class="recipe-tag">Cocktail</span>
+    <h1 class="recipe-hero-title">Smoked<br>Old Fashioned</h1>
+    <p class="recipe-hero-desc">The quintessential smoked cocktail. Rich bourbon, aromatic bitters, and a blanket of hickory smoke transform a timeless classic into something truly theatrical.</p>
+    <div class="recipe-meta">
+      <div class="recipe-meta-item">
+        <span class="recipe-meta-label">Prep Time</span>
+        <span class="recipe-meta-value">5 min</span>
+      </div>
+      <div class="recipe-meta-item">
+        <span class="recipe-meta-label">Smoke Time</span>
+        <span class="recipe-meta-value">1–2 min</span>
+      </div>
+      <div class="recipe-meta-item">
+        <span class="recipe-meta-label">Serves</span>
+        <span class="recipe-meta-value">1</span>
+      </div>
+      <div class="recipe-meta-item">
+        <span class="recipe-meta-label">Difficulty</span>
+        <span class="recipe-meta-value">Easy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ RECIPE BODY ═══════════════ -->
+<div class="recipe-body">
+
+  <!-- Ingredients sidebar -->
+  <aside class="recipe-ingredients reveal">
+    <h3>Ingredients</h3>
+
+    <div class="ingredient-group">
+      <div class="ingredient-group-title">Cocktail</div>
+      <ul class="ingredient-list">
+        <li>
+          <span>Bourbon whiskey</span>
+          <span class="ingredient-amount">60 ml</span>
+        </li>
+        <li>
+          <span>Simple syrup</span>
+          <span class="ingredient-amount">10 ml</span>
+        </li>
+        <li>
+          <span>Angostura bitters</span>
+          <span class="ingredient-amount">2 dashes</span>
+        </li>
+        <li>
+          <span>Orange peel</span>
+          <span class="ingredient-amount">1 strip</span>
+        </li>
+        <li>
+          <span>Luxardo cherry</span>
+          <span class="ingredient-amount">1</span>
+        </li>
+        <li>
+          <span>Large ice cube or sphere</span>
+          <span class="ingredient-amount">1</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="ingredient-group">
+      <div class="ingredient-group-title">For smoking</div>
+      <ul class="ingredient-list">
+        <li>
+          <span>Hickory wood chips</span>
+          <span class="ingredient-amount">1 pinch</span>
+        </li>
+        <li>
+          <span>Bon Apperoo Smoker</span>
+          <span class="ingredient-amount">1 Glass</span>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Method -->
+  <div class="recipe-method reveal">
+    <h3>Method</h3>
+
+    <div class="method-step">
+      <span class="step-number">01</span>
+      <div class="step-content">
+        <h4>Prepare the glass</h4>
+        <p>Place a large ice cube or sphere into a rocks glass. A single, large piece of ice melts slowly and keeps the drink cold without diluting it too quickly.</p>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="step-number">02</span>
+      <div class="step-content">
+        <h4>Mix the cocktail</h4>
+        <p>In a mixing glass, combine the bourbon, simple syrup, and two dashes of Angostura bitters. Stir gently with a bar spoon for about 20 seconds — you want it chilled and integrated, not bruised.</p>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="step-number">03</span>
+      <div class="step-content">
+        <h4>Strain over ice</h4>
+        <p>Strain the mixture over the large ice cube in your rocks glass. The liquid should settle cleanly around the ice.</p>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="step-number">04</span>
+      <div class="step-content">
+        <h4>Load the smoker</h4>
+        <p>Place a pinch of hickory wood chips into the Bon Apperoo 1 Glass Smoker bowl. Position the smoker on top of the glass, creating a seal.</p>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="step-number">05</span>
+      <div class="step-content">
+        <h4>Smoke it</h4>
+        <p>Light the wood chips and let the smoke fill the glass for 1–2 minutes. The smoke will infuse into the liquid and cling to the ice, building layers of aroma. Remove the smoker when the glass is opaque with smoke.</p>
+      </div>
+    </div>
+
+    <div class="method-step">
+      <span class="step-number">06</span>
+      <div class="step-content">
+        <h4>Garnish and serve</h4>
+        <p>Express the orange peel over the glass by squeezing it skin-side down, releasing the citrus oils into the smoke. Drop the peel and a Luxardo cherry into the glass. Serve immediately while the smoke still lingers.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ PRO TIP ═══════════════ -->
+<div class="pro-tip reveal">
+  <span class="pro-tip-label">Pro Tip</span>
+  <div class="pro-tip-content">
+    <p>For a richer smoke profile, try cherry or apple wood chips instead of hickory. Cherry adds a subtle sweetness that pairs beautifully with bourbon's caramel notes, while apple gives a lighter, fruitier smoke.</p>
+    <p>For an extra theatrical serve, trap the smoke under a glass cloche at the table and lift it in front of your guests.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ IMAGE BREAK ═══════════════ -->
+<div class="recipe-image-break reveal">
+  <span class="placeholder">Lifestyle Image — Smoked Old Fashioned being served</span>
+</div>
+
+<!-- ═══════════════ PAIRINGS ═══════════════ -->
+<div class="pairing-section reveal">
+  <div class="pairing-header">
+    <h3>Pairs well with</h3>
+  </div>
+  <div class="pairing-grid">
+    <div class="pairing-item">
+      <h4>Smoked Charcuterie Board</h4>
+      <p>Aged salami, prosciutto, and smoked gouda — the smoky flavours in the cocktail echo beautifully against cured meats and sharp cheeses.</p>
+    </div>
+    <div class="pairing-item">
+      <h4>Dark Chocolate</h4>
+      <p>A square of 70% dark chocolate with sea salt. The bitterness and depth complement the bourbon's warmth and the smoke's earthiness.</p>
+    </div>
+    <div class="pairing-item">
+      <h4>Smoked Nuts</h4>
+      <p>Candied pecans or hickory-smoked almonds make an effortless bar snack that reinforces the cocktail's smoky character.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ MORE RECIPES ═══════════════ -->
+<div class="more-recipes">
+  <div class="more-recipes-header">
+    <h2>More recipes to explore</h2>
+    <a href="index.html#recipes">View all</a>
+  </div>
+  <div class="recipes-grid">
+    <a class="recipe-card reveal" href="#">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="card-tag">Appetiser</div>
+      <h3>Smoked Cheese Dip</h3>
+      <p>A rich, creamy dip elevated with real wood smoke — perfect for gatherings and charcuterie boards.</p>
+      <span class="link-arrow">View recipe</span>
+    </a>
+    <a class="recipe-card reveal" href="#">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="card-tag">Appetiser</div>
+      <h3>Smoked Deviled Eggs</h3>
+      <p>Classic deviled eggs with a subtle smoky twist using cherry wood chips for added depth.</p>
+      <span class="link-arrow">View recipe</span>
+    </a>
+    <a class="recipe-card reveal" href="#">
+      <div class="recipe-card-image">
+        <span class="placeholder">Recipe Image</span>
+      </div>
+      <div class="card-tag">Dessert</div>
+      <h3>Smoked Chocolate Mousse</h3>
+      <p>Decadent dark chocolate mousse finished with a whisper of cherry wood smoke for an unforgettable finale.</p>
+      <span class="link-arrow">View recipe</span>
+    </a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ COMMUNITY ═══════════════ -->
+<div class="community">
+  <div>
+    <h2>Join our community for new products, recipes, and discounts</h2>
+    <p>Want even more recipes or discounts on our sophisticated indoor culinary smokers? Of course you do! All you have to do is join our community.</p>
+  </div>
+  <form class="community-form" onsubmit="event.preventDefault()">
+    <input type="email" placeholder="Email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-brand">
+    <p>Born from backyard chaos, built for flavour. Safe, simple smokers for unforgettable meals.</p>
+    <div class="footer-socials">
+      <a href="https://instagram.com/culinarysmokers">Instagram</a>
+      <a href="https://facebook.com/culinarysmokers">Facebook</a>
+      <a href="https://youtube.com/@BonApperoo">YouTube</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h5>Shop</h5>
+    <a href="#">1 Glass Smoker</a>
+    <a href="#">2 Glass Smoker</a>
+    <a href="#">4 Glass Smoker</a>
+    <a href="#">Wood Chips</a>
+  </div>
+  <div class="footer-col">
+    <h5>Explore</h5>
+    <a href="#">Recipes</a>
+    <a href="#">About Us</a>
+    <a href="#">Our Story</a>
+  </div>
+  <div class="footer-col">
+    <h5>Support</h5>
+    <a href="mailto:support@bonapperoo.com">Contact Us</a>
+    <a href="#">Shipping</a>
+    <a href="#">Returns</a>
+    <a href="mailto:support@bonapperoo.com">support@bonapperoo.com</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>&copy; 2026 Bon Apperoo&trade;. All Rights Reserved.</p>
+  <p>Designed with care.</p>
+</div>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+  // Nav: switch to solid background on scroll
+  const nav = document.querySelector('nav');
+  const hero = document.querySelector('.recipe-hero');
+  const navObserver = new IntersectionObserver(([entry]) => {
+    nav.classList.toggle('scrolled', !entry.isIntersecting);
+  }, { threshold: 0 });
+  navObserver.observe(hero);
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
