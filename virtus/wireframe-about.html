@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus / About Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wire-bg: #FFFFFF;
+      --wire-surface: #F4F4F2;
+      --wire-border: #D4D4D0;
+      --wire-text: #1A1A1A;
+      --wire-text-secondary: #6B6B6B;
+      --wire-text-tertiary: #999999;
+      --wire-placeholder: #E8E8E5;
+      --wire-accent: #1A1A1A;
+      --wire-max: 1200px;
+      --wire-gutter: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--wire-text); background: var(--wire-bg); -webkit-font-smoothing: antialiased; }
+
+    .container { max-width: var(--wire-max); margin: 0 auto; padding: 0 var(--wire-gutter); }
+    section { position: relative; }
+    .placeholder-img { background: var(--wire-placeholder); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--wire-text-tertiary); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ── Header ── */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--wire-border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .header-left { display: flex; align-items: center; gap: 48px; }
+    .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--wire-text); text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--wire-text-secondary); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--wire-text); }
+    .nav-links a.active { color: var(--wire-text); font-weight: 600; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .btn-secondary { font-size: 13px; font-weight: 500; color: var(--wire-text); text-decoration: none; padding: 8px 16px; border: 1px solid var(--wire-border); border-radius: 6px; transition: all 0.2s; display: inline-block; }
+    .btn-secondary:hover { background: var(--wire-surface); }
+    .btn-primary { font-size: 13px; font-weight: 600; color: #fff; background: var(--wire-accent); text-decoration: none; padding: 8px 20px; border-radius: 6px; border: none; cursor: pointer; transition: opacity 0.2s; display: inline-block; }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--wire-text-tertiary); margin-bottom: 12px; }
+    .section-title { font-size: 38px; font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--wire-text); }
+    .section-title strong { font-weight: 600; }
+
+    /* ════════════════════════════════════
+       HERO
+    ════════════════════════════════════ */
+    .hero { padding: 100px 0 80px; background: var(--wire-surface); border-bottom: 1px solid var(--wire-border); }
+    .hero-inner { max-width: 720px; }
+    .hero h1 { font-size: 48px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 24px; }
+    .hero h1 strong { font-weight: 600; }
+    .hero-body { font-size: 18px; font-weight: 400; line-height: 1.55; color: var(--wire-text-secondary); max-width: 600px; }
+
+    /* ════════════════════════════════════
+       STORY
+    ════════════════════════════════════ */
+    .story { padding: 96px 0; border-bottom: 1px solid var(--wire-border); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .story-content h2 { font-size: 38px; font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 24px; }
+    .story-content h2 strong { font-weight: 600; }
+    .story-content p { font-size: 16px; font-weight: 400; line-height: 1.65; color: var(--wire-text-secondary); margin-bottom: 20px; }
+    .story-image { width: 100%; aspect-ratio: 4/3; border-radius: 12px; }
+
+    /* ════════════════════════════════════
+       VALUES
+    ════════════════════════════════════ */
+    .values { padding: 96px 0; background: var(--wire-surface); border-bottom: 1px solid var(--wire-border); }
+    .values-header { text-align: center; margin-bottom: 48px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .value-card { background: #fff; border-radius: 10px; padding: 36px 28px; border: 1px solid var(--wire-placeholder); }
+    .value-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .value-card p { font-size: 14px; font-weight: 400; line-height: 1.6; color: var(--wire-text-secondary); }
+
+    /* ════════════════════════════════════
+       TEAM
+    ════════════════════════════════════ */
+    .team { padding: 96px 0; border-bottom: 1px solid var(--wire-border); }
+    .team-header { margin-bottom: 48px; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .team-card { text-align: center; }
+    .team-avatar { width: 100%; aspect-ratio: 1/1; border-radius: 8px; margin-bottom: 16px; }
+    .team-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .team-role { font-size: 13px; color: var(--wire-text-secondary); margin-bottom: 2px; }
+    .team-sector { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wire-text-tertiary); }
+
+    /* ════════════════════════════════════
+       STATS BAR
+    ════════════════════════════════════ */
+    .stats-bar { padding: 48px 0; background: var(--wire-surface); border-bottom: 1px solid var(--wire-border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .stat-item { text-align: center; }
+    .stat-number { font-size: 42px; font-weight: 300; letter-spacing: -0.03em; color: var(--wire-text); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wire-text-tertiary); }
+
+    /* ════════════════════════════════════
+       CTA BAND
+    ════════════════════════════════════ */
+    .cta-band { padding: 80px 0; border-bottom: 1px solid var(--wire-border); }
+    .cta-inner { text-align: center; max-width: 640px; margin: 0 auto; }
+    .cta-inner h2 { font-size: 42px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+    .cta-inner h2 strong { font-weight: 600; }
+    .cta-inner p { font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--wire-text-secondary); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+    .cta-buttons .btn-primary, .cta-buttons .btn-secondary { font-size: 15px; padding: 14px 28px; border-radius: 8px; }
+
+    /* ── Footer ── */
+    .site-footer { padding: 64px 0 32px; background: var(--wire-text); color: rgba(255,255,255,0.5); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .logo { color: #fff; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.4); max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: rgba(255,255,255,0.8); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-copyright { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25); text-decoration: none; }
+
+
+    /* ════════════════════════════════════
+       TABLET
+    ════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .header-inner { height: 60px; }
+      .header-left { gap: 24px; }
+      .nav-links { display: none; }
+      .logo { font-size: 20px; }
+
+      .hero { padding: 80px 0 48px; }
+      .hero h1 { font-size: 32px; line-height: 1.15; }
+      .hero-body { font-size: 16px; }
+
+      .section-title { font-size: 30px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .stat-number { font-size: 32px; }
+
+      .story-grid { grid-template-columns: 1fr; }
+      .story-image { display: none; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+
+      .cta-band { padding: 56px 0; }
+      .cta-inner h2 { font-size: 30px; }
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-primary,
+      .cta-buttons .btn-secondary { width: 100%; text-align: center; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ════════════════════════════════════
+       MOBILE
+    ════════════════════════════════════ */
+    @media (max-width: 480px) {
+      :root { --wire-gutter: 16px; }
+
+      .hero h1 { font-size: 26px; }
+      .hero-body { font-size: 15px; }
+
+      .section-title { font-size: 26px; }
+      .stat-number { font-size: 28px; }
+      .team-grid { grid-template-columns: 1fr; }
+
+      .cta-inner h2 { font-size: 26px; }
+      .cta-inner p { font-size: 14px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="wireframe.html" class="logo">Virtus</a>
+        <ul class="nav-links">
+          <li><a href="wireframe-candidates.html">For Candidates</a></li>
+          <li><a href="wireframe-employers.html">For Employers</a></li>
+          <li><a href="wireframe-sectors.html">Sectors</a></li>
+          <li><a href="wireframe-insights.html">Insights</a></li>
+          <li><a href="wireframe-about.html" class="active">About</a></li>
+          <li><a href="wireframe-contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <a href="wireframe-submit-role.html" class="btn-secondary">Submit a Role</a>
+        <a href="wireframe-roles.html" class="btn-primary">Find a Job</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <p class="section-label">About Virtus</p>
+      <h1>Same people. Same track record.<br><strong>Different room.</strong></h1>
+      <p class="hero-body">Virtus is the white-collar recruitment division of Momentum Consulting. Built on twelve years of placing professionals who stay, now with a brand that matches the calibre of the people we place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-content">
+        <p class="section-label">Our Story</p>
+        <h2>Built inside <strong>Momentum Consulting</strong></h2>
+        <p>Momentum Consulting has spent twelve years earning a reputation for recruitment that delivers. Reliable placements. Long-term relationships. People who stay.</p>
+        <p>Virtus is the next chapter — a dedicated white-collar brand with the same consultants, the same network, and the same 92% retention rate. Different name. Same results.</p>
+      </div>
+      <div>
+        <div class="placeholder-img story-image">Image</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="container">
+    <div class="values-header">
+      <p class="section-label">How We Work</p>
+      <h2 class="section-title">Earned credibility. <strong>Not borrowed.</strong></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <h3>Sector depth</h3>
+        <p>Five sectors, not fifty. Every consultant recruits exclusively in one area. They know the market, the salary bands, and the candidates.</p>
+      </div>
+      <div class="value-card">
+        <h3>Retention over fill rate</h3>
+        <p>We measure success at twelve months, not twelve days. 92% of our placements are still in role a year later.</p>
+      </div>
+      <div class="value-card">
+        <h3>Direct relationships</h3>
+        <p>No account managers. No handoffs. You talk to the person doing the search, from brief to placement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div class="container">
+    <div class="team-header">
+      <p class="section-label">Our People</p>
+      <h2 class="section-title">Six consultants. <strong>Five sectors.</strong></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="placeholder-img team-avatar">Photo</div>
+        <div class="team-name">Team Member</div>
+        <div class="team-role">Senior Consultant</div>
+        <div class="team-sector">Finance</div>
+      </div>
+      <div class="team-card">
+        <div class="placeholder-img team-avatar">Photo</div>
+        <div class="team-name">Team Member</div>
+        <div class="team-role">Senior Consultant</div>
+        <div class="team-sector">Technology</div>
+      </div>
+      <div class="team-card">
+        <div class="placeholder-img team-avatar">Photo</div>
+        <div class="team-name">Team Member</div>
+        <div class="team-role">Consultant</div>
+        <div class="team-sector">Legal</div>
+      </div>
+      <div class="team-card">
+        <div class="placeholder-img team-avatar">Photo</div>
+        <div class="team-name">Team Member</div>
+        <div class="team-role">Senior Consultant</div>
+        <div class="team-sector">Human Resources</div>
+      </div>
+      <div class="team-card">
+        <div class="placeholder-img team-avatar">Photo</div>
+        <div class="team-name">Team Member</div>
+        <div class="team-role">Consultant</div>
+        <div class="team-sector">Marketing</div>
+      </div>
+      <div class="team-card">
+        <div class="placeholder-img team-avatar">Photo</div>
+        <div class="team-name">Team Member</div>
+        <div class="team-role">Director</div>
+        <div class="team-sector">All Sectors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Same team. <strong>Sharper brand.</strong></h2>
+      <p>92% retention. 48-hour shortlists. Five sectors. Talk to a consultant who already knows your market.</p>
+      <div class="cta-buttons">
+        <a href="wireframe-submit-role.html" class="btn-primary">Submit a Role</a>
+        <a href="#" class="btn-secondary">Search Roles</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">Virtus</div>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col"><h4>Candidates</h4><ul><li><a href="wireframe-roles.html">Search Jobs</a></li><li><a href="#">Register</a></li><li><a href="#">Career Resources</a></li><li><a href="#">Salary Guide</a></li></ul></div>
+      <div class="footer-col"><h4>Employers</h4><ul><li><a href="#">Submit a Role</a></li><li><a href="#">Our Services</a></li><li><a href="#">Market Reports</a></li><li><a href="#">Case Studies</a></li></ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul><li><a href="#">Finance</a></li><li><a href="#">Technology</a></li><li><a href="#">Legal</a></li><li><a href="#">Human Resources</a></li><li><a href="#">Marketing</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Virtus</a></li><li><a href="#">Our Team</a></li><li><a href="#">Insights</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

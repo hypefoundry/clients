@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus / Contact Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wire-bg: #FFFFFF;
+      --wire-surface: #F4F4F2;
+      --wire-border: #D4D4D0;
+      --wire-text: #1A1A1A;
+      --wire-text-secondary: #6B6B6B;
+      --wire-text-tertiary: #999999;
+      --wire-placeholder: #E8E8E5;
+      --wire-accent: #1A1A1A;
+      --wire-max: 1200px;
+      --wire-gutter: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--wire-text); background: var(--wire-bg); -webkit-font-smoothing: antialiased; }
+
+    .container { max-width: var(--wire-max); margin: 0 auto; padding: 0 var(--wire-gutter); }
+    section { position: relative; }
+    .placeholder-img { background: var(--wire-placeholder); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--wire-text-tertiary); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+    .placeholder-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--wire-placeholder); flex-shrink: 0; }
+
+    /* ── Header ── */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--wire-border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .header-left { display: flex; align-items: center; gap: 48px; }
+    .logo { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--wire-text); text-decoration: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--wire-text-secondary); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--wire-text); }
+    .nav-links a.active { color: var(--wire-text); font-weight: 600; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .btn-secondary { font-size: 13px; font-weight: 500; color: var(--wire-text); text-decoration: none; padding: 8px 16px; border: 1px solid var(--wire-border); border-radius: 6px; transition: all 0.2s; display: inline-block; }
+    .btn-secondary:hover { background: var(--wire-surface); }
+    .btn-primary { font-size: 13px; font-weight: 600; color: #fff; background: var(--wire-accent); text-decoration: none; padding: 8px 20px; border-radius: 6px; border: none; cursor: pointer; transition: opacity 0.2s; display: inline-block; }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--wire-text-tertiary); margin-bottom: 12px; }
+    .section-title { font-size: 38px; font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--wire-text); }
+    .section-title strong { font-weight: 600; }
+
+    /* ════════════════════════════════════
+       HERO
+    ════════════════════════════════════ */
+    .hero { padding: 100px 0 80px; background: var(--wire-surface); border-bottom: 1px solid var(--wire-border); }
+    .hero-inner { max-width: 720px; }
+    .hero h1 { font-size: 48px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 24px; }
+    .hero h1 strong { font-weight: 600; }
+    .hero-body { font-size: 18px; font-weight: 400; line-height: 1.55; color: var(--wire-text-secondary); max-width: 600px; }
+
+    /* ════════════════════════════════════
+       CONTACT GRID
+    ════════════════════════════════════ */
+    .contact-section { padding: 96px 0; border-bottom: 1px solid var(--wire-border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+
+    /* Form */
+    .form-card { background: #fff; border-radius: 12px; padding: 40px; border: 1px solid var(--wire-border); }
+    .form-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 24px; letter-spacing: -0.01em; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--wire-text-tertiary); margin-bottom: 6px; }
+    .form-input { width: 100%; padding: 10px 14px; border: 1px solid var(--wire-border); border-radius: 6px; font-size: 14px; font-family: inherit; color: var(--wire-text); background: #fff; outline: none; transition: border-color 0.2s; }
+    .form-input:focus { border-color: var(--wire-text); }
+    .form-input::placeholder { color: var(--wire-text-tertiary); }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+    .form-card .btn-primary { width: 100%; padding: 14px; font-size: 15px; border-radius: 8px; margin-top: 8px; text-align: center; }
+
+    /* Details */
+    .contact-details h3 { font-size: 20px; font-weight: 600; margin-bottom: 32px; letter-spacing: -0.01em; }
+    .contact-detail { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+    .contact-detail-icon { width: 24px; height: 24px; background: var(--wire-placeholder); border-radius: 6px; flex-shrink: 0; margin-top: 2px; }
+    .contact-detail h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--wire-text-tertiary); margin-bottom: 4px; }
+    .contact-detail p { font-size: 15px; color: var(--wire-text); }
+    .map-placeholder { width: 100%; aspect-ratio: 4/3; border-radius: 12px; margin-top: 32px; }
+
+    /* ════════════════════════════════════
+       SPECIALIST CONTACTS
+    ════════════════════════════════════ */
+    .specialists { padding: 96px 0; background: var(--wire-surface); border-bottom: 1px solid var(--wire-border); }
+    .specialists-header { text-align: center; margin-bottom: 48px; }
+    .specialist-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+    .specialist-card { text-align: center; padding: 24px; background: #fff; border-radius: 10px; border: 1px solid var(--wire-placeholder); }
+    .specialist-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--wire-placeholder); margin: 0 auto 12px; }
+    .specialist-sector { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .specialist-name { font-size: 13px; color: var(--wire-text-secondary); margin-bottom: 2px; }
+    .specialist-email { font-size: 12px; color: var(--wire-text-tertiary); }
+
+    /* ════════════════════════════════════
+       CTA BAND
+    ════════════════════════════════════ */
+    .cta-band { padding: 80px 0; border-bottom: 1px solid var(--wire-border); }
+    .cta-inner { text-align: center; max-width: 640px; margin: 0 auto; }
+    .cta-inner h2 { font-size: 42px; font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+    .cta-inner h2 strong { font-weight: 600; }
+    .cta-inner p { font-size: 16px; font-weight: 400; line-height: 1.5; color: var(--wire-text-secondary); margin-bottom: 32px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+    .cta-buttons .btn-primary { font-size: 15px; padding: 14px 28px; border-radius: 8px; }
+
+    /* ── Footer ── */
+    .site-footer { padding: 64px 0 32px; background: var(--wire-text); color: rgba(255,255,255,0.5); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .logo { color: #fff; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.4); max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: rgba(255,255,255,0.8); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-copyright { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25); text-decoration: none; }
+
+
+    /* ════════════════════════════════════
+       RESPONSIVE — TABLET
+    ════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .header-inner { height: 60px; }
+      .header-left { gap: 24px; }
+      .nav-links { display: none; }
+      .logo { font-size: 20px; }
+
+      .hero { padding: 80px 0 48px; }
+      .hero h1 { font-size: 32px; line-height: 1.15; }
+      .hero-body { font-size: 16px; }
+
+      .section-title { font-size: 30px; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .specialist-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+      .cta-inner h2 { font-size: 30px; }
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-primary { width: 100%; text-align: center; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+
+    /* ════════════════════════════════════
+       RESPONSIVE — MOBILE
+    ════════════════════════════════════ */
+    @media (max-width: 480px) {
+      :root { --wire-gutter: 16px; }
+      .hero h1 { font-size: 26px; }
+      .hero-body { font-size: 15px; }
+      .section-title { font-size: 26px; }
+      .cta-inner h2 { font-size: 26px; }
+      .cta-inner p { font-size: 14px; }
+      .form-card { padding: 24px; }
+      .specialist-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="wireframe.html" class="logo">Virtus</a>
+        <ul class="nav-links">
+          <li><a href="wireframe-candidates.html">For Candidates</a></li>
+          <li><a href="wireframe-employers.html">For Employers</a></li>
+          <li><a href="wireframe-sectors.html">Sectors</a></li>
+          <li><a href="wireframe-insights.html">Insights</a></li>
+          <li><a href="wireframe-about.html">About</a></li>
+          <li><a href="wireframe-contact.html" class="active">Contact</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <a href="wireframe-submit-role.html" class="btn-secondary">Submit a Role</a>
+        <a href="wireframe-roles.html" class="btn-primary">Find a Job</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <p class="section-label">Get in Touch</p>
+      <h1>Talk to a <strong>specialist.</strong></h1>
+      <p class="hero-body">Not a switchboard. Not a chatbot. A specialist consultant who recruits in your sector.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT GRID -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="form-card">
+        <h3>Send us a message</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="jane@company.com.au">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" placeholder="04XX XXX XXX">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">I am a...</label>
+            <select class="form-input" style="appearance: auto;">
+              <option>Select</option>
+              <option>Candidate</option>
+              <option>Employer</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sector</label>
+            <select class="form-input" style="appearance: auto;">
+              <option>Select a sector</option>
+              <option>Accounting &amp; Finance</option>
+              <option>Technology &amp; IT</option>
+              <option>Legal</option>
+              <option>Human Resources</option>
+              <option>Marketing</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="How can we help?"></textarea>
+        </div>
+        <button class="btn-primary">Send Message</button>
+      </div>
+
+      <div class="contact-details">
+        <h3>Or reach out directly</h3>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"></div>
+          <div>
+            <h4>Email</h4>
+            <p>hello@virtus.com.au</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"></div>
+          <div>
+            <h4>Phone</h4>
+            <p>1300 VIRTUS (1300 847 887)</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"></div>
+          <div>
+            <h4>Office</h4>
+            <p>Level 12, 123 Pitt Street<br>Sydney NSW 2000</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon"></div>
+          <div>
+            <h4>Hours</h4>
+            <p>Monday&ndash;Friday, 8:30am&ndash;5:30pm AEST</p>
+          </div>
+        </div>
+        <div class="placeholder-img map-placeholder">Map</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIST CONTACTS -->
+<section class="specialists">
+  <div class="container">
+    <div class="specialists-header">
+      <p class="section-label">Direct Lines</p>
+      <h2 class="section-title">Five sectors. <strong>Five direct lines.</strong></h2>
+    </div>
+    <div class="specialist-grid">
+      <div class="specialist-card">
+        <div class="specialist-avatar"></div>
+        <div class="specialist-sector">Finance</div>
+        <div class="specialist-name">Consultant Name</div>
+        <div class="specialist-email">finance@virtus.com.au</div>
+      </div>
+      <div class="specialist-card">
+        <div class="specialist-avatar"></div>
+        <div class="specialist-sector">Technology</div>
+        <div class="specialist-name">Consultant Name</div>
+        <div class="specialist-email">technology@virtus.com.au</div>
+      </div>
+      <div class="specialist-card">
+        <div class="specialist-avatar"></div>
+        <div class="specialist-sector">Legal</div>
+        <div class="specialist-name">Consultant Name</div>
+        <div class="specialist-email">legal@virtus.com.au</div>
+      </div>
+      <div class="specialist-card">
+        <div class="specialist-avatar"></div>
+        <div class="specialist-sector">HR</div>
+        <div class="specialist-name">Consultant Name</div>
+        <div class="specialist-email">hr@virtus.com.au</div>
+      </div>
+      <div class="specialist-card">
+        <div class="specialist-avatar"></div>
+        <div class="specialist-sector">Marketing</div>
+        <div class="specialist-name">Consultant Name</div>
+        <div class="specialist-email">marketing@virtus.com.au</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Need to fill <strong>a role?</strong></h2>
+      <p>Submit your brief. A sector specialist — not an account manager — will call you within 24 hours.</p>
+      <div class="cta-buttons">
+        <a href="wireframe-submit-role.html" class="btn-primary">Submit a Role</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">Virtus</div>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col"><h4>Candidates</h4><ul><li><a href="wireframe-roles.html">Search Jobs</a></li><li><a href="#">Register</a></li><li><a href="#">Career Resources</a></li><li><a href="#">Salary Guide</a></li></ul></div>
+      <div class="footer-col"><h4>Employers</h4><ul><li><a href="#">Submit a Role</a></li><li><a href="#">Our Services</a></li><li><a href="#">Market Reports</a></li><li><a href="#">Case Studies</a></li></ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul><li><a href="#">Finance</a></li><li><a href="#">Technology</a></li><li><a href="#">Legal</a></li><li><a href="#">Human Resources</a></li><li><a href="#">Marketing</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Virtus</a></li><li><a href="#">Our Team</a></li><li><a href="#">Insights</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

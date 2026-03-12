@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus / Brand Positioning &amp; Direction</title>
+  <link rel="icon" type="image/png" href="assets/hf-brandsymbol.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111111;
+      --secondary: #303030;
+      --tertiary: #777777;
+      --divider: #EDEDED;
+      --paper: #FFFFFF;
+      --accent: #C8FF00;
+      --cover-bg: #F0F0F0;
+      --cover-shape: #E2E1DE;
+      --black: #111111;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media print {
+      .slide { page-break-after: always; height: 100vh !important; }
+      .slide:last-child { page-break-after: avoid; }
+    }
+
+    /* ── Base slide ── */
+    .slide {
+      width: 100%; height: 100vh;
+      position: relative; overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    /* ── Shared header ── */
+    .slide-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px; z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .hf-bolt { height: 26px; width: auto; flex-shrink: 0; }
+    .header-center {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .header-right {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+    }
+
+    /* ── Shared top-content ── */
+    .top-content {
+      position: absolute; top: 100px; left: 36px; right: 36px; bottom: 36px;
+      display: flex; flex-direction: column; justify-content: space-between; z-index: 2;
+    }
+    .section-descriptions { display: flex; gap: 24px; margin-bottom: 32px; }
+    .section-description { max-width: 720px; }
+    .section-description p {
+      font-size: 30px; font-weight: 400; line-height: 1.4;
+      color: var(--secondary); letter-spacing: -0.015em; margin-bottom: 0;
+    }
+
+    /* ════════════════════════════════════
+       COVER
+    ════════════════════════════════════ */
+    .slide-cover {
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
+    }
+    .cover-logo { position: absolute; top: 36px; left: 36px; }
+    .cover-logo .hf-bolt { height: 27px; }
+    .cover-title { position: absolute; bottom: 36px; left: 36px; }
+    .cover-label {
+      font-size: 15px; font-weight: 700; color: var(--black);
+      letter-spacing: 0.06em; margin-bottom: 12px; display: block;
+    }
+    .cover-title h1 {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 120px; font-weight: 600; color: var(--black);
+      letter-spacing: -0.03em; line-height: 1.0;
+    }
+
+    /* ════════════════════════════════════
+       DIVIDER
+    ════════════════════════════════════ */
+    .slide-divider { background: var(--cover-shape); }
+    .divider-content {
+      position: absolute; left: 36px; bottom: 36px;
+      max-width: 720px; z-index: 2;
+    }
+    .divider-title {
+      font-size: 52px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;
+    }
+    .divider-body {
+      font-size: 20px; font-weight: 400; line-height: 1.5;
+      color: var(--secondary); letter-spacing: -0.01em;
+    }
+    .divider-body + .divider-body { margin-top: 16px; }
+    .divider-body-lg {
+      font-size: 24px; font-weight: 400; line-height: 1.5;
+      color: var(--secondary); letter-spacing: -0.01em;
+    }
+
+    /* ── Dark theme modifier ── */
+    .slide-dark { background: var(--primary) !important; }
+    .slide-dark .divider-title { color: #E2E1DE; }
+    .slide-dark .divider-body,
+    .slide-dark .divider-body-lg { color: rgba(255,255,255,0.55); }
+    .slide-dark .concept-num { color: rgba(255,255,255,0.3); }
+    .slide-dark .header-center,
+    .slide-dark .header-right { color: rgba(255,255,255,0.25); }
+    .slide-dark .step-num { color: rgba(255,255,255,0.35); }
+    .slide-dark .step-text { color: rgba(255,255,255,0.55); }
+    .slide-dark .concept-big-num { color: rgba(255,255,255,0.08); }
+
+    /* ── Concept theme modifiers ── */
+
+    /* Navy theme */
+    .slide-navy { background: #0D1B2A !important; }
+    .slide-navy .divider-title { color: #E2E1DE; }
+    .slide-navy .divider-body { color: rgba(255,255,255,0.5); }
+    .slide-navy .concept-num { color: rgba(255,255,255,0.25); }
+    .slide-navy .concept-big-num { color: rgba(255,255,255,0.06); }
+    .slide-navy .header-center,
+    .slide-navy .header-right { color: rgba(255,255,255,0.2); }
+    .slide-navy .rec-badge { color: var(--black); }
+
+    /* Direction 1 — Established Authority: warm stone/heritage */
+    .slide-direction-1 { background: #3B3028 !important; }
+    .slide-direction-1 .divider-title { color: #E8DFD3; }
+    .slide-direction-1 .divider-body { color: rgba(232,223,211,0.55); }
+    .slide-direction-1 .concept-num { color: rgba(232,223,211,0.3); }
+    .slide-direction-1 .concept-big-num { color: rgba(232,223,211,0.06); }
+    .slide-direction-1 .header-center,
+    .slide-direction-1 .header-right { color: rgba(232,223,211,0.25); }
+    .slide-direction-1 .rec-badge { color: #3B3028; background: #C9B99A; }
+    .slide-direction-1 .concept-big-num { color: rgba(201,185,154,0.12); }
+
+    /* Direction 2 — Earned Authority: deep green/editorial */
+    .slide-direction-2 { background: #0F3D2B !important; }
+    .slide-direction-2 .divider-title { color: #E8F0EC; }
+    .slide-direction-2 .divider-body { color: rgba(232,240,236,0.55); }
+    .slide-direction-2 .concept-num { color: rgba(232,240,236,0.3); }
+    .slide-direction-2 .concept-big-num { color: rgba(232,240,236,0.06); }
+    .slide-direction-2 .header-center,
+    .slide-direction-2 .header-right { color: rgba(232,240,236,0.25); }
+    .slide-direction-2 .rec-badge { color: #0F3D2B; background: #5EE89D; }
+    .slide-direction-2 .concept-big-num { color: rgba(94,232,157,0.1); }
+
+    /* ════════════════════════════════════
+       INTERNAL (grey bg)
+    ════════════════════════════════════ */
+    .slide-internal { background: var(--cover-shape); }
+    .slide-internal-alt { background: #EAEAE7 !important; }
+
+    /* Moodboard slide tinted backgrounds */
+    .slide-moodboard-1 { background: #E8E0D6 !important; }
+    .slide-moodboard-1 .header-center,
+    .slide-moodboard-1 .header-right { color: #9B8E7E; }
+    .slide-moodboard-2 { background: #E8E8E5 !important; }
+    .slide-moodboard-2 .header-center,
+    .slide-moodboard-2 .header-right { color: var(--tertiary); }
+
+    /* ════════════════════════════════════
+       CONTENT PANELS
+    ════════════════════════════════════ */
+    .content-panel {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 280px;
+      border-radius: 8px; overflow: hidden;
+    }
+    .content-panel img.fill {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    /* ── Full-bleed moodboard panel ── */
+    .content-panel-moodboard {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      border-radius: 8px; overflow: hidden;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .content-panel-moodboard img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      cursor: zoom-in;
+    }
+    .moodboard-hint {
+      position: absolute; bottom: 44px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--secondary);
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding: 5px 14px; border-radius: 100px;
+      pointer-events: none; z-index: 3;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .moodboard-hint svg {
+      width: 10px; height: 10px; flex-shrink: 0;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: grab;
+      overflow: hidden;
+    }
+    .lightbox.active {
+      opacity: 1; pointer-events: all;
+    }
+    .lightbox:active { cursor: grabbing; }
+    .lightbox-img {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 24px; right: 24px; z-index: 1001;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); border: none;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: ''; position: absolute;
+      width: 16px; height: 1.5px; background: #fff;
+    }
+    .lightbox-close::before { transform: rotate(45deg); }
+    .lightbox-close::after { transform: rotate(-45deg); }
+    .lightbox-zoom-hint {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%); z-index: 1001;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      pointer-events: none;
+      transition: opacity 0.5s ease 1.5s;
+    }
+    .lightbox-zoom-hint.hidden { opacity: 0; }
+
+    /* ── Translation cards ── */
+    .content-panel-translate {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
+      align-content: end;
+    }
+    .translate-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
+    }
+    .translate-card {
+      padding: 24px 0 20px; display: flex; flex-direction: column;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .translate-card h3 {
+      font-size: 13px; font-weight: 600; color: var(--black);
+      margin-bottom: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .translate-card p {
+      font-size: 16px; font-weight: 400; line-height: 1.55;
+      color: var(--secondary); margin: 0;
+    }
+
+    /* ── Concept number badge ── */
+    .concept-num {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 16px;
+    }
+
+    /* ── Large concept number (bottom-right) ── */
+    .concept-big-num {
+      position: absolute; bottom: 24px; right: 36px;
+      font-size: 240px; font-weight: 400; line-height: 1;
+      color: var(--accent); letter-spacing: -0.04em;
+      z-index: 2; pointer-events: none;
+    }
+
+    /* ── Recommended badge ── */
+    .rec-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--black); background: var(--accent);
+      padding: 3px 10px; border-radius: 100px;
+      margin-left: 10px; vertical-align: middle;
+    }
+
+    /* ── Moodboard placeholder ── */
+    .moodboard-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: #D8D7D4; border-radius: 8px;
+      font-size: 13px; font-weight: 400; color: var(--tertiary);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════
+       NEXT STEPS LIST
+    ════════════════════════════════════ */
+    .steps-list {
+      margin-top: 28px;
+    }
+    .steps-right {
+      position: absolute; right: 36px; bottom: 36px;
+      z-index: 2;
+    }
+    .step-item {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 12px 0;
+    }
+    .step-num {
+      font-size: 20px; font-weight: 400; color: var(--secondary);
+      letter-spacing: 0.02em; flex-shrink: 0; width: 32px;
+    }
+    .step-text {
+      font-size: 20px; font-weight: 400; color: var(--secondary);
+      line-height: 1.45;
+    }
+
+    /* ════════════════════════════════════
+       OUTRO / CONTACT
+    ════════════════════════════════════ */
+    .slide-outro { background: var(--cover-shape); }
+    .contact-block {
+      position: absolute; left: 36px; right: 36px; bottom: 36px;
+    }
+    .contact-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .contact-row:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .contact-label {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .contact-value {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .outro-tagline {
+      position: absolute; top: 110px; left: 36px; right: 36px;
+      font-size: 42px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.15; max-width: 600px;
+    }
+    .small-device-notice {
+      display: none;
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--cover-shape);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 36px;
+    }
+    .small-device-notice p {
+      font-size: 15px; font-weight: 400; color: var(--tertiary);
+      line-height: 1.5; max-width: 260px;
+    }
+    .small-device-notice .notice-logo {
+      height: 24px; margin-bottom: 32px; opacity: 0.4;
+    }
+    @media (max-width: 1024px) {
+      .small-device-notice { display: flex; }
+      .slide { display: none; }
+    }
+
+    /* ── Slide counter ── */
+    .slide-counter {
+      position: fixed; bottom: 24px; right: 36px; z-index: 100;
+      font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
+      color: rgba(0,0,0,0.25); font-variant-numeric: tabular-nums;
+      transition: color 0.3s ease;
+      pointer-events: none;
+    }
+    .slide-counter.on-dark { color: rgba(255,255,255,0.2); }
+
+    /* ── Entrance fade ── */
+    .entrance-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #E2E1DE;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .entrance-overlay.fade { opacity: 0; }
+  </style>
+</head>
+<body>
+
+<div class="entrance-overlay" id="entrance-overlay"></div>
+<div class="slide-counter" id="slide-counter"></div>
+
+<div class="small-device-notice">
+  <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="notice-logo">
+  <p>This presentation is designed for larger screens. Please view on a desktop or laptop.</p>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 1: COVER
+════════════════════════════════════════════ -->
+<section class="slide slide-cover">
+  <div class="cover-logo">
+    <img class="hf-bolt" src="assets/hf-brandsymbol-large.png" alt="Hype Foundry">
+  </div>
+  <div class="cover-title">
+    <span class="cover-label">VIRTUS</span>
+    <h1>Brand Positioning<br>&amp; Direction</h1>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 2: THE CONTEXT (template: divider)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Positioning</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="divider-content">
+    <h1 class="divider-title">The Context</h1>
+    <p class="divider-body">
+      Fifteen years placing professionals through Momentum Consulting. 92% still in position at the twelve-month mark. Virtus is that track record, given a brand built for the room it operates in.
+    </p>
+    <p class="divider-body">
+      Momentum built its name in blue-collar recruitment. White-collar candidates and hiring managers need to see themselves in the brand they work with. Virtus gives them that.
+    </p>
+    <p class="divider-body" style="font-weight: 500;">
+      Same people. Same track record. Different room.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 3: THE OPPORTUNITY (template: translate)
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Positioning</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="top-content">
+    <div class="section-descriptions">
+      <div class="section-description">
+        <p>
+          Australian white-collar recruitment is, in brand terms, a vacuum. Virtus&rsquo;s opportunity is to be the name that fills it.
+        </p>
+      </div>
+    </div>
+    <div class="translate-grid">
+      <div class="translate-card">
+        <h3>The Market</h3>
+        <p>Hays, Robert Half, Hudson, Randstad, PageGroup. Blue. Sans-serif. Corporate. Interchangeable. The entire sector looks like it was designed by the same person on the same afternoon.</p>
+      </div>
+      <div class="translate-card">
+        <h3>The Opening</h3>
+        <p>people2people is the exception. Genuine brand work, and it shows. But their play is breadth: seven sectors, national presence, warmth at scale. Virtus goes deeper. Five specialist sectors. The name employers and candidates reach for first, because Virtus is right, not because it&rsquo;s everywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 4: WHO VIRTUS IS FOR (template: translate)
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-internal-alt">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Positioning</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="top-content">
+    <div class="section-descriptions">
+      <div class="section-description">
+        <p>
+          Two audiences. One expectation. The recruiter already knows the answer before the call starts.
+        </p>
+      </div>
+    </div>
+    <div class="translate-grid">
+      <div class="translate-card">
+        <h3>The Candidate</h3>
+        <p>White-collar professionals across finance, IT, legal, HR, marketing, and related sectors. People who are performing well in stable roles. They respond to a recruiter who knows their world, respects their time, and has something genuinely relevant to say.</p>
+      </div>
+      <div class="translate-card">
+        <h3>The Client</h3>
+        <p>Mid-market employers who want fewer, better placements. People who stay and perform. They measure success in retention, not fill rate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 5: POSITIONING (template: divider)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Positioning</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num">Positioning</span>
+    <h1 class="divider-title">Built to Deliver.</h1>
+    <p class="divider-body">
+      For the professionals most recruiters struggle to reach. The ones who pick up for someone who knows their sector, respects their time, and has been right before.
+    </p>
+    <p class="divider-body">
+      Specialist depth, backed by a proven track record. The right match, made by someone who already knows both sides of the conversation.
+    </p>
+    <p class="divider-body">
+      Not a promise. A track record. Momentum is the proof. Virtus is what comes next.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 6: BRAND CHARACTER (template: translate)
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-internal-alt">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Positioning</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="top-content">
+    <div class="section-descriptions">
+      <div class="section-description">
+        <p>
+          The brand as a person. Fifteen years in the industry, but doesn&rsquo;t look it.
+        </p>
+      </div>
+    </div>
+    <div class="translate-grid">
+      <div class="translate-card">
+        <h3>Quiet Confidence</h3>
+        <p>Sharp, well-dressed, but comfortable in it. The kind of person who orders confidently at a restaurant without making a performance of it.</p>
+      </div>
+      <div class="translate-card">
+        <h3>Proven Trust</h3>
+        <p>They don&rsquo;t namedrop. When they say &ldquo;I know someone perfect for this,&rdquo; you believe them. Because they&rsquo;ve been right before.</p>
+      </div>
+      <div class="translate-card">
+        <h3>Warm Efficiency</h3>
+        <p>They remember your kid&rsquo;s name from the last conversation, but they&rsquo;re not going to spend twenty minutes on small talk.</p>
+      </div>
+      <div class="translate-card">
+        <h3>Earned Credibility</h3>
+        <p>Came up through the work. Could sit comfortably in a boardroom or at a pub, and you&rsquo;d trust them in both.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 7: BRAND FEELING (template: divider)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Positioning</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num">Brand Feeling</span>
+    <h1 class="divider-title">Assured. Valued.<br>Understood.</h1>
+    <p class="divider-body">
+      The candidate feels known by someone who gets their career. The client feels like they&rsquo;ve found a partner, not a vendor.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 8: TWO DIRECTIONS (template: divider)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Direction</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="divider-content">
+    <h1 class="divider-title">Two Directions</h1>
+    <p class="divider-body">
+      Each rooted in the positioning above. Both are credible paths forward. They differ in how Virtus signals authority: one draws on heritage and provenance, the other on a bold, modern identity system.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 9: DIRECTION 1 COVER (template: divider-concept)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-direction-1">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Established Authority</span>
+    <span class="header-right">Direction 1</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num">Direction 1</span>
+    <h1 class="divider-title">Established Authority</h1>
+    <p class="divider-body">
+      The brand symbol is derived from a Gallic coin featuring Virtus, giving the mark genuine provenance rather than borrowed gravitas. Serif typography, warm stone tones, and a gold crest emblem. The brand feels like it&rsquo;s been in the room for decades.
+    </p>
+    <p class="divider-body">
+      This is a nod to the fifteen-year history behind Virtus. The team built Momentum from the ground up. That heritage is real. Direction 1 makes it visible.
+    </p>
+    <p class="divider-body">
+      The bet: warmth and gravitas signal credibility. The brand looks established without looking corporate. Distinguished, not sterile.
+    </p>
+  </div>
+  <span class="concept-big-num">1</span>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 10: DIRECTION 1 MOODBOARD (template: moodboard)
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-moodboard-1">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Established Authority</span>
+    <span class="header-right">Direction 1</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/moodboard-a.jpg" alt="Direction 1 — Established Authority moodboard" data-lightbox>
+    <span class="moodboard-hint">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3.5"/><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/></svg>
+      Click to explore
+    </span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 11: DIRECTION 2 COVER (template: divider-concept)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-direction-2">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Direction 2</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num">Direction 2</span>
+    <h1 class="divider-title">Earned Authority</h1>
+    <p class="divider-body">
+      Credibility isn&rsquo;t inherited. It&rsquo;s demonstrated. This direction draws from modern, identity-led brands that signal confidence through a strong visual system. A bold green palette, a geometric mark built from shapes in the Momentum brand, clean sans-serif typography, and dark interfaces that feel premium and modern.
+    </p>
+    <p class="divider-body">
+      The connection to Momentum is deliberate. The mark evolves familiar forms into something new, carrying the heritage forward without repeating it.
+    </p>
+    <p class="divider-body">
+      The bet: a distinctive colour and mark system cuts through a sector full of blue-and-grey corporate wallpaper. The brand looks like where the market is heading, not where it&rsquo;s been.
+    </p>
+  </div>
+  <span class="concept-big-num">2</span>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 12: DIRECTION 2 MOODBOARD (template: moodboard)
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-moodboard-2">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Direction 2</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/moodboard-b.jpg" alt="Direction 2 — Earned Authority moodboard" data-lightbox>
+    <span class="moodboard-hint">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3.5"/><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/></svg>
+      Click to explore
+    </span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 13: NEXT STEPS (template: next-steps)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-dark">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Direction</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="divider-content" style="max-width: 480px;">
+    <span class="concept-num">Next Steps</span>
+    <h1 class="divider-title">Choose a Direction.<br>We Handle the Rest.</h1>
+  </div>
+  <div class="steps-right">
+    <div class="steps-list">
+      <div class="step-item">
+        <span class="step-num">01</span>
+        <span class="step-text">Review both directions and share initial thoughts</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">02</span>
+        <span class="step-text">Pick a direction &mdash; or elements from each that resonate</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">03</span>
+        <span class="step-text">Refine the chosen direction into a full brand identity</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num">04</span>
+        <span class="step-text">Brand guidelines delivered, ready to build</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 14: CONTACT / OUTRO (template: contact)
+════════════════════════════════════════════ -->
+<section class="slide slide-outro">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Direction</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="outro-tagline">Thank You.</div>
+  <div class="contact-block">
+    <div class="contact-row">
+      <span class="contact-label">Clark Spendelow</span>
+      <span class="contact-value">Creative Director &amp; Designer</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">hello@hypefoundry.studio</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">0433 061 993</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Lightbox ── -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close"></button>
+  <img class="lightbox-img" id="lightbox-img" draggable="false">
+  <span class="lightbox-zoom-hint" id="lightbox-hint">Scroll to zoom &middot; Drag to pan</span>
+</div>
+
+<script>
+(function() {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbHint = document.getElementById('lightbox-hint');
+
+  let scale = 1, minScale = 0.5, maxScale = 4;
+  let posX = 0, posY = 0;
+  let isDragging = false, startX = 0, startY = 0, startPosX = 0, startPosY = 0;
+  let imgW = 0, imgH = 0;
+
+  function open(src) {
+    const img = new Image();
+    img.onload = function() {
+      imgW = img.naturalWidth;
+      imgH = img.naturalHeight;
+
+      // Fit height to viewport, let width overflow for panning
+      const vh = window.innerHeight * 0.85;
+      scale = vh / imgH;
+      minScale = scale * 0.8;
+      maxScale = scale * 5;
+
+      // Centre vertically, start at left edge with padding
+      posX = 40;
+      posY = (window.innerHeight - imgH * scale) / 2;
+
+      lbImg.src = src;
+      lbImg.style.width = imgW + 'px';
+      lbImg.style.height = imgH + 'px';
+      applyTransform();
+
+      lb.classList.add('active');
+      lbHint.classList.remove('hidden');
+      setTimeout(function() { lbHint.classList.add('hidden'); }, 3000);
+      document.documentElement.style.overflow = 'hidden';
+    };
+    img.src = src;
+  }
+
+  function close() {
+    lb.classList.remove('active');
+    document.documentElement.style.overflow = '';
+  }
+
+  function applyTransform() {
+    lbImg.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+  }
+
+  function clampPosition() {
+    var sw = imgW * scale, sh = imgH * scale;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    if (sw <= vw) {
+      posX = (vw - sw) / 2;
+    } else {
+      if (posX > 40) posX = 40;
+      if (posX < vw - sw - 40) posX = vw - sw - 40;
+    }
+    if (sh <= vh) {
+      posY = (vh - sh) / 2;
+    } else {
+      if (posY > 40) posY = 40;
+      if (posY < vh - sh - 40) posY = vh - sh - 40;
+    }
+  }
+
+  // Click moodboard images to open
+  document.querySelectorAll('[data-lightbox]').forEach(function(img) {
+    img.addEventListener('click', function() { open(img.src); });
+  });
+
+  // Close
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) close();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('active')) close();
+  });
+
+  // Drag to pan
+  lb.addEventListener('mousedown', function(e) {
+    if (e.target === lbClose) return;
+    isDragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startPosX = posX; startPosY = posY;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    posX = startPosX + (e.clientX - startX);
+    posY = startPosY + (e.clientY - startY);
+    clampPosition();
+    applyTransform();
+  });
+  window.addEventListener('mouseup', function() { isDragging = false; });
+
+  // Scroll to zoom (centred on cursor)
+  lb.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var rect = lb.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    var prevScale = scale;
+    var delta = e.deltaY > 0 ? 0.9 : 1.1;
+    scale = Math.min(maxScale, Math.max(minScale, scale * delta));
+
+    // Zoom toward cursor position
+    posX = mx - (mx - posX) * (scale / prevScale);
+    posY = my - (my - posY) * (scale / prevScale);
+    clampPosition();
+    applyTransform();
+  }, { passive: false });
+
+  // Touch support for mobile
+  var lastTouchDist = 0, lastTouchScale = 1;
+  lb.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      startPosX = posX; startPosY = posY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      lastTouchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      lastTouchScale = scale;
+    }
+  }, { passive: false });
+  lb.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDragging) {
+      posX = startPosX + (e.touches[0].clientX - startX);
+      posY = startPosY + (e.touches[0].clientY - startY);
+      clampPosition();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      var dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      scale = Math.min(maxScale, Math.max(minScale, lastTouchScale * (dist / lastTouchDist)));
+      clampPosition();
+      applyTransform();
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', function() { isDragging = false; });
+})();
+</script>
+
+<!-- ── Slide counter ── -->
+<script>
+(function() {
+  var counter = document.getElementById('slide-counter');
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var darkClasses = ['slide-dark', 'slide-direction-1', 'slide-direction-2', 'slide-navy'];
+
+  function update() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var vh = window.innerHeight;
+    var current = Math.round(scrollTop / vh) + 1;
+    if (current > total) current = total;
+    counter.textContent = current + ' / ' + total;
+
+    var activeSlide = slides[current - 1];
+    var isDark = activeSlide && darkClasses.some(function(c) { return activeSlide.classList.contains(c); });
+    counter.classList.toggle('on-dark', isDark);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+<!-- ── Entrance fade ── -->
+<script>
+(function() {
+  window.addEventListener('load', function() {
+    var overlay = document.getElementById('entrance-overlay');
+    if (overlay) {
+      requestAnimationFrame(function() {
+        overlay.classList.add('fade');
+        setTimeout(function() { overlay.remove(); }, 700);
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

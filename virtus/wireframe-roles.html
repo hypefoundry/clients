@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus / Roles Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wire-bg: #FFFFFF;
+      --wire-surface: #F4F4F2;
+      --wire-border: #D4D4D0;
+      --wire-text: #1A1A1A;
+      --wire-text-secondary: #6B6B6B;
+      --wire-text-tertiary: #999999;
+      --wire-placeholder: #E8E8E5;
+      --wire-accent: #1A1A1A;
+      --wire-accent-light: #F0F0EE;
+      --wire-max: 1200px;
+      --wire-gutter: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--wire-text);
+      background: var(--wire-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    .container {
+      max-width: var(--wire-max);
+      margin: 0 auto;
+      padding: 0 var(--wire-gutter);
+    }
+    section { position: relative; }
+
+    .placeholder-img {
+      background: var(--wire-placeholder);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--wire-text-tertiary);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .placeholder-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%; background: var(--wire-placeholder);
+      flex-shrink: 0;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .header-left { display: flex; align-items: center; gap: 48px; }
+    .logo {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--wire-text); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--wire-text-secondary);
+      text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--wire-text); }
+    .nav-links a.active { color: var(--wire-text); font-weight: 600; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .btn-secondary {
+      font-size: 13px; font-weight: 500; color: var(--wire-text);
+      text-decoration: none; padding: 8px 16px;
+      border: 1px solid var(--wire-border); border-radius: 6px;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--wire-surface); }
+    .btn-primary {
+      font-size: 13px; font-weight: 600; color: #fff;
+      background: var(--wire-accent); text-decoration: none;
+      padding: 8px 20px; border-radius: 6px;
+      border: none; cursor: pointer;
+      transition: opacity 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* ── Section helpers ── */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 38px; font-weight: 400; letter-spacing: -0.02em;
+      line-height: 1.15; color: var(--wire-text);
+    }
+    .section-title strong { font-weight: 600; }
+
+    /* ════════════════════════════════════
+       HERO (compact)
+    ════════════════════════════════════ */
+    .hero {
+      padding: 100px 0 48px;
+      background: var(--wire-surface);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .hero-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 48px; font-weight: 400; letter-spacing: -0.03em;
+      line-height: 1.12; color: var(--wire-text);
+      margin-bottom: 16px;
+    }
+    .hero h1 strong { font-weight: 600; }
+    .hero-body {
+      font-size: 18px; font-weight: 400; line-height: 1.55;
+      color: var(--wire-text-secondary); max-width: 600px;
+    }
+
+    /* ── Search & Filter Toolbar ── */
+    .search-toolbar {
+      padding: 32px 0 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .search-bar {
+      background: #fff;
+      border: 1px solid var(--wire-border);
+      border-radius: 12px;
+      padding: 8px;
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 20px;
+    }
+    .search-field {
+      flex: 1; padding: 12px 16px;
+      border: none; outline: none;
+      font-size: 14px; font-family: inherit;
+      color: var(--wire-text); background: transparent;
+    }
+    .search-field::placeholder { color: var(--wire-text-tertiary); }
+    .search-divider { width: 1px; height: 28px; background: var(--wire-border); }
+    .search-bar .btn-primary {
+      padding: 12px 24px; border-radius: 8px;
+      font-size: 14px; white-space: nowrap;
+    }
+    .filter-row {
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+      padding-bottom: 20px;
+    }
+    .filter-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+      margin-right: 4px;
+    }
+    .filter-pill {
+      font-size: 13px; font-weight: 500; color: var(--wire-text-secondary);
+      background: var(--wire-surface);
+      border: 1px solid var(--wire-border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .filter-pill:hover { border-color: var(--wire-text); color: var(--wire-text); }
+    .filter-pill.active {
+      background: var(--wire-accent);
+      color: #fff;
+      border-color: var(--wire-accent);
+    }
+    .filter-count {
+      font-size: 13px; font-weight: 400; color: var(--wire-text-tertiary);
+      margin-left: auto;
+    }
+
+    /* ════════════════════════════════════
+       FEATURED ROLES
+    ════════════════════════════════════ */
+    .featured-section {
+      padding: 48px 0 0;
+    }
+    .featured-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px;
+    }
+    .featured-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+    }
+    .featured-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 0;
+    }
+    .job-card {
+      background: #fff;
+      border: 1px solid var(--wire-border);
+      border-radius: 10px;
+      padding: 28px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s;
+      text-decoration: none; color: inherit;
+      position: relative;
+    }
+    .job-card:hover { border-color: var(--wire-text); }
+    .job-card.featured {
+      padding: 36px;
+      border-color: var(--wire-text);
+    }
+    .job-card.featured .job-title { font-size: 20px; }
+    .job-badge {
+      position: absolute; top: 16px; right: 16px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .job-badge.new {
+      background: #E8F5E9; color: #2E7D32;
+    }
+    .job-badge.closing {
+      background: #FFF3E0; color: #E65100;
+    }
+    .job-badge.pick {
+      background: rgba(26,26,26,0.06); color: var(--wire-text);
+    }
+    .job-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .job-company { font-size: 13px; color: var(--wire-text-secondary); margin-bottom: 4px; }
+    .job-meta { font-size: 12px; color: var(--wire-text-tertiary); margin-bottom: 16px; }
+    .job-posted { font-size: 11px; color: var(--wire-text-tertiary); margin-bottom: 12px; }
+    .job-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: auto; padding-top: 16px;
+      border-top: 1px solid var(--wire-placeholder);
+    }
+    .job-tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--wire-surface); padding: 4px 10px; border-radius: 4px;
+      color: var(--wire-text-secondary);
+    }
+    .job-link {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--wire-text); text-decoration: none;
+    }
+
+    /* ════════════════════════════════════
+       ROLE LISTINGS
+    ════════════════════════════════════ */
+    .roles-section {
+      padding: 48px 0 96px;
+    }
+    .roles-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px;
+    }
+    .roles-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+    }
+    .roles-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 48px;
+    }
+
+    /* ── Empty State ── */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .empty-state h3 {
+      font-size: 22px; font-weight: 600; letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .empty-state p {
+      font-size: 15px; font-weight: 400; line-height: 1.55;
+      color: var(--wire-text-secondary); max-width: 440px;
+      margin: 0 auto 24px;
+    }
+    .empty-state .btn-primary {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+    }
+    .page-btn {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 500; color: var(--wire-text-secondary);
+      border: 1px solid var(--wire-border);
+      border-radius: 8px; background: #fff;
+      text-decoration: none; transition: all 0.2s;
+      cursor: pointer;
+    }
+    .page-btn:hover { border-color: var(--wire-text); color: var(--wire-text); }
+    .page-btn.active {
+      background: var(--wire-accent); color: #fff;
+      border-color: var(--wire-accent);
+    }
+    .page-btn.disabled {
+      opacity: 0.35; pointer-events: none;
+    }
+
+    /* ── Proof Row (inside toolbar) ── */
+    .proof-row {
+      display: flex; justify-content: center; gap: 48px;
+      font-size: 13px; color: var(--wire-text-secondary);
+      padding: 16px 0 20px;
+      border-top: 1px solid var(--wire-placeholder);
+    }
+    .proof-row strong { color: var(--wire-text); }
+
+    /* ════════════════════════════════════
+       CTA BAND
+    ════════════════════════════════════ */
+    .cta-band {
+      padding: 80px 0;
+      background: var(--wire-surface);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .cta-inner {
+      text-align: center; max-width: 640px; margin: 0 auto;
+    }
+    .cta-inner h2 {
+      font-size: 42px; font-weight: 400; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .cta-inner h2 strong { font-weight: 600; }
+    .cta-inner p {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      color: var(--wire-text-secondary); margin-bottom: 32px;
+    }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-secondary {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      padding: 64px 0 32px;
+      background: var(--wire-text); color: rgba(255,255,255,0.5);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .logo { color: #fff; margin-bottom: 16px; }
+    .footer-tagline {
+      font-size: 14px; font-weight: 400; line-height: 1.5;
+      color: rgba(255,255,255,0.4); max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a {
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: rgba(255,255,255,0.8); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-copyright { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a {
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25);
+      text-decoration: none;
+    }
+
+
+    /* ════════════════════════════════════
+       RESPONSIVE — TABLET (≤ 768px)
+    ════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Header */
+      .header-inner { height: 60px; }
+      .header-left { gap: 24px; }
+      .nav-links { display: none; }
+      .logo { font-size: 20px; }
+
+      /* Hero */
+      .hero { padding: 80px 0 36px; }
+      .hero h1 { font-size: 32px; line-height: 1.15; }
+      .hero-body { font-size: 16px; }
+
+      /* Search toolbar */
+      .search-bar {
+        flex-wrap: wrap;
+        border-radius: 10px;
+        gap: 0;
+      }
+      .search-field {
+        flex: 1 1 100%;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--wire-placeholder);
+      }
+      .search-divider { display: none; }
+      .search-bar .btn-primary {
+        width: 100%;
+        padding: 14px;
+        border-radius: 0 0 8px 8px;
+        text-align: center;
+      }
+
+      /* Filter pills — horizontal scroll */
+      .filter-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        padding-bottom: 16px;
+        scrollbar-width: none;
+      }
+      .filter-row::-webkit-scrollbar { display: none; }
+      .filter-pill { white-space: nowrap; flex-shrink: 0; padding: 7px 14px; font-size: 12px; }
+      .filter-label { display: none; }
+      .filter-count { display: none; }
+
+      /* Proof strip */
+      .proof-row {
+        flex-wrap: wrap;
+        gap: 16px 32px;
+        justify-content: flex-start;
+        font-size: 12px;
+      }
+
+      /* Featured grid */
+      .featured-section { padding: 32px 0 0; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .job-card.featured { padding: 28px; }
+      .job-card.featured .job-title { font-size: 17px; }
+
+      /* Job grid */
+      .roles-section { padding: 32px 0 64px; }
+      .roles-grid { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+      .job-card { padding: 20px; }
+      .job-title { font-size: 16px; }
+      .job-badge { top: 12px; right: 12px; }
+
+      /* Pagination */
+      .pagination { gap: 6px; }
+      .page-btn { width: 36px; height: 36px; font-size: 13px; }
+
+      /* CTA */
+      .cta-band { padding: 56px 0; }
+      .cta-inner h2 { font-size: 30px; }
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-primary,
+      .cta-buttons .btn-secondary { width: 100%; text-align: center; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ════════════════════════════════════
+       RESPONSIVE — MOBILE (≤ 480px)
+    ════════════════════════════════════ */
+    @media (max-width: 480px) {
+      :root { --wire-gutter: 16px; }
+
+      .hero { padding: 72px 0 28px; }
+      .hero h1 { font-size: 26px; }
+      .hero-body { font-size: 15px; }
+      .hero-label { font-size: 10px; margin-bottom: 14px; }
+
+      .search-field { padding: 10px 14px; font-size: 14px; }
+
+      .proof-row { gap: 12px 24px; font-size: 11px; }
+
+      .job-card { padding: 16px; }
+      .job-title { font-size: 15px; }
+      .job-meta { font-size: 11px; margin-bottom: 12px; }
+      .job-posted { font-size: 10px; }
+      .job-footer { padding-top: 12px; }
+      .job-tag { font-size: 9px; padding: 3px 8px; }
+      .job-badge { font-size: 8px; padding: 2px 6px; top: 10px; right: 10px; }
+
+      .cta-inner h2 { font-size: 26px; }
+      .cta-inner p { font-size: 14px; }
+
+      .empty-state h3 { font-size: 20px; }
+      .empty-state p { font-size: 14px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="wireframe.html" class="logo">Virtus</a>
+        <ul class="nav-links">
+          <li><a href="wireframe-candidates.html">For Candidates</a></li>
+          <li><a href="wireframe-employers.html">For Employers</a></li>
+          <li><a href="wireframe-sectors.html">Sectors</a></li>
+          <li><a href="wireframe-insights.html">Insights</a></li>
+          <li><a href="wireframe-about.html">About</a></li>
+          <li><a href="wireframe-contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <a href="wireframe-submit-role.html" class="btn-secondary">Submit a Role</a>
+        <a href="wireframe-roles.html" class="btn-primary">Find a Job</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO (compact) -->
+<section class="hero">
+  <div class="container">
+    <p class="hero-label">77 Open Roles</p>
+    <h1>Every role here was placed by <strong>a sector specialist.</strong></h1>
+    <p class="hero-body">No aggregator scraping. No ghost listings. One consultant per sector, and they have already spoken to the hiring manager about salary, culture, and timeline.</p>
+  </div>
+</section>
+
+<!-- SEARCH & FILTER TOOLBAR (consolidated) -->
+<section class="search-toolbar">
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" class="search-field" placeholder="Job title or keyword">
+      <div class="search-divider"></div>
+      <input type="text" class="search-field" placeholder="Location">
+      <div class="search-divider"></div>
+      <select class="search-field" style="max-width: 140px; appearance: auto;">
+        <option>All Types</option>
+        <option>Permanent</option>
+        <option>Contract</option>
+        <option>Temporary</option>
+        <option>Executive</option>
+      </select>
+      <button class="btn-primary">Search</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Sector</span>
+      <a href="#" class="filter-pill active">All Sectors</a>
+      <a href="#" class="filter-pill">Accounting &amp; Finance <span style="opacity: 0.5; margin-left: 4px;">24</span></a>
+      <a href="#" class="filter-pill">Technology &amp; IT <span style="opacity: 0.5; margin-left: 4px;">18</span></a>
+      <a href="#" class="filter-pill">Legal <span style="opacity: 0.5; margin-left: 4px;">12</span></a>
+      <a href="#" class="filter-pill">Human Resources <span style="opacity: 0.5; margin-left: 4px;">9</span></a>
+      <a href="#" class="filter-pill">Marketing <span style="opacity: 0.5; margin-left: 4px;">14</span></a>
+      <span class="filter-count">77 roles</span>
+    </div>
+    <div class="proof-row">
+      <span><strong>92%</strong> still in role at 12 months</span>
+      <span><strong>48hr</strong> brief to first call</span>
+      <span><strong>0</strong> ghost listings</span>
+      <span><strong>5</strong> specialist sectors</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED ROLES -->
+<section class="featured-section">
+  <div class="container">
+    <div class="featured-header">
+      <span class="featured-label">Consultant Picks</span>
+    </div>
+    <div class="featured-grid">
+      <a href="#" class="job-card featured">
+        <span class="job-badge pick">Consultant Pick</span>
+        <div class="job-title">Financial Controller</div>
+        <div class="job-company">Private Equity Portfolio</div>
+        <div class="job-meta">Sydney &middot; $170k&ndash;$200k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 1 day ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Finance</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+      <a href="#" class="job-card featured">
+        <span class="job-badge pick">Consultant Pick</span>
+        <div class="job-title">Cloud Infrastructure Engineer</div>
+        <div class="job-company">Series B Startup</div>
+        <div class="job-meta">Remote (AU) &middot; $150k&ndash;$180k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 2 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Technology</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ROLE LISTINGS -->
+<section class="roles-section">
+  <div class="container">
+    <div class="roles-header">
+      <span class="roles-label">All Roles</span>
+    </div>
+    <div class="roles-grid">
+
+      <a href="#" class="job-card">
+        <span class="job-badge new">New</span>
+        <div class="job-title">Senior Financial Analyst</div>
+        <div class="job-company">Confidential</div>
+        <div class="job-meta">Sydney CBD &middot; $130k&ndash;$150k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 1 day ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Finance</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <span class="job-badge new">New</span>
+        <div class="job-title">IT Project Manager</div>
+        <div class="job-company">ASX-Listed</div>
+        <div class="job-meta">Melbourne &middot; $145k&ndash;$165k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 2 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Technology</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <div class="job-title">In-House Legal Counsel</div>
+        <div class="job-company">Mid-Market</div>
+        <div class="job-meta">Brisbane &middot; $140k&ndash;$160k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 3 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Legal</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <span class="job-badge closing">Closing Soon</span>
+        <div class="job-title">HR Business Partner</div>
+        <div class="job-company">National Retailer</div>
+        <div class="job-meta">Sydney &middot; $120k&ndash;$140k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 5 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Human Resources</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <div class="job-title">Digital Marketing Manager</div>
+        <div class="job-company">B2B SaaS</div>
+        <div class="job-meta">Melbourne &middot; $115k&ndash;$135k + super &middot; Contract</div>
+        <div class="job-posted">Posted 3 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Marketing</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <div class="job-title">Senior Accountant</div>
+        <div class="job-company">Professional Services</div>
+        <div class="job-meta">Perth &middot; $100k&ndash;$120k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 4 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Finance</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <div class="job-title">Corporate Lawyer</div>
+        <div class="job-company">Top-Tier Firm</div>
+        <div class="job-meta">Sydney CBD &middot; $160k&ndash;$200k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 5 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Legal</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <span class="job-badge new">New</span>
+        <div class="job-title">Talent Acquisition Lead</div>
+        <div class="job-company">ASX 200</div>
+        <div class="job-meta">Melbourne &middot; $130k&ndash;$150k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 1 day ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Human Resources</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <div class="job-title">Brand &amp; Communications Manager</div>
+        <div class="job-company">National Brand</div>
+        <div class="job-meta">Sydney &middot; $110k&ndash;$130k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 6 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Marketing</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+      <a href="#" class="job-card">
+        <div class="job-title">Data &amp; Analytics Manager</div>
+        <div class="job-company">Financial Services</div>
+        <div class="job-meta">Melbourne &middot; $140k&ndash;$165k + super &middot; Permanent</div>
+        <div class="job-posted">Posted 4 days ago</div>
+        <div class="job-footer">
+          <span class="job-tag">Technology</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <a href="#" class="page-btn disabled">&larr;</a>
+      <a href="#" class="page-btn active">1</a>
+      <a href="#" class="page-btn">2</a>
+      <a href="#" class="page-btn">3</a>
+      <a href="#" class="page-btn">4</a>
+      <span style="color: var(--wire-text-tertiary); padding: 0 4px;">&hellip;</span>
+      <a href="#" class="page-btn">7</a>
+      <a href="#" class="page-btn">&rarr;</a>
+    </div>
+
+    <!-- EMPTY STATE (hidden by default — shown when filters return 0 results) -->
+    <div class="empty-state" style="display: none;">
+      <h3>No roles match your filters.</h3>
+      <p>We fill 80% of roles through our network before they reach this page. Register and a sector specialist will call you when the right one lands.</p>
+      <a href="#" class="btn-primary">Register for Alerts</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>This is the tip of <strong>the iceberg.</strong></h2>
+      <p>80% of our placements never make it to a listing. Register with Virtus and a sector specialist will call you with roles matched to your experience, salary, and where you want to go.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-primary">Register with Virtus</a>
+        <a href="wireframe-contact.html" class="btn-secondary">Talk to a Consultant</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">Virtus</div>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Candidates</h4>
+        <ul>
+          <li><a href="wireframe-roles.html">Search Jobs</a></li>
+          <li><a href="#">Register</a></li>
+          <li><a href="#">Career Resources</a></li>
+          <li><a href="#">Salary Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Employers</h4>
+        <ul>
+          <li><a href="wireframe-submit-role.html">Submit a Role</a></li>
+          <li><a href="#">Our Services</a></li>
+          <li><a href="#">Market Reports</a></li>
+          <li><a href="#">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sectors</h4>
+        <ul>
+          <li><a href="wireframe-sectors.html">Finance</a></li>
+          <li><a href="wireframe-sectors.html">Technology</a></li>
+          <li><a href="wireframe-sectors.html">Legal</a></li>
+          <li><a href="wireframe-sectors.html">Human Resources</a></li>
+          <li><a href="wireframe-sectors.html">Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="wireframe-about.html">About Virtus</a></li>
+          <li><a href="wireframe-about.html">Our Team</a></li>
+          <li><a href="wireframe-insights.html">Insights</a></li>
+          <li><a href="wireframe-contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

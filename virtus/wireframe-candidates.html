@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus / Candidates Wireframe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wire-bg: #FFFFFF;
+      --wire-surface: #F4F4F2;
+      --wire-border: #D4D4D0;
+      --wire-text: #1A1A1A;
+      --wire-text-secondary: #6B6B6B;
+      --wire-text-tertiary: #999999;
+      --wire-placeholder: #E8E8E5;
+      --wire-accent: #1A1A1A;
+      --wire-accent-light: #F0F0EE;
+      --wire-max: 1200px;
+      --wire-gutter: 24px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--wire-text);
+      background: var(--wire-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    .container {
+      max-width: var(--wire-max);
+      margin: 0 auto;
+      padding: 0 var(--wire-gutter);
+    }
+    section { position: relative; }
+
+    .placeholder-img {
+      background: var(--wire-placeholder);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--wire-text-tertiary);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .placeholder-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%; background: var(--wire-placeholder);
+      flex-shrink: 0;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .header-left { display: flex; align-items: center; gap: 48px; }
+    .logo {
+      font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--wire-text); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--wire-text-secondary);
+      text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--wire-text); }
+    .nav-links a.active { color: var(--wire-text); font-weight: 600; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .btn-secondary {
+      font-size: 13px; font-weight: 500; color: var(--wire-text);
+      text-decoration: none; padding: 8px 16px;
+      border: 1px solid var(--wire-border); border-radius: 6px;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-secondary:hover { background: var(--wire-surface); }
+    .btn-primary {
+      font-size: 13px; font-weight: 600; color: #fff;
+      background: var(--wire-accent); text-decoration: none;
+      padding: 8px 20px; border-radius: 6px;
+      border: none; cursor: pointer;
+      transition: opacity 0.2s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* ── Section helpers ── */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 38px; font-weight: 400; letter-spacing: -0.02em;
+      line-height: 1.15; color: var(--wire-text);
+    }
+    .section-title strong { font-weight: 600; }
+    .section-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 48px;
+    }
+    .section-link {
+      font-size: 13px; font-weight: 500; color: var(--wire-text-secondary);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid var(--wire-border); padding-bottom: 2px;
+    }
+
+    /* ════════════════════════════════════
+       HERO
+    ════════════════════════════════════ */
+    .hero {
+      padding: 100px 0 80px;
+      background: var(--wire-surface);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .hero-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 48px; font-weight: 400; letter-spacing: -0.03em;
+      line-height: 1.12; color: var(--wire-text);
+      margin-bottom: 24px;
+    }
+    .hero h1 strong { font-weight: 600; }
+    .hero-body {
+      font-size: 18px; font-weight: 400; line-height: 1.55;
+      color: var(--wire-text-secondary); max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .hero-ctas { display: flex; gap: 12px; }
+    .hero-ctas .btn-primary,
+    .hero-ctas .btn-secondary {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+    .hero-image {
+      width: 100%; aspect-ratio: 4/3; border-radius: 12px;
+    }
+
+    /* ── Search Bar ── */
+    .search-section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .search-bar {
+      background: #fff;
+      border: 1px solid var(--wire-border);
+      border-radius: 12px;
+      padding: 8px;
+      display: flex; align-items: center; gap: 0;
+    }
+    .search-field {
+      flex: 1; padding: 12px 16px;
+      border: none; outline: none;
+      font-size: 14px; font-family: inherit;
+      color: var(--wire-text); background: transparent;
+    }
+    .search-field::placeholder { color: var(--wire-text-tertiary); }
+    .search-divider { width: 1px; height: 28px; background: var(--wire-border); }
+    .search-bar .btn-primary {
+      padding: 12px 24px; border-radius: 8px;
+      font-size: 14px; white-space: nowrap;
+    }
+
+    /* ════════════════════════════════════
+       STATS BAR
+    ════════════════════════════════════ */
+    .stats-bar {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-size: 42px; font-weight: 300; letter-spacing: -0.03em;
+      color: var(--wire-text); line-height: 1; margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--wire-text-tertiary);
+    }
+
+    /* ════════════════════════════════════
+       FEATURED ROLES
+    ════════════════════════════════════ */
+    .featured-roles {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .jobs-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-bottom: 32px;
+    }
+    .job-card {
+      background: #fff;
+      border: 1px solid var(--wire-border);
+      border-radius: 10px;
+      padding: 28px;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s;
+      text-decoration: none; color: inherit;
+    }
+    .job-card:hover { border-color: var(--wire-text); }
+    .job-title { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .job-company { font-size: 13px; color: var(--wire-text-secondary); margin-bottom: 4px; }
+    .job-meta { font-size: 12px; color: var(--wire-text-tertiary); margin-bottom: 16px; }
+    .job-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--wire-placeholder); }
+    .job-tag {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--wire-surface); padding: 4px 10px; border-radius: 4px;
+      color: var(--wire-text-secondary);
+    }
+    .job-link {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--wire-text); text-decoration: none;
+    }
+    .view-all-link {
+      text-align: center;
+    }
+
+    /* ════════════════════════════════════
+       SECTORS
+    ════════════════════════════════════ */
+    .sectors {
+      padding: 96px 0;
+      background: var(--wire-surface);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .sectors-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
+    }
+    .sector-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 32px 24px;
+      text-decoration: none; color: inherit;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .sector-card:hover { border-color: var(--wire-border); }
+    .sector-icon {
+      width: 40px; height: 40px;
+      background: var(--wire-placeholder);
+      border-radius: 8px; margin-bottom: 16px;
+    }
+    .sector-name { font-size: 15px; font-weight: 600; color: var(--wire-text); margin-bottom: 6px; }
+    .sector-count { font-size: 12px; font-weight: 400; color: var(--wire-text-tertiary); }
+
+    /* ════════════════════════════════════
+       HOW IT WORKS
+    ════════════════════════════════════ */
+    .how-it-works {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px; counter-reset: step;
+    }
+    .step-card { position: relative; padding-top: 48px; }
+    .step-num {
+      position: absolute; top: 0; left: 0;
+      font-size: 36px; font-weight: 200; color: var(--wire-placeholder);
+      line-height: 1; letter-spacing: -0.03em;
+    }
+    .step-card h3 {
+      font-size: 16px; font-weight: 600; margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .step-card p {
+      font-size: 13px; font-weight: 400; line-height: 1.6;
+      color: var(--wire-text-secondary);
+    }
+
+    /* ════════════════════════════════════
+       WHY VIRTUS
+    ════════════════════════════════════ */
+    .why-virtus {
+      padding: 96px 0;
+      background: var(--wire-surface);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .why-content h2 {
+      font-size: 38px; font-weight: 400; letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 20px;
+    }
+    .why-content h2 strong { font-weight: 600; }
+    .why-content > p {
+      font-size: 16px; font-weight: 400; line-height: 1.6;
+      color: var(--wire-text-secondary); margin-bottom: 32px;
+    }
+    .why-list { list-style: none; margin-bottom: 32px; }
+    .why-list li {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 16px 0; border-bottom: 1px solid var(--wire-border);
+    }
+    .why-list li:first-child { border-top: 1px solid var(--wire-border); }
+    .why-num {
+      font-size: 12px; font-weight: 600; color: var(--wire-text-tertiary);
+      letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px;
+    }
+    .why-list-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .why-list-content p {
+      font-size: 13px; font-weight: 400; line-height: 1.5;
+      color: var(--wire-text-secondary);
+    }
+    .why-image {
+      width: 100%; aspect-ratio: 3/4; border-radius: 12px;
+    }
+
+    /* ════════════════════════════════════
+       SALARY GUIDE CTA
+    ════════════════════════════════════ */
+    .salary-cta {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .salary-inner {
+      text-align: center; max-width: 640px; margin: 0 auto;
+    }
+    .salary-inner h2 {
+      font-size: 42px; font-weight: 400; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .salary-inner h2 strong { font-weight: 600; }
+    .salary-inner p {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      color: var(--wire-text-secondary); margin-bottom: 32px;
+    }
+    .salary-buttons { display: flex; gap: 12px; justify-content: center; }
+    .salary-buttons .btn-primary,
+    .salary-buttons .btn-secondary {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+
+    /* ════════════════════════════════════
+       TESTIMONIAL
+    ════════════════════════════════════ */
+    .testimonial-single {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .testimonial-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .testimonial-inner blockquote {
+      font-size: 28px; font-weight: 400; letter-spacing: -0.02em;
+      line-height: 1.4; color: var(--wire-text);
+      margin-bottom: 32px; font-style: normal;
+    }
+    .testimonial-inner .placeholder-avatar { margin: 0 auto 12px; }
+    .author-name { font-size: 14px; font-weight: 600; color: var(--wire-text); }
+    .author-role { font-size: 13px; font-weight: 400; color: var(--wire-text-tertiary); }
+
+    /* ════════════════════════════════════
+       CTA BAND
+    ════════════════════════════════════ */
+    .cta-band {
+      padding: 80px 0;
+      background: var(--wire-surface);
+      border-bottom: 1px solid var(--wire-border);
+    }
+    .cta-inner {
+      text-align: center; max-width: 640px; margin: 0 auto;
+    }
+    .cta-inner h2 {
+      font-size: 42px; font-weight: 400; letter-spacing: -0.03em;
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .cta-inner h2 strong { font-weight: 600; }
+    .cta-inner p {
+      font-size: 16px; font-weight: 400; line-height: 1.5;
+      color: var(--wire-text-secondary); margin-bottom: 32px;
+    }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-secondary {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      padding: 64px 0 32px;
+      background: var(--wire-text); color: rgba(255,255,255,0.5);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand .logo { color: #fff; margin-bottom: 16px; }
+    .footer-tagline {
+      font-size: 14px; font-weight: 400; line-height: 1.5;
+      color: rgba(255,255,255,0.4); max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a {
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: rgba(255,255,255,0.8); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-copyright { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a {
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.25);
+      text-decoration: none;
+    }
+
+
+    /* ── Responsive: Tablet ── */
+    @media (max-width: 768px) {
+      .header-inner { height: 60px; }
+      .header-left { gap: 24px; }
+      .nav-links { display: none; }
+      .logo { font-size: 20px; }
+
+      .hero { padding: 80px 0 48px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero-image { display: none; }
+      .hero h1 { font-size: 32px; line-height: 1.15; }
+      .hero-body { font-size: 16px; }
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-secondary { font-size: 14px; padding: 12px 24px; }
+
+      .search-bar { flex-wrap: wrap; border-radius: 10px; }
+      .search-field { flex: 1 1 100%; border-bottom: 1px solid var(--wire-placeholder); }
+      .search-divider { display: none; }
+      .search-bar .btn-primary { width: 100%; border-radius: 0 0 8px 8px; text-align: center; }
+
+      .section-title { font-size: 30px; }
+      .jobs-grid { grid-template-columns: 1fr; }
+      .sectors-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-image { display: none; }
+
+      .salary-inner h2 { font-size: 30px; }
+      .salary-buttons { flex-direction: column; }
+      .salary-buttons .btn-primary,
+      .salary-buttons .btn-secondary { width: 100%; text-align: center; }
+
+      .testimonial-inner blockquote { font-size: 22px; }
+
+      .cta-band { padding: 56px 0; }
+      .cta-inner h2 { font-size: 30px; }
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-primary,
+      .cta-buttons .btn-secondary { width: 100%; text-align: center; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ── Responsive: Mobile ── */
+    @media (max-width: 480px) {
+      :root { --wire-gutter: 16px; }
+
+      .hero { padding: 72px 0 36px; }
+      .hero h1 { font-size: 26px; }
+      .hero-body { font-size: 15px; }
+
+      .job-card { padding: 20px; }
+      .job-title { font-size: 15px; }
+
+      .sectors-grid { grid-template-columns: 1fr; }
+      .sector-card { padding: 24px 20px; }
+
+      .section-title { font-size: 26px; }
+      .why-content h2 { font-size: 26px; }
+
+      .salary-inner h2 { font-size: 26px; }
+      .testimonial-inner blockquote { font-size: 20px; }
+
+      .cta-inner h2 { font-size: 26px; }
+      .cta-inner p { font-size: 14px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="wireframe.html" class="logo">Virtus</a>
+        <ul class="nav-links">
+          <li><a href="wireframe-candidates.html" class="active">For Candidates</a></li>
+          <li><a href="wireframe-employers.html">For Employers</a></li>
+          <li><a href="wireframe-sectors.html">Sectors</a></li>
+          <li><a href="wireframe-insights.html">Insights</a></li>
+          <li><a href="wireframe-about.html">About</a></li>
+          <li><a href="wireframe-contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <a href="wireframe-submit-role.html" class="btn-secondary">Submit a Role</a>
+        <a href="wireframe-roles.html" class="btn-primary">Find a Job</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-label">For Candidates</p>
+        <h1>80% of our roles <strong>never hit a job board.</strong></h1>
+        <p class="hero-body">
+          One call with a sector specialist. Roles matched to your experience, your salary expectations, and where you actually want to go. Fully confidential — your current employer will never know.
+        </p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary">Search Roles</a>
+          <a href="#" class="btn-secondary">Register with Virtus</a>
+        </div>
+      </div>
+      <div>
+        <div class="placeholder-img hero-image">Hero Image</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH BAR -->
+<section class="search-section">
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" class="search-field" placeholder="Job title or keyword">
+      <div class="search-divider"></div>
+      <input type="text" class="search-field" placeholder="Location">
+      <div class="search-divider"></div>
+      <select class="search-field" style="max-width: 160px; appearance: auto;">
+        <option>All Sectors</option>
+        <option>Finance</option>
+        <option>Technology</option>
+        <option>Legal</option>
+        <option>Human Resources</option>
+        <option>Marketing</option>
+      </select>
+      <div class="search-divider"></div>
+      <select class="search-field" style="max-width: 140px; appearance: auto;">
+        <option>All Types</option>
+        <option>Permanent</option>
+        <option>Contract</option>
+        <option>Temporary</option>
+        <option>Executive</option>
+      </select>
+      <button class="btn-primary">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP (inline, not a full stat bar) -->
+<div style="padding: 20px 0; border-bottom: 1px solid var(--wire-border); background: #fff;">
+  <div class="container">
+    <div style="display: flex; justify-content: center; gap: 48px; font-size: 13px; color: var(--wire-text-secondary);">
+      <span><strong style="color: var(--wire-text);">92%</strong> still in role at 12 months</span>
+      <span><strong style="color: var(--wire-text);">48hr</strong> brief to first call</span>
+      <span><strong style="color: var(--wire-text);">80%</strong> filled through our network</span>
+      <span><strong style="color: var(--wire-text);">5</strong> specialist sectors</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED ROLES -->
+<section class="featured-roles">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Latest Opportunities</p>
+        <h2 class="section-title">Roles you will not find <strong>on job boards</strong></h2>
+      </div>
+      <a href="wireframe-roles.html" class="section-link">View all roles &rarr;</a>
+    </div>
+    <div class="jobs-grid">
+      <a href="#" class="job-card">
+        <div class="job-title">Senior Financial Analyst</div>
+        <div class="job-company">Confidential</div>
+        <div class="job-meta">Sydney CBD &middot; $130k&ndash;$150k + super</div>
+        <div class="job-footer">
+          <span class="job-tag">Finance</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+      <a href="#" class="job-card">
+        <div class="job-title">IT Project Manager</div>
+        <div class="job-company">ASX-Listed</div>
+        <div class="job-meta">Melbourne &middot; $145k&ndash;$165k + super</div>
+        <div class="job-footer">
+          <span class="job-tag">Technology</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+      <a href="#" class="job-card">
+        <div class="job-title">In-House Legal Counsel</div>
+        <div class="job-company">Mid-Market</div>
+        <div class="job-meta">Brisbane &middot; $140k&ndash;$160k + super</div>
+        <div class="job-footer">
+          <span class="job-tag">Legal</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+      <a href="#" class="job-card">
+        <div class="job-title">HR Business Partner</div>
+        <div class="job-company">National Retailer</div>
+        <div class="job-meta">Sydney &middot; $120k&ndash;$140k + super</div>
+        <div class="job-footer">
+          <span class="job-tag">Human Resources</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+      <a href="#" class="job-card">
+        <div class="job-title">Digital Marketing Manager</div>
+        <div class="job-company">B2B SaaS</div>
+        <div class="job-meta">Melbourne &middot; $115k&ndash;$135k + super</div>
+        <div class="job-footer">
+          <span class="job-tag">Marketing</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+      <a href="#" class="job-card">
+        <div class="job-title">Senior Accountant</div>
+        <div class="job-company">Professional Services</div>
+        <div class="job-meta">Perth &middot; $100k&ndash;$120k + super</div>
+        <div class="job-footer">
+          <span class="job-tag">Finance</span>
+          <span class="job-link">View Role &rarr;</span>
+        </div>
+      </a>
+    </div>
+    <div class="view-all-link">
+      <a href="wireframe-roles.html" class="section-link">View all roles &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="sectors">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Specialisations</p>
+        <h2 class="section-title">Five sectors. <strong>Specialist depth in each.</strong></h2>
+      </div>
+    </div>
+    <div class="sectors-grid">
+      <a href="wireframe-roles.html" class="sector-card">
+        <div class="sector-icon"></div>
+        <div class="sector-name">Accounting &amp; Finance</div>
+        <div class="sector-count">Explore roles &rarr;</div>
+      </a>
+      <a href="wireframe-roles.html" class="sector-card">
+        <div class="sector-icon"></div>
+        <div class="sector-name">Technology &amp; IT</div>
+        <div class="sector-count">Explore roles &rarr;</div>
+      </a>
+      <a href="wireframe-roles.html" class="sector-card">
+        <div class="sector-icon"></div>
+        <div class="sector-name">Legal</div>
+        <div class="sector-count">Explore roles &rarr;</div>
+      </a>
+      <a href="wireframe-roles.html" class="sector-card">
+        <div class="sector-icon"></div>
+        <div class="sector-name">Human Resources</div>
+        <div class="sector-count">Explore roles &rarr;</div>
+      </a>
+      <a href="wireframe-roles.html" class="sector-card">
+        <div class="sector-icon"></div>
+        <div class="sector-name">Marketing</div>
+        <div class="sector-count">Explore roles &rarr;</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">Three steps. <strong>One role that fits.</strong></h2>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <h3>Register &amp; Brief</h3>
+        <p>One call. We learn your career goals, salary expectations, and what matters to you in your next role.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <h3>Match &amp; Introduce</h3>
+        <p>We go to our network. You will only hear about roles that genuinely fit — no spam, no irrelevant calls.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <h3>Interview &amp; Place</h3>
+        <p>We prepare you, advocate for you, and manage the offer. Then check in to make sure it is right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY VIRTUS -->
+<section class="why-virtus">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-content">
+        <p class="section-label">Why Virtus</p>
+        <h2>One call. One consultant. <strong>Roles that actually fit.</strong></h2>
+        <p>Most recruiters blast your CV to every opening. Virtus sends it nowhere without your permission. One conversation with a sector specialist who knows the market, the salary bands, and the hiring managers.</p>
+        <ul class="why-list">
+          <li>
+            <span class="why-num">01</span>
+            <div class="why-list-content">
+              <h4>Sector specialist, not generalist</h4>
+              <p>Your consultant recruits exclusively in your sector. They know the market, the salary bands, and the hiring managers.</p>
+            </div>
+          </li>
+          <li>
+            <span class="why-num">02</span>
+            <div class="why-list-content">
+              <h4>Roles you will not find online</h4>
+              <p>80% of our placements come from our network. These are roles that never make it to job boards.</p>
+            </div>
+          </li>
+          <li>
+            <span class="why-num">03</span>
+            <div class="why-list-content">
+              <h4>Confidential and respectful</h4>
+              <p>Your current employer will never know. We only share your details with your explicit permission.</p>
+            </div>
+          </li>
+        </ul>
+        <a href="#" class="btn-primary" style="font-size: 15px; padding: 14px 28px; border-radius: 8px;">Register with Virtus</a>
+      </div>
+      <div>
+        <div class="placeholder-img why-image">Image</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALARY GUIDE CTA -->
+<section class="salary-cta">
+  <div class="container">
+    <div class="salary-inner">
+      <h2>Are you <strong>underpaid?</strong></h2>
+      <p>The 2026 Virtus Salary Guide. Real placement data across five sectors, updated quarterly. Free download.</p>
+      <div class="salary-buttons">
+        <a href="#" class="btn-primary">Download Salary Guide</a>
+        <a href="#" class="btn-secondary">View online &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-single">
+  <div class="container">
+    <div class="testimonial-inner">
+      <p class="section-label">Candidate Feedback</p>
+      <blockquote>
+        &ldquo;Most recruiters waste your time with roles that are not right. Virtus called once with the perfect role. I took it.&rdquo;
+      </blockquote>
+      <div class="placeholder-avatar" style="margin: 0 auto 12px;"></div>
+      <div class="author-name">Candidate Name</div>
+      <div class="author-role">Senior Legal Counsel</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Your next role is not <strong>on a job board.</strong></h2>
+      <p>Register with Virtus. One conversation with a sector specialist, then only roles that genuinely fit. No spam. No pressure.</p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-primary">Search Roles</a>
+        <a href="#" class="btn-secondary">Register with Virtus</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="color: #fff; font-size: 22px; font-weight: 700; letter-spacing: -0.02em;">Virtus</div>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Candidates</h4>
+        <ul>
+          <li><a href="wireframe-roles.html">Search Jobs</a></li>
+          <li><a href="#">Register</a></li>
+          <li><a href="#">Career Resources</a></li>
+          <li><a href="#">Salary Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Employers</h4>
+        <ul>
+          <li><a href="#">Submit a Role</a></li>
+          <li><a href="#">Our Services</a></li>
+          <li><a href="#">Market Reports</a></li>
+          <li><a href="#">Case Studies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sectors</h4>
+        <ul>
+          <li><a href="#">Finance</a></li>
+          <li><a href="#">Technology</a></li>
+          <li><a href="#">Legal</a></li>
+          <li><a href="#">Human Resources</a></li>
+          <li><a href="#">Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Virtus</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Insights</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
