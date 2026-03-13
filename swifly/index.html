@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly Teams</title>
+  <style>
+    /* ─────────────────────────────────────────────────────────
+     * DESIGN TOKENS
+     * ───────────────────────────────────────────────────────── */
+    :root {
+      --bg-page: #06060b;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(255, 255, 255, 0.15);
+      --card-solid: #1a1528;
+      --card-solid-border: rgba(167, 139, 250, 0.2);
+      --card-solid-border-hover: rgba(167, 139, 250, 0.35);
+      --card-enterprise-bg: rgba(255, 255, 255, 0.03);
+      --card-enterprise-border: rgba(255, 255, 255, 0.06);
+      --card-enterprise-border-hover: rgba(255, 255, 255, 0.12);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.55);
+      --text-tertiary: rgba(255, 255, 255, 0.35);
+      --accent-violet: #a78bfa;
+      --accent-violet-dim: rgba(167, 139, 250, 0.15);
+      --aurora-violet: #7c3aed;
+      --aurora-magenta: #c026d3;
+      --aurora-blue: #3b82f6;
+      --btn-bg: rgba(255, 255, 255, 0.08);
+      --btn-border: rgba(255, 255, 255, 0.15);
+      --btn-bg-hover: rgba(255, 255, 255, 0.12);
+      --btn-border-hover: rgba(255, 255, 255, 0.25);
+      --radius-card: 20px;
+      --radius-btn: 12px;
+      --radius-badge: 6px;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * RESET & PAGE
+     * ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-page);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 32px 20px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Page aurora — purple glow top-right */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(
+        ellipse at 60% 30%,
+        rgba(152, 0, 232, 0.15) 0%,
+        rgba(139, 92, 246, 0.08) 35%,
+        rgba(107, 33, 168, 0.04) 55%,
+        transparent 75%
+      );
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ANIMATION STORYBOARD
+     *
+     *    0ms   page loads, cards invisible
+     *  200ms   features card fades in
+     *  350ms   pricing card fades in
+     *  500ms   enterprise card fades in
+     *  400ms+  content within each card staggers
+     * ∞       aurora drifts on features card (8s)
+     * ∞       waveform pulses gently (6s)
+     * ───────────────────────────────────────────────────────── */
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes auroraDrift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(10px, -8px) scale(1.05); }
+      66% { transform: translate(-8px, 5px) scale(0.97); }
+    }
+
+    @keyframes waveShift {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-8px); }
+    }
+
+    @keyframes wavePulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Animated border angle for flowing light */
+    @property --features-border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes featuresBorderFlow {
+      to { --features-border-angle: 360deg; }
+    }
+
+    @property --pricing-btn-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes pricingBtnFlow {
+      to { --pricing-btn-angle: 360deg; }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * PAGE WRAPPER
+     * ───────────────────────────────────────────────────────── */
+    .teams-page {
+      width: 740px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * PAGE HEADER — title + subtitle + close
+     * ───────────────────────────────────────────────────────── */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .close-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease-out;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .close-btn svg {
+      width: 14px;
+      height: 14px;
+      color: var(--text-tertiary);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * INVITATION BANNER — empty state
+     * ───────────────────────────────────────────────────────── */
+    .invite-banner {
+      border: 1px dashed rgba(167, 139, 250, 0.2);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+      transition: border-color 0.3s ease-out;
+    }
+
+    .invite-banner:hover {
+      border-color: rgba(167, 139, 250, 0.35);
+    }
+
+    .invite-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-violet-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .invite-icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-violet);
+    }
+
+    .invite-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .invite-description {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      line-height: 1.4;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * LAYOUT — 3-card grid
+     * ───────────────────────────────────────────────────────── */
+    .cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+      width: 740px;
+    }
+
+    .card--features   { grid-row: 1 / 3; }
+    .card--pricing    { grid-row: 1; grid-column: 2; }
+    .card--enterprise { grid-row: 2; grid-column: 2; }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD BASE
+     * ───────────────────────────────────────────────────────── */
+    .card {
+      position: relative;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: transform 0.35s ease-out, border-color 0.35s ease-out, box-shadow 0.35s ease-out;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD 1 — Features (glass + aurora + bleed image)
+     * The hero card. Only card with aurora glow.
+     * ───────────────────────────────────────────────────────── */
+    .card--features {
+      --features-border-angle: 0deg;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(#0b0b12, #0b0b12) padding-box,
+        conic-gradient(
+          from var(--features-border-angle),
+          rgba(255,255,255,0.07) 0%,
+          rgba(255,255,255,0.07) 65%,
+          var(--aurora-violet) 75%,
+          var(--aurora-magenta) 85%,
+          #9800E8 93%,
+          rgba(255,255,255,0.07) 100%
+        ) border-box;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      animation:
+        fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both,
+        featuresBorderFlow 6s linear 0.7s infinite;
+    }
+
+    .card--features:hover {
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.1);
+    }
+
+    /* Aurora — only on features card */
+    .card--features::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 220px;
+      background: radial-gradient(
+        ellipse at 40% 50%,
+        var(--aurora-violet) 0%,
+        var(--aurora-magenta) 40%,
+        var(--aurora-blue) 70%,
+        transparent 100%
+      );
+      opacity: 0.35;
+      filter: blur(60px);
+      pointer-events: none;
+      animation: auroraDrift 8s ease-in-out infinite;
+      z-index: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .card--features:hover::after {
+      opacity: 0.5;
+    }
+
+    /* Bleed image zone — waveform visualisation */
+    .card-bleed {
+      position: relative;
+      height: 110px;
+      background: linear-gradient(
+        180deg,
+        rgba(124, 58, 237, 0.15) 0%,
+        rgba(192, 38, 211, 0.08) 50%,
+        transparent 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .waveform {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
+      animation: wavePulse 6s ease-in-out infinite;
+    }
+
+    .waveform-bars {
+      animation: waveShift 4s ease-in-out infinite;
+    }
+
+    .card-bleed::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to top, var(--bg-page), transparent);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .features-body {
+      padding: 20px 28px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo svg { width: 28px; height: 28px; }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-violet);
+      background: var(--accent-violet-dim);
+      padding: 3px 8px;
+      border-radius: var(--radius-badge);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .card-heading {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+    }
+
+    .card-description {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.56s both;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .features li:nth-child(1) { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.64s both; }
+    .features li:nth-child(2) { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both; }
+    .features li:nth-child(3) { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.80s both; }
+    .features li:nth-child(4) { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.88s both; }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 50%;
+      background: var(--accent-violet-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check-icon svg { width: 11px; height: 11px; }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD 2 — Pricing (solid surface, primary action)
+     * Distinct surface = "this is where you act"
+     * ───────────────────────────────────────────────────────── */
+    .card--pricing {
+      background: #0d0d14;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+      transition: border-color 0.3s ease-out, box-shadow 0.3s ease-out;
+    }
+
+    .card--pricing:hover {
+      border-color: rgba(167, 139, 250, 0.35);
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.08);
+    }
+
+    .price-block {
+      margin-bottom: 8px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+    }
+
+    .price {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .price-unit {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      margin-left: 3px;
+    }
+
+    .price-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      margin-bottom: 0;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * BUTTONS
+     * ───────────────────────────────────────────────────────── */
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      border-radius: var(--radius-btn);
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out, transform 0.2s ease-out;
+      font-family: inherit;
+    }
+
+    .cta svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s ease-out;
+    }
+
+    .cta:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Primary CTA — flowing border light (purple spectrum) */
+    .cta--primary {
+      --pricing-btn-angle: 0deg;
+      border: 1px solid transparent;
+      color: #ffffff;
+      font-weight: 600;
+      background:
+        linear-gradient(#0d0d14, #0d0d14) padding-box,
+        conic-gradient(
+          from var(--pricing-btn-angle),
+          rgba(255,255,255,0.10) 0%,
+          rgba(255,255,255,0.10) 65%,
+          var(--aurora-violet) 75%,
+          var(--aurora-magenta) 85%,
+          #9800E8 92%,
+          rgba(255,255,255,0.10) 100%
+        ) border-box;
+      animation:
+        fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both,
+        pricingBtnFlow 4s linear infinite;
+      box-shadow: 0 0 8px rgba(124, 58, 237, 0.08);
+      transition: box-shadow 0.5s ease-in-out;
+    }
+
+    .cta--primary:hover {
+      box-shadow: 0 0 14px rgba(124, 58, 237, 0.15), 0 0 24px rgba(152, 0, 232, 0.08);
+    }
+
+    /* Enterprise CTA — quiet, secondary */
+    .cta--enterprise {
+      border-color: rgba(255, 255, 255, 0.10);
+      color: var(--text-secondary);
+      font-weight: 500;
+      box-shadow: none;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+      transition: box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out, background 0.5s ease-in-out, color 0.3s ease-out;
+    }
+
+    .cta--enterprise:hover {
+      border-color: rgba(255, 255, 255, 0.20);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD 3 — Enterprise (quiet, no aurora, warm)
+     * Secondary card. Defers to the other two.
+     * ───────────────────────────────────────────────────────── */
+    .card--enterprise {
+      background: #0d0d14;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+      transition: border-color 0.3s ease-out, box-shadow 0.3s ease-out;
+    }
+
+    .card--enterprise:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.02);
+    }
+
+    .enterprise-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent-violet-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+    }
+
+    .enterprise-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .enterprise-heading {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both;
+    }
+
+    .enterprise-description {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 14px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="teams-page">
+
+    <!-- ═══════════════════════════════════════════════════════
+         PAGE HEADER
+         ═══════════════════════════════════════════════════════ -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Team</h1>
+        <p class="page-subtitle">Manage your team invitations and subscriptions</p>
+      </div>
+      <button class="close-btn" aria-label="Close">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M3 3L11 11M11 3L3 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         INVITATION BANNER — empty state
+         ═══════════════════════════════════════════════════════ -->
+    <div class="invite-banner">
+      <div class="invite-icon">
+        <svg viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M4 19c0-3.3 2.7-6 6-6h2c3.3 0 6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16 5l2 2m0-2l-2 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="invite-title">No Pending Invitations</p>
+      <p class="invite-description">You haven't received any team notifications yet</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CARDS
+         ═══════════════════════════════════════════════════════ -->
+    <div class="cards-row">
+
+    <!-- ═══════════════════════════════════════════════════════
+         CARD 1 — Features (hero, glass + aurora + bleed image)
+         ═══════════════════════════════════════════════════════ -->
+    <div class="card card--features">
+
+      <!-- Bleed image: voice waveform visualisation -->
+      <div class="card-bleed">
+        <svg class="waveform" viewBox="0 0 360 140" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="waveGrad" x1="0" y1="0" x2="360" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.3"/>
+              <stop offset="30%" stop-color="#a78bfa" stop-opacity="0.8"/>
+              <stop offset="50%" stop-color="#c084fc" stop-opacity="1"/>
+              <stop offset="70%" stop-color="#a78bfa" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.3"/>
+            </linearGradient>
+            <linearGradient id="waveGrad2" x1="0" y1="0" x2="360" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#c026d3" stop-opacity="0.2"/>
+              <stop offset="40%" stop-color="#a78bfa" stop-opacity="0.5"/>
+              <stop offset="60%" stop-color="#818cf8" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.2"/>
+            </linearGradient>
+          </defs>
+          <!-- Primary waveform bars -->
+          <g class="waveform-bars" stroke="url(#waveGrad)" stroke-width="2" stroke-linecap="round">
+            <line x1="30"  y1="85" x2="30"  y2="55"/>
+            <line x1="38"  y1="90" x2="38"  y2="50"/>
+            <line x1="46"  y1="82" x2="46"  y2="58"/>
+            <line x1="54"  y1="95" x2="54"  y2="45"/>
+            <line x1="62"  y1="88" x2="62"  y2="52"/>
+            <line x1="70"  y1="78" x2="70"  y2="62"/>
+            <line x1="78"  y1="92" x2="78"  y2="48"/>
+            <line x1="86"  y1="80" x2="86"  y2="60"/>
+            <line x1="94"  y1="96" x2="94"  y2="44"/>
+            <line x1="102" y1="85" x2="102" y2="55"/>
+            <line x1="110" y1="100" x2="110" y2="40"/>
+            <line x1="118" y1="90" x2="118" y2="50"/>
+            <line x1="126" y1="105" x2="126" y2="35"/>
+            <line x1="134" y1="95" x2="134" y2="45"/>
+            <line x1="142" y1="108" x2="142" y2="32"/>
+            <line x1="150" y1="100" x2="150" y2="40"/>
+            <line x1="158" y1="110" x2="158" y2="30"/>
+            <line x1="166" y1="105" x2="166" y2="35"/>
+            <line x1="174" y1="112" x2="174" y2="28"/>
+            <line x1="182" y1="108" x2="182" y2="32"/>
+            <line x1="190" y1="110" x2="190" y2="30"/>
+            <line x1="198" y1="105" x2="198" y2="35"/>
+            <line x1="206" y1="108" x2="206" y2="32"/>
+            <line x1="214" y1="100" x2="214" y2="40"/>
+            <line x1="222" y1="105" x2="222" y2="35"/>
+            <line x1="230" y1="95" x2="230" y2="45"/>
+            <line x1="238" y1="100" x2="238" y2="40"/>
+            <line x1="246" y1="90" x2="246" y2="50"/>
+            <line x1="254" y1="95" x2="254" y2="45"/>
+            <line x1="262" y1="85" x2="262" y2="55"/>
+            <line x1="270" y1="90" x2="270" y2="50"/>
+            <line x1="278" y1="82" x2="278" y2="58"/>
+            <line x1="286" y1="88" x2="286" y2="52"/>
+            <line x1="294" y1="80" x2="294" y2="60"/>
+            <line x1="302" y1="85" x2="302" y2="55"/>
+            <line x1="310" y1="82" x2="310" y2="58"/>
+            <line x1="318" y1="78" x2="318" y2="62"/>
+            <line x1="326" y1="82" x2="326" y2="58"/>
+            <line x1="334" y1="76" x2="334" y2="64"/>
+          </g>
+          <!-- Secondary softer wave layer -->
+          <g stroke="url(#waveGrad2)" stroke-width="1.5" stroke-linecap="round" opacity="0.5">
+            <line x1="34"  y1="82" x2="34"  y2="58"/>
+            <line x1="42"  y1="88" x2="42"  y2="52"/>
+            <line x1="50"  y1="80" x2="50"  y2="60"/>
+            <line x1="58"  y1="92" x2="58"  y2="48"/>
+            <line x1="66"  y1="85" x2="66"  y2="55"/>
+            <line x1="74"  y1="75" x2="74"  y2="65"/>
+            <line x1="82"  y1="88" x2="82"  y2="52"/>
+            <line x1="90"  y1="78" x2="90"  y2="62"/>
+            <line x1="98"  y1="93" x2="98"  y2="47"/>
+            <line x1="106" y1="82" x2="106" y2="58"/>
+            <line x1="114" y1="96" x2="114" y2="44"/>
+            <line x1="122" y1="87" x2="122" y2="53"/>
+            <line x1="130" y1="100" x2="130" y2="40"/>
+            <line x1="138" y1="92" x2="138" y2="48"/>
+            <line x1="146" y1="104" x2="146" y2="36"/>
+            <line x1="154" y1="97" x2="154" y2="43"/>
+            <line x1="162" y1="106" x2="162" y2="34"/>
+            <line x1="170" y1="102" x2="170" y2="38"/>
+            <line x1="178" y1="108" x2="178" y2="32"/>
+            <line x1="186" y1="104" x2="186" y2="36"/>
+            <line x1="194" y1="106" x2="194" y2="34"/>
+            <line x1="202" y1="100" x2="202" y2="40"/>
+            <line x1="210" y1="104" x2="210" y2="36"/>
+            <line x1="218" y1="96" x2="218" y2="44"/>
+            <line x1="226" y1="100" x2="226" y2="40"/>
+            <line x1="234" y1="92" x2="234" y2="48"/>
+            <line x1="242" y1="96" x2="242" y2="44"/>
+            <line x1="250" y1="87" x2="250" y2="53"/>
+            <line x1="258" y1="92" x2="258" y2="48"/>
+            <line x1="266" y1="82" x2="266" y2="58"/>
+            <line x1="274" y1="87" x2="274" y2="53"/>
+            <line x1="282" y1="80" x2="282" y2="60"/>
+            <line x1="290" y1="85" x2="290" y2="55"/>
+            <line x1="298" y1="78" x2="298" y2="62"/>
+            <line x1="306" y1="82" x2="306" y2="58"/>
+            <line x1="314" y1="80" x2="314" y2="60"/>
+            <line x1="322" y1="76" x2="322" y2="64"/>
+            <line x1="330" y1="80" x2="330" y2="60"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="features-body">
+        <div class="card-header">
+          <div class="logo">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="28" height="28" rx="6" fill="rgba(167,139,250,0.15)"/>
+              <path d="M8 10.5C8 10.5 10.5 8 14 8C17.5 8 20 10.5 20 10.5" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9.5 13.5C9.5 13.5 11.5 11.5 14 11.5C16.5 11.5 18.5 13.5 18.5 13.5" stroke="#a78bfa" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="14" cy="17" r="1.5" fill="#a78bfa"/>
+            </svg>
+            <span class="logo-text">Swifly</span>
+          </div>
+          <span class="badge">Teams</span>
+        </div>
+
+        <h2 class="card-heading">Voice-to-text for every department</h2>
+
+        <p class="card-description">Automated meeting notes, shared transcriptions, and a unified dictionary across your entire organisation.</p>
+
+        <ul class="features">
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 4" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Organisation-wide dictionary
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 4" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Dedicated team management
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 4" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            SSO and priority support
+          </li>
+          <li>
+            <span class="check-icon">
+              <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 4" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Enterprise-grade privacy
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CARD 2 — Pricing (solid violet-dark surface)
+         ═══════════════════════════════════════════════════════ -->
+    <div class="card card--pricing">
+
+      <div>
+        <div class="price-block">
+          <span class="price">$24</span>
+          <span class="price-unit">/ user / month</span>
+        </div>
+        <p class="price-note">Billed annually. Cancel anytime.</p>
+      </div>
+
+      <button class="cta cta--primary">
+        Start your team plan
+        <svg viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CARD 3 — Enterprise (quiet, no aurora)
+         ═══════════════════════════════════════════════════════ -->
+    <div class="card card--enterprise">
+
+      <div>
+        <div class="enterprise-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2L3 6V10C3 14.4 5.9 18.5 10 19.5C14.1 18.5 17 14.4 17 10V6L10 2Z" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 10L9 12L13 8" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="enterprise-heading">Over 50 users?</h3>
+        <p class="enterprise-description">Custom pricing, dedicated onboarding, and an account manager for your organisation.</p>
+      </div>
+
+      <button class="cta cta--enterprise">
+        Book a meeting
+        <svg viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+    </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

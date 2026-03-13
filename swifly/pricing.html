@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Pricing</title>
+  <style>
+    /* ─────────────────────────────────────────────────────────
+     * DESIGN TOKENS
+     * ───────────────────────────────────────────────────────── */
+    :root {
+      --bg-page: #06060b;
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.07);
+      --card-border-hover: rgba(255, 255, 255, 0.14);
+      --card-pro-bg: rgba(255, 255, 255, 0.05);
+      --card-pro-border: rgba(74, 222, 128, 0.18);
+      --card-pro-border-hover: rgba(74, 222, 128, 0.3);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.55);
+      --text-tertiary: rgba(255, 255, 255, 0.35);
+      --green-400: #4ade80;
+      --green-500: #22c55e;
+      --green-dim: rgba(74, 222, 128, 0.1);
+      --green-glow: rgba(74, 222, 128, 0.35);
+      --purple-400: #a78bfa;
+      --purple-500: #8b5cf6;
+      --purple-dim: rgba(139, 92, 246, 0.12);
+      --purple-glow: rgba(139, 92, 246, 0.3);
+      --pink-500: #ec4899;
+      --pink-dim: rgba(236, 72, 153, 0.12);
+      --amber-400: #fbbf24;
+      --amber-dim: rgba(251, 191, 36, 0.12);
+      --radius-card: 20px;
+      --radius-btn: 12px;
+      --radius-pill: 100px;
+      --radius-badge: 100px;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * RESET & PAGE
+     * ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-page);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Page aurora — purple glow top-right */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(
+        ellipse at 60% 30%,
+        rgba(152, 0, 232, 0.15) 0%,
+        rgba(139, 92, 246, 0.08) 35%,
+        rgba(107, 33, 168, 0.04) 55%,
+        transparent 75%
+      );
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ANIMATIONS
+     * ───────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes auroraDrift {
+      0%, 100% { transform: translate(-50%, 0) scale(1); }
+      33% { transform: translate(-48%, -6px) scale(1.04); }
+      66% { transform: translate(-52%, 4px) scale(0.97); }
+    }
+
+    /* Animated border angle for flowing light */
+    @property --border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes borderFlow {
+      to { --border-angle: 360deg; }
+    }
+
+    @property --btn-border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes btnBorderFlow {
+      to { --btn-border-angle: 360deg; }
+    }
+
+    @property --teams-border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes teamsBorderFlow {
+      to { --teams-border-angle: 360deg; }
+    }
+
+    @keyframes glowCycle {
+      0%, 100% { box-shadow: 0 0 14px rgba(74, 222, 128, 0.15), 0 0 6px rgba(74, 222, 128, 0.06); }
+      33%      { box-shadow: 0 0 14px rgba(251, 191, 36, 0.15), 0 0 6px rgba(251, 191, 36, 0.06); }
+      66%      { box-shadow: 0 0 14px rgba(152, 0, 232, 0.18), 0 0 6px rgba(152, 0, 232, 0.08); }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * PRICING SECTION
+     * ───────────────────────────────────────────────────────── */
+    .pricing-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 960px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pricing-headline {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      text-align: center;
+      margin-bottom: 8px;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+
+    .pricing-subline {
+      font-size: 15px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 32px;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * TOGGLE
+     * ───────────────────────────────────────────────────────── */
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .toggle {
+      display: flex;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: border-color 0.3s ease-out;
+    }
+
+    .toggle:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .toggle-option {
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+      font-family: inherit;
+    }
+
+    /* Active pill — black fill, purple border */
+    .toggle-option.active {
+      background: #000000;
+      border: 1px solid var(--purple-400);
+      color: var(--text-primary);
+    }
+
+    /* Save badge — green */
+    .toggle-save {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green-400);
+      background: var(--green-dim);
+      padding: 4px 10px;
+      border-radius: var(--radius-badge);
+      letter-spacing: 0.02em;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARDS GRID
+     * Cards stretch to equal height. Pro is 12% wider.
+     * ───────────────────────────────────────────────────────── */
+    .cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1.12fr 1fr;
+      gap: 16px;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD BASE
+     * All cards use flex-column so CTAs pin to bottom.
+     * Consistent 32px padding everywhere.
+     * ───────────────────────────────────────────────────────── */
+    .card {
+      position: relative;
+      border-radius: var(--radius-card);
+      padding: 32px 28px;
+      overflow: hidden;
+      transition: transform 0.25s ease-out, border-color 0.25s ease-out;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD — Free
+     * ───────────────────────────────────────────────────────── */
+    .card--free {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+    }
+
+    .card--free:hover {
+      border-color: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.03);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD — Pro (hero)
+     * Green-only colour scheme. No purple/magenta aurora.
+     * ───────────────────────────────────────────────────────── */
+    .card--pro {
+      --border-angle: 0deg;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(#0b0b12, #0b0b12) padding-box,
+        conic-gradient(
+          from var(--border-angle),
+          rgba(255,255,255,0.07) 0%,
+          rgba(255,255,255,0.07) 70%,
+          var(--green-400) 80%,
+          var(--amber-400) 87%,
+          #9800E8 93%,
+          rgba(255,255,255,0.07) 100%
+        ) border-box;
+      animation:
+        fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both,
+        borderFlow 6s linear 0.85s infinite;
+    }
+
+    .card--pro:hover {
+      box-shadow: 0 0 24px rgba(74, 222, 128, 0.08);
+    }
+
+    /* Aurora — green-tinted glow (no purple conflict) */
+    .card--pro::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130%;
+      height: 180px;
+      background: radial-gradient(
+        ellipse at 50% 60%,
+        rgba(74, 222, 128, 0.1) 0%,
+        rgba(34, 197, 94, 0.08) 40%,
+        rgba(74, 222, 128, 0.03) 70%,
+        transparent 100%
+      );
+      opacity: 0.6;
+      filter: blur(50px);
+      pointer-events: none;
+      animation: auroraDrift 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .card--pro:hover::after {
+      opacity: 0.9;
+      transition: opacity 0.3s ease-out;
+    }
+
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD — Teams
+     * ───────────────────────────────────────────────────────── */
+    .card--teams {
+      --teams-border-angle: 0deg;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(#0d0d14, #0d0d14) padding-box,
+        linear-gradient(rgba(255,255,255,0.07), rgba(255,255,255,0.07)) border-box;
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both,
+        teamsBorderFlow 6s linear infinite paused;
+      transition: box-shadow 0.5s ease-in-out;
+    }
+
+    .card--teams:hover {
+      background:
+        linear-gradient(#0d0d14, #0d0d14) padding-box,
+        conic-gradient(
+          from var(--teams-border-angle),
+          rgba(255,255,255,0.07) 0%,
+          rgba(255,255,255,0.07) 70%,
+          var(--purple-400) 80%,
+          var(--purple-500) 90%,
+          rgba(255,255,255,0.07) 100%
+        ) border-box;
+      animation-play-state: running, running;
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.08);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * CARD CONTENT
+     * ───────────────────────────────────────────────────────── */
+    .card-tier {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .tier-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tier-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-badge);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .tier-badge--free {
+      color: var(--text-tertiary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .tier-badge--pro {
+      color: var(--green-400);
+      background: var(--green-dim);
+    }
+
+    .tier-badge--teams {
+      color: var(--purple-400);
+      background: var(--purple-dim);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    /* Price — consistent 40px across all tiers */
+    .price-block {
+      margin-bottom: 4px;
+    }
+
+    .price, .price-note {
+      transition: opacity 0.25s ease-in-out;
+    }
+
+    .price.switching, .price-note.switching {
+      opacity: 0;
+    }
+
+    .price {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .price-unit {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      margin-left: 3px;
+    }
+
+    .price-note {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .card-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      margin-bottom: 20px;
+    }
+
+    .card-features-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .check {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check svg { width: 14px; height: 14px; }
+
+    .check--green svg { color: var(--green-400); }
+    .check--muted svg { color: var(--text-tertiary); }
+    .check--purple svg { color: var(--purple-400); }
+
+    /* ─────────────────────────────────────────────────────────
+     * CTA — Neon glow buttons (Swifly brand)
+     *
+     * Dark transparent fill. Thin luminous border.
+     * Outer glow via box-shadow. Colour per tier.
+     * ───────────────────────────────────────────────────────── */
+    .cta-wrapper {
+      margin-top: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-btn);
+      padding: 12px 20px;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease-out, border-color 0.3s ease-out, background 0.2s ease-out;
+    }
+
+    .cta svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s ease-out;
+    }
+
+    .cta:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Free CTA — subtle white neon */
+    .cta--free {
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.04), inset 0 0 6px rgba(255, 255, 255, 0.02);
+    }
+
+    .cta--free:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.08), inset 0 0 10px rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Pro CTA — flowing border light (matches card border) */
+    .cta--pro {
+      --btn-border-angle: 0deg;
+      border: 1px solid transparent;
+      color: #ffffff;
+      font-weight: 600;
+      background:
+        linear-gradient(#0b0b12, #0b0b12) padding-box,
+        conic-gradient(
+          from var(--btn-border-angle),
+          rgba(255,255,255,0.10) 0%,
+          rgba(255,255,255,0.10) 65%,
+          var(--green-400) 75%,
+          var(--amber-400) 84%,
+          #9800E8 92%,
+          rgba(255,255,255,0.10) 100%
+        ) border-box;
+      animation: btnBorderFlow 4s linear infinite;
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.06), 0 0 4px rgba(152, 0, 232, 0.04);
+      transition: box-shadow 0.5s ease-in-out;
+    }
+
+    .cta--pro:hover {
+      animation: btnBorderFlow 4s linear infinite, glowCycle 3s ease-in-out infinite;
+      transition: box-shadow 0.5s ease-in-out;
+    }
+
+    /* Teams CTA — subtle purple glow */
+    .cta--teams {
+      border-color: rgba(167, 139, 250, 0.3);
+      color: var(--purple-400);
+      font-weight: 600;
+      box-shadow: 0 0 6px rgba(167, 139, 250, 0.06);
+      transition: box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out, background 0.5s ease-in-out;
+    }
+
+    .cta--teams:hover {
+      border-color: var(--purple-400);
+      box-shadow: 0 0 12px rgba(167, 139, 250, 0.1), 0 0 20px rgba(167, 139, 250, 0.05);
+      background: rgba(167, 139, 250, 0.03);
+    }
+
+    /* Current plan label */
+    .current-plan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      padding: 12px 20px;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-btn);
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pricing-section">
+
+    <h1 class="pricing-headline">One voice engine. Three ways to use it.</h1>
+    <p class="pricing-subline">Start free. Upgrade when your workflow demands it.</p>
+
+    <div class="toggle-wrapper">
+      <div class="toggle">
+        <button class="toggle-option" data-period="monthly">Monthly</button>
+        <button class="toggle-option active" data-period="annual">Annual</button>
+      </div>
+      <span class="toggle-save">Save 2 months</span>
+    </div>
+
+    <div class="cards-row">
+
+      <!-- ═══════════════════════════════════════════════════
+           FREE
+           ═══════════════════════════════════════════════════ -->
+      <div class="card card--free">
+        <div class="card-tier">
+          <span class="tier-name">Free</span>
+          <span class="tier-badge tier-badge--free">Free forever</span>
+        </div>
+
+        <h2 class="card-title">For individuals getting started</h2>
+
+        <div class="price-block">
+          <span class="price">€0</span>
+        </div>
+        <p class="price-note">No credit card required</p>
+
+        <div class="card-divider"></div>
+
+        <p class="card-features-label">What's included</p>
+        <ul class="features">
+          <li>
+            <span class="check check--muted"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Unlimited dictation
+          </li>
+          <li>
+            <span class="check check--muted"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            1 device
+          </li>
+          <li>
+            <span class="check check--muted"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Command mode
+          </li>
+          <li>
+            <span class="check check--muted"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Community support
+          </li>
+        </ul>
+
+        <div class="current-plan">Your current plan</div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════
+           PRO — hero, green-only colour scheme
+           ═══════════════════════════════════════════════════ -->
+      <div class="card card--pro">
+        <div class="card-tier">
+          <span class="tier-name">Pro</span>
+          <span class="tier-badge tier-badge--pro">Most chosen</span>
+        </div>
+
+        <h2 class="card-title">For power users</h2>
+
+        <div class="price-block">
+          <span class="price" data-monthly="€15" data-annual="€12">€12</span>
+          <span class="price-unit">/ month</span>
+        </div>
+        <p class="price-note" data-monthly="Billed monthly, cancel anytime" data-annual="Billed annually at €120/year">Billed annually at €120/year</p>
+
+        <div class="card-divider"></div>
+
+        <p class="card-features-label">Everything in Free, plus</p>
+        <ul class="features">
+          <li>
+            <span class="check check--green"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            All devices, synced
+          </li>
+          <li>
+            <span class="check check--green"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Custom commands
+          </li>
+          <li>
+            <span class="check check--green"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Priority support
+          </li>
+          <li>
+            <span class="check check--green"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Early access to new features
+          </li>
+        </ul>
+
+        <div class="cta-wrapper">
+          <button class="cta cta--pro">
+            Upgrade to Pro
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════
+           TEAMS
+           ═══════════════════════════════════════════════════ -->
+      <div class="card card--teams">
+        <div class="card-tier">
+          <span class="tier-name">Teams</span>
+          <span class="tier-badge tier-badge--teams">Built for orgs</span>
+        </div>
+
+        <h2 class="card-title">For teams and departments</h2>
+
+        <div class="price-block">
+          <span class="price" data-monthly="€15" data-annual="€12">€12</span>
+          <span class="price-unit">/ user / month</span>
+        </div>
+        <p class="price-note" data-monthly="Billed monthly per user" data-annual="Billed annually. Volume discounts from 50+">Billed annually. Volume discounts from 50+</p>
+
+        <div class="card-divider"></div>
+
+        <p class="card-features-label">Everything in Pro, plus</p>
+        <ul class="features">
+          <li>
+            <span class="check check--purple"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Organisation-wide dictionary
+          </li>
+          <li>
+            <span class="check check--purple"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Team management dashboard
+          </li>
+          <li>
+            <span class="check check--purple"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            SSO and admin controls
+          </li>
+          <li>
+            <span class="check check--purple"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7L6 10L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Dedicated account manager
+          </li>
+        </ul>
+
+        <div class="cta-wrapper">
+          <button class="cta cta--teams">
+            Start your team plan
+            <svg viewBox="0 0 14 14" fill="none"><path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const toggleBtns = document.querySelectorAll('.toggle-option');
+    const saveBadge = document.querySelector('.toggle-save');
+    const swappable = document.querySelectorAll('[data-monthly][data-annual]');
+
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('active')) return;
+
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const period = btn.dataset.period;
+        const isAnnual = period === 'annual';
+
+        saveBadge.style.opacity = isAnnual ? '1' : '0';
+        saveBadge.style.transform = isAnnual ? 'scale(1)' : 'scale(0.9)';
+
+        swappable.forEach(el => el.classList.add('switching'));
+
+        setTimeout(() => {
+          swappable.forEach(el => {
+            el.textContent = el.dataset[period];
+            el.classList.remove('switching');
+          });
+        }, 250);
+      });
+    });
+  </script>
+
+</body>
+</html>
