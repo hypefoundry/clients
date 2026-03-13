@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Invoice History</title>
+  <style>
+    /* ─────────────────────────────────────────────────────────
+     * DESIGN TOKENS
+     * ───────────────────────────────────────────────────────── */
+    :root {
+      --bg-page: #06060b;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.55);
+      --text-tertiary: rgba(255, 255, 255, 0.35);
+      --accent-violet: #a78bfa;
+      --accent-violet-dim: rgba(167, 139, 250, 0.15);
+      --green-400: #4ade80;
+      --green-dim: rgba(74, 222, 128, 0.10);
+      --amber-400: #fbbf24;
+      --amber-dim: rgba(251, 191, 36, 0.10);
+      --red-400: #f87171;
+      --red-dim: rgba(248, 113, 113, 0.10);
+      --radius-card: 20px;
+      --radius-btn: 12px;
+      --radius-badge: 100px;
+      --row-border: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * RESET & PAGE
+     * ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-page);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 32px 20px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Page aurora */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(
+        ellipse at 60% 30%,
+        rgba(152, 0, 232, 0.15) 0%,
+        rgba(139, 92, 246, 0.08) 35%,
+        rgba(107, 33, 168, 0.04) 55%,
+        transparent 75%
+      );
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ANIMATION STORYBOARD
+     *
+     *    0ms   page loads
+     *  100ms   page header fades in
+     *  150ms   table container fades in
+     *  250ms   column headers appear
+     *  350ms+  rows stagger in (80ms each)
+     * ───────────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * PAGE WRAPPER
+     * ───────────────────────────────────────────────────────── */
+    .invoices-page {
+      width: 740px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * PAGE HEADER
+     * ───────────────────────────────────────────────────────── */
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * TABLE CONTAINER
+     * ───────────────────────────────────────────────────────── */
+    .invoice-table {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * COLUMN HEADERS
+     * ───────────────────────────────────────────────────────── */
+    .invoice-header {
+      display: grid;
+      grid-template-columns: 1fr 120px 90px 36px;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--row-border);
+      animation: fadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+    }
+
+    .col-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .col-label--right {
+      text-align: right;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * INVOICE ROWS
+     * ───────────────────────────────────────────────────────── */
+    .invoice-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 90px 36px;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--row-border);
+      transition: background 0.2s ease-out;
+    }
+
+    .invoice-row:last-child {
+      border-bottom: none;
+    }
+
+    .invoice-row:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Reveal invoice ID link on row hover */
+    .invoice-row:hover .invoice-id {
+      color: var(--accent-violet);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ROW — Info column (left)
+     * ───────────────────────────────────────────────────────── */
+    .invoice-info {
+      min-width: 0;
+    }
+
+    .invoice-primary {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .invoice-date {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .invoice-id {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color 0.2s ease-out;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .invoice-id:hover {
+      color: var(--accent-violet);
+    }
+
+    .invoice-description {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ROW — Amount column
+     * ───────────────────────────────────────────────────────── */
+    .invoice-amount {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: right;
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ROW — Status badge
+     * ───────────────────────────────────────────────────────── */
+    .invoice-status {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-badge);
+      letter-spacing: 0.02em;
+    }
+
+    .status-badge--paid {
+      color: var(--green-400);
+      background: var(--green-dim);
+    }
+
+    .status-badge--pending {
+      color: var(--amber-400);
+      background: var(--amber-dim);
+    }
+
+    .status-badge--failed {
+      color: var(--red-400);
+      background: var(--red-dim);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ROW — Action icon
+     * ───────────────────────────────────────────────────────── */
+    .invoice-action {
+      display: flex;
+      justify-content: center;
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease-out;
+      color: var(--text-tertiary);
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+    }
+
+    .action-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * EMPTY STATE
+     * ───────────────────────────────────────────────────────── */
+    .invoice-empty {
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .empty-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-tertiary);
+    }
+
+    .empty-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .empty-description {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * TABLE FOOTER
+     * ───────────────────────────────────────────────────────── */
+    .invoice-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      border-top: 1px solid var(--row-border);
+    }
+
+    .invoice-count {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .invoice-nav {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease-out, border-color 0.2s ease-out;
+      color: var(--text-tertiary);
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .nav-btn:disabled:hover {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.08);
+      color: var(--text-tertiary);
+    }
+
+    .nav-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+     * ROW ENTRANCE STAGGER
+     * ───────────────────────────────────────────────────────── */
+    .invoice-row:nth-child(1) { animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
+    .invoice-row:nth-child(2) { animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.43s both; }
+    .invoice-row:nth-child(3) { animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.51s both; }
+    .invoice-row:nth-child(4) { animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.59s both; }
+    .invoice-row:nth-child(5) { animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.67s both; }
+  </style>
+</head>
+<body>
+
+  <div class="invoices-page">
+
+    <!-- ═══════════════════════════════════════════════════════
+         PAGE HEADER
+         ═══════════════════════════════════════════════════════ -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Invoice History</h1>
+        <p class="page-subtitle">View and download receipts for your team subscription</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         INVOICE TABLE
+         ═══════════════════════════════════════════════════════ -->
+    <div class="invoice-table">
+
+      <!-- Column headers -->
+      <div class="invoice-header">
+        <span class="col-label">Invoice</span>
+        <span class="col-label col-label--right">Amount</span>
+        <span class="col-label col-label--right">Status</span>
+        <span class="col-label"></span>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="invoice-row">
+        <div class="invoice-info">
+          <div class="invoice-primary">
+            <span class="invoice-date">Mar 27, 2026</span>
+            <a href="#" class="invoice-id">#INV-2026-003522</a>
+          </div>
+          <p class="invoice-description">Team subscription — 5 seats</p>
+        </div>
+        <div class="invoice-amount">$95.54</div>
+        <div class="invoice-status">
+          <span class="status-badge status-badge--paid">Paid</span>
+        </div>
+        <div class="invoice-action">
+          <button class="action-btn" aria-label="Download invoice">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 10.5V12.5C3 13.05 3.45 13.5 4 13.5H12C12.55 13.5 13 13.05 13 12.5V10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 2.5V10M8 10L5.5 7.5M8 10L10.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="invoice-row">
+        <div class="invoice-info">
+          <div class="invoice-primary">
+            <span class="invoice-date">Mar 27, 2026</span>
+            <a href="#" class="invoice-id">#INV-2026-003519</a>
+          </div>
+          <p class="invoice-description">Unused time on team subscription — credit applied</p>
+        </div>
+        <div class="invoice-amount">-$23.01</div>
+        <div class="invoice-status">
+          <span class="status-badge status-badge--paid">Paid</span>
+        </div>
+        <div class="invoice-action">
+          <button class="action-btn" aria-label="Download invoice">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 10.5V12.5C3 13.05 3.45 13.5 4 13.5H12C12.55 13.5 13 13.05 13 12.5V10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 2.5V10M8 10L5.5 7.5M8 10L10.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="invoice-row">
+        <div class="invoice-info">
+          <div class="invoice-primary">
+            <span class="invoice-date">Feb 27, 2026</span>
+            <a href="#" class="invoice-id">#INV-2026-002847</a>
+          </div>
+          <p class="invoice-description">Team subscription — 5 seats</p>
+        </div>
+        <div class="invoice-amount">$95.54</div>
+        <div class="invoice-status">
+          <span class="status-badge status-badge--paid">Paid</span>
+        </div>
+        <div class="invoice-action">
+          <button class="action-btn" aria-label="Download invoice">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 10.5V12.5C3 13.05 3.45 13.5 4 13.5H12C12.55 13.5 13 13.05 13 12.5V10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 2.5V10M8 10L5.5 7.5M8 10L10.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="invoice-row">
+        <div class="invoice-info">
+          <div class="invoice-primary">
+            <span class="invoice-date">Jan 27, 2026</span>
+            <a href="#" class="invoice-id">#INV-2026-001203</a>
+          </div>
+          <p class="invoice-description">Team subscription — 4 seats</p>
+        </div>
+        <div class="invoice-amount">$76.43</div>
+        <div class="invoice-status">
+          <span class="status-badge status-badge--paid">Paid</span>
+        </div>
+        <div class="invoice-action">
+          <button class="action-btn" aria-label="Download invoice">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 10.5V12.5C3 13.05 3.45 13.5 4 13.5H12C12.55 13.5 13 13.05 13 12.5V10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 2.5V10M8 10L5.5 7.5M8 10L10.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Row 5 -->
+      <div class="invoice-row">
+        <div class="invoice-info">
+          <div class="invoice-primary">
+            <span class="invoice-date">Dec 27, 2025</span>
+            <a href="#" class="invoice-id">#INV-2025-011894</a>
+          </div>
+          <p class="invoice-description">Team subscription — 4 seats</p>
+        </div>
+        <div class="invoice-amount">$76.43</div>
+        <div class="invoice-status">
+          <span class="status-badge status-badge--paid">Paid</span>
+        </div>
+        <div class="invoice-action">
+          <button class="action-btn" aria-label="Download invoice">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 10.5V12.5C3 13.05 3.45 13.5 4 13.5H12C12.55 13.5 13 13.05 13 12.5V10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 2.5V10M8 10L5.5 7.5M8 10L10.5 7.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer with pagination -->
+      <div class="invoice-footer">
+        <span class="invoice-count">Showing 1–5 of 12 invoices</span>
+        <div class="invoice-nav">
+          <button class="nav-btn" disabled aria-label="Previous page">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M8.5 3.5L5 7L8.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="nav-btn" aria-label="Next page">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M5.5 3.5L9 7L5.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
