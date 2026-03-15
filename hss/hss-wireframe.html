@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hamptons Spotless Services — Private Estate Care</title>
-  <meta name="description" content="Spotless and discreet cleaning services for homes across the Hamptons. Southampton, East Hampton, Bridgehampton, Sag Harbor, and beyond.">
+  <title>Hamptons Spotless Services — Premium Home Cleaning</title>
+  <meta name="description" content="Premium home cleaning and trusted household staff services for Hamptons homes. Southampton, East Hampton, Bridgehampton, Sag Harbor, and beyond.">
   <meta name="robots" content="index, follow">
   <link rel="icon" type="image/svg+xml" href="assets/hss-brandsymbol.svg">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Hamptons Spotless Services — Private Estate Care">
-  <meta property="og:description" content="Spotless and discreet cleaning services for homes across the Hamptons.">
+  <meta property="og:title" content="Hamptons Spotless Services — Premium Home Cleaning">
+  <meta property="og:description" content="Premium home cleaning and trusted household staff services for Hamptons homes.">
   <meta property="og:type" content="website">
 
   <!-- Google Fonts -->
@@ -24,7 +24,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Hamptons Spotless Services",
-    "description": "Spotless and discreet cleaning services for homes across the Hamptons",
+    "description": "Premium home cleaning and trusted household staff services for Hamptons homes",
     "telephone": "+16313881263",
     "email": "john@hamptonsspotlessservices.com",
     "areaServed": [
@@ -147,6 +147,14 @@
       color: var(--wire-text); text-decoration: none;
     }
     .nav-links a:hover { color: var(--wire-text-muted); }
+    .nav-links .nav-phone {
+      font-family: var(--font);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      border-left: 1px solid var(--wire-border);
+      padding-left: 32px;
+    }
 
     .nav-toggle {
       display: none;
@@ -483,6 +491,52 @@
     }
 
     /* ════════════════════════════════════
+       CLIENT TESTIMONIALS
+    ════════════════════════════════════ */
+    .client-testimonials {
+      background: var(--wire-bg);
+    }
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .testimonials-header .label {
+      margin-bottom: 12px;
+      display: block;
+    }
+    .testimonials-header h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .testimonial-card {
+      border: 1px solid var(--wire-border);
+      padding: 32px;
+    }
+    .testimonial-card .testimonial-quote-mark {
+      font-size: 36px;
+      margin-bottom: 0;
+    }
+    .testimonial-card-text {
+      font-family: var(--font);
+      font-size: 14px; font-weight: 400;
+      color: var(--wire-text);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .testimonial-card-attr {
+      font-size: 12px; font-weight: 400;
+      color: var(--wire-label);
+    }
+
+    @media (max-width: 1023px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ════════════════════════════════════
        CONTACT
     ════════════════════════════════════ */
     .contact {
@@ -673,6 +727,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#areas">Areas</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="tel:+16313881263" class="nav-phone">(631) 388-1263</a></li>
   </ul>
 
   <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -695,7 +750,7 @@
     <div class="hero-text">
       <span class="hero-label fade-in">Hamptons Spotless Services</span>
       <h1 class="fade-in fade-in-delay-1">Homes Maintained<br>to an Exceptional<br>Standard</h1>
-      <p class="hero-sub fade-in fade-in-delay-2">Spotless and discreet cleaning services for homes across the Hamptons.</p>
+      <p class="hero-sub fade-in fade-in-delay-2">Premium home cleaning and trusted household staff services for Hamptons homes.</p>
       <a href="#contact" class="hero-cta fade-in fade-in-delay-3">Enquire</a>
     </div>
     <div class="hero-image fade-in fade-in-delay-1">
@@ -713,7 +768,7 @@
   <div class="section-inner">
     <div class="services-header fade-in">
       <span class="label">Our Services</span>
-      <h2>Private Estate Care,<br>Delivered with Precision</h2>
+      <h2>What We Do</h2>
     </div>
     <div class="services-grid">
       <div class="service-card fade-in">
@@ -763,10 +818,10 @@
     <div class="about-grid">
       <div class="about-text">
         <span class="label fade-in">About</span>
-        <h2 class="fade-in">We Understand the Hamptons Standard</h2>
-        <p class="fade-in">Every home in the Hamptons has been considered down to the last detail — by architects, interior designers, and landscapers who understand that nothing is overlooked. We hold ourselves to the same standard.</p>
-        <p class="fade-in">Hamptons Spotless Services provides private estate care across the East End. From Southampton to Montauk, we deliver cleaning services with the precision and discretion that our clients expect from every part of their home.</p>
-        <p class="fade-in">We are not a cleaning company that happens to work in the Hamptons. We are a Hamptons service, built for this community and the standards it demands.</p>
+        <h2 class="fade-in">Who We Are</h2>
+        <p class="fade-in">Every home in the Hamptons is designed with care and attention to detail, by architects, interior designers, and landscapers who know that nothing should be overlooked. We work to that same standard.</p>
+        <p class="fade-in">Hamptons Spotless Services provides professional home cleaning and household staff services across the East End. From Southampton to Montauk, we deliver reliable, discreet support that our clients trust in every part of their home.</p>
+        <p class="fade-in">We are not just a cleaning company that works in the Hamptons. We are a local service; built for this community and the standards it expects.</p>
         <div class="trust-row fade-in">
           <div class="trust-item">
             <span>Licensed<br>&amp; Bonded</span>
@@ -794,7 +849,7 @@
     <div class="areas-header fade-in">
       <span class="label">Service Areas</span>
       <h2>Serving the Hamptons</h2>
-      <p>From the estates of Southampton to the shores of Montauk, we provide private estate care across the Hamptons.</p>
+      <p>From Southampton to the shores of Montauk, we provide premium home cleaning and household staff services across the Hamptons.</p>
     </div>
     <div class="areas-list fade-in">
       Southampton <span class="sep">&middot;</span>
@@ -812,7 +867,7 @@
 </section>
 
 <!-- ════════════════════════════════════════════
-     TESTIMONIALS
+     BRAND PROMISE
 ════════════════════════════════════════════ -->
 <section class="section testimonials" id="testimonials">
   <div class="section-inner">
@@ -880,6 +935,35 @@
           <h3>Thank you.</h3>
           <p>Your enquiry has been received. We will be in touch shortly.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════════════ -->
+<section class="section client-testimonials" id="client-testimonials">
+  <div class="section-inner">
+    <div class="testimonials-header fade-in">
+      <span class="label">Testimonials</span>
+      <h2>What Our Clients Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <p class="testimonial-card-text">We've used Hamptons Spotless for over two years now. They're reliable, thorough, and always respectful of our home. We wouldn't use anyone else.</p>
+        <p class="testimonial-card-attr">&mdash; Homeowner, Southampton</p>
+      </div>
+      <div class="testimonial-card fade-in">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <p class="testimonial-card-text">They handle our vacation rental turnovers and haven't missed a beat. Guests consistently comment on how spotless the house is on arrival.</p>
+        <p class="testimonial-card-attr">&mdash; Property Owner, East Hampton</p>
+      </div>
+      <div class="testimonial-card fade-in">
+        <span class="testimonial-quote-mark">&ldquo;</span>
+        <p class="testimonial-card-text">Professional, discreet, and genuinely caring about the work they do. They understand the standard we expect and deliver it every time.</p>
+        <p class="testimonial-card-attr">&mdash; Homeowner, Bridgehampton</p>
       </div>
     </div>
   </div>
