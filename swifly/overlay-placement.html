@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Overlay Placement</title>
+  <style>
+    :root {
+      --purple-400: #AE45FF;
+      --purple-dim: rgba(174, 69, 255, 0.12);
+      --bg: #06060b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ── Simulated desktop background ── */
+    .desktop {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 70%, rgba(174, 69, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 30%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    /* ── Overlay button ── */
+    .overlay-btn {
+      position: fixed;
+      width: 58px;
+      height: 58px;
+      cursor: grab;
+      z-index: 100;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    }
+
+    .overlay-btn:active { cursor: grabbing; }
+
+    .overlay-btn.dragging {
+      transition: none;
+      cursor: grabbing;
+    }
+
+    .overlay-btn.snapping {
+      transition:
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        left 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Position presets */
+    .overlay-btn.pos-bottom-right {
+      bottom: 28px;
+      right: 28px;
+    }
+
+    .overlay-btn.pos-bottom-left {
+      bottom: 28px;
+      left: 28px;
+    }
+
+    .overlay-btn.pos-bottom-center {
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Pulse ring on idle */
+    .overlay-btn::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(174, 69, 255, 0.3);
+      animation: pulseRing 3s ease-in-out infinite;
+    }
+
+    .overlay-btn.dragging::after,
+    .overlay-btn.snapping::after {
+      animation: none;
+      opacity: 0;
+    }
+
+    @keyframes pulseRing {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.15); opacity: 0; }
+    }
+
+    /* ── Placement grid overlay ── */
+    .placement-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease-out;
+    }
+
+    .placement-grid.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Backdrop */
+    .placement-grid::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* ── Drop zones ── */
+    .drop-zone {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .drop-zone.hover {
+      transform: scale(1.1);
+    }
+
+    /* Zone: bottom-right */
+    .drop-zone--bottom-right {
+      bottom: 28px;
+      right: 28px;
+    }
+
+    /* Zone: bottom-left */
+    .drop-zone--bottom-left {
+      bottom: 28px;
+      left: 28px;
+    }
+
+    /* Zone: bottom-center */
+    .drop-zone--bottom-center {
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .drop-zone--bottom-center.hover {
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    /* Ghost preview circle */
+    .drop-zone-ghost {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(255, 255, 255, 0.15);
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+
+    .drop-zone-ghost::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(174, 69, 255, 0.25);
+      transition: background 0.2s ease;
+    }
+
+    .drop-zone.hover .drop-zone-ghost {
+      border-color: var(--purple-400);
+      border-style: solid;
+    }
+
+    .drop-zone.hover .drop-zone-ghost::after {
+      background: rgba(174, 69, 255, 0.6);
+    }
+
+    .drop-zone.active-zone .drop-zone-ghost {
+      border-style: solid;
+      border-color: rgba(174, 69, 255, 0.5);
+    }
+
+    .drop-zone.active-zone .drop-zone-ghost::after {
+      background: var(--purple-400);
+    }
+
+    /* Zone label */
+    .drop-zone-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .drop-zone.hover .drop-zone-label {
+      color: rgba(174, 69, 255, 0.8);
+    }
+
+    .drop-zone.active-zone .drop-zone-label {
+      color: rgba(174, 69, 255, 0.5);
+    }
+
+    /* ── Connection lines (subtle guide paths) ── */
+    .guide-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .guide-lines svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Hint text ── */
+    .placement-hint {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ── Intro hint ── */
+    .intro-hint {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      animation: fadeHint 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .intro-hint svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+    }
+
+    .intro-hint.hidden {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes fadeHint {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="desktop"></div>
+
+  <!-- Intro hint -->
+  <div class="intro-hint" id="introHint">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v4l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+    Click and hold to reposition
+  </div>
+
+  <!-- Placement grid (hidden by default) -->
+  <div class="placement-grid" id="placementGrid">
+
+    <p class="placement-hint">Drag to reposition overlay</p>
+
+    <!-- Drop zones -->
+    <div class="drop-zone drop-zone--bottom-left" data-position="bottom-left">
+      <div class="drop-zone-ghost"></div>
+      <span class="drop-zone-label">Bottom left</span>
+    </div>
+
+    <div class="drop-zone drop-zone--bottom-center" data-position="bottom-center">
+      <div class="drop-zone-ghost"></div>
+      <span class="drop-zone-label">Centre</span>
+    </div>
+
+    <div class="drop-zone drop-zone--bottom-right active-zone" data-position="bottom-right">
+      <div class="drop-zone-ghost"></div>
+      <span class="drop-zone-label">Bottom right</span>
+    </div>
+
+  </div>
+
+  <!-- Overlay button -->
+  <svg class="overlay-btn pos-bottom-right" id="overlayBtn" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 28.55C0 12.7823 12.7823 0 28.55 0C44.3177 0 57.0999 12.7823 57.0999 28.55C57.0999 44.3177 44.3177 57.0999 28.55 57.0999C12.7823 57.0999 0 44.3177 0 28.55Z" fill="#262626"/>
+    <path d="M1.90234 28.5503C1.90234 13.8336 13.8326 1.90332 28.5493 1.90332C43.266 1.90332 55.1963 13.8336 55.1963 28.5503C55.1963 43.267 43.266 55.1973 28.5493 55.1973C13.8326 55.1973 1.90234 43.267 1.90234 28.5503Z" fill="url(#paint0_linear_overlay)"/>
+    <path d="M1.90234 28.5503C1.90234 13.8336 13.8326 1.90332 28.5493 1.90332C43.266 1.90332 55.1963 13.8336 55.1963 28.5503C55.1963 43.267 43.266 55.1973 28.5493 55.1973C13.8326 55.1973 1.90234 43.267 1.90234 28.5503Z" fill="#1C1C1C"/>
+    <circle cx="28.7306" cy="28.919" r="5.91904" fill="#AE45FF"/>
+    <defs>
+      <linearGradient id="paint0_linear_overlay" x1="1.90234" y1="1.90332" x2="55.1963" y2="55.1973" gradientUnits="userSpaceOnUse">
+        <stop stop-color="white" stop-opacity="0.2"/>
+        <stop offset="1" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script>
+    const btn = document.getElementById('overlayBtn');
+    const grid = document.getElementById('placementGrid');
+    const introHint = document.getElementById('introHint');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    let currentPosition = 'bottom-right';
+    let isDragging = false;
+    let holdTimer = null;
+    let startX, startY;
+    let dragOffsetX, dragOffsetY;
+
+    // ── Press and hold to activate grid ──
+    function startHold(e) {
+      e.preventDefault();
+      const point = e.touches ? e.touches[0] : e;
+      startX = point.clientX;
+      startY = point.clientY;
+
+      holdTimer = setTimeout(() => {
+        activateDrag(point);
+      }, 300);
+    }
+
+    function activateDrag(point) {
+      isDragging = true;
+      introHint.classList.add('hidden');
+
+      // Show grid
+      grid.classList.add('visible');
+
+      // Mark current position
+      dropZones.forEach(z => z.classList.remove('active-zone'));
+      const currentZone = document.querySelector(`[data-position="${currentPosition}"]`);
+      if (currentZone) currentZone.classList.add('active-zone');
+
+      // Switch to free positioning
+      btn.classList.add('dragging');
+      btn.classList.remove('pos-bottom-right', 'pos-bottom-left', 'pos-bottom-center');
+
+      btn.style.position = 'fixed';
+      btn.style.right = 'auto';
+      btn.style.bottom = 'auto';
+      btn.style.left = (point.clientX - 29) + 'px';
+      btn.style.top = (point.clientY - 29) + 'px';
+      btn.style.transform = 'scale(1.1)';
+
+      dragOffsetX = 29;
+      dragOffsetY = 29;
+    }
+
+    function onMove(e) {
+      if (!isDragging) {
+        // Cancel hold if finger moves before threshold
+        if (holdTimer) {
+          const point = e.touches ? e.touches[0] : e;
+          const dx = point.clientX - startX;
+          const dy = point.clientY - startY;
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            clearTimeout(holdTimer);
+            holdTimer = null;
+          }
+        }
+        return;
+      }
+
+      e.preventDefault();
+      const point = e.touches ? e.touches[0] : e;
+
+      btn.style.left = (point.clientX - dragOffsetX) + 'px';
+      btn.style.top = (point.clientY - dragOffsetY) + 'px';
+
+      // Hit-test drop zones
+      dropZones.forEach(zone => {
+        const zr = zone.getBoundingClientRect();
+        const cx = point.clientX;
+        const cy = point.clientY;
+        const inside = cx >= zr.left && cx <= zr.right && cy >= zr.top && cy <= zr.bottom;
+        zone.classList.toggle('hover', inside);
+      });
+    }
+
+    function onRelease(e) {
+      clearTimeout(holdTimer);
+      holdTimer = null;
+
+      if (!isDragging) return;
+      isDragging = false;
+
+      // Find hovered zone
+      const hoveredZone = document.querySelector('.drop-zone.hover');
+      if (hoveredZone) {
+        currentPosition = hoveredZone.dataset.position;
+      }
+
+      // Hide grid
+      grid.classList.remove('visible');
+      dropZones.forEach(z => {
+        z.classList.remove('hover', 'active-zone');
+      });
+
+      // Snap to position
+      btn.classList.remove('dragging');
+      btn.classList.add('snapping');
+
+      // Calculate target position
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      let targetX, targetY;
+
+      if (currentPosition === 'bottom-right') {
+        targetX = vw - 58 - 28;
+        targetY = vh - 58 - 28;
+      } else if (currentPosition === 'bottom-left') {
+        targetX = 28;
+        targetY = vh - 58 - 28;
+      } else {
+        targetX = (vw - 58) / 2;
+        targetY = vh - 58 - 28;
+      }
+
+      btn.style.transform = 'scale(1)';
+      btn.style.left = targetX + 'px';
+      btn.style.top = targetY + 'px';
+
+      // After snap animation, clear inline styles and apply position class
+      setTimeout(() => {
+        btn.classList.remove('snapping');
+        btn.style.left = '';
+        btn.style.top = '';
+        btn.style.right = '';
+        btn.style.bottom = '';
+        btn.style.position = '';
+        btn.style.transform = '';
+        btn.classList.add('pos-' + currentPosition);
+      }, 400);
+    }
+
+    // Mouse events
+    btn.addEventListener('mousedown', startHold);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onRelease);
+
+    // Touch events
+    btn.addEventListener('touchstart', startHold, { passive: false });
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onRelease);
+  </script>
+
+</body>
+</html>

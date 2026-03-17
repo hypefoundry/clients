@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — DMG Preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #1a1a2e;
+      background-image:
+        radial-gradient(ellipse at 50% 40%, rgba(174, 69, 255, 0.04) 0%, transparent 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    }
+
+    /* ── macOS Window Chrome ── */
+    .macos-window {
+      width: 660px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 0.5px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Title bar */
+    .titlebar {
+      height: 28px;
+      background: linear-gradient(180deg, #3a3a3a 0%, #2d2d2d 100%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      padding: 0 13px;
+      gap: 8px;
+      position: relative;
+    }
+
+    .traffic-light {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .traffic-light::after {
+      content: '';
+      position: absolute;
+      inset: 0.5px;
+      border-radius: 50%;
+    }
+
+    .traffic-light--close {
+      background: #ff5f57;
+      box-shadow: inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.15);
+    }
+    .traffic-light--close::after {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+    }
+
+    .traffic-light--minimize {
+      background: #ffbd2e;
+      box-shadow: inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.15);
+    }
+    .traffic-light--minimize::after {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+    }
+
+    .traffic-light--maximize {
+      background: #28c840;
+      box-shadow: inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.15);
+    }
+    .traffic-light--maximize::after {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+    }
+
+    .titlebar-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── DMG Content Area ── */
+    .dmg-content {
+      width: 660px;
+      height: 400px;
+      background: #0a0a10;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background layers */
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 30%, rgba(174, 69, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 30% 70%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, rgba(139, 92, 246, 0.04) 0%, transparent 50%),
+        linear-gradient(180deg, #0c0c14 0%, #08080e 50%, #0a0a12 100%);
+    }
+
+    .bg-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .glow-arc {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(174, 69, 255, 0.12) 0%, transparent 70%);
+      filter: blur(30px);
+    }
+
+    /* Content layout */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding-top: 50px;
+    }
+
+    .instruction {
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      text-align: center;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .instruction em {
+      font-style: normal;
+      color: #AE45FF;
+    }
+
+    /* Icons row */
+    .icons-row {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .icon-slot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Realistic macOS app icon */
+    .swifly-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #1a1a24 0%, #0e0e16 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.4),
+        0 1px 4px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .swifly-icon svg {
+      width: 44px;
+      height: auto;
+    }
+
+    /* macOS Applications folder */
+    .apps-folder {
+      width: 72px;
+      height: 62px;
+      position: relative;
+    }
+
+    .apps-folder-tab {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      width: 22px;
+      height: 10px;
+      background: linear-gradient(180deg, #6cb4ee 0%, #4a9de0 100%);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .apps-folder-body {
+      position: absolute;
+      top: 9px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, #5aadee 0%, #3d8fd4 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .apps-folder-body svg {
+      width: 28px;
+      height: 28px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .icon-label {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Arrow */
+    .arrow {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: -10px;
+    }
+
+    .arrow-chevron {
+      width: 14px;
+      height: 14px;
+    }
+
+    .arrow-chevron:nth-child(1) { color: rgba(174, 69, 255, 0.5); }
+    .arrow-chevron:nth-child(2) { color: rgba(174, 69, 255, 0.35); }
+    .arrow-chevron:nth-child(3) { color: rgba(174, 69, 255, 0.2); }
+
+    /* Brand wordmark */
+    .brand-wordmark {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      opacity: 0.15;
+    }
+
+    .brand-wordmark svg {
+      height: 8px;
+      width: auto;
+    }
+
+    /* Bottom line */
+    .bottom-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(174, 69, 255, 0.15) 30%,
+        rgba(174, 69, 255, 0.25) 50%,
+        rgba(174, 69, 255, 0.15) 70%,
+        transparent 100%
+      );
+    }
+  </style>
+</head>
+<body>
+
+  <div class="macos-window">
+
+    <!-- Title bar -->
+    <div class="titlebar">
+      <div class="traffic-light traffic-light--close"></div>
+      <div class="traffic-light traffic-light--minimize"></div>
+      <div class="traffic-light traffic-light--maximize"></div>
+      <span class="titlebar-text">Swifly Installer</span>
+    </div>
+
+    <!-- DMG content -->
+    <div class="dmg-content">
+
+      <div class="bg-gradient"></div>
+      <div class="bg-noise"></div>
+      <div class="glow-arc"></div>
+
+      <div class="content">
+
+        <p class="instruction">
+          Drag <em>Swifly</em> to Applications
+        </p>
+
+        <div class="icons-row">
+
+          <!-- Swifly app icon (simulating Finder icon) -->
+          <div class="icon-slot">
+            <div class="swifly-icon">
+              <svg viewBox="0 0 22.2 22.2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.0052 0.000488281H15.904C13.8408 0.000488281 11.987 1.2606 11.2273 3.1787L6.60635 14.8499L5.57372 12.2419C5.04992 10.919 3.77135 10.0499 2.34812 10.0499H0V12.1197H2.27129C2.89187 12.1197 3.44959 12.4988 3.67807 13.0755L5.37318 17.3567C5.81567 18.4746 7.39754 18.4746 7.84003 17.3567L13.2192 3.76935C13.6253 2.7437 14.6165 2.07024 15.7195 2.07024H17.9249C19.1326 2.07024 20.1119 3.0495 20.1119 4.25723V8.34984H22.1816V4.17741C22.1816 1.8707 20.3114 0.000488281 18.0047 0.000488281H18.0052Z" fill="white"/>
+                <path d="M2.06926 4.25674C2.06926 3.04901 3.04851 2.06975 4.25624 2.06975H7.6325L4.87283 9.04027C4.99704 9.11061 5.11876 9.18594 5.23799 9.26675C5.74134 9.60897 6.17434 10.032 6.52354 10.5179L9.67282 2.56312C10.0659 1.5704 10.682 0.697401 11.4752 0H4.17692C1.87021 0 0 1.87021 0 4.17693V8.37779H2.06975V4.25624L2.06926 4.25674Z" fill="white"/>
+                <path d="M18.5565 9.09104L16.9851 5.12263C16.5426 4.0047 14.9607 4.0047 14.5182 5.12263L9.27474 18.3658C8.85719 19.4199 7.83853 20.1128 6.70463 20.1128H4.25674C3.04901 20.1128 2.06975 19.1335 2.06975 17.9258V13.8197H0V18.0051C0 20.3118 1.87021 22.182 4.17692 22.182H6.63429C8.65965 22.182 10.4795 20.9454 11.2253 19.0622L15.7519 7.62889L16.6284 9.84231C17.1726 11.2167 18.5011 12.1196 19.9792 12.1196H22.1821V10.0498H19.9677C19.3451 10.0498 18.7859 9.66971 18.5565 9.09104Z" fill="white"/>
+                <path d="M20.113 17.9259C20.113 19.1336 19.1337 20.1128 17.926 20.1128H14.7877L17.5294 13.1882C17.3528 13.0954 17.1812 12.9927 17.0146 12.8794C16.5851 12.5876 16.2049 12.2379 15.8832 11.8413L12.7803 19.6783C12.3972 20.6466 11.7985 21.4997 11.0293 22.1831H18.0063C20.313 22.1831 22.1832 20.3129 22.1832 18.0062V13.7918H20.1135V17.9264L20.113 17.9259Z" fill="white"/>
+              </svg>
+            </div>
+            <span class="icon-label">Swifly</span>
+          </div>
+
+          <!-- Arrow -->
+          <div class="arrow">
+            <svg class="arrow-chevron" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="arrow-chevron" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="arrow-chevron" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <!-- Applications folder (macOS-style blue folder) -->
+          <div class="icon-slot">
+            <div class="apps-folder">
+              <div class="apps-folder-tab"></div>
+              <div class="apps-folder-body">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M17.05 11L12 3L6.95 11H17.05Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M12 21L17.05 13H6.95L12 21Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M3.5 14L9 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M20.5 14L15 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M3.5 10L9 20.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M20.5 10L15 20.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+            <span class="icon-label">Applications</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Brand wordmark -->
+      <div class="brand-wordmark">
+        <svg width="83" height="23" viewBox="0 0 83 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.0052 0.000488281H15.904C13.8408 0.000488281 11.987 1.2606 11.2273 3.1787L6.60635 14.8499L5.57372 12.2419C5.04992 10.919 3.77135 10.0499 2.34812 10.0499H0V12.1197H2.27129C2.89187 12.1197 3.44959 12.4988 3.67807 13.0755L5.37318 17.3567C5.81567 18.4746 7.39754 18.4746 7.84003 17.3567L13.2192 3.76935C13.6253 2.7437 14.6165 2.07024 15.7195 2.07024H17.9249C19.1326 2.07024 20.1119 3.0495 20.1119 4.25723V8.34984H22.1816V4.17741C22.1816 1.8707 20.3114 0.000488281 18.0047 0.000488281H18.0052Z" fill="white"/>
+          <path d="M2.06926 4.25674C2.06926 3.04901 3.04851 2.06975 4.25624 2.06975H7.6325L4.87283 9.04027C4.99704 9.11061 5.11876 9.18594 5.23799 9.26675C5.74134 9.60897 6.17434 10.032 6.52354 10.5179L9.67282 2.56312C10.0659 1.5704 10.682 0.697401 11.4752 0H4.17692C1.87021 0 0 1.87021 0 4.17693V8.37779H2.06975V4.25624L2.06926 4.25674Z" fill="white"/>
+          <path d="M18.5565 9.09104L16.9851 5.12263C16.5426 4.0047 14.9607 4.0047 14.5182 5.12263L9.27474 18.3658C8.85719 19.4199 7.83853 20.1128 6.70463 20.1128H4.25674C3.04901 20.1128 2.06975 19.1335 2.06975 17.9258V13.8197H0V18.0051C0 20.3118 1.87021 22.182 4.17692 22.182H6.63429C8.65965 22.182 10.4795 20.9454 11.2253 19.0622L15.7519 7.62889L16.6284 9.84231C17.1726 11.2167 18.5011 12.1196 19.9792 12.1196H22.1821V10.0498H19.9677C19.3451 10.0498 18.7859 9.66971 18.5565 9.09104Z" fill="white"/>
+          <path d="M20.113 17.9259C20.113 19.1336 19.1337 20.1128 17.926 20.1128H14.7877L17.5294 13.1882C17.3528 13.0954 17.1812 12.9927 17.0146 12.8794C16.5851 12.5876 16.2049 12.2379 15.8832 11.8413L12.7803 19.6783C12.3972 20.6466 11.7985 21.4997 11.0293 22.1831H18.0063C20.313 22.1831 22.1832 20.3129 22.1832 18.0062V13.7918H20.1135V17.9264L20.113 17.9259Z" fill="white"/>
+          <path d="M80.3581 7.65967L77.6303 14.9385L74.6132 7.65967H72.1738L76.5139 17.9181L76.3597 18.3292C75.9626 19.3883 74.9505 20.0902 73.8191 20.0902H73.5472V22.1599H74.0016C75.9801 22.1599 77.7505 20.9332 78.4459 19.0815L82.7341 7.66016H80.3571L80.3581 7.65967Z" fill="white"/>
+          <path d="M70.6555 3.03027H68.3867V18.0344H70.6555V3.03027Z" fill="white"/>
+          <path d="M62.2467 7.02386V7.6604H60.5352V9.73016H62.2467V18.0351H64.5155V9.73016H66.9829V7.6604H64.5155V7.0922C64.5155 6.13839 65.2888 5.36516 66.2426 5.36516H66.9834V3.29541H65.9752C63.9164 3.29541 62.2472 4.96458 62.2472 7.02336L62.2467 7.02386Z" fill="white"/>
+          <path d="M58.8235 7.65967H56.5547V18.0339H58.8235V7.65967Z" fill="white"/>
+          <path d="M57.6825 6.14774C58.4812 6.14774 59.1287 5.50026 59.1287 4.70155C59.1287 3.90285 58.4812 3.25537 57.6825 3.25537C56.8838 3.25537 56.2363 3.90285 56.2363 4.70155C56.2363 5.50026 56.8838 6.14774 57.6825 6.14774Z" fill="white"/>
+          <path d="M50.3331 14.8242L48.1242 7.65967H45.8305L43.6215 14.8242L41.4749 7.65967H39.1328L42.3769 18.0339H44.7609L46.9773 10.9461L49.1937 18.0339H51.5773L54.8218 7.65967H52.4797L50.3331 14.8242Z" fill="white"/>
+          <path d="M33.6831 9.53137C31.4607 8.98064 30.0614 8.37453 30.1407 7.04557C30.209 5.9017 31.1683 5.19631 32.7143 5.21078C34.1206 5.22425 35.1961 6.0738 35.7922 7.298L37.7822 6.26087C36.7924 3.99806 35.1088 3.03377 32.7941 3.03028C29.796 3.02629 27.8061 4.66553 27.7262 6.9922C27.626 9.92946 29.809 10.8928 32.5153 11.4724C34.362 11.868 35.9035 12.4312 35.7653 13.9188C35.6366 15.3101 34.358 15.9182 32.5816 15.8464C30.9364 15.7801 29.5964 14.5723 29.2517 13.3207L27.1426 14.3443C28.0445 16.9234 30.214 18.0254 32.7941 18.0349C35.4076 18.0449 37.9548 17.1359 38.1538 14.0515C38.3359 11.232 36.2038 10.1564 33.6831 9.53137Z" fill="white"/>
+        </svg>
+      </div>
+
+      <div class="bottom-line"></div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
