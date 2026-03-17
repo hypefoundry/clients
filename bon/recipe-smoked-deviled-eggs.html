@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smoked Deviled Eggs — Bon Apperoo</title>
+  <style>
+    :root {
+      --bon-walnut: #7B5C42;
+      --bon-brass: #B59E78;
+      --bon-stone: #A8A39F;
+      --bon-amber: #D4A843;
+      --bon-bg: #F2F0ED;
+      --bon-bg-warm: #EBE8E3;
+      --bon-bg-light: #FAF8F6;
+      --bon-white: #FFFFFF;
+      --bon-text: #2A2A2A;
+      --bon-text-secondary: #5A5A5A;
+      --bon-text-tertiary: #8A8A8A;
+      --bon-border: #D6D2CC;
+      --bon-font: 'Cera Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--bon-font);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--bon-text);
+      background: var(--bon-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ── Nav ── */
+    .bon-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; padding: 20px 40px;
+      background: transparent;
+      border-bottom: 0.5px solid rgba(181,158,120,0.5);
+      transition: background 0.4s, border-color 0.4s;
+    }
+    .bon-nav.scrolled {
+      background: var(--bon-white);
+      border-bottom-color: var(--bon-border);
+    }
+    .bon-nav__left { display: flex; gap: 28px; }
+    .bon-nav__left a {
+      font-size: 13px; color: var(--bon-brass);
+      letter-spacing: 0.02em; text-transform: uppercase; transition: color 0.3s;
+    }
+    .bon-nav.scrolled .bon-nav__left a { color: var(--bon-walnut); }
+    .bon-nav__left a:hover { color: var(--bon-brass); }
+    .bon-nav.scrolled .bon-nav__left a:hover { color: var(--bon-text); }
+    .bon-nav__logo {
+      display: flex; align-items: center;
+      color: var(--bon-brass); transition: color 0.3s;
+    }
+    .bon-nav__logo svg { height: 14px; width: auto; }
+    .bon-nav.scrolled .bon-nav__logo { color: var(--bon-walnut); }
+    .bon-nav__right { display: flex; justify-content: flex-end; gap: 28px; }
+    .bon-nav__right a {
+      font-size: 13px; color: var(--bon-brass);
+      letter-spacing: 0.02em; text-transform: uppercase; transition: color 0.3s;
+    }
+    .bon-nav.scrolled .bon-nav__right a { color: var(--bon-walnut); }
+    .bon-nav__right a:hover { color: var(--bon-brass); }
+    .bon-nav.scrolled .bon-nav__right a:hover { color: var(--bon-text); }
+
+    /* ── Link CTA ── */
+    .bon-link-cta {
+      display: inline-block; font-size: 12px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bon-brass); position: relative; padding-bottom: 6px;
+    }
+    .bon-link-cta::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+      height: 1px; background: var(--bon-brass);
+      transition: bottom 0.3s ease;
+    }
+    .bon-link-cta:hover::after { bottom: -4px; }
+
+    /* ── Link Subtle ── */
+    .bon-link-subtle {
+      display: inline-block; font-size: 13px; font-weight: 300;
+      color: var(--bon-text-secondary);
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: border-color 0.3s ease;
+    }
+    .bon-link-subtle:hover { border-color: var(--bon-text-secondary); }
+
+    /* ── Divider ── */
+    .bon-divider { height: 1px; background: var(--bon-border); margin: 0 40px; }
+
+    /* ── Recipe Hero ── */
+    .bon-recipe-hero {
+      position: relative; min-height: 85vh;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .bon-recipe-hero__image {
+      position: absolute; inset: 0;
+      overflow: hidden;
+    }
+    .bon-recipe-hero__image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .bon-recipe-hero__image::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+    }
+    .bon-recipe-hero__content {
+      position: relative; z-index: 1; width: 100%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 120px 80px 80px; max-width: 620px; margin-left: auto;
+    }
+    .bon-recipe-hero__tag {
+      display: inline-block; font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--bon-brass);
+      border: 1px solid rgba(181,158,120,0.35);
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px; align-self: flex-start;
+    }
+    .bon-recipe-hero__title {
+      font-size: clamp(36px, 4.5vw, 52px); font-weight: 300;
+      line-height: 1.15; color: var(--bon-brass);
+      letter-spacing: -0.02em; margin-bottom: 24px;
+    }
+    .bon-recipe-hero__desc {
+      font-size: 15px; line-height: 1.75; color: var(--bon-brass);
+      font-weight: 300; max-width: 400px; margin-bottom: 40px;
+    }
+    .bon-recipe-hero__meta {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+      padding-top: 28px; border-top: 1px solid rgba(181,158,120,0.3);
+    }
+    .bon-recipe-hero__meta-item {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .bon-recipe-hero__meta-label {
+      font-size: 11px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(181,158,120,0.6);
+    }
+    .bon-recipe-hero__meta-value {
+      font-size: 15px; font-weight: 400; color: var(--bon-brass);
+    }
+
+    /* ── Recipe Body ── */
+    .bon-recipe-body {
+      display: grid; grid-template-columns: 1fr 2fr;
+      gap: 0; max-width: 1100px; margin: 0 auto;
+    }
+
+    /* Ingredients sidebar */
+    .bon-recipe-ingredients {
+      padding: 60px 40px;
+      border-right: 1px solid var(--bon-border);
+      position: sticky; top: 64px; align-self: start;
+    }
+    .bon-recipe-ingredients h3 {
+      font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--bon-text-tertiary);
+      margin-bottom: 28px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--bon-border);
+    }
+    .bon-ingredient-group { margin-bottom: 32px; }
+    .bon-ingredient-group__title {
+      font-size: 13px; font-weight: 500; color: var(--bon-text);
+      margin-bottom: 14px; letter-spacing: 0.01em;
+    }
+    .bon-ingredient-list { list-style: none; }
+    .bon-ingredient-list li {
+      font-size: 14px; line-height: 1.5; color: var(--bon-text-secondary);
+      font-weight: 300; padding: 8px 0;
+      border-bottom: 1px solid var(--bon-border);
+      display: flex; justify-content: space-between; gap: 12px;
+    }
+    .bon-ingredient-list li:last-child { border-bottom: none; }
+    .bon-ingredient-amount {
+      color: var(--bon-text); font-weight: 400; white-space: nowrap;
+    }
+
+    /* Method steps */
+    .bon-recipe-method { padding: 60px; }
+    .bon-recipe-method h3 {
+      font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--bon-text-tertiary);
+      margin-bottom: 28px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--bon-border);
+    }
+    .bon-method-step {
+      display: grid; grid-template-columns: 48px 1fr;
+      gap: 0; padding: 28px 0;
+      border-bottom: 1px solid var(--bon-border);
+    }
+    .bon-method-step:last-of-type { border-bottom: none; }
+    .bon-method-step__number {
+      font-size: 24px; font-weight: 300;
+      color: var(--bon-brass); line-height: 1;
+    }
+    .bon-method-step__title {
+      font-size: 16px; font-weight: 400; color: var(--bon-text);
+      margin-bottom: 8px; line-height: 1.4;
+    }
+    .bon-method-step__text {
+      font-size: 14px; line-height: 1.75;
+      color: var(--bon-text-secondary); font-weight: 300;
+    }
+
+    /* ── Pro Tip ── */
+    .bon-pro-tip {
+      margin-top: 40px; padding: 28px 32px;
+      background: var(--bon-bg-warm); border-radius: 6px;
+      display: flex; gap: 20px; align-items: baseline;
+    }
+    .bon-pro-tip__label {
+      font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bon-walnut);
+      padding: 5px 14px; border: 1px solid rgba(123,92,66,0.3);
+      border-radius: 100px; white-space: nowrap; font-weight: 400;
+    }
+    .bon-pro-tip__content p {
+      font-size: 15px; line-height: 1.75;
+      color: var(--bon-text-secondary); font-weight: 300;
+    }
+    .bon-pro-tip__content p + p { margin-top: 12px; }
+
+    /* ── Image Break ── */
+    .bon-recipe-image-break {
+      margin: 60px 40px 0; aspect-ratio: 16/9;
+      background: var(--bon-bg-warm); border-radius: 4px;
+      overflow: hidden;
+    }
+    .bon-recipe-image-break img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* ── Pairings ── */
+    .bon-pairings { padding: 40px 40px 80px; }
+    .bon-pairings__header {
+      margin-bottom: 48px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--bon-border);
+    }
+    .bon-pairings__header h3 {
+      font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--bon-text-tertiary);
+    }
+    .bon-pairings__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .bon-pairing {
+      padding: 40px; border-right: 1px solid var(--bon-border);
+    }
+    .bon-pairing:first-child { padding-left: 0; }
+    .bon-pairing:last-child { border-right: none; padding-right: 0; }
+    .bon-pairing__title {
+      font-size: 16px; font-weight: 500; color: var(--bon-text);
+      margin-bottom: 12px;
+    }
+    .bon-pairing__text {
+      font-size: 14px; line-height: 1.7;
+      color: var(--bon-text-secondary); font-weight: 300;
+    }
+
+    /* ── Three Col (More Recipes) ── */
+    .bon-three-col {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .bon-three-col__item {
+      padding: 60px 40px; border-right: 1px solid var(--bon-border);
+      display: flex; flex-direction: column;
+    }
+    .bon-three-col__item:last-child { border-right: none; }
+    .bon-three-col__image {
+      aspect-ratio: 4/3; background: var(--bon-bg-warm);
+      border-radius: 4px; margin-bottom: 28px; overflow: hidden;
+    }
+    .bon-three-col__image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .bon-three-col__tag {
+      font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bon-text-tertiary);
+      margin-bottom: 10px;
+    }
+    .bon-three-col__title {
+      font-size: 18px; font-weight: 400; margin-bottom: 12px; line-height: 1.35;
+    }
+    .bon-three-col__desc {
+      font-size: 14px; line-height: 1.7;
+      color: var(--bon-text-secondary); font-weight: 300; flex: 1;
+    }
+    .bon-three-col__item .bon-link-cta {
+      margin-top: 20px; align-self: flex-start;
+    }
+
+    /* ── Newsletter ── */
+    .bon-community {
+      background: var(--bon-walnut); padding: 80px 40px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .bon-community__heading {
+      font-size: 28px; font-weight: 300;
+      color: #fff; line-height: 1.4; margin-bottom: 16px;
+    }
+    .bon-community__text {
+      font-size: 14px; line-height: 1.7;
+      color: var(--bon-brass); font-weight: 300;
+    }
+    .bon-community__form { display: flex; gap: 12px; }
+    .bon-community__form input {
+      flex: 1; padding: 14px 20px; background: transparent;
+      border: 1px solid rgba(255,255,255,0.25); color: #fff;
+      font-family: var(--bon-font); font-size: 14px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .bon-community__form input::placeholder { color: var(--bon-brass); }
+    .bon-community__form input:focus { border-color: var(--bon-brass); }
+    .bon-community__form button {
+      padding: 14px 28px; background: #fff; color: var(--bon-walnut);
+      border: none; font-family: var(--bon-font); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.04em; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bon-community__form button:hover {
+      background: var(--bon-brass); color: #fff;
+    }
+
+    /* ── Footer ── */
+    .bon-footer {
+      padding: 72px 40px 60px; border-top: 1px solid var(--bon-border);
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+    }
+    .bon-footer__brand-name {
+      margin-bottom: 24px;
+    }
+    .bon-footer__brand-name img { height: 15px; width: auto; }
+    .bon-footer__brand-desc {
+      font-size: 13px; line-height: 1.7; color: var(--bon-walnut);
+      font-weight: 400; font-style: italic;
+      margin-bottom: 28px; max-width: 280px;
+    }
+    .bon-footer__socials { display: flex; gap: 24px; }
+    .bon-footer__socials a {
+      font-size: 13px; font-weight: 500; color: var(--bon-walnut);
+      letter-spacing: 0.02em; transition: color 0.2s;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--bon-brass);
+    }
+    .bon-footer__socials a:hover { color: var(--bon-text); }
+    .bon-footer__col-heading {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 24px;
+      color: var(--bon-walnut);
+    }
+    .bon-footer__links { list-style: none; }
+    .bon-footer__links a {
+      display: block; font-size: 13px; color: var(--bon-text-secondary);
+      font-weight: 300; margin-bottom: 14px; transition: color 0.2s;
+    }
+    .bon-footer__links a:hover { color: var(--bon-walnut); }
+    .bon-footer-bottom {
+      padding: 24px 40px; border-top: 1px solid var(--bon-border);
+      display: flex; justify-content: space-between;
+    }
+    .bon-footer-bottom p {
+      font-size: 12px; color: var(--bon-text-tertiary); font-weight: 300;
+    }
+
+    /* ── Reveal ── */
+    .bon-reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .bon-reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .bon-recipe-hero { min-height: 70vh; }
+      .bon-recipe-hero__content { padding: 100px 40px 60px; }
+      .bon-recipe-body { grid-template-columns: 1fr; }
+      .bon-recipe-ingredients {
+        position: static; border-right: none;
+        border-bottom: 1px solid var(--bon-border);
+      }
+      .bon-recipe-method { padding: 60px 40px; }
+      .bon-pairings__grid { grid-template-columns: 1fr; }
+      .bon-pairing {
+        border-right: none; border-bottom: 1px solid var(--bon-border);
+        padding: 20px 0;
+      }
+      .bon-pairing:first-child { padding-left: 0; }
+      .bon-pairing:last-child { border-bottom: none; }
+      .bon-three-col { grid-template-columns: 1fr; }
+      .bon-three-col__item { border-right: none; border-bottom: 1px solid var(--bon-border); }
+      .bon-three-col__item:last-child { border-bottom: none; }
+      .bon-community { grid-template-columns: 1fr; gap: 40px; }
+      .bon-footer { grid-template-columns: 1fr 1fr; }
+      .bon-pro-tip { flex-direction: column; gap: 8px; }
+    }
+    @media (max-width: 640px) {
+      .bon-nav { padding: 16px 20px; }
+      .bon-nav__left, .bon-nav__right { gap: 16px; }
+      .bon-recipe-hero__content { padding: 40px 20px; }
+      .bon-recipe-hero__meta { grid-template-columns: repeat(2, 1fr); }
+      .bon-recipe-ingredients { padding: 40px 20px; }
+      .bon-recipe-method { padding: 40px 20px; }
+      .bon-pairings { padding: 40px 20px; }
+      .bon-community { padding: 60px 20px; }
+      .bon-footer { grid-template-columns: 1fr; padding: 40px 20px; gap: 32px; }
+      .bon-footer-bottom { padding: 20px; flex-direction: column; gap: 8px; }
+      .bon-community__form { flex-direction: column; }
+      .bon-divider { margin: 0 20px; }
+      .bon-recipe-image-break { margin: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="bon-nav">
+  <div class="bon-nav__left">
+    <a href="preview.html#products">Shop</a>
+    <a href="preview.html#about">About</a>
+    <a href="recipes.html">Recipes</a>
+  </div>
+  <a href="preview.html" class="bon-nav__logo"><svg width="164" height="17" viewBox="0 0 164 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.91929 16.6827H0V0.000595093H5.64763C8.55673 0.000595093 10.4879 1.87179 10.4879 4.44836C10.4879 5.73763 10.0236 6.79961 9.14423 7.58336C11.0261 8.21623 12.1519 9.78177 12.1519 11.8293C12.1519 14.6351 10.0748 16.6827 6.91929 16.6827ZM2.54333 2.35184V6.85055H5.40315C6.99131 6.85055 7.8972 5.96492 7.8972 4.57572C7.8972 3.18653 6.9932 2.35184 5.40315 2.35184H2.54333ZM6.69945 9.15085H2.54333V14.3314H6.69945C8.48471 14.3314 9.53464 13.3459 9.53464 11.7529C9.53464 10.1599 8.48281 9.14889 6.69945 9.14889V9.15085Z" fill="currentColor"/><path d="M22.0898 1.28396C25.9876 1.28396 29.1475 4.44384 29.1475 8.34158C29.1475 12.2393 25.9876 15.3992 22.0898 15.3992C18.1921 15.3992 15.0322 12.2393 15.0322 8.34158C15.0322 4.44385 18.1921 1.28397 22.0898 1.28396Z" stroke="currentColor" stroke-width="2.46512"/><path d="M45.9515 0.269294V16.6832H45.0716L35.2377 5.48018V16.4139H32.6455V2.67029e-05H33.55L43.3593 11.1538V0.269294H45.9515Z" fill="currentColor"/><path d="M66.5143 13.901H59.2498L58.1007 16.5918H55.3359L62.4545 0.177877H63.3343L70.4528 16.5918H67.6634L66.5143 13.901ZM62.8944 4.99624L60.179 11.6748H65.5852L62.8944 4.99624Z" fill="currentColor"/><path d="M73.0342 0.202454H78.9837C82.2675 0.202454 84.5142 2.26545 84.5142 5.22223C84.5142 8.17901 82.2675 10.267 78.9837 10.267H75.6521V16.6024H73.0361V0.202454H73.0342ZM78.934 7.93052C80.7845 7.93052 81.8217 6.86146 81.8217 5.24727C81.8217 3.63308 80.7845 2.53898 78.934 2.53898H75.6501V7.93052H78.934Z" fill="currentColor"/><path d="M87.1387 0.118216H93.0882C96.372 0.118216 98.6187 2.18122 98.6187 5.13799C98.6187 8.09477 96.372 10.1828 93.0882 10.1828H89.7566V16.5182H87.1406V0.118216H87.1387ZM93.0385 7.84628C94.889 7.84628 95.9262 6.77722 95.9262 5.16303C95.9262 3.54885 94.889 2.45474 93.0385 2.45474H89.7546V7.84628H93.0385Z" fill="currentColor"/><path d="M101.57 0.118216H112.103V2.47813H104.142V6.67783H110.137V8.96454H104.142V14.1583H112.394V16.5182H101.57V0.118216Z" fill="currentColor"/><path d="M125.663 16.4807L121.062 10.1453H118.1V16.4807H115.507V0.0807266H121.406C124.661 0.0807266 126.889 2.14373 126.889 5.1005C126.889 7.26174 125.714 8.95298 123.781 9.72155L128.627 16.4807H125.665H125.663ZM118.1 7.80879H121.356C123.144 7.80879 124.219 6.71469 124.219 5.12555C124.219 3.5364 123.142 2.41725 121.356 2.41725H118.1V7.80879Z" fill="currentColor"/><path d="M137.334 15.4407C141.209 15.4407 144.351 12.2994 144.351 8.42455C144.351 4.54966 141.209 1.40843 137.334 1.40843C133.46 1.40843 130.318 4.54966 130.318 8.42455C130.318 12.2994 133.46 15.4407 137.334 15.4407Z" stroke="currentColor" stroke-width="2.46512"/><path d="M155.591 15.4407C159.466 15.4407 162.607 12.2994 162.607 8.42455C162.607 4.54966 159.466 1.40843 155.591 1.40843C151.716 1.40843 148.575 4.54966 148.575 8.42455C148.575 12.2994 151.716 15.4407 155.591 15.4407Z" stroke="currentColor" stroke-width="2.46512"/></svg></a>
+  <div class="bon-nav__right">
+    <a href="preview.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- RECIPE HERO -->
+<section class="bon-recipe-hero" data-hero>
+  <div class="bon-recipe-hero__image">
+    <img src="assets/ba-devilledeggs-16_9.jpg" alt="Smoked Deviled Eggs">
+  </div>
+  <div class="bon-recipe-hero__content">
+    <span class="bon-recipe-hero__tag">Appetiser</span>
+    <h1 class="bon-recipe-hero__title">Smoked<br>Deviled Eggs</h1>
+    <p class="bon-recipe-hero__desc">Elevate your next party or gathering with Smoked Deviled Eggs. This classic appetizer gets a delicious upgrade with a hint of smoky flavor, making it a surefire hit with your guests.</p>
+    <div class="bon-recipe-hero__meta">
+      <div class="bon-recipe-hero__meta-item">
+        <span class="bon-recipe-hero__meta-label">Prep Time</span>
+        <span class="bon-recipe-hero__meta-value">20 min</span>
+      </div>
+      <div class="bon-recipe-hero__meta-item">
+        <span class="bon-recipe-hero__meta-label">Smoke Time</span>
+        <span class="bon-recipe-hero__meta-value">5 min</span>
+      </div>
+      <div class="bon-recipe-hero__meta-item">
+        <span class="bon-recipe-hero__meta-label">Serves</span>
+        <span class="bon-recipe-hero__meta-value">12</span>
+      </div>
+      <div class="bon-recipe-hero__meta-item">
+        <span class="bon-recipe-hero__meta-label">Difficulty</span>
+        <span class="bon-recipe-hero__meta-value">Easy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPE BODY -->
+<div class="bon-recipe-body">
+
+  <!-- Ingredients sidebar -->
+  <aside class="bon-recipe-ingredients bon-reveal">
+    <h3>Ingredients</h3>
+    <div class="bon-ingredient-group">
+      <div class="bon-ingredient-group__title">Deviled eggs</div>
+      <ul class="bon-ingredient-list">
+        <li><span>Large eggs</span><span class="bon-ingredient-amount">6</span></li>
+        <li><span>Mayonnaise</span><span class="bon-ingredient-amount">3 tbsp</span></li>
+        <li><span>Dijon mustard</span><span class="bon-ingredient-amount">1 tsp</span></li>
+        <li><span>White vinegar</span><span class="bon-ingredient-amount">1 tsp</span></li>
+        <li><span>Salt and pepper</span><span class="bon-ingredient-amount">To taste</span></li>
+        <li><span>Paprika, for garnish</span><span class="bon-ingredient-amount"></span></li>
+      </ul>
+    </div>
+    <div class="bon-ingredient-group">
+      <div class="bon-ingredient-group__title">For smoking</div>
+      <ul class="bon-ingredient-list">
+        <li><span>Wood chips (apple or cherry)</span><span class="bon-ingredient-amount">1 pinch</span></li>
+        <li><span>Bon Apperoo&trade; Smoker</span><span class="bon-ingredient-amount">1</span></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Method -->
+  <div class="bon-recipe-method bon-reveal">
+    <h3>Method</h3>
+    <div class="bon-method-step">
+      <span class="bon-method-step__number">01</span>
+      <div>
+        <h4 class="bon-method-step__title">Boil eggs</h4>
+        <p class="bon-method-step__text">Place eggs in a saucepan and cover with water. Bring to a boil, then remove from heat, cover, and let sit for 12 minutes. Transfer to an ice water bath to cool completely.</p>
+      </div>
+    </div>
+    <div class="bon-method-step">
+      <span class="bon-method-step__number">02</span>
+      <div>
+        <h4 class="bon-method-step__title">Peel and halve</h4>
+        <p class="bon-method-step__text">Peel the cooled eggs and halve them lengthwise. Carefully remove the yolks into a mixing bowl, keeping the whites intact.</p>
+      </div>
+    </div>
+    <div class="bon-method-step">
+      <span class="bon-method-step__number">03</span>
+      <div>
+        <h4 class="bon-method-step__title">Prepare filling</h4>
+        <p class="bon-method-step__text">Mash the yolks with a fork, then mix with mayonnaise, Dijon mustard, white vinegar, salt, and pepper until smooth and creamy.</p>
+      </div>
+    </div>
+    <div class="bon-method-step">
+      <span class="bon-method-step__number">04</span>
+      <div>
+        <h4 class="bon-method-step__title">Fill whites</h4>
+        <p class="bon-method-step__text">Spoon or pipe the yolk mixture back into the egg white halves. For a polished presentation, use a piping bag with a star tip.</p>
+      </div>
+    </div>
+    <div class="bon-method-step">
+      <span class="bon-method-step__number">05</span>
+      <div>
+        <h4 class="bon-method-step__title">Add smoke</h4>
+        <p class="bon-method-step__text">Use a Bon Apperoo&trade; smoker with apple or cherry wood chips to infuse the deviled eggs with smoke for about 5 minutes. The smoke will settle into the creamy filling, adding a beautiful depth of flavour.</p>
+      </div>
+    </div>
+    <div class="bon-method-step">
+      <span class="bon-method-step__number">06</span>
+      <div>
+        <h4 class="bon-method-step__title">Garnish and serve</h4>
+        <p class="bon-method-step__text">Sprinkle with paprika and serve immediately while the smoky aroma is still fresh. For extra flair, add a small sprig of dill to each egg.</p>
+      </div>
+    </div>
+    <!-- Pro Tip -->
+    <div class="bon-pro-tip bon-reveal">
+      <span class="bon-pro-tip__label">Pro Tip</span>
+      <div class="bon-pro-tip__content">
+        <p>Fold in chopped chives and crispy bacon bits for a savoury, textured filling — or add a dash of smoked paprika to the yolk mixture itself. The paprika deepens the smoke flavour so it carries through every bite, not just the finish.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- IMAGE BREAK -->
+<div class="bon-recipe-image-break bon-reveal">
+  <img src="assets/ba-devilledeggs-featured-16_9.jpg" alt="Smoked Deviled Eggs with cocktail and charcuterie">
+</div>
+
+<!-- PAIRINGS -->
+<div class="bon-pairings bon-reveal">
+  <div class="bon-pairings__header">
+    <h3>Pairs well with</h3>
+  </div>
+  <div class="bon-pairings__grid">
+    <div class="bon-pairing">
+      <h4 class="bon-pairing__title">Smoked Old Fashioned</h4>
+      <p class="bon-pairing__text">A smoky bourbon cocktail is the natural companion — the shared smoke character ties the appetiser and drink together beautifully.</p>
+    </div>
+    <div class="bon-pairing">
+      <h4 class="bon-pairing__title">Garden Salad</h4>
+      <p class="bon-pairing__text">A light, crisp salad with lemon vinaigrette cuts through the richness of the eggs and balances the smoky depth.</p>
+    </div>
+    <div class="bon-pairing">
+      <h4 class="bon-pairing__title">Charcuterie Board</h4>
+      <p class="bon-pairing__text">Cured meats, pickles, and crusty bread — the perfect spread to serve alongside smoked deviled eggs at any gathering.</p>
+    </div>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- MORE RECIPES -->
+<div class="bon-three-col">
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-whiskey-4_3.jpg" alt="Smokey Whiskey"></div>
+    <span class="bon-three-col__tag">Cocktail</span>
+    <h3 class="bon-three-col__title">Smokey Whiskey</h3>
+    <p class="bon-three-col__desc">The quintessential smoked cocktail. Bourbon, bitters, and a blanket of hickory smoke.</p>
+    <a href="recipe-smokey-whiskey.html" class="bon-link-cta">View recipe</a>
+  </div>
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-cheese-4_3.jpg" alt="Smoked Cheese Dip"></div>
+    <span class="bon-three-col__tag">Featured</span>
+    <h3 class="bon-three-col__title">Smoked Cheese Dip</h3>
+    <p class="bon-three-col__desc">A rich, creamy dip elevated with real wood smoke. Perfect for gatherings and charcuterie boards.</p>
+    <a href="#" class="bon-link-cta">View recipe</a>
+  </div>
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-mousse-4_3.jpg" alt="Smoked Chocolate Mousse"></div>
+    <span class="bon-three-col__tag">Dessert</span>
+    <h3 class="bon-three-col__title">Smoked Chocolate Mousse</h3>
+    <p class="bon-three-col__desc">Decadent dark chocolate mousse finished with a whisper of cherry wood smoke for an unforgettable finale.</p>
+    <a href="#" class="bon-link-cta">View recipe</a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- NEWSLETTER -->
+<div class="bon-community" id="contact">
+  <div>
+    <h2 class="bon-community__heading">Join our community for new products, recipes, and discounts</h2>
+    <p class="bon-community__text">New recipes, product drops, and subscriber-only discounts — straight to your inbox.</p>
+  </div>
+  <form class="bon-community__form" onsubmit="event.preventDefault()">
+    <input type="email" placeholder="Email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<footer class="bon-footer">
+  <div>
+    <div class="bon-footer__brand-name"><img src="assets/ba-logo.svg" alt="Bon Apperoo" style="height: 15px; width: auto;"></div>
+    <p class="bon-footer__brand-desc">Born from backyard chaos, built for flavour. Safe, simple smokers for unforgettable meals.</p>
+    <div class="bon-footer__socials">
+      <a href="#">IG</a>
+      <a href="#">FB</a>
+      <a href="#">YT</a>
+    </div>
+  </div>
+  <div>
+    <h5 class="bon-footer__col-heading">Shop</h5>
+    <nav class="bon-footer__links">
+      <a href="#">1 Glass Smoker</a>
+      <a href="#">2 Glass Smoker</a>
+      <a href="#">4 Glass Smoker</a>
+      <a href="#">Wood Chips</a>
+    </nav>
+  </div>
+  <div>
+    <h5 class="bon-footer__col-heading">Explore</h5>
+    <nav class="bon-footer__links">
+      <a href="recipes.html">Recipes</a>
+      <a href="#">About Us</a>
+      <a href="#">Our Story</a>
+    </nav>
+  </div>
+  <div>
+    <h5 class="bon-footer__col-heading">Support</h5>
+    <nav class="bon-footer__links">
+      <a href="#">Contact Us</a>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#">support@bonapperoo.com</a>
+    </nav>
+  </div>
+</footer>
+<div class="bon-footer-bottom">
+  <p>&copy; 2026 Bon Apperoo&trade;. All Rights Reserved.</p>
+  <p>Designed with care.</p>
+</div>
+
+<script>
+  const nav = document.querySelector('.bon-nav');
+  const hero = document.querySelector('[data-hero]');
+  const navObserver = new IntersectionObserver(([entry]) => {
+    nav.classList.toggle('scrolled', !entry.isIntersecting);
+  }, { threshold: 0 });
+  navObserver.observe(hero);
+
+  const reveals = document.querySelectorAll('.bon-reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

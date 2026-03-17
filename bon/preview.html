@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bon Apperoo — Homepage Preview</title>
+  <style>
+    :root {
+      --bon-walnut: #7B5C42;
+      --bon-brass: #B59E78;
+      --bon-stone: #A8A39F;
+      --bon-amber: #D4A843;
+      --bon-bg: #F2F0ED;
+      --bon-bg-warm: #EBE8E3;
+      --bon-bg-light: #FAF8F6;
+      --bon-white: #FFFFFF;
+      --bon-text: #2A2A2A;
+      --bon-text-secondary: #5A5A5A;
+      --bon-text-tertiary: #8A8A8A;
+      --bon-border: #D6D2CC;
+      --bon-font: 'Cera Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--bon-font);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--bon-text);
+      background: var(--bon-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ── Nav ── */
+    .bon-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; padding: 20px 40px;
+      background: transparent;
+      border-bottom: 0.5px solid rgba(181,158,120,0.5);
+      transition: background 0.4s, border-color 0.4s;
+    }
+    .bon-nav.scrolled {
+      background: var(--bon-white);
+      border-bottom-color: var(--bon-border);
+    }
+    .bon-nav__left { display: flex; gap: 28px; }
+    .bon-nav__left a {
+      font-size: 13px; color: var(--bon-brass);
+      letter-spacing: 0.02em; text-transform: uppercase; transition: color 0.3s;
+    }
+    .bon-nav.scrolled .bon-nav__left a { color: var(--bon-walnut); }
+    .bon-nav__left a:hover { color: var(--bon-brass); }
+    .bon-nav.scrolled .bon-nav__left a:hover { color: var(--bon-text); }
+    .bon-nav__logo {
+      display: flex; align-items: center;
+      color: var(--bon-brass); transition: color 0.3s;
+    }
+    .bon-nav__logo svg { height: 14px; width: auto; }
+    .bon-nav.scrolled .bon-nav__logo { color: var(--bon-walnut); }
+    .bon-nav__right { display: flex; justify-content: flex-end; gap: 28px; }
+    .bon-nav__right a {
+      font-size: 13px; color: var(--bon-brass);
+      letter-spacing: 0.02em; text-transform: uppercase; transition: color 0.3s;
+    }
+    .bon-nav.scrolled .bon-nav__right a { color: var(--bon-walnut); }
+    .bon-nav__right a:hover { color: var(--bon-brass); }
+    .bon-nav.scrolled .bon-nav__right a:hover { color: var(--bon-text); }
+
+    /* ── Hero ── */
+    .bon-hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; background: var(--bon-walnut);
+    }
+    .bon-hero__bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .bon-hero__bg img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .bon-hero__overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: rgba(0, 0, 0, 0.35);
+    }
+    .bon-hero__content {
+      position: relative; z-index: 2; text-align: center;
+      padding: 120px 40px 80px; max-width: 600px;
+    }
+    .bon-hero__title {
+      font-size: clamp(36px, 5vw, 56px); font-weight: 300;
+      line-height: 1.2; color: var(--bon-brass); margin-bottom: 36px;
+      letter-spacing: -0.02em;
+    }
+    .bon-hero__title em { font-style: italic; }
+    .bon-hero__cta {
+      display: inline-block; font-size: 13px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bon-brass);
+      border: none; border-bottom: 1px solid var(--bon-brass);
+      padding: 0 0 6px; transition: color 0.3s, border-color 0.3s;
+    }
+    .bon-hero__cta:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    /* ── Text Section ── */
+    .bon-text-section {
+      padding: 100px 40px; max-width: 680px;
+      margin: 0 auto; text-align: center;
+    }
+    .bon-text-section--wide { max-width: 900px; }
+    .bon-text-section__heading {
+      font-size: 28px; font-weight: 300; line-height: 1.45;
+      color: var(--bon-text); letter-spacing: -0.005em; margin-bottom: 24px;
+    }
+    .bon-text-section__body {
+      font-size: 15px; line-height: 1.75;
+      color: var(--bon-text-secondary); font-weight: 300;
+    }
+
+    /* ── Link CTA — branded action link ── */
+    .bon-link-cta {
+      display: inline-block; font-size: 12px; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bon-brass); position: relative; padding-bottom: 6px;
+    }
+    .bon-link-cta::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+      height: 1px; background: var(--bon-brass);
+      transition: bottom 0.3s ease;
+    }
+    .bon-link-cta:hover::after {
+      bottom: -4px;
+    }
+
+    /* ── Link Subtle — quiet navigation link ── */
+    .bon-link-subtle {
+      display: inline-block; font-size: 13px; font-weight: 300;
+      color: var(--bon-text-secondary);
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: border-color 0.3s ease;
+    }
+    .bon-link-subtle:hover {
+      border-color: var(--bon-text-secondary);
+    }
+
+    /* ── Divider ── */
+    .bon-divider { height: 1px; background: var(--bon-border); margin: 0; }
+
+    /* ── Products ── */
+    .bon-products { padding: 80px 40px; }
+    .bon-products__header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 48px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--bon-border);
+    }
+    .bon-products__header h2 { font-size: 22px; font-weight: 300; }
+    /* header link uses .bon-link-subtle */
+    .bon-products__grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .bon-product-card { display: block; cursor: pointer; }
+    .bon-product-card__image {
+      aspect-ratio: 1; background: var(--bon-bg-warm); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; overflow: hidden; position: relative;
+    }
+    .bon-product-card__image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .bon-product-card:hover .bon-product-card__image img {
+      transform: scale(1.04);
+    }
+    .bon-product-card__status {
+      position: absolute; top: 14px; left: 14px;
+      font-size: 11px; color: var(--bon-text-secondary); letter-spacing: 0.04em;
+    }
+    .bon-product-card__title {
+      font-size: 15px; font-weight: 400; margin-bottom: 4px;
+    }
+    .bon-product-card__sub {
+      font-size: 13px; color: var(--bon-text-tertiary);
+      font-weight: 300; margin-bottom: 8px;
+    }
+    .bon-product-card__price { font-size: 14px; font-weight: 400; }
+
+    /* ── Three Col ── */
+    .bon-three-col {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .bon-three-col__item {
+      padding: 60px 40px; border-right: 1px solid var(--bon-border);
+      display: flex; flex-direction: column;
+    }
+    .bon-three-col__item:last-child { border-right: none; }
+    .bon-three-col__image {
+      aspect-ratio: 4/3; background: var(--bon-bg-warm);
+      border-radius: 4px; margin-bottom: 28px; overflow: hidden;
+    }
+    .bon-three-col__image img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .bon-three-col__tag {
+      font-size: 11px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--bon-text-tertiary);
+      margin-bottom: 10px;
+    }
+    .bon-three-col__title {
+      font-size: 18px; font-weight: 400; margin-bottom: 12px; line-height: 1.35;
+    }
+    .bon-three-col__desc {
+      font-size: 14px; line-height: 1.7;
+      color: var(--bon-text-secondary); font-weight: 300; flex: 1;
+    }
+    .bon-three-col__item .bon-link-cta {
+      margin-top: 20px; align-self: flex-start;
+    }
+
+    /* ── Split ── */
+    .bon-split {
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 600px;
+    }
+    .bon-split--reverse { direction: rtl; }
+    .bon-split--reverse > * { direction: ltr; }
+    .bon-split__image {
+      background: var(--bon-bg-warm); overflow: hidden;
+    }
+    .bon-split__content {
+      display: flex; flex-direction: column;
+      justify-content: center; padding: 80px;
+    }
+    .bon-split__heading {
+      font-size: 28px; font-weight: 300; line-height: 1.4;
+      margin-bottom: 24px;
+    }
+    .bon-split__text {
+      font-size: 14px; line-height: 1.75;
+      color: var(--bon-text-secondary); font-weight: 300;
+      max-width: 380px; margin-bottom: 16px;
+    }
+    .bon-split__content .bon-link-cta {
+      margin-top: 12px; align-self: flex-start;
+    }
+
+    /* ── Reviews ── */
+    .bon-reviews { padding: 80px 40px; }
+    .bon-reviews__header {
+      margin-bottom: 48px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--bon-border);
+    }
+    .bon-reviews__header h2 { font-size: 22px; font-weight: 300; }
+    .bon-reviews__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .bon-review {
+      padding: 36px; border-right: 1px solid var(--bon-border);
+    }
+    .bon-review:last-child { border-right: none; }
+    .bon-review__stars {
+      font-size: 12px; letter-spacing: 4px;
+      color: var(--bon-walnut); margin-bottom: 20px;
+    }
+    .bon-review__text {
+      font-size: 14px; line-height: 1.75;
+      color: var(--bon-text-secondary); font-weight: 300;
+      font-style: italic; margin-bottom: 24px;
+    }
+    .bon-review__author { font-size: 13px; font-weight: 500; }
+    .bon-review__verified {
+      font-size: 12px; color: var(--bon-text-tertiary);
+      font-weight: 300; margin-top: 2px;
+    }
+
+    /* ── Newsletter ── */
+    .bon-community {
+      background: var(--bon-walnut); padding: 80px 40px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .bon-community__heading {
+      font-size: 28px; font-weight: 300;
+      color: var(--bon-brass); line-height: 1.4; margin-bottom: 16px;
+    }
+    .bon-community__text {
+      font-size: 14px; line-height: 1.7;
+      color: var(--bon-brass); font-weight: 300;
+    }
+    .bon-community__form { display: flex; gap: 12px; }
+    .bon-community__form input {
+      flex: 1; padding: 14px 20px; background: transparent;
+      border: 1px solid rgba(255,255,255,0.25); color: #fff;
+      font-family: var(--bon-font); font-size: 14px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .bon-community__form input::placeholder { color: var(--bon-brass); }
+    .bon-community__form input:focus { border-color: var(--bon-brass); }
+    .bon-community__form button {
+      padding: 14px 28px; background: #fff; color: var(--bon-walnut);
+      border: none; font-family: var(--bon-font); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.04em; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bon-community__form button:hover {
+      background: var(--bon-brass); color: #fff;
+    }
+
+    /* ── Footer ── */
+    .bon-footer {
+      padding: 72px 40px 60px; border-top: 1px solid var(--bon-border);
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+    }
+    .bon-footer__brand-name {
+      margin-bottom: 24px;
+    }
+    .bon-footer__brand-name img { height: 15px; width: auto; }
+    .bon-footer__brand-desc {
+      font-size: 13px; line-height: 1.7; color: var(--bon-brass);
+      font-weight: 400; font-style: italic;
+      margin-bottom: 28px; max-width: 280px;
+    }
+    .bon-footer__socials { display: flex; gap: 24px; }
+    .bon-footer__socials a {
+      font-size: 13px; font-weight: 500; color: var(--bon-brass);
+      letter-spacing: 0.02em; transition: color 0.2s;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--bon-brass);
+    }
+    .bon-footer__socials a:hover { color: var(--bon-text); }
+    .bon-footer__col-heading {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 24px;
+      color: var(--bon-brass);
+    }
+    .bon-footer__links { list-style: none; }
+    .bon-footer__links a {
+      display: block; font-size: 13px; color: var(--bon-brass);
+      font-weight: 300; margin-bottom: 14px; transition: color 0.2s;
+    }
+    .bon-footer__links a:hover { color: var(--bon-walnut); }
+    .bon-footer-bottom {
+      padding: 24px 40px; border-top: 1px solid var(--bon-border);
+      display: flex; justify-content: space-between;
+    }
+    .bon-footer-bottom p {
+      font-size: 12px; color: var(--bon-brass); font-weight: 300;
+    }
+
+    /* ── Reveal ── */
+    .bon-reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .bon-reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .bon-products__grid { grid-template-columns: repeat(2, 1fr); }
+      .bon-split { grid-template-columns: 1fr; }
+      .bon-split--reverse { direction: ltr; }
+      .bon-split__content { padding: 60px 40px; }
+      .bon-three-col { grid-template-columns: 1fr; }
+      .bon-three-col__item { border-right: none; border-bottom: 1px solid var(--bon-border); }
+      .bon-three-col__item:last-child { border-bottom: none; }
+      .bon-reviews__grid { grid-template-columns: 1fr; }
+      .bon-review { border-right: none; border-bottom: 1px solid var(--bon-border); }
+      .bon-review:last-child { border-bottom: none; }
+      .bon-community { grid-template-columns: 1fr; gap: 40px; }
+      .bon-footer { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .bon-nav { padding: 16px 20px; }
+      .bon-nav__left, .bon-nav__right { gap: 16px; }
+      .bon-products__grid { grid-template-columns: 1fr; }
+      .bon-hero__content { padding: 80px 20px 60px; }
+      .bon-products, .bon-reviews { padding: 60px 20px; }
+      .bon-text-section { padding: 60px 20px; }
+      .bon-split__content { padding: 40px 20px; }
+      .bon-community { padding: 60px 20px; }
+      .bon-footer { grid-template-columns: 1fr; padding: 40px 20px; gap: 32px; }
+      .bon-footer-bottom { padding: 20px; flex-direction: column; gap: 8px; }
+      .bon-community__form { flex-direction: column; }
+      .bon-divider { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="bon-nav">
+  <div class="bon-nav__left">
+    <a href="#products">Shop</a>
+    <a href="#about">About</a>
+    <a href="recipes.html">Recipes</a>
+  </div>
+  <a href="#" class="bon-nav__logo"><svg width="164" height="17" viewBox="0 0 164 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.91929 16.6827H0V0.000595093H5.64763C8.55673 0.000595093 10.4879 1.87179 10.4879 4.44836C10.4879 5.73763 10.0236 6.79961 9.14423 7.58336C11.0261 8.21623 12.1519 9.78177 12.1519 11.8293C12.1519 14.6351 10.0748 16.6827 6.91929 16.6827ZM2.54333 2.35184V6.85055H5.40315C6.99131 6.85055 7.8972 5.96492 7.8972 4.57572C7.8972 3.18653 6.9932 2.35184 5.40315 2.35184H2.54333ZM6.69945 9.15085H2.54333V14.3314H6.69945C8.48471 14.3314 9.53464 13.3459 9.53464 11.7529C9.53464 10.1599 8.48281 9.14889 6.69945 9.14889V9.15085Z" fill="currentColor"/><path d="M22.0898 1.28396C25.9876 1.28396 29.1475 4.44384 29.1475 8.34158C29.1475 12.2393 25.9876 15.3992 22.0898 15.3992C18.1921 15.3992 15.0322 12.2393 15.0322 8.34158C15.0322 4.44385 18.1921 1.28397 22.0898 1.28396Z" stroke="currentColor" stroke-width="2.46512"/><path d="M45.9515 0.269294V16.6832H45.0716L35.2377 5.48018V16.4139H32.6455V2.67029e-05H33.55L43.3593 11.1538V0.269294H45.9515Z" fill="currentColor"/><path d="M66.5143 13.901H59.2498L58.1007 16.5918H55.3359L62.4545 0.177877H63.3343L70.4528 16.5918H67.6634L66.5143 13.901ZM62.8944 4.99624L60.179 11.6748H65.5852L62.8944 4.99624Z" fill="currentColor"/><path d="M73.0342 0.202454H78.9837C82.2675 0.202454 84.5142 2.26545 84.5142 5.22223C84.5142 8.17901 82.2675 10.267 78.9837 10.267H75.6521V16.6024H73.0361V0.202454H73.0342ZM78.934 7.93052C80.7845 7.93052 81.8217 6.86146 81.8217 5.24727C81.8217 3.63308 80.7845 2.53898 78.934 2.53898H75.6501V7.93052H78.934Z" fill="currentColor"/><path d="M87.1387 0.118216H93.0882C96.372 0.118216 98.6187 2.18122 98.6187 5.13799C98.6187 8.09477 96.372 10.1828 93.0882 10.1828H89.7566V16.5182H87.1406V0.118216H87.1387ZM93.0385 7.84628C94.889 7.84628 95.9262 6.77722 95.9262 5.16303C95.9262 3.54885 94.889 2.45474 93.0385 2.45474H89.7546V7.84628H93.0385Z" fill="currentColor"/><path d="M101.57 0.118216H112.103V2.47813H104.142V6.67783H110.137V8.96454H104.142V14.1583H112.394V16.5182H101.57V0.118216Z" fill="currentColor"/><path d="M125.663 16.4807L121.062 10.1453H118.1V16.4807H115.507V0.0807266H121.406C124.661 0.0807266 126.889 2.14373 126.889 5.1005C126.889 7.26174 125.714 8.95298 123.781 9.72155L128.627 16.4807H125.665H125.663ZM118.1 7.80879H121.356C123.144 7.80879 124.219 6.71469 124.219 5.12555C124.219 3.5364 123.142 2.41725 121.356 2.41725H118.1V7.80879Z" fill="currentColor"/><path d="M137.334 15.4407C141.209 15.4407 144.351 12.2994 144.351 8.42455C144.351 4.54966 141.209 1.40843 137.334 1.40843C133.46 1.40843 130.318 4.54966 130.318 8.42455C130.318 12.2994 133.46 15.4407 137.334 15.4407Z" stroke="currentColor" stroke-width="2.46512"/><path d="M155.591 15.4407C159.466 15.4407 162.607 12.2994 162.607 8.42455C162.607 4.54966 159.466 1.40843 155.591 1.40843C151.716 1.40843 148.575 4.54966 148.575 8.42455C148.575 12.2994 151.716 15.4407 155.591 15.4407Z" stroke="currentColor" stroke-width="2.46512"/></svg></a>
+  <div class="bon-nav__right">
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="bon-hero" data-hero>
+  <div class="bon-hero__bg">
+    <img src="assets/SmokerBox_Lifestyle016.jpg" alt="Bartender smoking cocktails with Bon Apperoo smoker box">
+  </div>
+  <div class="bon-hero__overlay"></div>
+  <div class="bon-hero__content">
+    <h1 class="bon-hero__title">Flavour, simplicity,<br>and a bit of <em>drama</em></h1>
+    <a href="#products" class="bon-hero__cta">Shop Now</a>
+  </div>
+</section>
+
+<!-- INTRO -->
+<div class="bon-text-section bon-text-section--wide bon-reveal">
+  <h2 class="bon-text-section__heading">Bring real wood smoke to your cheese, charcuterie, desserts, and drinks. No bulky setup, no cleanup stress. Compact, beautiful, and surprisingly powerful.</h2>
+  <a href="#about" class="bon-link-cta">Discover more</a>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- PRODUCTS -->
+<div class="bon-products" id="products">
+  <div class="bon-products__header">
+    <h2>Culinary Smoker Range</h2>
+    <a href="#" class="bon-link-subtle">View all</a>
+  </div>
+  <div class="bon-products__grid">
+    <a class="bon-product-card bon-reveal" href="#">
+      <div class="bon-product-card__image">
+        <img src="assets/SmokerBox_Small_Clean.jpg" alt="1 Glass Smoker" style="filter: grayscale(100%) contrast(0.8) brightness(1.1); mix-blend-mode: multiply; opacity: 0.75;">
+        <span class="bon-product-card__status">Sold out</span>
+      </div>
+      <h3 class="bon-product-card__title">1 Glass Smoker</h3>
+      <p class="bon-product-card__sub">Single serve, personal pour</p>
+      <span class="bon-product-card__price">$49.99</span>
+    </a>
+    <a class="bon-product-card bon-reveal" href="#">
+      <div class="bon-product-card__image">
+        <img src="assets/SmokerBox_Medium_Clean.jpg" alt="2 Glass Smoker">
+      </div>
+      <h3 class="bon-product-card__title">2 Glass Smoker</h3>
+      <p class="bon-product-card__sub">Date night, dual cocktails</p>
+      <span class="bon-product-card__price">$69.99</span>
+    </a>
+    <a class="bon-product-card bon-reveal" href="#">
+      <div class="bon-product-card__image">
+        <img src="assets/SmokerBox_Large_Clean.jpg" alt="4 Glass Smoker">
+      </div>
+      <h3 class="bon-product-card__title">4 Glass Smoker</h3>
+      <p class="bon-product-card__sub">Dinner party, group experience</p>
+      <span class="bon-product-card__price">$89.99</span>
+    </a>
+    <a class="bon-product-card bon-reveal" href="#">
+      <div class="bon-product-card__image">
+        <img src="assets/ProDomeSmoker.png" alt="Pro Dome Smoker" style="filter: grayscale(100%) contrast(0.8) brightness(1.1); mix-blend-mode: multiply; opacity: 0.75;">
+        <span class="bon-product-card__status">Coming soon</span>
+      </div>
+      <h3 class="bon-product-card__title">Pro Dome Smoker</h3>
+      <p class="bon-product-card__sub">Full-size, professional grade</p>
+      <span class="bon-product-card__price">TBA</span>
+    </a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- FEATURES -->
+<div class="bon-three-col">
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-feature-campsite-4_3.jpg" alt="Bon Apperoo smoker box in outdoor setting"></div>
+    <span class="bon-three-col__tag">Versatile</span>
+    <h3 class="bon-three-col__title">Kitchen to Campsite</h3>
+    <p class="bon-three-col__desc">Portable and lightweight. Works indoors, on the patio, on camping trips, and in RV kitchens.</p>
+    <a href="#" class="bon-link-cta">See where it goes</a>
+  </div>
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-feature-acacia-4_3.jpg" alt="Close-up of natural acacia wood grain"></div>
+    <span class="bon-three-col__tag">Craftsmanship</span>
+    <h3 class="bon-three-col__title">Natural Acacia Wood</h3>
+    <p class="bon-three-col__desc">Handcrafted with a warm, refined finish worthy of any table setting.</p>
+    <a href="#" class="bon-link-cta">View craftsmanship</a>
+  </div>
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-feature-clean-4_3.jpg" alt="Smoker box components laid out"></div>
+    <span class="bon-three-col__tag">Practical</span>
+    <h3 class="bon-three-col__title">Easy Clean Design</h3>
+    <p class="bon-three-col__desc">Detachable chimney and filter make cleanup effortless after every smoking session.</p>
+    <a href="#" class="bon-link-cta">How it works</a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- STORY SPLIT -->
+<div class="bon-split" id="about">
+  <div class="bon-split__image"><img src="assets/ba-lifestyle-table-3_4.jpg" alt="Intimate outdoor dinner table with Bon Apperoo smoker" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="bon-split__content bon-reveal">
+    <h2 class="bon-split__heading">Born from backyard chaos,<br>built for flavour</h2>
+    <p class="bon-split__text">Crafted from natural Acacia wood, our Culinary Smoker Box is designed for quick and effortless smoking, perfectly enhancing various dishes year-round. Safe, simple smokers for unforgettable meals. No bulky setup, no cleanup stress.</p>
+    <a href="#" class="bon-link-cta">Read our story</a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- SMOKE FEATURE (REVERSED) -->
+<div class="bon-split bon-split--reverse">
+  <div class="bon-split__image"><img src="assets/ba-split-natural-3_4.jpg" alt="Natural wood chips in bowls" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="bon-split__content bon-reveal">
+    <h2 class="bon-split__heading">Add natural smoky flavours,<br>not chemicals</h2>
+    <p class="bon-split__text">Liquid smoke is full of carcinogens. Our Acacia smoker box infuses natural smokiness into meats, cheeses, charcuterie, and even that smoked cake recipe you've been wanting to try.</p>
+    <a href="#" class="bon-link-cta">Explore wood chips</a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- WOODCHIPS -->
+<div class="bon-text-section bon-reveal">
+  <h2 class="bon-text-section__heading">Four distinct wood chip flavours</h2>
+  <p class="bon-text-section__body">Apple, oak, cherry, and hickory. Each variety has been selected to complement different ingredients and occasions, from delicate seafood to bold cocktails.</p>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- RECIPES -->
+<div class="bon-three-col" id="recipes">
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-cheese-4_3.jpg" alt="Smoked Cheese Dip"></div>
+    <span class="bon-three-col__tag">Featured</span>
+    <h3 class="bon-three-col__title">Smoked Cheese Dip</h3>
+    <p class="bon-three-col__desc">A rich, creamy dip elevated with real wood smoke. Perfect for gatherings and charcuterie boards.</p>
+    <a href="#" class="bon-link-cta">View recipe</a>
+  </div>
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-devilledeggs-4_3.jpg" alt="Smoked Deviled Eggs"></div>
+    <span class="bon-three-col__tag">Appetiser</span>
+    <h3 class="bon-three-col__title">Smoked Deviled Eggs</h3>
+    <p class="bon-three-col__desc">Classic deviled eggs with a subtle smoky twist using cherry wood chips for added depth.</p>
+    <a href="recipe-smoked-deviled-eggs.html" class="bon-link-cta">View recipe</a>
+  </div>
+  <div class="bon-three-col__item bon-reveal">
+    <div class="bon-three-col__image"><img src="assets/ba-whiskey-4_3.jpg" alt="Smokey Whiskey cocktail"></div>
+    <span class="bon-three-col__tag">Cocktail</span>
+    <h3 class="bon-three-col__title">Smokey Whiskey</h3>
+    <p class="bon-three-col__desc">The quintessential smoked cocktail. Bourbon, bitters, and a blanket of hickory smoke.</p>
+    <a href="recipe-smokey-whiskey.html" class="bon-link-cta">View recipe</a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- COLLAB SPLIT -->
+<div class="bon-split">
+  <div class="bon-split__image"><img src="assets/ba-split-collab-3_4.jpg" alt="Smoker box with cocktail and charcuterie" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div class="bon-split__content bon-reveal">
+    <h2 class="bon-split__heading">Our recent collabs</h2>
+    <p class="bon-split__text">A certified culinary gangsta serving up bold, smoked, and grilled flavour experiences. McKenzie brings serious heat to the table as a ServSafe-certified pitmaster, chef, and digital creator.</p>
+    <a href="#" class="bon-link-cta">Check it out @gentlemenzpour</a>
+  </div>
+</div>
+
+<div class="bon-divider"></div>
+
+<!-- REVIEWS -->
+<div class="bon-reviews">
+  <div class="bon-reviews__header">
+    <h2>Hear from our new home chefs</h2>
+  </div>
+  <div class="bon-reviews__grid">
+    <div class="bon-review bon-reveal">
+      <div class="bon-review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="bon-review__text">"I bought this smoking box for a friend. The size of the box is perfect for a tumbler, cheese, salami or garnish. Really impressive. Would buy again."</p>
+      <div class="bon-review__author">MM</div>
+      <div class="bon-review__verified">Verified Buyer</div>
+    </div>
+    <div class="bon-review bon-reveal">
+      <div class="bon-review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="bon-review__text">"I couldn't wait to upgrade my previous drink smoker and expand the option to smoke cheese and meats for when I make my charcuterie."</p>
+      <div class="bon-review__author">Dudley</div>
+      <div class="bon-review__verified">Verified Buyer</div>
+    </div>
+    <div class="bon-review bon-reveal">
+      <div class="bon-review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="bon-review__text">"I was searching for a smaller smoker for my RV kitchen, and this one is ideal. It's easy to use without needing extra tools."</p>
+      <div class="bon-review__author">De Fleming</div>
+      <div class="bon-review__verified">Verified Buyer</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="bon-community" id="contact">
+  <div>
+    <h2 class="bon-community__heading">Join our community for new products,<br>recipes, and discounts</h2>
+    <p class="bon-community__text">New recipes, product drops, and subscriber-only discounts. Straight to your inbox.</p>
+  </div>
+  <form class="bon-community__form" onsubmit="event.preventDefault()">
+    <input type="email" placeholder="Email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<footer class="bon-footer">
+  <div>
+    <div class="bon-footer__brand-name"><img src="assets/ba-logo.svg" alt="Bon Apperoo" style="height: 15px; width: auto;"></div>
+    <p class="bon-footer__brand-desc">Born from backyard chaos, built for flavour. Safe, simple smokers for unforgettable meals.</p>
+    <div class="bon-footer__socials">
+      <a href="#">IG</a>
+      <a href="#">FB</a>
+      <a href="#">YT</a>
+    </div>
+  </div>
+  <div>
+    <h5 class="bon-footer__col-heading">Shop</h5>
+    <nav class="bon-footer__links">
+      <a href="#">1 Glass Smoker</a>
+      <a href="#">2 Glass Smoker</a>
+      <a href="#">4 Glass Smoker</a>
+      <a href="#">Wood Chips</a>
+    </nav>
+  </div>
+  <div>
+    <h5 class="bon-footer__col-heading">Explore</h5>
+    <nav class="bon-footer__links">
+      <a href="recipes.html">Recipes</a>
+      <a href="#">About Us</a>
+      <a href="#">Our Story</a>
+    </nav>
+  </div>
+  <div>
+    <h5 class="bon-footer__col-heading">Support</h5>
+    <nav class="bon-footer__links">
+      <a href="#">Contact Us</a>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#">support@bonapperoo.com</a>
+    </nav>
+  </div>
+</footer>
+<div class="bon-footer-bottom">
+  <p>&copy; 2026 Bon Apperoo&trade;. All Rights Reserved.</p>
+  <p>Designed with care.</p>
+</div>
+
+<script>
+  const nav = document.querySelector('.bon-nav');
+  const hero = document.querySelector('[data-hero]');
+  const navObserver = new IntersectionObserver(([entry]) => {
+    nav.classList.toggle('scrolled', !entry.isIntersecting);
+  }, { threshold: 0 });
+  navObserver.observe(hero);
+
+  const reveals = document.querySelectorAll('.bon-reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
