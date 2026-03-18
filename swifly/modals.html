@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Modals</title>
+  <style>
+    :root {
+      --bg-page: #06060b;
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.55);
+      --text-tertiary: rgba(255, 255, 255, 0.35);
+      --purple-400: #a78bfa;
+      --purple-500: #8b5cf6;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-page);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+
+    /* ── Modal ── */
+    .modal {
+      width: 480px;
+      background: linear-gradient(145deg,
+        rgba(30, 30, 45, 0.95) 0%,
+        rgba(20, 20, 32, 0.98) 100%
+      );
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow:
+        0 24px 48px rgba(0, 0, 0, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Header */
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-tertiary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+
+    .modal-close svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Input */
+    .modal-input {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 24px;
+    }
+
+    .modal-input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .modal-input:focus {
+      border-color: rgba(100, 160, 255, 0.6);
+      box-shadow: 0 0 0 3px rgba(100, 160, 255, 0.15);
+    }
+
+    /* Footer */
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-btn {
+      padding: 8px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .modal-btn--cancel {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+
+    .modal-btn--cancel:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--text-primary);
+    }
+
+    .modal-btn--primary {
+      background: rgba(167, 139, 250, 0.15);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      color: var(--purple-400);
+    }
+
+    .modal-btn--primary:hover {
+      background: rgba(167, 139, 250, 0.25);
+      border-color: rgba(167, 139, 250, 0.5);
+    }
+
+    .modal-btn--primary:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .modal-btn--primary:disabled:hover {
+      background: rgba(167, 139, 250, 0.15);
+      border-color: rgba(167, 139, 250, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INVITE USER MODAL
+       ═══════════════════════════════════════════════════════ -->
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Invite User</h2>
+      <button class="modal-close">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <input
+      type="email"
+      class="modal-input"
+      placeholder="Email address"
+    >
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn--cancel">Cancel</button>
+      <button class="modal-btn modal-btn--primary" disabled>Invite</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ORGANIZATION NAME MODAL
+       ═══════════════════════════════════════════════════════ -->
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Organization Name</h2>
+      <button class="modal-close">
+        <svg viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <input
+      type="text"
+      class="modal-input"
+      value="Swifly"
+    >
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn--cancel">Cancel</button>
+      <button class="modal-btn modal-btn--primary">Save</button>
+    </div>
+  </div>
+
+</body>
+</html>
