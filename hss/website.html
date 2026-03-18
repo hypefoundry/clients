@@ -1907,10 +1907,12 @@
 
     function goToSlide(index) {
       slides[current].classList.remove('visible');
+      dots[current].classList.remove('active');
       setTimeout(function() {
         slides[current].classList.remove('active');
         current = (index + slides.length) % slides.length;
         slides[current].classList.add('active');
+        dots[current].classList.add('active');
         requestAnimationFrame(function() {
           requestAnimationFrame(function() {
             slides[current].classList.add('visible');
