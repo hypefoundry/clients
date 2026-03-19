@@ -515,6 +515,34 @@
     }
     .modal-secondary:hover { color: var(--mid); }
 
+    /* ─── MODAL IG BUTTON + DIVIDER ─── */
+    .modal-ig-btn {
+      width: 100%;
+      justify-content: center;
+      font-size: 13px;
+      padding: 12px 24px;
+      margin-bottom: 0;
+    }
+    .modal-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      color: var(--light);
+      font-size: 12px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .modal-divider::before,
+    .modal-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
     /* ─── MODAL FORM ─── */
     .modal-form {
       text-align: left;
@@ -881,21 +909,22 @@
       </div>
       <h2>Send me the freebie</h2>
       <p>Pop your email in below and we'll send you the download link. Follow us on Instagram too — that's where we drop new freebies first.</p>
+      <a href="https://instagram.com/picketfeds" target="_blank" rel="noopener" class="btn-wire modal-ig-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        Follow @picketfeds on Instagram
+      </a>
+      <div class="modal-divider"><span>then</span></div>
       <form class="modal-form" onsubmit="handleSubmit(event)">
         <div class="form-group">
           <label for="modal-email">Email address</label>
           <input type="email" id="modal-email" class="form-input" placeholder="you@example.com" required>
-        </div>
-        <div class="form-checkbox">
-          <input type="checkbox" id="modal-follow" checked>
-          <label for="modal-follow">I've followed @picketfeds on Instagram</label>
         </div>
         <button type="submit" class="btn-wire btn-wire-filled modal-submit-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           Send Me the Download
         </button>
       </form>
-      <a href="https://instagram.com/picketfeds" target="_blank" rel="noopener" class="modal-secondary">Follow @picketfeds on Instagram</a>
+      <a href="#" class="modal-secondary" onclick="event.preventDefault(); closeModal();">Maybe later</a>
     </div>
   </div>
 
