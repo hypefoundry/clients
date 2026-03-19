@@ -515,6 +515,87 @@
     }
     .modal-secondary:hover { color: var(--mid); }
 
+    /* ─── MODAL FORM ─── */
+    .modal-form {
+      text-align: left;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input::placeholder { color: var(--light); }
+    .form-input:focus { border-color: var(--mid); }
+    .form-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .form-checkbox input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--dark);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .form-checkbox label {
+      font-size: 13px;
+      color: var(--mid);
+      cursor: pointer;
+    }
+    .modal-submit-btn {
+      width: 100%;
+      justify-content: center;
+      font-size: 13px;
+      padding: 12px 24px;
+    }
+    .modal-form-success {
+      text-align: center;
+      padding: 12px 0;
+    }
+    .modal-form-success .check-circle {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      color: var(--dark);
+    }
+    .modal-form-success h3 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .modal-form-success p {
+      font-size: 13px;
+      color: var(--mid);
+      margin-bottom: 0;
+    }
+
     /* ─── BOTTOM CTA ─── */
     .bottom-cta {
       padding: 64px 24px;
@@ -795,23 +876,67 @@
   <div class="modal-overlay" id="modal">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
-      <div class="modal-icon">🔓</div>
-      <h2>One tap and it's yours</h2>
-      <p>Follow @picketfeds on Instagram and you'll get access to every printable in the vault — plus new ones we add each month.</p>
-      <a href="#" class="btn-wire btn-wire-filled" onclick="event.preventDefault()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-        Follow on Instagram
-      </a>
-      <a href="#" class="modal-secondary">See what's in the vault first</a>
+      <div class="modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <h2>Send me the freebie</h2>
+      <p>Pop your email in below and we'll send you the download link. Follow us on Instagram too — that's where we drop new freebies first.</p>
+      <form class="modal-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label for="modal-email">Email address</label>
+          <input type="email" id="modal-email" class="form-input" placeholder="you@example.com" required>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="modal-follow" checked>
+          <label for="modal-follow">I've followed @picketfeds on Instagram</label>
+        </div>
+        <button type="submit" class="btn-wire btn-wire-filled modal-submit-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Send Me the Download
+        </button>
+      </form>
+      <a href="https://instagram.com/picketfeds" target="_blank" rel="noopener" class="modal-secondary">Follow @picketfeds on Instagram</a>
     </div>
   </div>
 
   <script>
     const modal = document.getElementById('modal');
     function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-    function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset form after close
+      setTimeout(() => {
+        const form = document.querySelector('.modal-form');
+        const success = document.querySelector('.modal-form-success');
+        if (form && success) { form.style.display = ''; success.remove(); }
+      }, 300);
+    }
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const email = document.getElementById('modal-email').value;
+      // In production, this would POST to your email service (Mailchimp, ConvertKit, etc.)
+      console.log('Freebie signup:', email);
+      // Show success state
+      form.style.display = 'none';
+      const secondary = document.querySelector('.modal-secondary');
+      if (secondary) secondary.style.display = 'none';
+      const modalBody = document.querySelector('.modal');
+      const successDiv = document.createElement('div');
+      successDiv.className = 'modal-form-success';
+      successDiv.innerHTML = `
+        <div class="check-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Check your inbox</h3>
+        <p>We've sent the download link to <strong>${email}</strong></p>
+      `;
+      form.parentNode.insertBefore(successDiv, form.nextSibling);
+    }
   </script>
 
 </body>
