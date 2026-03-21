@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Overlay Startup Animation</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    }
+
+    .overlay {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    /* ── SVG ring ── */
+    .overlay svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg); /* start from top */
+    }
+
+    /* Grey base ring (always visible) */
+    .ring-base {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.1);
+      stroke-width: 5;
+    }
+
+    /* Gradient ring that sweeps in */
+    .ring-gradient {
+      fill: none;
+      stroke: url(#borderGradient);
+      stroke-width: 5;
+      stroke-linecap: round;
+      /* Circle circumference = 2 * PI * 93 ≈ 584.33 */
+      stroke-dasharray: 584.33;
+      stroke-dashoffset: 584.33; /* fully hidden */
+      transition: none;
+    }
+
+    .overlay.activating .ring-gradient {
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .overlay.active .ring-gradient {
+      stroke-dashoffset: 0;
+    }
+
+    /* ── Inner fill ── */
+    .overlay-fill {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      transition: background 0.4s ease;
+    }
+
+    .overlay.activating .overlay-fill,
+    .overlay.active .overlay-fill {
+      background: #1c1535;
+    }
+
+    /* ── Center dot ── */
+    .overlay-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #a78bfa;
+      transform: translate(-50%, -50%);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.4s ease;
+    }
+
+    .overlay.activating .overlay-dot,
+    .overlay.active .overlay-dot {
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+    }
+
+    /* ── Subtle glow behind the ring when active ── */
+    .overlay-glow {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      opacity: 0;
+      background: conic-gradient(
+        from 0deg,
+        rgba(167, 139, 250, 0.15),
+        rgba(134, 239, 172, 0.15),
+        rgba(167, 139, 250, 0.15)
+      );
+      filter: blur(12px);
+      transition: opacity 0.8s ease 0.4s;
+    }
+
+    .overlay.activating .overlay-glow,
+    .overlay.active .overlay-glow {
+      opacity: 1;
+    }
+
+    /* ── Hint label ── */
+    .hint {
+      position: fixed;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .hint.hidden { opacity: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="overlay" id="overlay" onclick="toggle()">
+    <!-- SVG rings -->
+    <svg viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a78bfa"/>
+          <stop offset="50%" stop-color="#86efac"/>
+          <stop offset="100%" stop-color="#a78bfa"/>
+        </linearGradient>
+      </defs>
+      <!-- Grey base ring -->
+      <circle class="ring-base" cx="100" cy="100" r="93"/>
+      <!-- Gradient ring (animated) -->
+      <circle class="ring-gradient" cx="100" cy="100" r="93"/>
+    </svg>
+
+    <div class="overlay-glow"></div>
+    <div class="overlay-fill"></div>
+    <div class="overlay-dot"></div>
+  </div>
+
+  <p class="hint" id="hint">Click to activate</p>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const hint = document.getElementById('hint');
+    let isActive = false;
+
+    function toggle() {
+      if (isActive) {
+        // Deactivate — reverse the sweep
+        overlay.classList.remove('active');
+        overlay.classList.remove('activating');
+        hint.textContent = 'Click to activate';
+        hint.classList.remove('hidden');
+        isActive = false;
+      } else {
+        // Activate — play the sweep-in
+        overlay.classList.add('activating');
+        hint.classList.add('hidden');
+        isActive = true;
+
+        // After animation completes, set stable active class
+        setTimeout(() => {
+          if (isActive) {
+            overlay.classList.add('active');
+          }
+        }, 1700);
+      }
+    }
+
+    // Auto-play on load after a short delay
+    setTimeout(toggle, 800);
+  </script>
+
+</body>
+</html>
