@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Overlay Startup Animation</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    }
+
+    .overlay {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    /* ── Grey base ring (always visible underneath) ── */
+    .ring-grey {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      -webkit-mask: radial-gradient(circle, transparent 87px, black 88px, black 96px, transparent 97px);
+      mask: radial-gradient(circle, transparent 87px, black 88px, black 96px, transparent 97px);
+    }
+
+    /* ── Gradient ring (fades over grey) ── */
+    .ring-gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      opacity: 0;
+      background: linear-gradient(
+        to top,
+        #2A004B 1%,
+        #AD46FF 30%,
+        #EEAFFF 54%,
+        #43EE1D 78%,
+        #F6FF00 100%
+      );
+      -webkit-mask: radial-gradient(circle, transparent 87px, black 88px, black 96px, transparent 97px);
+      mask: radial-gradient(circle, transparent 87px, black 88px, black 96px, transparent 97px);
+      transition: opacity 0.4s ease;
+    }
+
+    .overlay.activating .ring-gradient,
+    .overlay.active .ring-gradient {
+      opacity: 1;
+    }
+
+    /* ── Inner fill ── */
+    .overlay-fill {
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background: rgba(16, 16, 23, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.4s ease;
+    }
+
+    .overlay.activating .overlay-fill,
+    .overlay.active .overlay-fill {
+      background: #101017;
+    }
+
+    /* ── Center dot ── */
+    .overlay-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #AE45FF;
+      transform: translate(-50%, -50%);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.4s ease;
+    }
+
+    .overlay.activating .overlay-dot,
+    .overlay.active .overlay-dot {
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 24px rgba(167, 139, 250, 0.45);
+    }
+
+    /* ── Subtle glow behind ring when active ── */
+    .overlay-glow {
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      opacity: 0;
+      background: linear-gradient(
+        to top,
+        rgba(42, 0, 75, 0.25) 1%,
+        rgba(173, 70, 255, 0.2) 30%,
+        rgba(238, 175, 255, 0.15) 54%,
+        rgba(67, 238, 29, 0.2) 78%,
+        rgba(246, 255, 0, 0.2) 100%
+      );
+      filter: blur(14px);
+      transition: opacity 0.4s ease;
+    }
+
+    .overlay.activating .overlay-glow,
+    .overlay.active .overlay-glow {
+      opacity: 1;
+    }
+
+    /* ── Hint label ── */
+    .hint {
+      position: fixed;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .hint.hidden { opacity: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="overlay" id="overlay" onclick="toggle()">
+    <div class="ring-grey"></div>
+    <div class="ring-gradient"></div>
+    <div class="overlay-glow"></div>
+    <div class="overlay-fill"></div>
+    <div class="overlay-dot"></div>
+  </div>
+
+  <p class="hint" id="hint">Click to activate</p>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const hint = document.getElementById('hint');
+    let isActive = false;
+
+    function toggle() {
+      if (isActive) {
+        overlay.classList.remove('active', 'activating');
+        hint.textContent = 'Click to activate';
+        hint.classList.remove('hidden');
+        isActive = false;
+      } else {
+        overlay.classList.add('activating');
+        hint.classList.add('hidden');
+        isActive = true;
+
+        setTimeout(() => {
+          if (isActive) overlay.classList.add('active');
+        }, 1700);
+      }
+    }
+
+    // Auto-play on load
+    setTimeout(toggle, 800);
+  </script>
+
+</body>
+</html>
