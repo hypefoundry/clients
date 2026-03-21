@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Overlay Listening Transition</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" />
+  <style>
+    /* ─────────────────────────────────────────────────────────
+     * ANIMATION STORYBOARD
+     *
+     * Page loads in READY state (activated overlay + toast).
+     * Click overlay = simulate pressing fn:
+     *   0ms    toast slides left + fades out
+     *   0ms    dot shrinks out (150ms)
+     *   150ms  audio lines fade in + begin pulsing
+     * Click again = reverse sequence.
+     * ───────────────────────────────────────────────────────── */
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* ── Scene container ── */
+    .scene {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      cursor: pointer;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       TOAST
+       ══════════════════════════════════════════════════════════ */
+    .micro-toast {
+      border-radius: 36px;
+      background-color: #101017;
+      border: 1px solid #1b1b24;
+      display: flex;
+      align-items: center;
+      padding: 8px 13px;
+      gap: 5px;
+      font-size: 11px;
+      white-space: nowrap;
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition:
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scene.listening .micro-toast {
+      opacity: 0;
+      transform: translateX(-20px) scale(0.97);
+    }
+
+    .click-or-hold {
+      line-height: 140%;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .key-badge {
+      border-radius: 4px;
+      background-color: #fff;
+      border: 1px solid #e2e2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 5px;
+      font-size: 8px;
+      color: #262626;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       OVERLAY
+       ══════════════════════════════════════════════════════════ */
+    .overlay {
+      position: relative;
+      width: 49px;
+      height: 49px;
+      flex-shrink: 0;
+    }
+
+    /* Grey base ring */
+    .ring-grey {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      -webkit-mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+      mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+    }
+
+    /* Gradient ring */
+    .ring-gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        #2A004B 1%,
+        #AD46FF 30%,
+        #EEAFFF 54%,
+        #43EE1D 78%,
+        #F6FF00 100%
+      );
+      -webkit-mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+      mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+      transition: opacity 0.4s ease;
+    }
+
+    /* Inner fill */
+    .overlay-fill {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #101017;
+      transition: background 0.4s ease;
+    }
+
+    /* Center dot */
+    .overlay-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #AE45FF;
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 20px rgba(174, 69, 255, 0.45);
+      transition:
+        opacity 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .scene.listening .overlay-dot {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.3);
+    }
+
+    /* Glow */
+    .overlay-glow {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        rgba(42, 0, 75, 0.25) 1%,
+        rgba(173, 70, 255, 0.2) 30%,
+        rgba(238, 175, 255, 0.15) 54%,
+        rgba(67, 238, 29, 0.2) 78%,
+        rgba(246, 255, 0, 0.2) 100%
+      );
+      filter: blur(14px);
+      transition: opacity 0.4s ease;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       AUDIO WAVEFORM LINES
+       ══════════════════════════════════════════════════════════ */
+    .audio-lines {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 16px;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.15s;
+    }
+
+    .scene.listening .audio-lines {
+      opacity: 1;
+    }
+
+    .scene:not(.listening) .audio-lines {
+      transition: opacity 0.2s ease;
+    }
+
+    .audio-line {
+      width: 2px;
+      min-width: 2px;
+      max-width: 2px;
+      border-radius: 14px;
+      transform-origin: center;
+      animation: none;
+      height: 3.5px;
+    }
+
+    /* Solid colours per line */
+    .audio-line:nth-child(1),
+    .audio-line:nth-child(2) { background: #E56EC5; }
+    .audio-line:nth-child(3),
+    .audio-line:nth-child(4) { background: #AE45FF; }
+    .audio-line:nth-child(5) { background: #43EE1D; }
+    .audio-line:nth-child(6),
+    .audio-line:nth-child(7) { background: #FCDD09; }
+
+    .scene.listening .audio-line {
+      animation: pulse var(--dur) var(--delay) ease-in-out infinite;
+    }
+
+    .audio-line:nth-child(1) { --dur: 0.7s;  --delay: 0s;     --max-h: 3.7px; }
+    .audio-line:nth-child(2) { --dur: 0.65s; --delay: 0.05s;  --max-h: 7.4px; }
+    .audio-line:nth-child(3) { --dur: 0.6s;  --delay: 0.1s;   --max-h: 12px; }
+    .audio-line:nth-child(4) { --dur: 0.55s; --delay: 0.15s;  --max-h: 16.6px; }
+    .audio-line:nth-child(5) { --dur: 0.6s;  --delay: 0.2s;   --max-h: 12px; }
+    .audio-line:nth-child(6) { --dur: 0.65s; --delay: 0.25s;  --max-h: 7.4px; }
+    .audio-line:nth-child(7) { --dur: 0.7s;  --delay: 0.3s;   --max-h: 3.7px; }
+
+    @keyframes pulse {
+      0%, 100% {
+        height: 3.5px;
+      }
+      50% {
+        height: var(--max-h, 12px);
+      }
+    }
+
+    /* Intensify glow when listening */
+    .scene.listening .overlay-glow {
+      opacity: 1;
+      filter: blur(18px);
+    }
+
+    /* ── Hint ── */
+    .hint {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene" id="scene">
+
+    <!-- Toast -->
+    <div class="micro-toast">
+      <span class="click-or-hold">Click or hold</span>
+      <div class="key-badge">fn</div>
+      <span class="click-or-hold">to start dictating</span>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay">
+      <div class="ring-grey"></div>
+      <div class="ring-gradient"></div>
+      <div class="overlay-glow"></div>
+      <div class="overlay-fill"></div>
+      <div class="overlay-dot"></div>
+      <div class="audio-lines">
+        <div class="audio-line"></div>
+        <div class="audio-line"></div>
+        <div class="audio-line"></div>
+        <div class="audio-line"></div>
+        <div class="audio-line"></div>
+        <div class="audio-line"></div>
+        <div class="audio-line"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="hint">Click overlay to toggle listening</p>
+
+  <script>
+    const scene = document.getElementById('scene');
+    let isListening = false;
+
+    scene.addEventListener('click', () => {
+      isListening = !isListening;
+      scene.classList.toggle('listening', isListening);
+    });
+  </script>
+
+</body>
+</html>
