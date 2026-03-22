@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUMMA EARTH — Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   MUMMA EARTH — DESIGN SYSTEM
+   ═══════════════════════════════════════ */
+:root {
+  --lavender: #DDE0EF;
+  --pink: #D45C8A;
+  --blue: #8B9DC3;
+  --charcoal: #2D2D2D;
+  --offwhite: #F8F7F4;
+  --cream: #F0EDE8;
+  --warm-grey: #B8B0A6;
+  --sand: #E8E0D4;
+  --logo-font: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  --heading-font: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --body-font: 'DM Sans', 'Helvetica Neue', sans-serif;
+  --nav-height: 72px;
+  --radius: 16px;
+  --radius-mobile: 16px;
+  --transition: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--body-font);
+  background: var(--offwhite);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+/* ═══════════════════════════════════════
+   PAGE SYSTEM
+   ═══════════════════════════════════════ */
+.page {
+  display: none;
+  opacity: 0;
+  min-height: 100vh;
+  transition: opacity 0.5s ease;
+}
+.page.active {
+  display: block;
+  opacity: 1;
+}
+.page.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   NAVIGATION — DESKTOP
+   ═══════════════════════════════════════ */
+.nav {
+  position: absolute;
+  top: 14px; left: 0; right: 0;
+  z-index: 1000;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 48px;
+  background: transparent;
+}
+.nav.nav--solid {
+  position: relative;
+  background: var(--offwhite);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+}
+
+.nav__left, .nav__right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+}
+.nav__right { justify-content: flex-end; }
+
+.nav__link {
+  font-family: var(--body-font);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--charcoal);
+  transition: opacity 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+.nav--overlay .nav__link { color: rgba(255,255,255,0.85); }
+.nav--solid .nav__link { color: var(--charcoal); }
+.nav__link:hover { opacity: 0.6; }
+
+/* Stays dropdown */
+.nav__dropdown {
+  position: relative;
+}
+.nav__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: -16px;
+  padding: 16px;
+  background: var(--offwhite);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+  min-width: 160px;
+  z-index: 10;
+}
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown.open .nav__dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(4px);
+}
+.nav__dropdown-item {
+  display: block;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--charcoal);
+  border-radius: 4px;
+  transition: background 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nav__dropdown-item:hover {
+  background: rgba(139,157,195,0.15);
+}
+
+.nav__logo {
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+}
+.nav__logo img {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+  transition: filter var(--transition);
+}
+.nav--overlay .nav__logo img {
+  filter: brightness(0) invert(1);
+}
+
+.nav__search-icon {
+  width: 18px; height: 18px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round;
+}
+.nav__cart-count {
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--pink);
+  color: #fff;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -4px;
+}
+
+/* Mobile nav */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav__hamburger span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--charcoal);
+  transition: all 0.3s;
+}
+.nav__hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.nav__hamburger.active span:nth-child(2) { opacity: 0; }
+.nav__hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+.nav--overlay .nav__hamburger span { background: rgba(255,255,255,0.9); }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--offwhite);
+  padding: 100px 32px 40px;
+  transform: translateY(-100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+.mobile-menu.open { transform: translateY(0); }
+.nav.menu-open .nav__logo img { filter: none !important; }
+.nav.menu-open .nav__hamburger span { background: var(--charcoal) !important; }
+.nav.menu-open .nav__cart-mobile { color: var(--charcoal) !important; }
+.mobile-menu__link {
+  display: block;
+  font-family: var(--heading-font);
+  font-size: 24px;
+  font-weight: 300;
+  padding: 12px 0;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.mobile-menu__link:hover { opacity: 0.5; }
+.mobile-menu__sub {
+  padding-left: 24px;
+  margin-bottom: 8px;
+}
+.mobile-menu__sub a {
+  display: block;
+  font-family: var(--body-font);
+  font-size: 15px;
+  font-weight: 300;
+  padding: 6px 0;
+  color: var(--warm-grey);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .nav { padding: 0 24px; }
+  .nav__left, .nav__right { display: none; }
+  .nav__hamburger { display: flex; }
+  .nav__inner {
+    display: grid;
+    grid-template-columns: 48px 1fr 48px;
+    align-items: center;
+  }
+  .nav__logo {
+    justify-self: center;
+    text-align: center;
+    font-size: 22px;
+    padding: 0;
+  }
+  .nav__cart-mobile {
+    justify-self: end;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+  }
+  .nav--overlay .nav__cart-mobile { color: rgba(255,255,255,0.85); }
+}
+@media (min-width: 901px) {
+  .nav__cart-mobile { display: none; }
+}
+
+/* ═══════════════════════════════════════
+   HOME PAGE
+   ═══════════════════════════════════════ */
+.hero {
+  position: relative;
+  width: calc(100% - 24px);
+  height: calc(90vh - 12px);
+  min-height: 500px;
+  overflow: hidden;
+  margin: 12px 12px 0;
+  border-radius: 16px;
+}
+.hero__image {
+  position: absolute; inset: 0;
+  background: url('Photos/me-hero-home.jpg') center/cover no-repeat;
+}
+.hero__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.2) 100%);
+}
+.home-tagline {
+  text-align: center;
+  padding: 36px 24px 12px;
+  font-family: var(--heading-font);
+  font-size: clamp(13px, 1.4vw, 16px);
+  font-weight: 700;
+  color: var(--charcoal);
+  letter-spacing: 0.01em;
+}
+.home-tagline + .section-header {
+  padding-top: 40px;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0 40px 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.home-grid__card {
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.home-grid__card:hover { transform: translateY(-4px); }
+.home-grid__image {
+  aspect-ratio: 4/5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+.home-grid__image img {
+  transition: transform 0.6s ease;
+}
+.home-grid__card:hover .home-grid__image img {
+  transform: scale(1.03);
+}
+.home-grid__label {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+.home-grid__label span {
+  color: var(--warm-grey);
+  font-weight: 300;
+}
+
+/* Section dividers */
+.section-header {
+  padding: 80px 40px 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.section-header__title {
+  font-family: var(--heading-font);
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 400;
+}
+.section-header__link {
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--blue);
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.section-header__link:hover { opacity: 0.6; }
+
+@media (max-width: 768px) {
+  .hero { height: calc(100vh - 8px); margin: 8px 8px 0; border-radius: 12px; width: calc(100% - 16px); }
+  .home-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 0 20px 60px;
+  }
+  .home-grid__card:nth-child(n+5) { display: none; }
+  .home-grid__image { border-radius: var(--radius-mobile); }
+  .section-header { padding: 60px 20px 24px; }
+}
+
+/* ═══════════════════════════════════════
+   STAY COLLECTION PAGE
+   ═══════════════════════════════════════ */
+.collection-hero {
+  padding-top: 48px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+.collection-hero__title {
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+.collection-hero__sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--warm-grey);
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+}
+
+.stay-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 0 40px 100px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.stay-card {
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.stay-card:hover { transform: translateY(-3px); }
+.stay-card__image {
+  aspect-ratio: 4/5;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.stay-card__image img { transition: transform 0.6s ease; }
+.stay-card:hover .stay-card__image img { transform: scale(1.03); }
+.stay-card__meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.stay-card__meta span:first-child { color: var(--charcoal); }
+.stay-card__meta span:last-child { color: var(--warm-grey); }
+
+@media (max-width: 768px) {
+  .stay-grid {
+    gap: 16px;
+    padding: 0 20px 60px;
+  }
+  .stay-card__image { border-radius: var(--radius-mobile); }
+}
+
+/* ═══════════════════════════════════════
+   STAY INDIVIDUAL PAGE
+   ═══════════════════════════════════════ */
+.stay-detail__hero {
+  position: relative;
+  width: calc(100% - 24px);
+  height: calc(90vh - 12px);
+  min-height: 500px;
+  overflow: hidden;
+  margin: 12px 12px 0;
+  border-radius: 16px;
+}
+.stay-detail__hero-image {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.stay-detail__hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.2) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 48px;
+}
+.stay-detail__hero-text {
+  color: #fff;
+}
+.stay-detail__hero-text h1 {
+  font-family: var(--heading-font);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+.stay-detail__hero-text p {
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 8px;
+  opacity: 0.8;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stay-detail__content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 40px 100px;
+}
+.stay-detail__description {
+  font-family: var(--heading-font);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--charcoal);
+  margin-bottom: 40px;
+}
+.stay-detail__info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding: 32px 0;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  margin-bottom: 48px;
+}
+.stay-detail__info-item label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  display: block;
+  margin-bottom: 4px;
+}
+.stay-detail__info-item span {
+  font-size: 15px;
+  font-weight: 400;
+}
+.stay-detail__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--blue);
+  border-bottom: 1px solid var(--blue);
+  padding-bottom: 2px;
+  transition: opacity 0.3s;
+}
+.stay-detail__link:hover { opacity: 0.6; }
+
+.stay-detail__gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.stay-detail__gallery-item {
+  aspect-ratio: 4/3;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.stay-detail__gallery-item:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 16/9;
+}
+
+@media (max-width: 768px) {
+  .stay-detail__hero { height: calc(100vh - 8px); margin: 8px 8px 0; border-radius: 12px; width: calc(100% - 16px); }
+  .stay-detail__hero-overlay { padding: 24px; }
+  .stay-detail__content { padding: 40px 20px 60px; }
+  .stay-detail__info { grid-template-columns: 1fr; gap: 20px; }
+  .stay-detail__gallery { grid-template-columns: 1fr; }
+  .stay-detail__gallery-item { border-radius: var(--radius-mobile); }
+}
+
+/* ═══════════════════════════════════════
+   TRAVEL FILES COLLECTION
+   ═══════════════════════════════════════ */
+.tf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0 40px 100px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.tf-card {
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.tf-card:hover { transform: translateY(-4px); }
+.tf-card__image {
+  aspect-ratio: 4/5;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.tf-card__image img { transition: transform 0.6s ease; }
+.tf-card:hover .tf-card__image img { transform: scale(1.03); }
+.tf-card__label {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 768px) {
+  .tf-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 0 20px 60px;
+  }
+  .tf-card__image { border-radius: var(--radius-mobile); }
+}
+
+/* ═══════════════════════════════════════
+   TRAVEL FILES INDIVIDUAL (Blog)
+   ═══════════════════════════════════════ */
+.tf-detail__hero {
+  position: relative;
+  width: calc(100% - 24px);
+  height: calc(90vh - 12px);
+  min-height: 500px;
+  overflow: hidden;
+  margin: 12px 12px 0;
+  border-radius: 16px;
+}
+.tf-detail__hero-image {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.tf-detail__hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.2) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px;
+}
+.tf-detail__hero-title {
+  color: #fff;
+  font-family: var(--heading-font);
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+}
+.tf-detail__hero-sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+  margin-top: 12px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+}
+
+.tf-detail__content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 40px 100px;
+}
+.tf-detail__intro {
+  font-family: var(--heading-font);
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--charcoal);
+  margin-bottom: 56px;
+}
+
+.tf-section {
+  margin-bottom: 56px;
+}
+.tf-section__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.tf-section__text {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--charcoal);
+  margin-bottom: 24px;
+}
+.tf-section__image {
+  aspect-ratio: 3/2;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.tf-section__image-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.tf-section__image-pair .tf-section__image { aspect-ratio: 1; }
+
+.tf-detail__links {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding-top: 32px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.tf-detail__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  padding: 10px 20px;
+  border-radius: 100px;
+  transition: all 0.3s;
+}
+.tf-detail__social-link:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .tf-detail__hero { height: calc(100vh - 8px); margin: 8px 8px 0; border-radius: 12px; width: calc(100% - 16px); }
+  .tf-detail__hero-overlay { padding: 24px; }
+  .tf-detail__content { padding: 40px 20px 60px; }
+  .tf-section__image-pair { grid-template-columns: 1fr; }
+  .tf-section__image { border-radius: var(--radius-mobile); }
+}
+
+/* ═══════════════════════════════════════
+   ITINERARIES COLLECTION
+   ═══════════════════════════════════════ */
+.itin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 0 40px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.itin-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+.itin-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.itin-card__image {
+  aspect-ratio: 3/2;
+  overflow: hidden;
+}
+.itin-card__image img { transition: transform 0.6s ease; }
+.itin-card:hover .itin-card__image img { transform: scale(1.04); }
+.itin-card__body {
+  padding: 20px;
+}
+.itin-card__destination {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  margin-bottom: 4px;
+}
+.itin-card__title {
+  font-family: var(--heading-font);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.itin-card__duration {
+  font-size: 13px;
+  color: var(--warm-grey);
+  margin-bottom: 16px;
+}
+.itin-card__price {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.itin-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--charcoal);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: background 0.3s, transform 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+.itin-card__btn:hover {
+  background: var(--blue);
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .itin-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px 60px;
+    max-width: 480px;
+  }
+  .itin-card { border-radius: var(--radius-mobile); }
+}
+
+/* ═══════════════════════════════════════
+   ABOUT PAGE
+   ═══════════════════════════════════════ */
+.about {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 40px 100px;
+  text-align: center;
+}
+.about__text {
+  font-family: var(--heading-font);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--charcoal);
+  margin-bottom: 24px;
+}
+.about__founder {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.about__founder-name {
+  font-family: var(--heading-font);
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.about__founder-role {
+  font-size: 13px;
+  color: var(--warm-grey);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .about { padding: 40px 20px 60px; }
+}
+
+/* ═══════════════════════════════════════
+   CONTACT PAGE
+   ═══════════════════════════════════════ */
+.contact {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 80px 40px 100px;
+  text-align: center;
+}
+.contact__title {
+  font-family: var(--heading-font);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.contact__text {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--warm-grey);
+  margin-bottom: 40px;
+}
+.contact__email {
+  display: inline-block;
+  font-family: var(--heading-font);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--blue);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.contact__email:hover {
+  border-bottom-color: var(--blue);
+}
+.contact__form {
+  margin-top: 48px;
+  text-align: left;
+}
+.contact__field {
+  margin-bottom: 20px;
+}
+.contact__field label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-grey);
+  margin-bottom: 8px;
+}
+.contact__field input,
+.contact__field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: var(--radius);
+  font-family: var(--body-font);
+  font-size: 14px;
+  background: #fff;
+  transition: border-color 0.3s;
+  outline: none;
+}
+.contact__field input:focus,
+.contact__field textarea:focus {
+  border-color: var(--blue);
+}
+.contact__field textarea { min-height: 120px; resize: vertical; }
+.contact__submit {
+  display: inline-flex;
+  padding: 14px 40px;
+  background: var(--charcoal);
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.contact__submit:hover { background: var(--blue); }
+
+@media (max-width: 768px) {
+  .contact { padding: 40px 20px 60px; }
+}
+
+/* ═══════════════════════════════════════
+   CART PAGE
+   ═══════════════════════════════════════ */
+.cart {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 40px 100px;
+}
+.cart__title {
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 300;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.cart__empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--warm-grey);
+  font-size: 15px;
+}
+.cart__empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+.cart__items {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.cart__item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.cart__item-image {
+  width: 80px; height: 80px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--cream);
+}
+.cart__item-title {
+  font-family: var(--heading-font);
+  font-size: 18px;
+  font-weight: 400;
+}
+.cart__item-type {
+  font-size: 12px;
+  color: var(--warm-grey);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.cart__item-price {
+  font-size: 15px;
+  font-weight: 500;
+}
+.cart__item-remove {
+  font-size: 12px;
+  color: var(--warm-grey);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.cart__item-remove:hover { color: var(--pink); }
+.cart__summary {
+  padding: 32px 0;
+  text-align: right;
+}
+.cart__total {
+  font-family: var(--heading-font);
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+.cart__total span {
+  font-family: var(--body-font);
+  font-size: 12px;
+  color: var(--warm-grey);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: 12px;
+}
+.cart__checkout-btn {
+  display: inline-flex;
+  padding: 16px 48px;
+  background: var(--charcoal);
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.cart__checkout-btn:hover { background: var(--blue); }
+.cart__continue {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--blue);
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.cart__continue:hover { opacity: 0.6; }
+
+@media (max-width: 768px) {
+  .cart { padding: 32px 20px 60px; }
+  .cart__item { grid-template-columns: 64px 1fr auto; gap: 14px; }
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+.footer {
+  background: #fff;
+  color: rgba(0,0,0,0.6);
+  padding: 64px 40px 40px;
+}
+.footer__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+}
+.footer__logo {
+  margin-bottom: 16px;
+}
+.footer__logo img {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+.footer__text {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.footer__nav-title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.4);
+  margin-bottom: 16px;
+}
+.footer__link {
+  display: block;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 4px 0;
+  color: rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.footer__link:hover { color: rgba(0,0,0,0.95); }
+.footer__bottom {
+  max-width: 1440px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0,0,0,0.12);
+  font-size: 12px;
+  font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .footer { padding: 48px 20px 32px; }
+  .footer__inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer__bottom { flex-direction: column; gap: 8px; }
+}
+
+/* ═══════════════════════════════════════
+   UTILITY / ANIMATIONS
+   ═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* Back to top */
+.back-top {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 44px; height: 44px;
+  background: var(--charcoal);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 100;
+}
+.back-top.visible { opacity: 1; visibility: visible; }
+.back-top:hover { background: var(--blue); transform: translateY(-2px); }
+
+/* Breadcrumb */
+.breadcrumb {
+  padding: 20px 40px 0;
+  max-width: 1440px;
+  margin: 0 auto;
+  font-size: 12px;
+  color: var(--warm-grey);
+  letter-spacing: 0.04em;
+}
+.breadcrumb span { cursor: pointer; transition: color 0.3s; }
+.breadcrumb span:hover { color: var(--charcoal); }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.4; }
+
+@media (max-width: 768px) {
+  .breadcrumb { padding: 12px 20px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════ -->
+<nav class="nav nav--overlay" id="mainNav">
+  <div class="nav__inner">
+    <div class="nav__hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav__left">
+      <div class="nav__dropdown">
+        <span class="nav__link" onclick="navigate('stays')">Stays</span>
+        <div class="nav__dropdown-menu">
+          <span class="nav__dropdown-item" onclick="navigate('stays')">Brazil</span>
+          <span class="nav__dropdown-item" onclick="navigate('stays')">Sri Lanka</span>
+          <span class="nav__dropdown-item" onclick="navigate('stays')">Greece</span>
+          <span class="nav__dropdown-item" onclick="navigate('stays')">Europe</span>
+          <span class="nav__dropdown-item" onclick="navigate('stays')">Morocco</span>
+        </div>
+      </div>
+      <span class="nav__link" onclick="navigate('travel-files')">Travel Files</span>
+      <span class="nav__link" onclick="navigate('itineraries')">Itineraries</span>
+    </div>
+    <div class="nav__logo" onclick="navigate('home')"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+    <span class="nav__cart-mobile" onclick="navigate('cart')">Cart</span>
+    <div class="nav__right">
+      <span class="nav__link" onclick="navigate('about')">About</span>
+      <span class="nav__link">
+        <svg class="nav__search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      </span>
+      <span class="nav__link" onclick="navigate('cart')">Cart <span class="nav__cart-count" id="cartCount" style="display:none">0</span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-menu__link" onclick="navigate('stays'); toggleMobileMenu()">Stays</span>
+  <div class="mobile-menu__sub">
+    <a onclick="navigate('stays'); toggleMobileMenu()">Brazil</a>
+    <a onclick="navigate('stays'); toggleMobileMenu()">Sri Lanka</a>
+    <a onclick="navigate('stays'); toggleMobileMenu()">Greece</a>
+    <a onclick="navigate('stays'); toggleMobileMenu()">Europe</a>
+    <a onclick="navigate('stays'); toggleMobileMenu()">Morocco</a>
+  </div>
+  <span class="mobile-menu__link" onclick="navigate('travel-files'); toggleMobileMenu()">Travel Files</span>
+  <span class="mobile-menu__link" onclick="navigate('itineraries'); toggleMobileMenu()">Itineraries</span>
+  <span class="mobile-menu__link" onclick="navigate('about'); toggleMobileMenu()">About</span>
+  <span class="mobile-menu__link" onclick="navigate('contact'); toggleMobileMenu()">Contact</span>
+  <span class="mobile-menu__link" onclick="navigate('cart'); toggleMobileMenu()">Cart</span>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: HOME
+     ═══════════════════════════════════════ -->
+<div class="page active fade-in" id="page-home">
+  <div class="hero">
+    <div class="hero__image"></div>
+    <div class="hero__overlay"></div>
+  </div>
+
+  <p class="home-tagline reveal">a lovingly curated guide to the best bits of mumma earth...</p>
+
+  <div class="section-header reveal">
+    <h2 class="section-header__title">Featured Stays</h2>
+    <span class="section-header__link" onclick="navigate('stays')">View all &rarr;</span>
+  </div>
+  <div class="home-grid">
+    <div class="home-grid__card reveal delay-1" onclick="navigate('stay-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_626980892_18555726238005111_3050905956564885897_n.jpg" alt="Stay" loading="lazy">
+      </div>
+      <p class="home-grid__label">Trulli House <span>/ Puglia, Italy</span></p>
+    </div>
+    <div class="home-grid__card reveal delay-2" onclick="navigate('stay-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_588003659_18545278531014616_1724755088810215534_n.jpg" alt="Stay" loading="lazy">
+      </div>
+      <p class="home-grid__label">Beach Cabana <span>/ Quintana Roo, Mexico</span></p>
+    </div>
+    <div class="home-grid__card reveal delay-3" onclick="navigate('stay-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_631430005_18563297005014616_4202923750367687187_n.jpg" alt="Stay" loading="lazy">
+      </div>
+      <p class="home-grid__label">Lakeside Retreat <span>/ Galle, Sri Lanka</span></p>
+    </div>
+  </div>
+
+  <div class="section-header reveal">
+    <h2 class="section-header__title">Recent Travel Files</h2>
+    <span class="section-header__link" onclick="navigate('travel-files')">View all &rarr;</span>
+  </div>
+  <div class="home-grid">
+    <div class="home-grid__card reveal delay-1" onclick="navigate('tf-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_523916010_18519241447047475_8496502094923470637_n.jpg" alt="Travel File" loading="lazy">
+      </div>
+      <p class="home-grid__label">Mexico x Tabatha Turner</p>
+    </div>
+    <div class="home-grid__card reveal delay-2" onclick="navigate('tf-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_586847318_18541219594060865_6396156357111186965_n.jpg" alt="Travel File" loading="lazy">
+      </div>
+      <p class="home-grid__label">Sri Lanka x Jess Alizzi</p>
+    </div>
+    <div class="home-grid__card reveal delay-3" onclick="navigate('tf-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_624601469_18083578576946771_6805146787284047011_n.jpg" alt="Travel File" loading="lazy">
+      </div>
+      <p class="home-grid__label">Puglia x Ellie Bullen</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth. Stays, travel files, and itineraries from around the world.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+        <span class="footer__link" onclick="navigate('about')">About</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+        <span class="footer__link">Newsletter</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: STAY COLLECTION
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-stays">
+  <div class="collection-hero">
+    <h1 class="collection-hero__title reveal">Stays</h1>
+    <p class="collection-hero__sub reveal delay-1">A curated guide to our favourite stays</p>
+  </div>
+
+  <div class="stay-grid">
+    <div class="stay-card reveal delay-1" onclick="navigate('stay-detail')">
+      <div class="stay-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_626980892_18555726238005111_3050905956564885897_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-card__meta"><span>Mexico</span><span>Quintana Roo</span></div>
+    </div>
+    <div class="stay-card reveal delay-2" onclick="navigate('stay-detail')">
+      <div class="stay-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_588003659_18545278531014616_1724755088810215534_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-card__meta"><span>Mexico</span><span>Quintana Roo</span></div>
+    </div>
+    <div class="stay-card reveal delay-3" onclick="navigate('stay-detail')">
+      <div class="stay-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_624697695_18187242694358511_3712004529641881739_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-card__meta"><span>Mexico</span><span>Quintana Roo</span></div>
+    </div>
+    <div class="stay-card reveal delay-4" onclick="navigate('stay-detail')">
+      <div class="stay-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_627574427_18556251793005111_4189290273386001478_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-card__meta"><span>Mexico</span><span>Quintana Roo</span></div>
+    </div>
+    <div class="stay-card reveal delay-5" onclick="navigate('stay-detail')">
+      <div class="stay-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_631430005_18563297005014616_4202923750367687187_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-card__meta"><span>Sri Lanka</span><span>Galle</span></div>
+    </div>
+    <div class="stay-card reveal delay-6" onclick="navigate('stay-detail')">
+      <div class="stay-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/000062030006 3.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-card__meta"><span>Italy</span><span>Puglia</span></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+        <span class="footer__link" onclick="navigate('about')">About</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: STAY INDIVIDUAL
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-stay-detail">
+  <div class="stay-detail__hero">
+    <div class="stay-detail__hero-image" style="background-image: url('Photos/STAY INDIVIDUAL PAGE/000062030028 2.jpg')"></div>
+    <div class="stay-detail__hero-overlay">
+      <div class="stay-detail__hero-text">
+        <h1>Trulli House</h1>
+        <p>Puglia, Italy</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stay-detail__content">
+    <p class="stay-detail__description reveal">
+      A beautifully restored trullo nestled in the heart of Puglia's olive groves. Whitewashed stone walls, vaulted ceilings, and a private garden make this one of our most coveted stays. Wake up to golden light filtering through ancient stone — pure magic.
+    </p>
+
+    <div class="stay-detail__info reveal">
+      <div class="stay-detail__info-item">
+        <label>Location</label>
+        <span>Puglia, Italy</span>
+      </div>
+      <div class="stay-detail__info-item">
+        <label>Type</label>
+        <span>Entire Home</span>
+      </div>
+      <div class="stay-detail__info-item">
+        <label>Guests</label>
+        <span>Up to 4</span>
+      </div>
+    </div>
+
+    <a class="stay-detail__link reveal">Book this stay &rarr;</a>
+
+    <div class="stay-detail__gallery reveal">
+      <div class="stay-detail__gallery-item">
+        <img src="Photos/STAY INDIVIDUAL PAGE/000061900018 2.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-detail__gallery-item">
+        <img src="Photos/STAY INDIVIDUAL PAGE/000061880004 2 2.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-detail__gallery-item">
+        <img src="Photos/STAY INDIVIDUAL PAGE/000061970036 2.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-detail__gallery-item">
+        <img src="Photos/STAY INDIVIDUAL PAGE/000062040021 2.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-detail__gallery-item">
+        <img src="Photos/STAY INDIVIDUAL PAGE/downloadgram.org_626980892_18555726238005111_3050905956564885897_n copy.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: TRAVEL FILES COLLECTION
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-travel-files">
+  <div class="collection-hero">
+    <h1 class="collection-hero__title reveal">Travel Files</h1>
+    <p class="collection-hero__sub reveal delay-1">Influencer spotlights on their favourite holidays</p>
+  </div>
+
+  <div class="tf-grid">
+    <div class="tf-card reveal delay-1" onclick="navigate('tf-detail')">
+      <div class="tf-card__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_523916010_18519241447047475_8496502094923470637_n.jpg" alt="" loading="lazy">
+      </div>
+      <p class="tf-card__label">Mexico x Tabatha Turner</p>
+    </div>
+    <div class="tf-card reveal delay-2" onclick="navigate('tf-detail')">
+      <div class="tf-card__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_586847318_18541219594060865_6396156357111186965_n.jpg" alt="" loading="lazy">
+      </div>
+      <p class="tf-card__label">Sri Lanka x Jess Alizzi</p>
+    </div>
+    <div class="tf-card reveal delay-3" onclick="navigate('tf-detail')">
+      <div class="tf-card__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_624601469_18083578576946771_6805146787284047011_n.jpg" alt="" loading="lazy">
+      </div>
+      <p class="tf-card__label">Puglia x Ellie Bullen</p>
+    </div>
+    <div class="tf-card reveal delay-4" onclick="navigate('tf-detail')">
+      <div class="tf-card__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_650096548_18021289439684781_7378065805112214802_n.jpg" alt="" loading="lazy">
+      </div>
+      <p class="tf-card__label">Morocco x Lily Pebbles</p>
+    </div>
+    <div class="tf-card reveal delay-5" onclick="navigate('tf-detail')">
+      <div class="tf-card__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_652682214_18124375063587325_737142532918383643_n.jpg" alt="" loading="lazy">
+      </div>
+      <p class="tf-card__label">Greece x Olivia Mathers</p>
+    </div>
+    <div class="tf-card reveal delay-6" onclick="navigate('tf-detail')">
+      <div class="tf-card__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_523922239_18518436178047475_8770892606046050761_n (1).jpg" alt="" loading="lazy">
+      </div>
+      <p class="tf-card__label">Paris x Tabatha Turner</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: TRAVEL FILES INDIVIDUAL
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-tf-detail">
+  <div class="tf-detail__hero">
+    <div class="tf-detail__hero-image" style="background-image: url('Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_523922239_18518436178047475_8770892606046050761_n (1) copy.jpg')"></div>
+    <div class="tf-detail__hero-overlay">
+      <h1 class="tf-detail__hero-title">Paris x Tabatha Turner</h1>
+      <p class="tf-detail__hero-sub">Don't listen to people who say they know all the tricks, why the heck is this, why the heck is that.</p>
+    </div>
+  </div>
+
+  <div class="tf-detail__content">
+    <p class="tf-detail__intro reveal">
+      We sat down with Paris and Tabatha Turner to talk about their recent trip to Mexico's Yucatan Peninsula — the hidden cenotes, the best street tacos, and why they keep coming back to this corner of the world.
+    </p>
+
+    <!-- Intro -->
+    <div class="tf-section reveal">
+      <p class="tf-section__label">Intro</p>
+      <p class="tf-section__text">A visual diary from the heart of Mexico's coast. Paris and Tabatha share their favourite hidden gems, from sunrise swims to midnight mezcal.</p>
+      <div class="tf-section__image">
+        <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_523881110_18519241528047475_2926375691042593105_n.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Breakfast -->
+    <div class="tf-section reveal">
+      <p class="tf-section__label">Breakfast</p>
+      <p class="tf-section__text">Fresh tropical fruit, chilaquiles from the corner spot, and coffee on the rooftop. Every morning felt like a ritual.</p>
+      <div class="tf-section__image">
+        <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_523924368_18519241438047475_8934882156510744774_n.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Beach -->
+    <div class="tf-section reveal">
+      <p class="tf-section__label">Beach</p>
+      <p class="tf-section__text">Crystal-clear water, powdery sand, barely a soul in sight. This is the Mexico the crowds haven't found yet.</p>
+      <div class="tf-section__image-pair">
+        <div class="tf-section__image">
+          <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_523966524_18519241501047475_5881492471348084163_n.jpg" alt="" loading="lazy">
+        </div>
+        <div class="tf-section__image">
+          <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_524903843_18519241465047475_8675006784534031706_n.jpg" alt="" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity -->
+    <div class="tf-section reveal">
+      <p class="tf-section__label">Activity</p>
+      <p class="tf-section__text">Rented scooters, drove along the coast, stumbled into a cenote that felt like another planet. No itinerary — just vibes.</p>
+      <div class="tf-section__image">
+        <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_524906350_18519241483047475_3963615673985988541_n.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Dinner -->
+    <div class="tf-section reveal">
+      <p class="tf-section__label">Dinner</p>
+      <p class="tf-section__text">Candlelit tables in the jungle. Fresh ceviche, smoky mole, and mezcal that tastes like the earth itself. Proper magic.</p>
+      <div class="tf-section__image">
+        <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_525757896_18519241546047475_9153886269034707564_n.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Stay -->
+    <div class="tf-section reveal">
+      <p class="tf-section__label">Stay</p>
+      <p class="tf-section__text">A treehouse-style palapa tucked into the jungle canopy. Open-air showers, hammocks on the balcony, and the sound of waves from your pillow.</p>
+      <div class="tf-section__image">
+        <img src="Photos/INFLUENCER INDIVIDUAL PAGE/downloadgram.org_523488636_18519241567047475_16484136727576568_n.jpg" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="tf-detail__links reveal">
+      <a class="tf-detail__social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+        Instagram
+      </a>
+      <a class="tf-detail__social-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 8h16M8 4v16"/></svg>
+        Substack
+      </a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: ITINERARIES COLLECTION
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-itineraries">
+  <div class="collection-hero">
+    <h1 class="collection-hero__title reveal">Itineraries</h1>
+    <p class="collection-hero__sub reveal delay-1">Curated multi-day travel plans for your next adventure</p>
+  </div>
+
+  <div class="itin-grid">
+    <div class="itin-card reveal delay-1">
+      <div class="itin-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_631430005_18563297005014616_4202923750367687187_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="itin-card__body">
+        <p class="itin-card__destination">Sri Lanka</p>
+        <h3 class="itin-card__title">Southern Coast Explorer</h3>
+        <p class="itin-card__duration">7 days / 6 nights</p>
+        <p class="itin-card__price">$29 AUD</p>
+        <button class="itin-card__btn" onclick="addToCart('Southern Coast Explorer', 29, event)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="itin-card reveal delay-2">
+      <div class="itin-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_588003659_18545278531014616_1724755088810215534_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="itin-card__body">
+        <p class="itin-card__destination">Mexico</p>
+        <h3 class="itin-card__title">Yucatan Peninsula Guide</h3>
+        <p class="itin-card__duration">10 days / 9 nights</p>
+        <p class="itin-card__price">$35 AUD</p>
+        <button class="itin-card__btn" onclick="addToCart('Yucatan Peninsula Guide', 35, event)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="itin-card reveal delay-3">
+      <div class="itin-card__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_626980892_18555726238005111_3050905956564885897_n.jpg" alt="" loading="lazy">
+      </div>
+      <div class="itin-card__body">
+        <p class="itin-card__destination">Italy</p>
+        <h3 class="itin-card__title">Puglia & The Trulli</h3>
+        <p class="itin-card__duration">5 days / 4 nights</p>
+        <p class="itin-card__price">$25 AUD</p>
+        <button class="itin-card__btn" onclick="addToCart('Puglia & The Trulli', 25, event)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: ABOUT
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about">
+    <p class="about__text reveal delay-1">
+      Mumma Earth was born from a love of slow travel, beautiful spaces, and the kind of recommendations you only get from someone who's actually been there.
+    </p>
+    <p class="about__text reveal delay-2">
+      We curate the world's most beautiful stays, partner with travel creators who share our values, and build itineraries that turn trips into something unforgettable.
+    </p>
+    <p class="about__text reveal delay-3">
+      Every recommendation is personally vetted. Every itinerary is lovingly crafted. This isn't a booking engine — it's a friend who happens to have incredible taste.
+    </p>
+    <div class="about__founder reveal delay-4">
+      <p class="about__founder-name">Stephanie Dyer</p>
+      <p class="about__founder-role">Founder, Mumma Earth</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: CONTACT
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact">
+    <h1 class="contact__title reveal">Get in Touch</h1>
+    <p class="contact__text reveal delay-1">We'd love to hear from you. Whether it's a question about a stay, a partnership enquiry, or just to say hello.</p>
+    <a class="contact__email reveal delay-2" href="mailto:stephdawnd@icloud.com">stephdawnd@icloud.com</a>
+
+    <form class="contact__form reveal delay-3" onsubmit="event.preventDefault()">
+      <div class="contact__field">
+        <label>Name</label>
+        <input type="text" placeholder="Your name">
+      </div>
+      <div class="contact__field">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="contact__field">
+        <label>Message</label>
+        <textarea placeholder="How can we help?"></textarea>
+      </div>
+      <button class="contact__submit" type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PAGE: CART
+     ═══════════════════════════════════════ -->
+<div class="page" id="page-cart">
+  <div class="cart">
+    <h1 class="cart__title reveal">Your Cart</h1>
+
+    <div id="cartEmpty" class="cart__empty reveal delay-1">
+      <div class="cart__empty-icon">&#9675;</div>
+      <p>Your cart is empty</p>
+      <span class="cart__continue" onclick="navigate('itineraries')" style="display:inline-block; margin-top:16px">Browse Itineraries &rarr;</span>
+    </div>
+
+    <div id="cartItems" class="cart__items" style="display:none"></div>
+
+    <div id="cartSummary" class="cart__summary" style="display:none">
+      <p class="cart__total"><span>Total</span> $<span id="cartTotalAmount">0</span> AUD</p>
+      <button class="cart__checkout-btn">Proceed to Checkout</button>
+      <span class="cart__continue" onclick="navigate('itineraries')">Continue Shopping &rarr;</span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__logo"><img src="me-logo.png" alt="MUMMA EARTH"></div>
+        <p class="footer__text">A lovingly curated guide to the best bits of mumma earth.</p>
+      </div>
+      <div>
+        <p class="footer__nav-title">Explore</p>
+        <span class="footer__link" onclick="navigate('stays')">Stays</span>
+        <span class="footer__link" onclick="navigate('travel-files')">Travel Files</span>
+        <span class="footer__link" onclick="navigate('itineraries')">Itineraries</span>
+      </div>
+      <div>
+        <p class="footer__nav-title">Connect</p>
+        <span class="footer__link" onclick="navigate('contact')">Contact Us</span>
+        <span class="footer__link">Instagram</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Mumma Earth. All rights reserved.</span>
+      <span>Designed by Hype Foundry</span>
+    </div>
+  </footer>
+</div>
+
+<!-- Back to top -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</div>
+
+<script>
+/* ═══════════════════════════════════════
+   NAVIGATION & PAGE SYSTEM
+   ═══════════════════════════════════════ */
+const overlayPages = ['home', 'stay-detail', 'tf-detail'];
+let currentPage = 'home';
+let cart = [];
+
+function navigate(pageId) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active', 'fade-in');
+  });
+
+  // Show target
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.classList.add('active', 'fade-in');
+  }
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Nav style
+  const nav = document.getElementById('mainNav');
+  if (overlayPages.includes(pageId)) {
+    nav.classList.add('nav--overlay');
+    nav.classList.remove('nav--solid');
+  } else {
+    nav.classList.remove('nav--overlay');
+    nav.classList.add('nav--solid');
+  }
+
+  currentPage = pageId;
+
+  // Re-trigger reveal animations
+  setTimeout(() => {
+    observeReveals();
+  }, 100);
+}
+
+// Mobile menu
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('mainNav');
+  menu.classList.toggle('open');
+  hamburger.classList.toggle('active');
+  nav.classList.toggle('menu-open');
+}
+
+// Scroll handling
+window.addEventListener('scroll', () => {
+  const backTop = document.getElementById('backTop');
+
+  if (window.scrollY > 400) {
+    backTop.classList.add('visible');
+  } else {
+    backTop.classList.remove('visible');
+  }
+});
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+   ═══════════════════════════════════════ */
+function observeReveals() {
+  const reveals = document.querySelectorAll('.reveal:not(.visible)');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  observeReveals();
+});
+
+/* ═══════════════════════════════════════
+   CART SYSTEM
+   ═══════════════════════════════════════ */
+function addToCart(title, price, event) {
+  if (event) {
+    event.stopPropagation();
+    const btn = event.target;
+    btn.textContent = 'Added!';
+    btn.style.background = 'var(--blue)';
+    setTimeout(() => {
+      btn.textContent = 'Add to Cart';
+      btn.style.background = '';
+    }, 1500);
+  }
+
+  cart.push({ title, price, id: Date.now() });
+  updateCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  updateCart();
+}
+
+function updateCart() {
+  const countEl = document.getElementById('cartCount');
+  const emptyEl = document.getElementById('cartEmpty');
+  const itemsEl = document.getElementById('cartItems');
+  const summaryEl = document.getElementById('cartSummary');
+  const totalEl = document.getElementById('cartTotalAmount');
+
+  if (cart.length > 0) {
+    countEl.style.display = 'flex';
+    countEl.textContent = cart.length;
+    emptyEl.style.display = 'none';
+    itemsEl.style.display = 'block';
+    summaryEl.style.display = 'block';
+
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="cart__item">
+        <div class="cart__item-image"></div>
+        <div>
+          <p class="cart__item-title">${item.title}</p>
+          <p class="cart__item-type">PDF Itinerary</p>
+        </div>
+        <div style="text-align:right">
+          <p class="cart__item-price">$${item.price} AUD</p>
+          <span class="cart__item-remove" onclick="removeFromCart(${item.id})">Remove</span>
+        </div>
+      </div>
+    `).join('');
+
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    totalEl.textContent = total;
+  } else {
+    countEl.style.display = 'none';
+    emptyEl.style.display = 'block';
+    itemsEl.style.display = 'none';
+    summaryEl.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>
