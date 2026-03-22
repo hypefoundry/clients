@@ -348,6 +348,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   color: var(--warm-grey);
   font-weight: 300;
 }
+.home-grid__card:nth-child(4) { display: none; }
 
 /* Section dividers */
 .section-header {
@@ -374,12 +375,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 @media (max-width: 768px) {
   .hero { height: calc(100vh - 8px); margin: 8px 8px 0; border-radius: 12px; width: calc(100% - 16px); }
+  .hero__image { background-image: url('Photos/me-hero-home-mobile.jpg') !important; }
   .home-grid {
     grid-template-columns: 1fr 1fr;
     gap: 14px;
     padding: 0 20px 60px;
   }
   .home-grid__card:nth-child(n+5) { display: none; }
+  .home-grid__card:nth-child(4) { display: block; }
   .home-grid__image { border-radius: var(--radius-mobile); }
   .section-header { padding: 60px 20px 24px; }
 }
@@ -1245,6 +1248,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
       </div>
       <p class="home-grid__label">Lakeside Retreat <span>/ Galle, Sri Lanka</span></p>
     </div>
+    <div class="home-grid__card reveal delay-4" onclick="navigate('stay-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/STAY COLLECTION PAGE/downloadgram.org_627574427_18556251793005111_4189290273386001478_n.jpg" alt="Stay" loading="lazy">
+      </div>
+      <p class="home-grid__label">Coastal Villa <span>/ Mirissa, Sri Lanka</span></p>
+    </div>
   </div>
 
   <div class="section-header reveal">
@@ -1269,6 +1278,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
         <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_624601469_18083578576946771_6805146787284047011_n.jpg" alt="Travel File" loading="lazy">
       </div>
       <p class="home-grid__label">Puglia x Ellie Bullen</p>
+    </div>
+    <div class="home-grid__card reveal delay-4" onclick="navigate('tf-detail')">
+      <div class="home-grid__image">
+        <img src="Photos/INFLUENCER COLLECTION PAGE/downloadgram.org_650096548_18021289439684781_7378065805112214802_n.jpg" alt="Travel File" loading="lazy">
+      </div>
+      <p class="home-grid__label">Morocco x Lily Pebbles</p>
     </div>
   </div>
 
