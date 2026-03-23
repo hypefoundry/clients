@@ -11,10 +11,13 @@
      *
      * Page loads in READY state (activated overlay + toast).
      * Click overlay = simulate pressing fn:
-     *   0ms    toast slides left + fades out
+     *   0ms    toast slides right + fades out
      *   0ms    dot shrinks out (150ms)
      *   150ms  audio lines fade in + begin pulsing
-     * Click again = reverse sequence.
+     *   2000ms audio lines fade out, loading spinner fades in
+     *   4000ms spinner fades out, transitions to idle
+     *          (translucent fill, no gradient ring, no glow)
+     * Click again from idle = re-activate to ready.
      * ───────────────────────────────────────────────────────── */
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -54,14 +57,20 @@
       gap: 5px;
       font-size: 11px;
       white-space: nowrap;
-      opacity: 1;
-      transform: translateX(0) scale(1);
+      opacity: 0;
+      transform: translateX(20px) scale(0.97);
       transition:
         opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
         transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .scene.listening .micro-toast {
+    .scene.ready .micro-toast {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    .scene.listening .micro-toast,
+    .scene.loading .micro-toast {
       opacity: 0;
       transform: translateX(20px) scale(0.97);
     }
@@ -105,12 +114,12 @@
       mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
     }
 
-    /* Gradient ring */
+    /* Gradient ring — hidden in idle, visible when ready/listening/loading */
     .ring-gradient {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      opacity: 1;
+      opacity: 0;
       background: linear-gradient(
         to top,
         #2A004B 1%,
@@ -124,16 +133,30 @@
       transition: opacity 0.4s ease;
     }
 
-    /* Inner fill */
+    .scene.ready .ring-gradient,
+    .scene.listening .ring-gradient,
+    .scene.loading .ring-gradient {
+      opacity: 1;
+    }
+
+    /* Inner fill — translucent with blur in idle, solid when active */
     .overlay-fill {
       position: absolute;
       inset: 3px;
       border-radius: 50%;
-      background: #101017;
+      background: rgba(16, 16, 23, 0.3);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       transition: background 0.4s ease;
     }
 
-    /* Center dot */
+    .scene.ready .overlay-fill,
+    .scene.listening .overlay-fill,
+    .scene.loading .overlay-fill {
+      background: #101017;
+    }
+
+    /* Center dot — always visible, hides only during listening/loading */
     .overlay-dot {
       position: absolute;
       top: 50%;
@@ -142,24 +165,32 @@
       height: 7px;
       border-radius: 50%;
       background: #AE45FF;
-      transform: translate(-50%, -50%) scale(1.15);
-      box-shadow: 0 0 20px rgba(174, 69, 255, 0.45);
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      box-shadow: none;
       transition:
-        opacity 0.15s ease,
-        transform 0.15s ease;
+        opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.4s ease;
     }
 
-    .scene.listening .overlay-dot {
+    .scene.ready .overlay-dot {
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 20px rgba(174, 69, 255, 0.45);
+    }
+
+    .scene.listening .overlay-dot,
+    .scene.loading .overlay-dot {
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.3);
     }
 
-    /* Glow */
+    /* Glow — hidden in idle */
     .overlay-glow {
       position: absolute;
       inset: -3px;
       border-radius: 50%;
-      opacity: 1;
+      opacity: 0;
       background: linear-gradient(
         to top,
         rgba(42, 0, 75, 0.25) 1%,
@@ -169,7 +200,17 @@
         rgba(246, 255, 0, 0.2) 100%
       );
       filter: blur(14px);
-      transition: opacity 0.4s ease;
+      transition: opacity 0.4s ease, filter 0.4s ease;
+    }
+
+    .scene.ready .overlay-glow,
+    .scene.listening .overlay-glow {
+      opacity: 1;
+    }
+
+    .scene.loading .overlay-glow {
+      opacity: 0.7;
+      filter: blur(16px);
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -192,8 +233,9 @@
       opacity: 1;
     }
 
-    .scene:not(.listening) .audio-lines {
-      transition: opacity 0.2s ease;
+    .scene.loading .audio-lines {
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .audio-line {
@@ -219,6 +261,10 @@
       animation: pulse var(--dur) var(--delay) ease-in-out infinite;
     }
 
+    .scene.loading .audio-line {
+      animation: none;
+    }
+
     .audio-line:nth-child(1) { --dur: 0.7s;  --delay: 0s;     --max-h: 3.7px; }
     .audio-line:nth-child(2) { --dur: 0.65s; --delay: 0.05s;  --max-h: 7.4px; }
     .audio-line:nth-child(3) { --dur: 0.6s;  --delay: 0.1s;   --max-h: 12px; }
@@ -236,10 +282,185 @@
       }
     }
 
-    /* Intensify glow when listening */
-    .scene.listening .overlay-glow {
+    /* ══════════════════════════════════════════════════════════
+       LOADING SPINNER
+       ══════════════════════════════════════════════════════════ */
+    .loading-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 26px;
+      height: 26px;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .scene.loading .loading-spinner {
       opacity: 1;
-      filter: blur(18px);
+      transition: opacity 0.35s ease 0.15s;
+    }
+
+    .spinner-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0);
+    }
+
+    .spinner-arc {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg at 50% 50%, #170b2c 0deg, #ae45ff 360deg) border-box;
+      border: 4px solid transparent;
+      box-sizing: border-box;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0) border-box;
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0) border-box;
+      mask-composite: exclude;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       CONFIRMATION TOAST — inline with overlay, left side
+       ══════════════════════════════════════════════════════════ */
+    .confirm-toast {
+      border-radius: 999px;
+      background-color: #101017;
+      border: 1px solid #1b1b24;
+      display: flex;
+      flex-direction: row;
+      padding: 8px 12px 8px 15px;
+      gap: 8px;
+      font-size: 11px;
+      white-space: nowrap;
+      opacity: 0;
+      transition:
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      position: absolute;
+      right: calc(49px + 8px);
+      top: 50%;
+      transform: translateX(20px) translateY(-50%) scale(0.97);
+      overflow: hidden;
+    }
+
+    /* Column 1: stacked content + progress */
+    .confirm-toast-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    /* Column 2: divider + close */
+    .confirm-toast-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      align-self: stretch;
+    }
+
+    .confirm-toast.visible {
+      opacity: 1;
+      transform: translateX(0) translateY(-50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .confirm-toast-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .confirm-toast-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .confirm-toast-text {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 140%;
+    }
+
+    .confirm-toast-undo {
+      color: #AE45FF;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+
+    .confirm-toast-undo:hover {
+      opacity: 0.75;
+    }
+
+    .confirm-toast-divider {
+      width: 1px;
+      align-self: stretch;
+      background: rgba(255, 255, 255, 0.06);
+      flex-shrink: 0;
+    }
+
+    .confirm-toast-close {
+      width: 18px;
+      height: 18px;
+      border: none;
+      background: none;
+      color: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+      transition: color 0.15s ease;
+    }
+
+    .confirm-toast-close:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .confirm-toast-close svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    /* Progress bar — separate row */
+    .confirm-toast-progress-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .confirm-toast-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #AE45FF, #6a2abf);
+      border-radius: 3px;
+      width: 0%;
+      transition: none;
+    }
+
+    .confirm-toast.visible .confirm-toast-progress {
+      animation: progressShrink 4s linear forwards;
+    }
+
+    @keyframes progressShrink {
+      0% { width: 100%; }
+      100% { width: 0%; }
     }
 
     /* ── Hint ── */
@@ -257,13 +478,36 @@
 </head>
 <body>
 
-  <div class="scene" id="scene">
+  <div class="scene ready" id="scene">
 
-    <!-- Toast -->
+    <!-- fn Toast -->
     <div class="micro-toast">
       <span class="click-or-hold">Click or hold</span>
       <div class="key-badge">fn</div>
       <span class="click-or-hold">to start dictating</span>
+    </div>
+
+    <!-- Confirmation Toast -->
+    <div class="confirm-toast" id="confirmToast">
+      <div class="confirm-toast-left">
+        <div class="confirm-toast-content">
+          <svg class="confirm-toast-icon" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="6.5" stroke="#AE45FF" stroke-width="1"/>
+            <path d="M4.5 7.5L6 9L9.5 5.5" stroke="#AE45FF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="confirm-toast-text">Added to your dictionary: 'Guyot'</span>
+          <span class="confirm-toast-undo">Undo</span>
+        </div>
+        <div class="confirm-toast-progress-track">
+          <div class="confirm-toast-progress"></div>
+        </div>
+      </div>
+      <div class="confirm-toast-right">
+        <div class="confirm-toast-divider"></div>
+        <button class="confirm-toast-close" id="confirmClose">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
 
     <!-- Overlay -->
@@ -282,19 +526,81 @@
         <div class="audio-line"></div>
         <div class="audio-line"></div>
       </div>
+      <div class="loading-spinner">
+        <div class="spinner-track"></div>
+        <div class="spinner-arc"></div>
+      </div>
     </div>
 
   </div>
 
-  <p class="hint">Click overlay to toggle listening</p>
+  <p class="hint">Click overlay to start → listens 2s → loading 2s → idle + toast</p>
 
   <script>
     const scene = document.getElementById('scene');
-    let isListening = false;
+    const confirmToast = document.getElementById('confirmToast');
+    const confirmClose = document.getElementById('confirmClose');
+    let state = 'ready'; // idle | ready | listening | loading
+    let loadingTimer = null;
+    let idleTimer = null;
+    let toastTimer = null;
+
+    function showConfirmToast() {
+      // Reset animation by removing and re-adding class
+      confirmToast.classList.remove('visible');
+      void confirmToast.offsetWidth; // force reflow
+      confirmToast.classList.add('visible');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        confirmToast.classList.remove('visible');
+      }, 4000);
+    }
+
+    function hideConfirmToast() {
+      clearTimeout(toastTimer);
+      confirmToast.classList.remove('visible');
+    }
+
+    confirmClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hideConfirmToast();
+    });
 
     scene.addEventListener('click', () => {
-      isListening = !isListening;
-      scene.classList.toggle('listening', isListening);
+      clearTimeout(loadingTimer);
+      clearTimeout(idleTimer);
+      hideConfirmToast();
+
+      if (state === 'ready') {
+        // Start listening
+        state = 'listening';
+        scene.className = 'scene listening';
+
+        // After 2 seconds, transition to loading
+        loadingTimer = setTimeout(() => {
+          state = 'loading';
+          scene.className = 'scene loading';
+
+          // After 2 seconds of loading, transition to idle + show toast
+          idleTimer = setTimeout(() => {
+            state = 'idle';
+            scene.className = 'scene';
+            // Small delay so overlay settles before toast appears
+            setTimeout(showConfirmToast, 300);
+          }, 2000);
+        }, 2000);
+
+      } else if (state === 'idle') {
+        // Re-activate from idle to ready
+        state = 'ready';
+        scene.className = 'scene ready';
+
+      } else {
+        // Cancel mid-sequence, go to ready
+        state = 'ready';
+        scene.className = 'scene ready';
+      }
     });
   </script>
 
