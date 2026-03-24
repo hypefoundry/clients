@@ -553,9 +553,16 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   border-radius: var(--radius);
   overflow: hidden;
 }
-.stay-detail__gallery-item:first-child {
+.stay-detail__gallery-item--wide {
   grid-column: 1 / -1;
   aspect-ratio: 16/9;
+}
+.stay-detail__gallery-item--square {
+  aspect-ratio: 1;
+}
+.stay-detail__gallery-item--portrait {
+  grid-column: 1 / -1;
+  aspect-ratio: 3/4;
 }
 
 @media (max-width: 768px) {
@@ -743,15 +750,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   cursor: pointer;
 }
 .itin-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.04);
 }
 .itin-card__image {
   aspect-ratio: 3/2;
   overflow: hidden;
 }
-.itin-card__image img { transition: transform 0.6s ease; }
-.itin-card:hover .itin-card__image img { transform: scale(1.04); }
+.itin-card__image img { }
 .itin-card__body {
   padding: 20px;
 }
@@ -794,8 +800,18 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   width: 100%;
   justify-content: center;
 }
+.itin-card__btn--secondary {
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
 .itin-card__btn:hover {
   background: var(--blue);
+}
+.itin-card__btn--secondary:hover {
+  background: #f5f5f5;
+  color: var(--charcoal);
 }
 
 @media (max-width: 768px) {
@@ -1548,20 +1564,17 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
     <a class="stay-detail__link reveal">Book this stay &rarr;</a>
 
     <div class="stay-detail__gallery reveal">
-      <div class="stay-detail__gallery-item">
+      <div class="stay-detail__gallery-item stay-detail__gallery-item--wide">
         <img src="Photos/STAY INDIVIDUAL PAGE/000061900018 2.jpg" alt="" loading="lazy">
       </div>
-      <div class="stay-detail__gallery-item">
+      <div class="stay-detail__gallery-item stay-detail__gallery-item--square">
         <img src="Photos/STAY INDIVIDUAL PAGE/000061880004 2 2.jpg" alt="" loading="lazy">
       </div>
-      <div class="stay-detail__gallery-item">
-        <img src="Photos/STAY INDIVIDUAL PAGE/000061970036 2.jpg" alt="" loading="lazy">
-      </div>
-      <div class="stay-detail__gallery-item">
-        <img src="Photos/STAY INDIVIDUAL PAGE/000062040021 2.jpg" alt="" loading="lazy">
-      </div>
-      <div class="stay-detail__gallery-item">
+      <div class="stay-detail__gallery-item stay-detail__gallery-item--square">
         <img src="Photos/STAY INDIVIDUAL PAGE/downloadgram.org_626980892_18555726238005111_3050905956564885897_n copy.jpg" alt="" loading="lazy">
+      </div>
+      <div class="stay-detail__gallery-item stay-detail__gallery-item--portrait">
+        <img src="Photos/STAY INDIVIDUAL PAGE/000062040021 2.jpg" alt="" loading="lazy">
       </div>
     </div>
   </div>
@@ -1798,6 +1811,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
         <p class="itin-card__duration">7 days / 6 nights</p>
         <p class="itin-card__price">$29 AUD</p>
         <button class="itin-card__btn" onclick="addToCart('Southern Coast Explorer', 29, event)">Add to Cart</button>
+        <button class="itin-card__btn itin-card__btn--secondary" onclick="navigate('itin-detail')">View Details</button>
       </div>
     </div>
     <div class="itin-card reveal delay-2" onclick="navigate('itin-detail')">
@@ -1810,6 +1824,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
         <p class="itin-card__duration">10 days / 9 nights</p>
         <p class="itin-card__price">$35 AUD</p>
         <button class="itin-card__btn" onclick="addToCart('Yucatan Peninsula Guide', 35, event)">Add to Cart</button>
+        <button class="itin-card__btn itin-card__btn--secondary" onclick="navigate('itin-detail')">View Details</button>
       </div>
     </div>
     <div class="itin-card reveal delay-3" onclick="navigate('itin-detail')">
@@ -1822,6 +1837,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
         <p class="itin-card__duration">5 days / 4 nights</p>
         <p class="itin-card__price">$25 AUD</p>
         <button class="itin-card__btn" onclick="addToCart('Puglia & The Trulli', 25, event)">Add to Cart</button>
+        <button class="itin-card__btn itin-card__btn--secondary" onclick="navigate('itin-detail')">View Details</button>
       </div>
     </div>
   </div>
