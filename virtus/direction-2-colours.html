@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus / Direction 2 &mdash; Colour Exploration</title>
+  <link rel="icon" type="image/png" href="assets/hf-brandsymbol.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111111;
+      --secondary: #303030;
+      --tertiary: #777777;
+      --divider: #EDEDED;
+      --paper: #FFFFFF;
+      --accent: #C8FF00;
+      --cover-bg: #F0F0F0;
+      --cover-shape: #E2E1DE;
+      --black: #111111;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media print {
+      .slide { page-break-after: always; height: 100vh !important; }
+      .slide:last-child { page-break-after: avoid; }
+    }
+
+    /* ── Base slide ── */
+    .slide {
+      width: 100%; height: 100vh;
+      position: relative; overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    /* ── Shared header ── */
+    .slide-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px; z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .hf-bolt { height: 26px; width: auto; flex-shrink: 0; }
+    .header-center {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .header-right {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+    }
+
+    /* ── Cover ── */
+    .slide-cover {
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
+    }
+    .cover-logo { position: absolute; top: 36px; left: 36px; }
+    .cover-logo .hf-bolt { height: 27px; }
+    .cover-title { position: absolute; bottom: 36px; left: 36px; }
+    .cover-label {
+      font-size: 15px; font-weight: 700; color: var(--black);
+      letter-spacing: 0.06em; margin-bottom: 12px; display: block;
+    }
+    .cover-title h1 {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 120px; font-weight: 600; color: var(--black);
+      letter-spacing: -0.03em; line-height: 1.0;
+    }
+
+    /* ── Divider ── */
+    .slide-divider { background: var(--cover-shape); }
+    .divider-content {
+      position: absolute; left: 36px; bottom: 36px;
+      max-width: 720px; z-index: 2;
+    }
+    .divider-title {
+      font-size: 52px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 20px;
+    }
+    .divider-body {
+      font-size: 20px; font-weight: 400; line-height: 1.5;
+      color: var(--secondary); letter-spacing: -0.01em;
+    }
+    .divider-body + .divider-body { margin-top: 16px; }
+
+    /* ── Dark theme ── */
+    .slide-dark { background: var(--primary) !important; }
+    .slide-dark .divider-title { color: #E2E1DE; }
+    .slide-dark .divider-body { color: rgba(255,255,255,0.55); }
+    .slide-dark .header-center,
+    .slide-dark .header-right { color: rgba(255,255,255,0.25); }
+
+    /* ── Direction 2 theme (intro slide) ── */
+    .slide-direction-2 { background: #0F3D2B !important; }
+    .slide-direction-2 .divider-title { color: #E8F0EC; }
+    .slide-direction-2 .divider-body { color: rgba(232,240,236,0.55); }
+    .slide-direction-2 .concept-num { color: rgba(232,240,236,0.3); }
+    .slide-direction-2 .concept-big-num { color: rgba(94,232,157,0.1); }
+    .slide-direction-2 .header-center,
+    .slide-direction-2 .header-right { color: rgba(232,240,236,0.25); }
+
+    /* ── Colour option themes ── */
+    .slide-option-a { background: #0D1B2A !important; }
+    .slide-option-a .divider-title { color: #E2E8ED; }
+    .slide-option-a .divider-body { color: rgba(255,255,255,0.5); }
+    .slide-option-a .concept-num { color: rgba(255,255,255,0.25); }
+    .slide-option-a .concept-big-num { color: rgba(126,212,224,0.1); }
+    .slide-option-a .header-center,
+    .slide-option-a .header-right { color: rgba(255,255,255,0.2); }
+    .slide-option-a .colour-chip { background: #7ED4E0; }
+
+    .slide-option-b { background: #0A2F2F !important; }
+    .slide-option-b .divider-title { color: #E8F0EC; }
+    .slide-option-b .divider-body { color: rgba(232,240,236,0.5); }
+    .slide-option-b .concept-num { color: rgba(232,240,236,0.25); }
+    .slide-option-b .concept-big-num { color: rgba(170,234,175,0.1); }
+    .slide-option-b .header-center,
+    .slide-option-b .header-right { color: rgba(232,240,236,0.2); }
+    .slide-option-b .colour-chip { background: #AAEAAF; }
+
+    .slide-option-c { background: #0D1B2A !important; }
+    .slide-option-c .divider-title { color: #E8E4DE; }
+    .slide-option-c .divider-body { color: rgba(255,255,255,0.5); }
+    .slide-option-c .concept-num { color: rgba(255,255,255,0.25); }
+    .slide-option-c .concept-big-num { color: rgba(224,200,115,0.1); }
+    .slide-option-c .header-center,
+    .slide-option-c .header-right { color: rgba(255,255,255,0.2); }
+    .slide-option-c .colour-chip { background: #E0C873; }
+
+    /* ── Moodboard slides ── */
+    .slide-moodboard-a { background: #D8DEE4 !important; }
+    .slide-moodboard-a .header-center,
+    .slide-moodboard-a .header-right { color: #8899A8; }
+
+    .slide-moodboard-b { background: #DEE4E0 !important; }
+    .slide-moodboard-b .header-center,
+    .slide-moodboard-b .header-right { color: #7E9488; }
+
+    .slide-moodboard-c { background: #E2DDD6 !important; }
+    .slide-moodboard-c .header-center,
+    .slide-moodboard-c .header-right { color: #A09484; }
+
+    /* ── Concept number badge ── */
+    .concept-num {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--tertiary);
+      margin-bottom: 16px;
+    }
+
+    /* ── Large concept number (bottom-right) ── */
+    .concept-big-num {
+      position: absolute; bottom: 24px; right: 36px;
+      font-size: 240px; font-weight: 400; line-height: 1;
+      letter-spacing: -0.04em;
+      z-index: 2; pointer-events: none;
+    }
+
+    /* ── Colour chip ── */
+    .colour-chip {
+      display: inline-block; width: 10px; height: 10px;
+      border-radius: 50%; margin-right: 8px;
+      vertical-align: middle; position: relative; top: -1px;
+    }
+
+    /* ── Moodboard panel ── */
+    .content-panel-moodboard {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      border-radius: 8px; overflow: hidden;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .content-panel-moodboard img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      cursor: zoom-in;
+    }
+    .moodboard-hint {
+      position: absolute; bottom: 44px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--secondary);
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding: 5px 14px; border-radius: 100px;
+      pointer-events: none; z-index: 3;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .moodboard-hint svg {
+      width: 10px; height: 10px; flex-shrink: 0;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: grab;
+      overflow: hidden;
+    }
+    .lightbox.active {
+      opacity: 1; pointer-events: all;
+    }
+    .lightbox:active { cursor: grabbing; }
+    .lightbox-img {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 24px; right: 24px; z-index: 1001;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); border: none;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: ''; position: absolute;
+      width: 16px; height: 1.5px; background: #fff;
+    }
+    .lightbox-close::before { transform: rotate(45deg); }
+    .lightbox-close::after { transform: rotate(-45deg); }
+    .lightbox-zoom-hint {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%); z-index: 1001;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      pointer-events: none;
+      transition: opacity 0.5s ease 1.5s;
+    }
+    .lightbox-zoom-hint.hidden { opacity: 0; }
+
+    /* ── Outro ── */
+    .slide-outro { background: var(--cover-shape); }
+    .outro-tagline {
+      position: absolute; top: 110px; left: 36px; right: 36px;
+      font-size: 42px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.15; max-width: 600px;
+    }
+    .contact-block {
+      position: absolute; left: 36px; right: 36px; bottom: 36px;
+    }
+    .contact-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .contact-row:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .contact-label {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .contact-value {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+
+    /* ── Small device notice ── */
+    .small-device-notice {
+      display: none;
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--cover-shape);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 36px;
+    }
+    .small-device-notice p {
+      font-size: 15px; font-weight: 400; color: var(--tertiary);
+      line-height: 1.5; max-width: 260px;
+    }
+    .small-device-notice .notice-logo {
+      height: 24px; margin-bottom: 32px; opacity: 0.4;
+    }
+    @media (max-width: 1024px) {
+      .small-device-notice { display: flex; }
+      .slide { display: none; }
+    }
+
+    /* ── Slide counter ── */
+    .slide-counter {
+      position: fixed; bottom: 24px; right: 36px; z-index: 100;
+      font-size: 10px; font-weight: 400; letter-spacing: 0.12em;
+      color: rgba(0,0,0,0.25); font-variant-numeric: tabular-nums;
+      transition: color 0.3s ease;
+      pointer-events: none;
+    }
+    .slide-counter.on-dark { color: rgba(255,255,255,0.2); }
+
+    /* ── Entrance fade ── */
+    .entrance-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #E2E1DE;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .entrance-overlay.fade { opacity: 0; }
+  </style>
+</head>
+<body>
+
+<div class="entrance-overlay" id="entrance-overlay"></div>
+<div class="slide-counter" id="slide-counter"></div>
+
+<div class="small-device-notice">
+  <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="notice-logo">
+  <p>This presentation is designed for larger screens. Please view on a desktop or laptop.</p>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 1: COVER
+════════════════════════════════════════════ -->
+<section class="slide slide-cover">
+  <div class="cover-logo">
+    <img class="hf-bolt" src="assets/hf-brandsymbol-large.png" alt="Hype Foundry">
+  </div>
+  <div class="cover-title">
+    <span class="cover-label">VIRTUS</span>
+    <h1>Direction 2<br>Colour Exploration</h1>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 2: CONTEXT (template: divider)
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-direction-2">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Direction 2</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num">Direction 2</span>
+    <h1 class="divider-title">Three Colour<br>Variations</h1>
+    <p class="divider-body">
+      The same identity system, brand mark, and typography explored across three distinct colour palettes. Each shifts the tone and personality of the brand while keeping the core direction intact.
+    </p>
+  </div>
+  <span class="concept-big-num">2</span>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 3: OPTION A TITLE — Navy + Cyan
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-option-a">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Option A</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num"><span class="colour-chip"></span>Option A</span>
+    <h1 class="divider-title">Navy &amp; Cyan</h1>
+    <p class="divider-body">
+      Deep navy with a cool cyan accent. Tech-forward and precise. The palette reads as sharp and contemporary, creating clear distance from the heritage warmth of Direction 1.
+    </p>
+  </div>
+  <span class="concept-big-num">A</span>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 4: OPTION A MOODBOARD
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-moodboard-a">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Option A</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/moodboard-b-1.jpg" alt="Option A — Navy & Cyan moodboard" data-lightbox>
+    <span class="moodboard-hint">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3.5"/><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/></svg>
+      Click to explore
+    </span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 5: OPTION B TITLE — Dark Teal + Green
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-option-b">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Option B</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num"><span class="colour-chip"></span>Option B</span>
+    <h1 class="divider-title">Teal &amp; Mint</h1>
+    <p class="divider-body">
+      Dark teal with a soft mint green accent. The closest evolution from the original direction. Natural, grounded, and confident. The green carries the Momentum connection while the darker teal base adds depth and sophistication.
+    </p>
+  </div>
+  <span class="concept-big-num">B</span>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 6: OPTION B MOODBOARD
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-moodboard-b">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Option B</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/moodboard-b-3.jpg" alt="Option B — Teal & Mint moodboard" data-lightbox>
+    <span class="moodboard-hint">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3.5"/><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/></svg>
+      Click to explore
+    </span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 7: OPTION C TITLE — Navy + Gold
+════════════════════════════════════════════ -->
+<section class="slide slide-divider slide-option-c">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Option C</span>
+  </div>
+  <div class="divider-content">
+    <span class="concept-num"><span class="colour-chip"></span>Option C</span>
+    <h1 class="divider-title">Navy &amp; Gold</h1>
+    <p class="divider-body">
+      Deep navy with a warm gold accent. Premium and assured. The gold adds a layer of distinction that signals quality without borrowing from heritage aesthetics. Corporate confidence with a modern edge.
+    </p>
+  </div>
+  <span class="concept-big-num">C</span>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 8: OPTION C MOODBOARD
+════════════════════════════════════════════ -->
+<section class="slide slide-internal slide-moodboard-c">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Earned Authority</span>
+    <span class="header-right">Option C</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/moodboard-b-5.jpg" alt="Option C — Navy & Gold moodboard" data-lightbox>
+    <span class="moodboard-hint">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="5" r="3.5"/><line x1="7.5" y1="7.5" x2="10.5" y2="10.5"/></svg>
+      Click to explore
+    </span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 9: OUTRO / CONTACT
+════════════════════════════════════════════ -->
+<section class="slide slide-outro">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-brandsymbol.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Brand Direction</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="outro-tagline">Thank You.</div>
+  <div class="contact-block">
+    <div class="contact-row">
+      <span class="contact-label">Clark Spendelow</span>
+      <span class="contact-value">Creative Director &amp; Designer</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">hello@hypefoundry.studio</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">0433 061 993</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Lightbox ── -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close"></button>
+  <img class="lightbox-img" id="lightbox-img" draggable="false">
+  <span class="lightbox-zoom-hint" id="lightbox-hint">Scroll to zoom &middot; Drag to pan</span>
+</div>
+
+<script>
+(function() {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbHint = document.getElementById('lightbox-hint');
+
+  let scale = 1, minScale = 0.5, maxScale = 4;
+  let posX = 0, posY = 0;
+  let isDragging = false, startX = 0, startY = 0, startPosX = 0, startPosY = 0;
+  let imgW = 0, imgH = 0;
+
+  function open(src) {
+    const img = new Image();
+    img.onload = function() {
+      imgW = img.naturalWidth;
+      imgH = img.naturalHeight;
+      const vh = window.innerHeight * 0.85;
+      scale = vh / imgH;
+      minScale = scale * 0.8;
+      maxScale = scale * 5;
+      posX = 40;
+      posY = (window.innerHeight - imgH * scale) / 2;
+      lbImg.src = src;
+      lbImg.style.width = imgW + 'px';
+      lbImg.style.height = imgH + 'px';
+      applyTransform();
+      lb.classList.add('active');
+      lbHint.classList.remove('hidden');
+      setTimeout(function() { lbHint.classList.add('hidden'); }, 3000);
+      document.documentElement.style.overflow = 'hidden';
+    };
+    img.src = src;
+  }
+
+  function close() {
+    lb.classList.remove('active');
+    document.documentElement.style.overflow = '';
+  }
+
+  function applyTransform() {
+    lbImg.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+  }
+
+  function clampPosition() {
+    var sw = imgW * scale, sh = imgH * scale;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    if (sw <= vw) { posX = (vw - sw) / 2; }
+    else { if (posX > 40) posX = 40; if (posX < vw - sw - 40) posX = vw - sw - 40; }
+    if (sh <= vh) { posY = (vh - sh) / 2; }
+    else { if (posY > 40) posY = 40; if (posY < vh - sh - 40) posY = vh - sh - 40; }
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(function(img) {
+    img.addEventListener('click', function() { open(img.src); });
+  });
+
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('active')) close();
+  });
+
+  lb.addEventListener('mousedown', function(e) {
+    if (e.target === lbClose) return;
+    isDragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startPosX = posX; startPosY = posY;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    posX = startPosX + (e.clientX - startX);
+    posY = startPosY + (e.clientY - startY);
+    clampPosition(); applyTransform();
+  });
+  window.addEventListener('mouseup', function() { isDragging = false; });
+
+  lb.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var rect = lb.getBoundingClientRect();
+    var mx = e.clientX - rect.left, my = e.clientY - rect.top;
+    var prevScale = scale;
+    var delta = e.deltaY > 0 ? 0.9 : 1.1;
+    scale = Math.min(maxScale, Math.max(minScale, scale * delta));
+    posX = mx - (mx - posX) * (scale / prevScale);
+    posY = my - (my - posY) * (scale / prevScale);
+    clampPosition(); applyTransform();
+  }, { passive: false });
+
+  var lastTouchDist = 0, lastTouchScale = 1;
+  lb.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      startPosX = posX; startPosY = posY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      lastTouchScale = scale;
+    }
+  }, { passive: false });
+  lb.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDragging) {
+      posX = startPosX + (e.touches[0].clientX - startX);
+      posY = startPosY + (e.touches[0].clientY - startY);
+      clampPosition(); applyTransform();
+    } else if (e.touches.length === 2) {
+      var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      scale = Math.min(maxScale, Math.max(minScale, lastTouchScale * (dist / lastTouchDist)));
+      clampPosition(); applyTransform();
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', function() { isDragging = false; });
+})();
+</script>
+
+<!-- ── Slide counter ── -->
+<script>
+(function() {
+  var counter = document.getElementById('slide-counter');
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var darkClasses = ['slide-dark', 'slide-direction-2', 'slide-option-a', 'slide-option-b', 'slide-option-c'];
+
+  function update() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var vh = window.innerHeight;
+    var current = Math.round(scrollTop / vh) + 1;
+    if (current > total) current = total;
+    counter.textContent = current + ' / ' + total;
+    var activeSlide = slides[current - 1];
+    var isDark = activeSlide && darkClasses.some(function(c) { return activeSlide.classList.contains(c); });
+    counter.classList.toggle('on-dark', isDark);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+<!-- ── Entrance fade ── -->
+<script>
+(function() {
+  window.addEventListener('load', function() {
+    var overlay = document.getElementById('entrance-overlay');
+    if (overlay) {
+      requestAnimationFrame(function() {
+        overlay.classList.add('fade');
+        setTimeout(function() { overlay.remove(); }, 700);
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
