@@ -848,13 +848,9 @@
 })();
 </script>
 
-<!-- ── Auth gate & entrance fade ── -->
+<!-- ── Entrance fade ── -->
 <script>
 (function() {
-  if (sessionStorage.getItem('hss-auth') !== 'true') {
-    window.location.replace('index.html');
-    return;
-  }
   window.addEventListener('load', function() {
     var overlay = document.getElementById('entrance-overlay');
     if (overlay) {
