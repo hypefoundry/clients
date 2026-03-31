@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Overlay Placement</title>
+  <style>
+    :root {
+      --purple-400: #AE45FF;
+      --purple-dim: rgba(174, 69, 255, 0.12);
+      --bg: #06060b;
+      --dock-bottom: 95px;
+      --edge-inset: 28px;
+      --overlay-size: 58px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ── Simulated desktop background ── */
+    .desktop {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 70%, rgba(174, 69, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 30%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    /* ── Simulated macOS Dock ── */
+    .dock-sim {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 70px;
+      width: 460px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: none;
+      border-radius: 18px 18px 0 0;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 16px;
+      z-index: 10;
+    }
+
+    .dock-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* ── Measurement guides ── */
+    .guide {
+      position: fixed;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .guides-visible .guide {
+      opacity: 1;
+    }
+
+    /* Horizontal guide line */
+    .guide-line {
+      position: absolute;
+      background: rgba(255, 80, 80, 0.5);
+    }
+
+    .guide-line--h {
+      height: 1px;
+      left: 0;
+      right: 0;
+    }
+
+    .guide-line--v {
+      width: 1px;
+      top: 0;
+      bottom: 0;
+    }
+
+    /* Dimension marker (the measurement value) */
+    .guide-dim {
+      position: fixed;
+      z-index: 201;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guides-visible .guide-dim {
+      opacity: 1;
+    }
+
+    .guide-dim-label {
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: rgba(255, 80, 80, 0.9);
+      background: rgba(255, 80, 80, 0.1);
+      border: 1px solid rgba(255, 80, 80, 0.25);
+      border-radius: 4px;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+
+    /* Vertical dimension bracket */
+    .guide-bracket {
+      position: fixed;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      width: 1px;
+      background: rgba(255, 80, 80, 0.4);
+    }
+
+    .guides-visible .guide-bracket {
+      opacity: 1;
+    }
+
+    .guide-bracket::before,
+    .guide-bracket::after {
+      content: '';
+      position: absolute;
+      left: -3px;
+      width: 7px;
+      height: 1px;
+      background: rgba(255, 80, 80, 0.5);
+    }
+
+    .guide-bracket::before { top: 0; }
+    .guide-bracket::after { bottom: 0; }
+
+    /* Horizontal dimension bracket */
+    .guide-bracket--h {
+      height: 1px;
+      width: auto;
+      background: rgba(255, 80, 80, 0.4);
+    }
+
+    .guide-bracket--h::before,
+    .guide-bracket--h::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      width: 1px;
+      height: 7px;
+      background: rgba(255, 80, 80, 0.5);
+      left: auto;
+    }
+
+    .guide-bracket--h::before { left: 0; }
+    .guide-bracket--h::after { right: 0; left: auto; }
+
+    /* Toggle guides button */
+    .guides-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 300;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guides-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .guides-toggle.active {
+      background: rgba(255, 80, 80, 0.12);
+      border-color: rgba(255, 80, 80, 0.3);
+      color: rgba(255, 80, 80, 0.9);
+    }
+
+    .guides-toggle svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* ── Spec legend ── */
+    .spec-legend {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 300;
+      background: rgba(20, 20, 30, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .guides-visible .spec-legend {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .spec-legend h3 {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .spec-row span:first-child {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .spec-row span:last-child {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-weight: 600;
+      color: rgba(255, 80, 80, 0.9);
+    }
+
+    /* ── Overlay button ── */
+    .overlay-btn {
+      position: fixed;
+      width: 58px;
+      height: 58px;
+      cursor: grab;
+      z-index: 100;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    }
+
+    .overlay-btn:active { cursor: grabbing; }
+
+    .overlay-btn.dragging {
+      transition: none;
+      cursor: grabbing;
+    }
+
+    .overlay-btn.snapping {
+      transition:
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        left 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Position presets — dock level only */
+    .overlay-btn.pos-dock-right {
+      bottom: 95px;
+      right: 28px;
+    }
+
+    .overlay-btn.pos-dock-left {
+      bottom: 95px;
+      left: 28px;
+    }
+
+    .overlay-btn.pos-dock-center {
+      bottom: 95px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Pulse ring on idle */
+    .overlay-btn::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(174, 69, 255, 0.3);
+      animation: pulseRing 3s ease-in-out infinite;
+    }
+
+    .overlay-btn.dragging::after,
+    .overlay-btn.snapping::after {
+      animation: none;
+      opacity: 0;
+    }
+
+    @keyframes pulseRing {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.15); opacity: 0; }
+    }
+
+    /* ── Placement grid overlay ── */
+    .placement-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease-out;
+    }
+
+    .placement-grid.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Backdrop */
+    .placement-grid::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* ── Drop zones ── */
+    .drop-zone {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .drop-zone.hover {
+      transform: scale(1.1);
+    }
+
+    /* Dock-level positions */
+    .drop-zone--dock-right {
+      bottom: 95px;
+      right: 28px;
+    }
+
+    .drop-zone--dock-left {
+      bottom: 95px;
+      left: 28px;
+    }
+
+    .drop-zone--dock-center {
+      bottom: 95px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .drop-zone--dock-center.hover {
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    /* Ghost preview circle */
+    .drop-zone-ghost {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(255, 255, 255, 0.15);
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+
+    .drop-zone-ghost::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(174, 69, 255, 0.25);
+      transition: background 0.2s ease;
+    }
+
+    .drop-zone.hover .drop-zone-ghost {
+      border-color: var(--purple-400);
+      border-style: solid;
+    }
+
+    .drop-zone.hover .drop-zone-ghost::after {
+      background: rgba(174, 69, 255, 0.6);
+    }
+
+    .drop-zone.active-zone .drop-zone-ghost {
+      border-style: solid;
+      border-color: rgba(174, 69, 255, 0.5);
+    }
+
+    .drop-zone.active-zone .drop-zone-ghost::after {
+      background: var(--purple-400);
+    }
+
+    /* Zone label */
+    .drop-zone-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
+
+    .drop-zone.hover .drop-zone-label {
+      color: rgba(174, 69, 255, 0.8);
+    }
+
+    .drop-zone.active-zone .drop-zone-label {
+      color: rgba(174, 69, 255, 0.5);
+    }
+
+    /* ── Hint text ── */
+    .placement-hint {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* ── Intro hint ── */
+    .intro-hint {
+      position: fixed;
+      bottom: 170px;
+      right: 28px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      animation: fadeHint 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .intro-hint svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.5;
+    }
+
+    .intro-hint.hidden {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes fadeHint {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* ── Static overlay previews ── */
+    .overlay-static {
+      position: fixed;
+      width: 58px;
+      height: 58px;
+      z-index: 99;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+      opacity: 0.4;
+    }
+
+    .overlay-static.pos-dock-left {
+      bottom: 95px;
+      left: 28px;
+    }
+
+    .overlay-static.pos-dock-center {
+      bottom: 95px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Position labels under static overlays */
+    .overlay-pos-label {
+      position: fixed;
+      z-index: 99;
+      font-size: 10px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .overlay-pos-label--dock-left {
+      bottom: 72px;
+      left: 28px;
+      width: 58px;
+    }
+
+    .overlay-pos-label--dock-center {
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+    }
+
+    .overlay-pos-label--dock-right {
+      bottom: 72px;
+      right: 28px;
+      width: 58px;
+    }
+  </style>
+</head>
+<body class="guides-visible">
+
+  <div class="desktop"></div>
+
+  <!-- Simulated macOS Dock -->
+  <div class="dock-sim">
+    <div class="dock-icon"></div>
+    <div class="dock-icon"></div>
+    <div class="dock-icon"></div>
+    <div class="dock-icon"></div>
+    <div class="dock-icon"></div>
+    <div class="dock-icon"></div>
+    <div class="dock-icon"></div>
+  </div>
+
+  <!-- Toggle guides button -->
+  <button class="guides-toggle active" id="guidesToggle" onclick="toggleGuides()">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1v12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    Hide Specs
+  </button>
+
+  <!-- Spec legend -->
+  <div class="spec-legend">
+    <h3>Placement Specs</h3>
+    <div class="spec-row"><span>Overlay size</span><span>58 x 58px</span></div>
+    <div class="spec-row"><span>Edge inset (left/right)</span><span>28px</span></div>
+    <div class="spec-row"><span>Bottom offset (above dock)</span><span>95px</span></div>
+    <div class="spec-row"><span>Dock height (default 64px icons)</span><span>~70px</span></div>
+    <div class="spec-row"><span>Gap: overlay → dock top</span><span>~25px</span></div>
+    <div class="spec-row"><span>Hold-to-drag delay</span><span>300ms</span></div>
+    <div class="spec-row"><span>Snap animation</span><span>400ms ease-out</span></div>
+  </div>
+
+  <!-- Measurement guides (visible when toggled) -->
+  <!-- Bottom offset: screen bottom → overlay bottom -->
+  <div class="guide guide-bracket" id="guideBottom" style="right: 56px;"></div>
+  <div class="guide-dim" id="guideDimBottom"><span class="guide-dim-label">95px</span></div>
+
+  <!-- Edge inset: screen right → overlay right -->
+  <div class="guide guide-bracket guide-bracket--h" id="guideRight" style="bottom: 124px;"></div>
+  <div class="guide-dim" id="guideDimRight"><span class="guide-dim-label">28px</span></div>
+
+  <!-- Dock height bracket -->
+  <div class="guide guide-bracket" id="guideDock" style="left: 56px;"></div>
+  <div class="guide-dim" id="guideDimDock"><span class="guide-dim-label">~70px dock</span></div>
+
+  <!-- Intro hint -->
+  <div class="intro-hint" id="introHint">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v4l2.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+    Click and hold to reposition
+  </div>
+
+  <!-- Static overlay: Dock Left -->
+  <svg class="overlay-static pos-dock-left" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 28.55C0 12.7823 12.7823 0 28.55 0C44.3177 0 57.0999 12.7823 57.0999 28.55C57.0999 44.3177 44.3177 57.0999 28.55 57.0999C12.7823 57.0999 0 44.3177 0 28.55Z" fill="#262626"/>
+    <path d="M1.90234 28.5503C1.90234 13.8336 13.8326 1.90332 28.5493 1.90332C43.266 1.90332 55.1963 13.8336 55.1963 28.5503C55.1963 43.267 43.266 55.1973 28.5493 55.1973C13.8326 55.1973 1.90234 43.267 1.90234 28.5503Z" fill="#1C1C1C"/>
+    <circle cx="28.7306" cy="28.919" r="5.91904" fill="#AE45FF"/>
+  </svg>
+  <span class="overlay-pos-label overlay-pos-label--dock-left">Dock left</span>
+
+  <!-- Static overlay: Dock Centre -->
+  <svg class="overlay-static pos-dock-center" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 28.55C0 12.7823 12.7823 0 28.55 0C44.3177 0 57.0999 12.7823 57.0999 28.55C57.0999 44.3177 44.3177 57.0999 28.55 57.0999C12.7823 57.0999 0 44.3177 0 28.55Z" fill="#262626"/>
+    <path d="M1.90234 28.5503C1.90234 13.8336 13.8326 1.90332 28.5493 1.90332C43.266 1.90332 55.1963 13.8336 55.1963 28.5503C55.1963 43.267 43.266 55.1973 28.5493 55.1973C13.8326 55.1973 1.90234 43.267 1.90234 28.5503Z" fill="#1C1C1C"/>
+    <circle cx="28.7306" cy="28.919" r="5.91904" fill="#AE45FF"/>
+  </svg>
+  <span class="overlay-pos-label overlay-pos-label--dock-center">Dock centre</span>
+
+  <!-- Label for active overlay -->
+  <span class="overlay-pos-label overlay-pos-label--dock-right">Dock right</span>
+
+  <!-- Placement grid (hidden by default) -->
+  <div class="placement-grid" id="placementGrid">
+    <p class="placement-hint">Drag to reposition overlay</p>
+
+    <div class="drop-zone drop-zone--dock-left" data-position="dock-left">
+      <div class="drop-zone-ghost"></div>
+      <span class="drop-zone-label">Dock left</span>
+    </div>
+
+    <div class="drop-zone drop-zone--dock-center" data-position="dock-center">
+      <div class="drop-zone-ghost"></div>
+      <span class="drop-zone-label">Dock centre</span>
+    </div>
+
+    <div class="drop-zone drop-zone--dock-right active-zone" data-position="dock-right">
+      <div class="drop-zone-ghost"></div>
+      <span class="drop-zone-label">Dock right</span>
+    </div>
+  </div>
+
+  <!-- Overlay button -->
+  <svg class="overlay-btn pos-dock-right" id="overlayBtn" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 28.55C0 12.7823 12.7823 0 28.55 0C44.3177 0 57.0999 12.7823 57.0999 28.55C57.0999 44.3177 44.3177 57.0999 28.55 57.0999C12.7823 57.0999 0 44.3177 0 28.55Z" fill="#262626"/>
+    <path d="M1.90234 28.5503C1.90234 13.8336 13.8326 1.90332 28.5493 1.90332C43.266 1.90332 55.1963 13.8336 55.1963 28.5503C55.1963 43.267 43.266 55.1973 28.5493 55.1973C13.8326 55.1973 1.90234 43.267 1.90234 28.5503Z" fill="url(#paint0_linear_overlay)"/>
+    <path d="M1.90234 28.5503C1.90234 13.8336 13.8326 1.90332 28.5493 1.90332C43.266 1.90332 55.1963 13.8336 55.1963 28.5503C55.1963 43.267 43.266 55.1973 28.5493 55.1973C13.8326 55.1973 1.90234 43.267 1.90234 28.5503Z" fill="#1C1C1C"/>
+    <circle cx="28.7306" cy="28.919" r="5.91904" fill="#AE45FF"/>
+    <defs>
+      <linearGradient id="paint0_linear_overlay" x1="1.90234" y1="1.90332" x2="55.1963" y2="55.1973" gradientUnits="userSpaceOnUse">
+        <stop stop-color="white" stop-opacity="0.2"/>
+        <stop offset="1" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script>
+    const btn = document.getElementById('overlayBtn');
+    const grid = document.getElementById('placementGrid');
+    const introHint = document.getElementById('introHint');
+    const dropZones = document.querySelectorAll('.drop-zone');
+
+    let currentPosition = 'dock-right';
+    let isDragging = false;
+    let holdTimer = null;
+    let startX, startY;
+    let dragOffsetX, dragOffsetY;
+
+    // ── Measurement guides ──
+    function positionGuides() {
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+
+      // Bottom offset bracket (screen bottom → overlay bottom = 95px)
+      const guideBottom = document.getElementById('guideBottom');
+      guideBottom.style.bottom = '0';
+      guideBottom.style.height = '95px';
+
+      const dimBottom = document.getElementById('guideDimBottom');
+      dimBottom.style.bottom = '40px';
+      dimBottom.style.right = '42px';
+
+      // Right edge inset bracket (screen right → overlay right = 28px)
+      const guideRight = document.getElementById('guideRight');
+      guideRight.style.right = '0';
+      guideRight.style.width = '28px';
+
+      const dimRight = document.getElementById('guideDimRight');
+      dimRight.style.bottom = '132px';
+      dimRight.style.right = '4px';
+
+      // Dock height bracket
+      const guideDock = document.getElementById('guideDock');
+      guideDock.style.bottom = '0';
+      guideDock.style.height = '70px';
+
+      const dimDock = document.getElementById('guideDimDock');
+      dimDock.style.bottom = '28px';
+      dimDock.style.left = '42px';
+    }
+
+    positionGuides();
+    window.addEventListener('resize', positionGuides);
+
+    function toggleGuides() {
+      document.body.classList.toggle('guides-visible');
+      const toggle = document.getElementById('guidesToggle');
+      const active = document.body.classList.contains('guides-visible');
+      toggle.classList.toggle('active', active);
+      toggle.innerHTML = active
+        ? '<svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1v12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Hide Specs'
+        : '<svg viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1v12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Show Specs';
+    }
+
+    // ── Press and hold to activate grid ──
+    function startHold(e) {
+      e.preventDefault();
+      const point = e.touches ? e.touches[0] : e;
+      startX = point.clientX;
+      startY = point.clientY;
+
+      holdTimer = setTimeout(() => {
+        activateDrag(point);
+      }, 300);
+    }
+
+    function activateDrag(point) {
+      isDragging = true;
+      introHint.classList.add('hidden');
+
+      grid.classList.add('visible');
+
+      dropZones.forEach(z => z.classList.remove('active-zone'));
+      const currentZone = document.querySelector(`[data-position="${currentPosition}"]`);
+      if (currentZone) currentZone.classList.add('active-zone');
+
+      btn.classList.add('dragging');
+      btn.classList.remove('pos-dock-right', 'pos-dock-left', 'pos-dock-center');
+
+      btn.style.position = 'fixed';
+      btn.style.right = 'auto';
+      btn.style.bottom = 'auto';
+      btn.style.left = (point.clientX - 29) + 'px';
+      btn.style.top = (point.clientY - 29) + 'px';
+      btn.style.transform = 'scale(1.1)';
+
+      dragOffsetX = 29;
+      dragOffsetY = 29;
+    }
+
+    function onMove(e) {
+      if (!isDragging) {
+        if (holdTimer) {
+          const point = e.touches ? e.touches[0] : e;
+          const dx = point.clientX - startX;
+          const dy = point.clientY - startY;
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            clearTimeout(holdTimer);
+            holdTimer = null;
+          }
+        }
+        return;
+      }
+
+      e.preventDefault();
+      const point = e.touches ? e.touches[0] : e;
+
+      btn.style.left = (point.clientX - dragOffsetX) + 'px';
+      btn.style.top = (point.clientY - dragOffsetY) + 'px';
+
+      dropZones.forEach(zone => {
+        const zr = zone.getBoundingClientRect();
+        const cx = point.clientX;
+        const cy = point.clientY;
+        const inside = cx >= zr.left && cx <= zr.right && cy >= zr.top && cy <= zr.bottom;
+        zone.classList.toggle('hover', inside);
+      });
+    }
+
+    function onRelease(e) {
+      clearTimeout(holdTimer);
+      holdTimer = null;
+
+      if (!isDragging) return;
+      isDragging = false;
+
+      const hoveredZone = document.querySelector('.drop-zone.hover');
+      if (hoveredZone) {
+        currentPosition = hoveredZone.dataset.position;
+      }
+
+      grid.classList.remove('visible');
+      dropZones.forEach(z => {
+        z.classList.remove('hover', 'active-zone');
+      });
+
+      btn.classList.remove('dragging');
+      btn.classList.add('snapping');
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      let targetX, targetY;
+
+      targetY = vh - 58 - 95;
+
+      if (currentPosition === 'dock-right') {
+        targetX = vw - 58 - 28;
+      } else if (currentPosition === 'dock-left') {
+        targetX = 28;
+      } else {
+        targetX = (vw - 58) / 2;
+      }
+
+      btn.style.transform = 'scale(1)';
+      btn.style.left = targetX + 'px';
+      btn.style.top = targetY + 'px';
+
+      setTimeout(() => {
+        btn.classList.remove('snapping');
+        btn.style.left = '';
+        btn.style.top = '';
+        btn.style.right = '';
+        btn.style.bottom = '';
+        btn.style.position = '';
+        btn.style.transform = '';
+        btn.classList.add('pos-' + currentPosition);
+      }, 400);
+    }
+
+    btn.addEventListener('mousedown', startHold);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onRelease);
+
+    btn.addEventListener('touchstart', startHold, { passive: false });
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onRelease);
+  </script>
+
+</body>
+</html>
