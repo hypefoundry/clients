@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — Overlay Ready State</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* ── Scene container ── */
+    .scene {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: fixed;
+      bottom: 95px;
+      right: 64px;
+    }
+
+    /* ── Toast ── */
+    .micro-toast {
+      border-radius: 36px;
+      background-color: #101017;
+      border: 1px solid #1b1b24;
+      display: flex;
+      align-items: center;
+      padding: 8px 13px;
+      gap: 5px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .click-or-hold {
+      line-height: 140%;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .key-badge {
+      border-radius: 4px;
+      background-color: #fff;
+      border: 1px solid #e2e2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 5px;
+      font-size: 8px;
+      color: #262626;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    /* ── Overlay ── */
+    .overlay {
+      position: relative;
+      width: 49px;
+      height: 49px;
+      flex-shrink: 0;
+    }
+
+    /* Gradient ring — visible */
+    .ring-gradient {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(
+        to top,
+        #2A004B 1%,
+        #AD46FF 30%,
+        #EEAFFF 54%,
+        #43EE1D 78%,
+        #F6FF00 100%
+      );
+      -webkit-mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+      mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+    }
+
+    /* Inner fill — solid */
+    .overlay-fill {
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #101017;
+    }
+
+    /* Center dot — glowing */
+    .overlay-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #AE45FF;
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 20px rgba(174, 69, 255, 0.45);
+    }
+
+    /* Glow */
+    .overlay-glow {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: linear-gradient(
+        to top,
+        rgba(42, 0, 75, 0.25) 1%,
+        rgba(173, 70, 255, 0.2) 30%,
+        rgba(238, 175, 255, 0.15) 54%,
+        rgba(67, 238, 29, 0.2) 78%,
+        rgba(246, 255, 0, 0.2) 100%
+      );
+      filter: blur(14px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+    <!-- Toast -->
+    <div class="micro-toast">
+      <span class="click-or-hold">Click or hold</span>
+      <div class="key-badge">fn</div>
+      <span class="click-or-hold">to start dictating</span>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay">
+      <div class="ring-gradient"></div>
+      <div class="overlay-glow"></div>
+      <div class="overlay-fill"></div>
+      <div class="overlay-dot"></div>
+    </div>
+  </div>
+
+</body>
+</html>
