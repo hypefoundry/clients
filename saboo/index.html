@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>saboo | Services</title>
+  <style>
+    :root {
+      --primary: #000000;
+      --secondary: #848484;
+      --tertiary: #848484;
+      --accent: #000000;
+      --light-grey: #D6D6D6;
+      --accent-dim: rgba(0,0,0,0.06);
+      --white: #FFFFFF;
+      --grey-bg: #F0F0F0;
+      --warm-bg: #F5F5F5;
+      --cream: #F0F0F0;
+      --divider: #D6D6D6;
+
+      --font: 'Helvetica Now', 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+
+      /* Shape tokens */
+      --radius-pill: 100px;
+      --radius-card: 14px;
+      --radius-dashboard: 12px;
+      --radius-badge: 100px;
+      --radius-small: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--primary);
+      color: var(--primary);
+      font-family: var(--font);
+      font-weight: 400;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1080px;
+      width: 100%;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-intro {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.55;
+      max-width: 560px;
+    }
+
+    .services-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .service-card {
+      background: #F5F5F0;
+      padding: 40px 36px;
+      border-radius: var(--radius-card);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+      transition: background 0.3s;
+    }
+
+    .service-card:hover { background: #EAEAE5; }
+
+    .service-card.popular {
+      background: var(--white);
+    }
+
+    .service-card.popular:hover {
+      background: #F5F5F0;
+    }
+
+    .service-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card > p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.55;
+      margin-bottom: auto;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid var(--primary);
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      margin-top: 2rem;
+      transition: background 0.2s, color 0.2s;
+      align-self: flex-start;
+    }
+
+    .service-link:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      body { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="services-header">
+      <div class="section-label">Services</div>
+      <h2 class="section-title">Four ways to turn ad spend into measurable revenue</h2>
+      <p class="section-intro">From full management to one-off audits — flexible services built around your goals.</p>
+    </div>
+
+    <div class="services-grid">
+      <!-- Campaign Management -->
+      <div class="service-card popular">
+        <div class="service-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="#848484" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="18" cy="18" r="12"/>
+            <circle cx="18" cy="18" r="7" opacity="0.4"/>
+            <circle cx="18" cy="18" r="2.5"/>
+            <line x1="18" y1="6" x2="18" y2="9"/>
+          </svg>
+        </div>
+        <h3>Campaign Management</h3>
+        <p>Full-service Google Ads management for businesses that want results, not headaches.</p>
+        <a href="#" class="service-link">Learn More</a>
+      </div>
+
+      <!-- Audits -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="#848484" stroke-width="1.5" stroke-linecap="round">
+            <rect x="7" y="5" width="22" height="26" rx="1"/>
+            <line x1="13" y1="13" x2="23" y2="13"/>
+            <line x1="13" y1="18" x2="20" y2="18"/>
+            <circle cx="16" cy="24" r="2.5"/>
+            <polyline points="14.5 24 16 26 18.5 22"/>
+          </svg>
+        </div>
+        <h3>Audits &amp; Strategy</h3>
+        <p>Find out what's really going on in your Google Ads account — and what to do about it.</p>
+        <a href="#" class="service-link">Learn More</a>
+      </div>
+
+      <!-- Partnerships -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="#848484" stroke-width="1.5" stroke-linecap="round">
+            <rect x="4" y="9" width="12" height="18" rx="1"/>
+            <rect x="20" y="9" width="12" height="18" rx="1"/>
+            <line x1="16" y1="16" x2="20" y2="16"/>
+            <line x1="16" y1="20" x2="20" y2="20"/>
+          </svg>
+        </div>
+        <h3>Agency Partnerships</h3>
+        <p>Expert Google Ads execution for agencies who need a trusted partner.</p>
+        <a href="#" class="service-link">Learn More</a>
+      </div>
+
+      <!-- Training -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="#848484" stroke-width="1.5" stroke-linecap="round">
+            <path d="M8 28 L18 6 L28 28" fill="none"/>
+            <line x1="12" y1="20" x2="24" y2="20" opacity="0.5"/>
+            <line x1="14" y1="24" x2="22" y2="24" opacity="0.3"/>
+          </svg>
+        </div>
+        <h3>Training &amp; Workshops</h3>
+        <p>Learn to run Google Ads yourself — with confidence.</p>
+        <a href="#" class="service-link">Learn More</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
