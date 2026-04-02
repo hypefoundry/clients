@@ -9,17 +9,15 @@
     /* ─────────────────────────────────────────────────────────
      * ANIMATION STORYBOARD — FULL FLOW
      *
-     * 0ms      Page loads in IDLE state (translucent overlay,
-     *          grey ring, dot visible, no glow)
-     * 800ms    Auto-activate: gradient fades in, glow appears,
-     *          fill goes solid, dot scales up
-     * 1200ms   Toast slides in from right → READY state
-     * Click:   Toast slides out, dot shrinks, audio lines in
-     *          → LISTENING state
-     * +2000ms  Audio lines out, spinner in → LOADING state
-     * +2000ms  Spinner out, overlay returns to idle,
-     *          confirm toast appears → IDLE + CONFIRM
-     * Click:   Re-activate → READY state
+     * 0ms      GLASS IDLE — transparent fill, 1.5px 20% #D7D7D7
+     *          stroke, backdrop blur, no dot, no glow
+     * Hover:   Fill → #101017, stroke → #1B1B24, dot appears,
+     *          fn toast slides in → READY state
+     * Unhover: Reverse back to glass idle (if not clicked)
+     * Click:   Toast out, dot shrinks, audio lines in → LISTENING
+     * +2000ms  Audio lines out, spinner in → LOADING
+     * +2000ms  Spinner out, overlay returns to glass idle,
+     *          confirm toast appears → GLASS IDLE + CONFIRM
      * ───────────────────────────────────────────────────────── */
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -66,6 +64,7 @@
         transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    .scene.hover .micro-toast,
     .scene.ready .micro-toast {
       opacity: 1;
       transform: translateX(0) scale(1);
@@ -106,17 +105,23 @@
       flex-shrink: 0;
     }
 
-    /* Grey base ring */
-    .ring-grey {
+    /* Glass idle ring — 1.5px, 20% #D7D7D7 */
+    .ring-glass {
       position: absolute;
       inset: 0;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      -webkit-mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
-      mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+      border: 2px solid rgba(215, 215, 215, 0.2);
+      transition: border-color 0.35s ease;
     }
 
-    /* Gradient ring — hidden in idle */
+    .scene.hover .ring-glass,
+    .scene.ready .ring-glass,
+    .scene.listening .ring-glass,
+    .scene.loading .ring-glass {
+      border-color: #1B1B24;
+    }
+
+    /* Gradient ring — hidden in idle, appears on activation */
     .ring-gradient {
       position: absolute;
       inset: 0;
@@ -130,57 +135,55 @@
         #43EE1D 78%,
         #F6FF00 100%
       );
-      -webkit-mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
-      mask: radial-gradient(circle, transparent 20px, black 21px, black 23px, transparent 24px);
+      -webkit-mask: radial-gradient(circle, transparent 18px, black 18.5px, black 24px, transparent 24.5px);
+      mask: radial-gradient(circle, transparent 18px, black 18.5px, black 24px, transparent 24.5px);
       transition: opacity 0.4s ease;
     }
 
-    .scene.activating .ring-gradient,
-    .scene.ready .ring-gradient,
     .scene.listening .ring-gradient,
     .scene.loading .ring-gradient {
       opacity: 1;
     }
 
-    /* Inner fill — translucent with blur in idle, solid when active */
+    /* Inner fill — transparent glass in idle, solid when hovered/active */
     .overlay-fill {
       position: absolute;
-      inset: 3px;
+      inset: 1.5px;
       border-radius: 50%;
-      background: rgba(16, 16, 23, 0.3);
+      background: transparent;
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      transition: background 0.4s ease;
+      transition: background 0.35s ease;
     }
 
-    .scene.activating .overlay-fill,
+    .scene.hover .overlay-fill,
     .scene.ready .overlay-fill,
     .scene.listening .overlay-fill,
     .scene.loading .overlay-fill {
       background: #101017;
     }
 
-    /* Center dot */
+    /* Center dot — hidden in glass idle */
     .overlay-dot {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 7px;
-      height: 7px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #AE45FF;
       transform: translate(-50%, -50%) scale(1);
       opacity: 1;
       box-shadow: none;
       transition:
-        opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.4s ease;
+        opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s ease;
     }
 
-    .scene.activating .overlay-dot,
     .scene.ready .overlay-dot {
-      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
       box-shadow: 0 0 20px rgba(174, 69, 255, 0.45);
     }
 
@@ -190,7 +193,7 @@
       transform: translate(-50%, -50%) scale(0.3);
     }
 
-    /* Glow */
+    /* Glow — hidden in idle */
     .overlay-glow {
       position: absolute;
       inset: -3px;
@@ -208,8 +211,6 @@
       transition: opacity 0.4s ease, filter 0.4s ease;
     }
 
-    .scene.activating .overlay-glow,
-    .scene.ready .overlay-glow,
     .scene.listening .overlay-glow {
       opacity: 1;
     }
@@ -443,7 +444,7 @@
       height: 10px;
     }
 
-    /* Progress bar — separate row */
+    /* Progress bar */
     .confirm-toast-progress-track {
       width: 100%;
       height: 3px;
@@ -517,8 +518,8 @@
     </div>
 
     <!-- Overlay -->
-    <div class="overlay">
-      <div class="ring-grey"></div>
+    <div class="overlay" id="overlayEl">
+      <div class="ring-glass"></div>
       <div class="ring-gradient"></div>
       <div class="overlay-glow"></div>
       <div class="overlay-fill"></div>
@@ -540,18 +541,20 @@
 
   </div>
 
-  <p class="hint">Startup → ready → click to listen → loading → idle</p>
+  <p class="hint">Hover to wake → click to listen → loading → glass idle</p>
 
   <script>
     const scene = document.getElementById('scene');
+    const overlayEl = document.getElementById('overlayEl');
     const confirmToast = document.getElementById('confirmToast');
     const confirmClose = document.getElementById('confirmClose');
 
-    // States: idle | activating | ready | listening | loading
+    // States: idle | hover | ready | listening | loading
     let state = 'idle';
     let loadingTimer = null;
     let idleTimer = null;
     let toastTimer = null;
+    let toastDismissTimer = null;
 
     function showConfirmToast() {
       confirmToast.classList.remove('visible');
@@ -574,18 +577,33 @@
       hideConfirmToast();
     });
 
-    let toastDismissTimer = null;
+    // Hover: glass idle → hover (fill solid, stroke changes, toast slides in, dot appears)
+    overlayEl.addEventListener('mouseenter', () => {
+      if (state === 'idle') {
+        state = 'hover';
+        scene.className = 'scene hover';
+      }
+    });
 
-    function activate() {
-      // Startup sequence: idle → activating → ready (toast shows for 2s then hides)
-      state = 'activating';
-      scene.className = 'scene activating';
+    overlayEl.addEventListener('mouseleave', () => {
+      if (state === 'hover') {
+        state = 'idle';
+        scene.className = 'scene';
+      }
+    });
 
-      setTimeout(() => {
+    // Click: start the full sequence
+    scene.addEventListener('click', () => {
+      clearTimeout(loadingTimer);
+      clearTimeout(idleTimer);
+      clearTimeout(toastDismissTimer);
+      hideConfirmToast();
+
+      if (state === 'idle' || state === 'hover') {
+        // Activate → ready (brief), then auto-listen
         state = 'ready';
         scene.className = 'scene ready';
 
-        // Toast shows for 2 seconds, then auto-start listening
         toastDismissTimer = setTimeout(() => {
           if (state === 'ready') {
             state = 'listening';
@@ -603,30 +621,16 @@
             }, 2000);
           }
         }, 2000);
-      }, 400);
-    }
 
-    scene.addEventListener('click', () => {
-      clearTimeout(loadingTimer);
-      clearTimeout(idleTimer);
-      clearTimeout(toastDismissTimer);
-      hideConfirmToast();
-
-      if (state === 'idle') {
-        // Click idle to activate
-        activate();
-
-      } else if (state === 'ready' || state === 'activating') {
-        // Start listening
+      } else if (state === 'ready') {
+        // Skip waiting, go straight to listening
         state = 'listening';
         scene.className = 'scene listening';
 
-        // After 2 seconds, transition to loading
         loadingTimer = setTimeout(() => {
           state = 'loading';
           scene.className = 'scene loading';
 
-          // After 2 seconds of loading, transition to idle + show toast
           idleTimer = setTimeout(() => {
             state = 'idle';
             scene.className = 'scene';
