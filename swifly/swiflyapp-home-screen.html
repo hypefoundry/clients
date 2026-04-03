@@ -86,59 +86,49 @@
       height: 48px;
     }
 
-    /* Mic toggle */
+    /* Mic toggle — pill with icon + status dot */
     .mic-toggle {
-      width: 52px;
-      height: 30px;
+      height: 36px;
+      padding: 0 14px;
       border-radius: 20px;
       background: var(--surface);
       border: 1px solid var(--border);
-      position: relative;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       align-items: center;
+      gap: 6px;
     }
 
-    .mic-toggle.on {
-      background: rgba(174, 69, 255, 0.15);
-      border-color: rgba(174, 69, 255, 0.3);
-    }
-
-    .mic-toggle-knob {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.12);
-      position: absolute;
-      left: 3px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .mic-toggle.on .mic-toggle-knob {
-      left: 25px;
-      background: var(--purple);
-    }
-
-    .mic-toggle-knob svg {
-      width: 12px;
-      height: 12px;
+    .mic-toggle svg {
+      width: 16px;
+      height: 16px;
       color: rgba(255, 255, 255, 0.5);
+      transition: color 0.3s ease;
     }
 
-    .mic-toggle.on .mic-toggle-knob svg {
-      color: #fff;
+    .mic-toggle.on svg {
+      color: var(--purple);
     }
 
-    /* Strikethrough line on mic icon when off */
     .mic-strike {
       transition: opacity 0.2s ease;
     }
 
     .mic-toggle.on .mic-strike { opacity: 0; }
+
+    .mic-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mic-toggle.on .mic-status-dot {
+      opacity: 1;
+    }
 
     .header-settings {
       width: 32px;
@@ -181,9 +171,22 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 32px;
+      padding: 40px 28px;
       text-align: center;
       position: relative;
+      transition: justify-content 0s;
+    }
+
+    .transcription-area.has-text {
+      justify-content: flex-start;
+      padding-top: 28px;
+    }
+
+    .transcription-empty-text {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.2);
+      line-height: 1.6;
     }
 
     /* Share button */
@@ -191,20 +194,19 @@
       display: none;
       align-items: center;
       gap: 6px;
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1px solid rgba(174, 69, 255, 0.3);
-      background: rgba(174, 69, 255, 0.1);
+      padding: 0;
+      border: none;
+      background: none;
       color: var(--purple);
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
       font-family: inherit;
       cursor: pointer;
-      margin-top: 16px;
+      margin-top: 12px;
       align-self: flex-start;
-      transition: all 0.2s ease;
       opacity: 0;
       transform: translateY(8px);
+      transition: opacity 0.2s ease;
     }
 
     .share-btn.visible {
@@ -213,13 +215,12 @@
     }
 
     .share-btn:hover {
-      background: rgba(174, 69, 255, 0.2);
-      border-color: rgba(174, 69, 255, 0.5);
+      opacity: 0.75;
     }
 
     .share-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
     }
 
     @keyframes fadeUp {
@@ -227,10 +228,10 @@
     }
 
     .transcription-live {
-      font-size: 20px;
-      font-weight: 300;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.85);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
       letter-spacing: -0.01em;
       max-width: 100%;
       text-align: left;
@@ -261,11 +262,10 @@
 
     /* ── History swipe hint ── */
     .history-hint {
-      padding: 0 24px 8px;
+      padding: 0 24px 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
       font-size: 11px;
       color: var(--text-tertiary);
       letter-spacing: 0.02em;
@@ -663,20 +663,19 @@
       <!-- Header -->
       <div class="header">
         <div class="mic-toggle on" id="micToggle" onclick="toggleMic()">
-          <div class="mic-toggle-knob">
-            <svg viewBox="0 0 12 12" fill="none">
-              <path d="M6 1a1.5 1.5 0 00-1.5 1.5v3a1.5 1.5 0 003 0v-3A1.5 1.5 0 006 1z" fill="currentColor"/>
-              <path d="M3 5.5v0a3 3 0 006 0v0" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-              <path d="M6 9.5v1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-              <line class="mic-strike" x1="2" y1="10" x2="10" y2="2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-          </div>
+          <svg viewBox="0 0 16 16" fill="none">
+            <path d="M8 2a2 2 0 00-2 2v4a2 2 0 004 0V4a2 2 0 00-2-2z" fill="currentColor"/>
+            <path d="M4 7v1a4 4 0 008 0V7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M8 12v2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            <line class="mic-strike" x1="3" y1="13" x2="13" y2="3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <div class="mic-status-dot"></div>
         </div>
 
         <button class="header-settings">
           <svg viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="8" r="3.5" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M3 17.5c0-3.5 3.1-6 7-6s7 2.5 7 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M3.9 3.9l1.4 1.4M14.7 14.7l1.4 1.4M3.9 16.1l1.4-1.4M14.7 5.3l1.4-1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
         </button>
       </div>
@@ -697,9 +696,10 @@
 
       <!-- History swipe hint -->
       <div class="history-hint" id="historyHint" onclick="openHistory()">
-        <svg viewBox="0 0 12 12" fill="none"><path d="M2 8l4-4 4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Swipe up to see your history</span>
-        <svg viewBox="0 0 12 12" fill="none"><path d="M2 8l4-4 4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <svg viewBox="0 0 12 12" fill="none" style="width:14px;height:14px;"><path d="M2 8l4-4 4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Swipe up to see your history</span>
+        </div>
       </div>
 
       <!-- Overlay -->
@@ -732,16 +732,16 @@
           <span>Home</span>
         </div>
         <div class="tab-item">
-          <svg viewBox="0 0 22 22" fill="none"><path d="M4 5h14M4 11h14M4 17h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 22 22" fill="none"><rect x="4" y="3" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><text x="11" y="14" text-anchor="middle" fill="currentColor" font-size="10" font-weight="600" font-family="serif">A</text></svg>
           <span>Dictionary</span>
         </div>
         <div class="tab-item">
-          <svg viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 9h2M7 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>Swikeys</span>
+          <svg viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8h8M7 11.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Snippets</span>
         </div>
         <div class="tab-item">
-          <svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Swistyle</span>
+          <svg viewBox="0 0 22 22" fill="none"><path d="M11 3l2.5 5 5.5.8-4 3.9.9 5.3-4.9-2.6L6.1 18l.9-5.3-4-3.9 5.5-.8L11 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span>Style</span>
         </div>
       </div>
     </div>
@@ -839,6 +839,7 @@
     function startTyping() {
       emptyState.style.display = 'none';
       liveText.style.display = 'block';
+      liveText.parentElement.classList.add('has-text');
       liveText.innerHTML = '<span class="cursor"></span>';
       let i = 0;
 
