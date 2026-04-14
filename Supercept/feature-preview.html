@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feature Section Preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f0f0f; }
+  </style>
+</head>
+<body>
+
+<!-- Feature Section: At-Risk Deals -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .feature-section {
+    display: flex;
+    width: 100%;
+    min-height: 520px;
+    font-family: 'IBM Plex Mono', monospace;
+    overflow: hidden;
+  }
+  .feature-left {
+    background: #6C3CE9;
+    color: #ffffff;
+    padding: 4em 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 0 0 38%;
+    max-width: 38%;
+  }
+  .feature-left h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.8em;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 1.5em 0;
+  }
+  .feature-left .feature-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2em 0;
+  }
+  .feature-left .feature-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75em;
+    margin-bottom: 1.2em;
+    font-size: 0.8em;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .feature-left .feature-bullets li .bullet-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+  .feature-left .feature-bullets li .bullet-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  .feature-left .feature-cta {
+    display: inline-block;
+    background: #ffffff;
+    color: #6C3CE9;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 0.8em 1.5em;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+  }
+  .feature-left .feature-cta:hover { opacity: 0.9; }
+
+  .feature-right {
+    flex: 1;
+    background: #F0EAFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5em;
+    overflow: hidden;
+  }
+  .feature-carousel {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+  }
+  .carousel-viewport {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .carousel-slide {
+    min-width: 100%;
+    position: relative;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .carousel-slide video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .carousel-progress {
+    display: flex;
+    gap: 0.35em;
+    justify-content: center;
+  }
+  .carousel-progress-dot {
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(108, 60, 233, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .carousel-progress-dot.active {
+    background: #6C3CE9;
+    width: 36px;
+  }
+  .carousel-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  .carousel-tab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7em;
+    font-weight: 500;
+    color: #6C3CE9;
+    background: rgba(108, 60, 233, 0.1);
+    border: 1.5px solid transparent;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .carousel-tab:hover { background: rgba(108, 60, 233, 0.18); }
+  .carousel-tab.active {
+    background: #6C3CE9;
+    color: #ffffff;
+    border-color: #6C3CE9;
+  }
+  @media (max-width: 768px) {
+    .feature-section { flex-direction: column; }
+    .feature-left { flex: none; max-width: 100%; padding: 3em 2em; }
+    .feature-right { padding: 2em 1.5em; }
+    .carousel-tabs { flex-wrap: wrap; }
+  }
+</style>
+
+<div class="feature-section">
+  <div class="feature-left">
+    <h2>See At-Risk Deals In Time To Fix Them</h2>
+    <ul class="feature-bullets">
+      <li>
+        <span class="bullet-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+            <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        See health scores and detailed risk signals for each deal in your pipeline
+      </li>
+      <li>
+        <span class="bullet-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+            <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        View the key drivers, what's helping, what's blocking, what changed
+      </li>
+      <li>
+        <span class="bullet-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+            <path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Filters your pipeline to focus on the deals that matter
+      </li>
+    </ul>
+    <a href="#" class="feature-cta">Join Free Private Beta &rarr;</a>
+  </div>
+
+  <div class="feature-right">
+    <div class="feature-carousel" id="featureCarousel">
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <img src="https://placehold.co/620x400/F3F0FF/6C3CE9?text=Inquire+Chat" alt="Inquire">
+          </div>
+          <div class="carousel-slide">
+            <img src="https://placehold.co/620x400/F3F0FF/6C3CE9?text=Pipeline+Health" alt="Pipeline Health">
+          </div>
+          <div class="carousel-slide">
+            <img src="https://placehold.co/620x400/F3F0FF/6C3CE9?text=Deal+Signals" alt="Deal Signals">
+          </div>
+          <div class="carousel-slide">
+            <img src="https://placehold.co/620x400/F3F0FF/6C3CE9?text=Forecasting" alt="Forecasting">
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-progress" id="carouselProgress">
+        <span class="carousel-progress-dot active"></span>
+        <span class="carousel-progress-dot"></span>
+        <span class="carousel-progress-dot"></span>
+        <span class="carousel-progress-dot"></span>
+      </div>
+
+      <div class="carousel-tabs" id="carouselTabs">
+        <button class="carousel-tab active" data-slide="0">Inquire</button>
+        <button class="carousel-tab" data-slide="1">Pipeline</button>
+        <button class="carousel-tab" data-slide="2">Signals</button>
+        <button class="carousel-tab" data-slide="3">Forecast</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var track = document.getElementById('carouselTrack');
+  var tabs = document.querySelectorAll('#carouselTabs .carousel-tab');
+  var dots = document.querySelectorAll('#carouselProgress .carousel-progress-dot');
+  var currentSlide = 0;
+  var totalSlides = tabs.length;
+
+  function goToSlide(index) {
+    currentSlide = index;
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    tabs.forEach(function(tab, i) {
+      tab.classList.toggle('active', i === index);
+    });
+    dots.forEach(function(dot, i) {
+      dot.classList.toggle('active', i === index);
+    });
+    var videos = track.querySelectorAll('video');
+    videos.forEach(function(v) { v.pause(); });
+    var currentVideo = track.children[index].querySelector('video');
+    if (currentVideo) currentVideo.play();
+  }
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      goToSlide(parseInt(this.dataset.slide));
+    });
+  });
+
+  dots.forEach(function(dot, i) {
+    dot.addEventListener('click', function() {
+      goToSlide(i);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
