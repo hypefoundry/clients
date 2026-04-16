@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Profile — Pet Biometrics Business | Adelaide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400;1,9..40,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FDF8F3;
+  --card: #FFFFFF;
+  --ink: #1A1614;
+  --ink-mid: #5C534A;
+  --ink-light: #9B918A;
+  --warm: #E8632B;
+  --warm-soft: #FFF0E8;
+  --sage: #3D6B4F;
+  --sage-soft: #EDF4EF;
+  --cream: #F0E8DC;
+  --border: #E8E0D6;
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+@media print {
+  body { background: #fff; }
+  .container { max-width: 100%; padding: 0 40px; }
+  .no-print { display: none; }
+  section { break-inside: avoid; }
+  .profile-grid { break-inside: avoid; }
+}
+
+html { font-size: 17px; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 500;
+  line-height: 1.15;
+  font-optical-sizing: auto;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ═══ Header ═══ */
+.header {
+  padding: 48px 0 40px;
+  border-bottom: 2px solid var(--ink);
+}
+.header-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--warm);
+  margin-bottom: 12px;
+}
+.header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.header-sub {
+  font-size: 1.05rem;
+  color: var(--ink-mid);
+  max-width: 520px;
+}
+.header-meta {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.header-meta-item {}
+.header-meta-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-light);
+  margin-bottom: 2px;
+}
+.header-meta-value {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ═══ Sections ═══ */
+section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+section:last-of-type { border-bottom: none; }
+.section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--warm);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--warm);
+  border-radius: 50%;
+}
+section h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+/* ═══ Profile Grid ═══ */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 4px 24px;
+  margin: 16px 0;
+}
+.profile-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.profile-value {
+  font-size: 0.88rem;
+  color: var(--ink-mid);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.55;
+}
+
+/* ═══ Stat Row ═══ */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 24px 0;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px 16px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--warm);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.68rem;
+  color: var(--ink-light);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+/* ═══ Highlight ═══ */
+.highlight {
+  background: var(--warm-soft);
+  border-left: 3px solid var(--warm);
+  padding: 20px 24px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 20px 0;
+  font-size: 0.9rem;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+.highlight strong { color: var(--warm); }
+
+/* ═══ Two-Column ═══ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+.col-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+}
+.col-card h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.col-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.col-card li {
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.col-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  background: var(--warm);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+/* ═══ Table ═══ */
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+thead { background: var(--ink); color: #fff; }
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-mid);
+}
+tr:last-child td { border-bottom: none; }
+tbody tr:nth-child(even) { background: var(--bg); }
+.td-strong { font-weight: 700; color: var(--ink); }
+.td-warm { font-family: 'Fraunces', serif; font-weight: 700; color: var(--warm); }
+
+/* ═══ Simple List ═══ */
+.simple-list {
+  list-style: none;
+  margin: 12px 0;
+}
+.simple-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--ink-mid);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.simple-list li:last-child { border-bottom: none; }
+.list-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  margin-top: 1px;
+}
+
+/* ═══ Audience Tag ═══ */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 40px;
+  background: var(--sage-soft);
+  color: var(--sage);
+}
+.tag--warm {
+  background: var(--warm-soft);
+  color: var(--warm);
+}
+
+/* ═══ Footer ═══ */
+.footer {
+  padding: 40px 0;
+  text-align: center;
+  border-top: 2px solid var(--ink);
+  margin-top: 20px;
+}
+.footer p {
+  font-size: 0.75rem;
+  color: var(--ink-light);
+}
+.footer-brand {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+/* ═══ Responsive ═══ */
+@media (max-width: 600px) {
+  .container { padding: 0 20px; }
+  .profile-grid { grid-template-columns: 1fr; gap: 0; }
+  .profile-label { border-bottom: none; padding-bottom: 0; font-size: 0.72rem; color: var(--ink-light); }
+  .profile-value { padding-top: 2px; }
+  .two-col { grid-template-columns: 1fr; }
+  .header-meta { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ═══ Header ═══ -->
+  <header class="header">
+    <div class="header-eyebrow">Business Profile</div>
+    <h1>Pet Biometrics Business</h1>
+    <p class="header-sub">In-home preventative health assessments for dogs and cats in Adelaide's eastern suburbs.</p>
+    <div class="header-meta">
+      <div class="header-meta-item">
+        <div class="header-meta-label">Location</div>
+        <div class="header-meta-value">Adelaide, SA</div>
+      </div>
+      <div class="header-meta-item">
+        <div class="header-meta-label">Entity</div>
+        <div class="header-meta-value">Sole trader (existing ABN)</div>
+      </div>
+      <div class="header-meta-item">
+        <div class="header-meta-label">Industry</div>
+        <div class="header-meta-value">Pet health services</div>
+      </div>
+      <div class="header-meta-item">
+        <div class="header-meta-label">Status</div>
+        <div class="header-meta-value">Pre-launch</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ Overview ═══ -->
+  <section>
+    <div class="section-label">Overview</div>
+    <h2>What the business does</h2>
+    <p style="color: var(--ink-mid); font-size: 0.92rem; max-width: 600px;">A mobile preventative health service that sends a registered veterinarian to pet owners' homes to conduct comprehensive health assessments — including 60+ biomarker blood panels, physical examinations, and urine/stool analysis — then delivers a personalised health report with ongoing care recommendations.</p>
+
+    <div class="highlight">
+      <strong>Core proposition:</strong> Catch health problems in dogs and cats before symptoms appear — saving pets' lives and owners thousands in emergency treatment costs.
+    </div>
+
+    <div class="profile-grid">
+      <div class="profile-label">Service area</div>
+      <div class="profile-value">Adelaide's eastern suburbs — Burnside, Unley, Norwood, Toorak Gardens, Hyde Park, and surrounds</div>
+      <div class="profile-label">Animals</div>
+      <div class="profile-value">Dogs and cats, all breeds and ages</div>
+      <div class="profile-label">Delivery model</div>
+      <div class="profile-value">In-home visits by a contracted registered SA veterinarian</div>
+      <div class="profile-label">Visit duration</div>
+      <div class="profile-value">45–60 minutes per assessment</div>
+      <div class="profile-label">Results turnaround</div>
+      <div class="profile-value">72 hours — includes personalised report + vet telehealth review</div>
+      <div class="profile-label">Brand direction</div>
+      <div class="profile-value">Warm, human, Hooman-inspired — centres the bond between owner and pet, not the clinical process</div>
+    </div>
+  </section>
+
+  <!-- ═══ Services & Pricing ═══ -->
+  <section>
+    <div class="section-label">Services &amp; Pricing</div>
+    <h2>What we offer</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Comprehensive Health Assessment</td>
+            <td class="td-warm">$650</td>
+            <td>In-home vet visit, 60+ biomarker blood panel, physical exam, urine &amp; stool analysis, personalised report, telehealth review, care plan</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Annual Wellness Membership</td>
+            <td class="td-warm">$249/yr</td>
+            <td>Discounted follow-up assessment, quarterly check-in, priority booking, ongoing health tracking</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Targeted Follow-up Panel</td>
+            <td class="td-warm">$350</td>
+            <td>Focused re-test of flagged biomarkers from initial assessment</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Condition-Specific Protocols</td>
+            <td class="td-warm">$150–$300</td>
+            <td>Specialised panels for kidney, thyroid, diabetes, senior wellness, or breed-specific risks</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <strong>Average gross margin: ~54%</strong> — Lab costs ~$200 per full panel, vet contractor fee ~$100 per visit. Primary service grosses ~$350 per assessment.
+    </div>
+  </section>
+
+  <!-- ═══ Target Market ═══ -->
+  <section>
+    <div class="section-label">Target Market</div>
+    <h2>Who we serve</h2>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value">250K</div>
+        <div class="stat-label">Dogs in Adelaide</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">180K</div>
+        <div class="stat-label">Cats in Adelaide</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">150K</div>
+        <div class="stat-label">Households w/ pets</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$400–800</div>
+        <div class="stat-label">Annual pet spend</div>
+      </div>
+    </div>
+
+    <p style="color: var(--ink-mid); font-size: 0.9rem; margin-bottom: 16px;">Primary target: pet owners in Adelaide's affluent eastern suburbs who treat their pet as a family member, have disposable income, and are proactive about health and wellbeing.</p>
+
+    <div class="tags">
+      <span class="tag">Burnside</span>
+      <span class="tag">Unley</span>
+      <span class="tag">Norwood</span>
+      <span class="tag">Toorak Gardens</span>
+      <span class="tag">Hyde Park</span>
+      <span class="tag--warm tag">Dogs &amp; cats</span>
+      <span class="tag--warm tag">Ages 3+</span>
+      <span class="tag--warm tag">Premium pet owners</span>
+    </div>
+
+    <div class="two-col">
+      <div class="col-card">
+        <h3>Customer profile</h3>
+        <ul>
+          <li>Considers their pet a genuine family member</li>
+          <li>Household income $100K+</li>
+          <li>35–65 age range</li>
+          <li>Already spends on premium pet food, grooming, or insurance</li>
+          <li>Would rather prevent than react</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h3>Why they buy</h3>
+        <ul>
+          <li>Peace of mind — knowing what's happening inside</li>
+          <li>Convenience — no clinic visit, comes to them</li>
+          <li>Depth — 60+ biomarkers vs a 10-minute annual check</li>
+          <li>Cost avoidance — $650 now vs $5K–$15K later</li>
+          <li>Emotional bond — they'd do anything for their pet</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Financials ═══ -->
+  <section>
+    <div class="section-label">Financial Summary</div>
+    <h2>Unit economics &amp; projections</h2>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-value">$9.3K</div>
+        <div class="stat-label">Startup cost</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$280K</div>
+        <div class="stat-label">Year 1 revenue</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$120K</div>
+        <div class="stat-label">Year 1 profit</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">~43%</div>
+        <div class="stat-label">Net margin</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Year 1</th>
+            <th>Year 2</th>
+            <th>Year 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Revenue</td>
+            <td class="td-warm">$280K</td>
+            <td class="td-warm">$420K</td>
+            <td class="td-warm">$560K</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Profit</td>
+            <td>$120K</td>
+            <td>$178K</td>
+            <td>$232K</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Visits/week</td>
+            <td>8</td>
+            <td>12</td>
+            <td>16</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; margin: 28px 0 12px;">Startup costs breakdown</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Business name registration</td>
+            <td>$39</td>
+          </tr>
+          <tr>
+            <td>Professional indemnity &amp; public liability insurance</td>
+            <td>$2,000</td>
+          </tr>
+          <tr>
+            <td>Diagnostic equipment &amp; supplies</td>
+            <td>$2,100</td>
+          </tr>
+          <tr>
+            <td>Marketing launch (branding, cards, initial ads)</td>
+            <td>$1,200</td>
+          </tr>
+          <tr>
+            <td>Cash buffer (working capital)</td>
+            <td>$4,000</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Total</td>
+            <td class="td-warm" style="font-weight:700;">$9,339</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <strong>Key assumption:</strong> Owner builds all digital assets (website, app, marketing materials) in-house via existing design agency. Vet partner uses their own vehicle. Business operates under existing ABN.
+    </div>
+  </section>
+
+  <!-- ═══ Operations ═══ -->
+  <section>
+    <div class="section-label">Operations</div>
+    <h2>How it runs</h2>
+
+    <div class="profile-grid">
+      <div class="profile-label">Team</div>
+      <div class="profile-value">Owner (business, marketing, digital) + 1 contracted registered SA veterinarian</div>
+      <div class="profile-label">Scheduling</div>
+      <div class="profile-value">Online booking via Calendly, confirmed by email. Morning, afternoon, and weekend slots.</div>
+      <div class="profile-label">Lab partner</div>
+      <div class="profile-value">Accredited veterinary pathology lab (IDEXX / Vetpath). Samples collected in-home, couriered same day.</div>
+      <div class="profile-label">Reports</div>
+      <div class="profile-value">Personalised health report generated from lab results + vet notes. Delivered digitally within 72 hours.</div>
+      <div class="profile-label">Follow-up</div>
+      <div class="profile-value">Telehealth video call with the vet to walk through results and care plan. Included in base price.</div>
+      <div class="profile-label">Technology</div>
+      <div class="profile-value">Custom client app (health dashboard, pet profiles, results history). Built and maintained by owner.</div>
+      <div class="profile-label">Annual costs</div>
+      <div class="profile-value">Insurance $2,000 + miscellaneous $2,400 = $4,400 fixed annually</div>
+    </div>
+  </section>
+
+  <!-- ═══ Competitive Position ═══ -->
+  <section>
+    <div class="section-label">Competitive Position</div>
+    <h2>Why this is different</h2>
+
+    <div class="two-col">
+      <div class="col-card">
+        <h3>vs. Traditional vets</h3>
+        <ul>
+          <li>60+ biomarkers vs surface-level exam</li>
+          <li>In-home vs stressful clinic visit</li>
+          <li>45–60 min vs 10-min appointment</li>
+          <li>Preventative focus vs reactive treatment</li>
+          <li>Personalised report vs verbal summary</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h3>vs. Hugo Health (Sydney)</h3>
+        <ul>
+          <li>Adelaide-local vs Sydney-based</li>
+          <li>Dogs AND cats vs dogs only</li>
+          <li>Lean small business vs VC-funded startup</li>
+          <li>Warm, human brand vs tech aesthetic</li>
+          <li>Profitable from Year 1 vs burning runway</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <strong>Brand white space:</strong> Australian pet health is split between playful/cute brands and tech/startup brands. There's a clear gap for warm, restrained, Aesop-like premium — a brand that centres the human-pet bond.
+    </div>
+  </section>
+
+  <!-- ═══ Go-to-Market ═══ -->
+  <section>
+    <div class="section-label">Go-to-Market</div>
+    <h2>Launch strategy</h2>
+
+    <ul class="simple-list">
+      <li><span class="list-icon">&#x1F9EA;</span> <strong>Phase 0 — Validate ($900):</strong> Run a Facebook/Instagram ad campaign to a landing page in eastern suburbs. Target: 10 bookings to prove demand before committing.</li>
+      <li><span class="list-icon">&#x1F91D;</span> <strong>Phase 1 — Vet partner:</strong> Secure a contracted SA-registered veterinarian. Priority targets: Adelaide Home Vet, Pet Doctor Vet — both have service overlap and geographic fit.</li>
+      <li><span class="list-icon">&#x1F3E0;</span> <strong>Phase 2 — Foundation (months 1–3):</strong> Launch with 6–8 visits per week in Burnside, Unley, Norwood. Referral program, local vet partnerships, pet-friendly venue presence.</li>
+      <li><span class="list-icon">&#x1F4C8;</span> <strong>Phase 3 — Expansion (months 4–8):</strong> Grow to 10–12 visits per week. Add Annual Wellness Membership. SEO, Google Ads, social content.</li>
+      <li><span class="list-icon">&#x1F680;</span> <strong>Phase 4 — Growth (months 9–12):</strong> Expand service area. Second vet contractor if demand warrants. Target: 16 visits/week by end of Year 1.</li>
+    </ul>
+  </section>
+
+  <!-- ═══ Key Risks ═══ -->
+  <section>
+    <div class="section-label">Key Risks</div>
+    <h2>Risks &amp; mitigations</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Risk</th>
+            <th>Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-strong">Vet recruitment</td>
+            <td>Approach mobile/locum vets already set up for home visits. Offer flexible schedule + competitive per-visit rate.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Low initial demand</td>
+            <td>Validate with $900 MVP ad test before committing startup costs. Pivot or kill fast.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Price sensitivity</td>
+            <td>$650 is within the $400–$800 range Australians already spend annually on pet care. Frame as prevention vs $5K–$15K emergency.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Regulatory</td>
+            <td>All vet work performed by registered SA practitioners. Business does not provide veterinary advice — it facilitates access.</td>
+          </tr>
+          <tr>
+            <td class="td-strong">Hugo enters Adelaide</td>
+            <td>Hugo is dogs-only, VC-funded, and focused on Sydney/Melbourne. Adelaide market is too small for their model. Local trust is the moat.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══ Brand ═══ -->
+  <section>
+    <div class="section-label">Brand Direction</div>
+    <h2>How it looks and sounds</h2>
+
+    <div class="profile-grid">
+      <div class="profile-label">Tone of voice</div>
+      <div class="profile-value">Warm, conversational, emotionally honest. Speaks to the bond — "they'd do anything for you." Australian but not bogan. Casual but credible.</div>
+      <div class="profile-label">Visual style</div>
+      <div class="profile-value">Hooman-inspired: bold rounded typography, warm orange + cream palette, playful-but-premium illustration cards, generous whitespace</div>
+      <div class="profile-label">Typography</div>
+      <div class="profile-value">Fraunces (serif, headlines) + DM Sans (sans-serif, body). Optical sizing for warmth.</div>
+      <div class="profile-label">Colours</div>
+      <div class="profile-value">Warm orange #E8632B (primary), cream #FDF8F3 (background), sage #3D6B4F (secondary), charcoal #1A1614 (text)</div>
+      <div class="profile-label">Tagline</div>
+      <div class="profile-value" style="font-family: 'Fraunces', serif; font-style: italic;">Because they'd do it for you.</div>
+      <div class="profile-label">Name status</div>
+      <div class="profile-value">Final name TBC. Short, warm, memorable. 8 candidates shortlisted: Sage, Wren, Elm, Bower, Koda, Sera, Hazel, Birch.</div>
+    </div>
+  </section>
+
+  <!-- ═══ Contact ═══ -->
+  <section>
+    <div class="section-label">Contact</div>
+    <h2>Get in touch</h2>
+    <div class="profile-grid">
+      <div class="profile-label">Email</div>
+      <div class="profile-value">TBC</div>
+      <div class="profile-label">Location</div>
+      <div class="profile-value">Adelaide, South Australia</div>
+      <div class="profile-label">Website</div>
+      <div class="profile-value">Coming soon</div>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="footer-brand">Pet Biometrics Business — Adelaide</div>
+    <p>Business profile prepared April 2026. All projections based on interactive financial model assumptions.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
