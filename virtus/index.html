@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus — Specialist White-Collar Recruitment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <style>
+    @view-transition { navigation: auto; }
+    html { scrollbar-gutter: stable; }
+    .site-header { view-transition-name: site-header; }
+    ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1); }
+    @media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+    :root {
+      --v-navy: #0D1B2A;
+      --v-navy-light: #132238;
+      --v-navy-mid: #1A2D42;
+      --v-cyan: #7ED4E0;
+      --v-cyan-muted: rgba(126,212,224,0.15);
+      --v-white: #FFFFFF;
+      --v-light: #FBFBFB;
+      --v-text: #FFFFFF;
+      --v-text-secondary: rgba(255,255,255,0.6);
+      --v-text-tertiary: rgba(255,255,255,0.35);
+      --v-border: rgba(255,255,255,0.08);
+      --v-border-light: rgba(255,255,255,0.12);
+      --v-surface: rgba(255,255,255,0.04);
+      --v-max: 1320px;
+      --v-gutter: 24px;
+      --font-serif: 'Source Serif 4', 'Georgia', serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--v-text);
+      background: var(--v-navy);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: var(--v-max); margin: 0 auto; padding: 0 28px; }
+    section { position: relative; }
+
+    /* ── Placeholder shapes ── */
+    .placeholder-img {
+      background: var(--v-navy-mid);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--v-text-tertiary);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .placeholder-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%; background: var(--v-navy-mid);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .placeholder-avatar img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* ════════════════════════════════════
+       FLOATING NAVBAR
+    ════════════════════════════════════ */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 5%;
+    }
+    .header-pill {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--v-max);
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 12px 28px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .header-left { display: flex; align-items: center; gap: 40px; }
+    .logo {
+      display: flex; align-items: center;
+      text-decoration: none;
+    }
+    .logo img {
+      height: 20px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex; gap: 28px; list-style: none;
+    }
+    .nav-links a {
+            font-size: 14px;
+            font-weight: 450;
+            color: #4A4A4A;
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 2px;
+            background: var(--v-cyan);
+            transform: scaleX(0);
+            transform-origin: center center;
+            transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .nav-links a:hover { color: var(--v-navy); }
+        .nav-links a:hover::after { transform: scaleX(0.5); }
+        .nav-links a.is-current { color: var(--v-navy); }
+        .nav-links a.is-current::after { transform: scaleX(1); }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .btn-outline {
+      font-size: 14px; font-weight: 500; color: var(--v-navy);
+      text-decoration: none; padding: 10px 20px;
+      border: 1px solid rgba(13,27,42,0.2); border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(13,27,42,0.4); background: rgba(13,27,42,0.03); }
+    .btn-nav-primary {
+      font-size: 14px; font-weight: 600; color: #FFFFFF;
+      background: var(--v-navy); text-decoration: none;
+      padding: 10px 20px; border-radius: 8px;
+      border: none; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-nav-primary:hover { background: #1A2D42; }
+    .btn-cyan {
+      font-size: 13px; font-weight: 600; color: var(--v-navy);
+      background: var(--v-cyan); text-decoration: none;
+      padding: 9px 20px; border-radius: 6px;
+      border: none; cursor: pointer;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-cyan:hover { background: #6EC8D4; }
+
+    /* ════════════════════════════════════
+       MOBILE NAV (hamburger + overlay)
+    ════════════════════════════════════ */
+    .nav-toggle {
+      display: none;
+      width: 40px; height: 40px; padding: 0;
+      background: transparent; border: none;
+      color: var(--v-navy); cursor: pointer;
+      align-items: center; justify-content: center;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+    }
+    .nav-toggle:hover { background: rgba(13,27,42,0.04); }
+    .nav-toggle svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--v-navy);
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-12px);
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  visibility 0s 0.28s;
+      pointer-events: none;
+    }
+    .mobile-nav.open {
+      opacity: 1; visibility: visible;
+      transform: translateY(0);
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  visibility 0s;
+      pointer-events: auto;
+    }
+    .mobile-nav-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 5.5%;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-nav-head .logo img { height: 22px; width: auto; filter: brightness(0) invert(1); }
+    .mobile-nav-close {
+      width: 40px; height: 40px; padding: 0;
+      background: transparent; color: #fff; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .mobile-nav-close:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+    .mobile-nav-close svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+    .mobile-nav-body {
+      flex: 1;
+      padding: 112px 5.5% 32px;
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .mobile-nav-group { display: flex; flex-direction: column; }
+    .mobile-nav-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--v-cyan);
+      margin-bottom: 20px;
+    }
+    .mobile-nav-link {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 7.5vw, 38px);
+      font-weight: 400; letter-spacing: -0.01em;
+      line-height: 1.15; color: #fff;
+      text-decoration: none;
+      padding: 14px 0;
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .mobile-nav-group .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-nav-link::after {
+      content: '→';
+      font-family: var(--font-sans);
+      font-size: 16px; color: rgba(255,255,255,0.25);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .mobile-nav-link:hover, .mobile-nav-link:active { color: var(--v-cyan); }
+    .mobile-nav-link:hover::after, .mobile-nav-link:active::after { color: var(--v-cyan); transform: translateX(4px); }
+    .mobile-nav-cta {
+      padding: 24px 5.5% 28px;
+      display: flex; flex-direction: column; gap: 10px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-nav-cta a {
+      display: block; text-align: center;
+      padding: 16px 20px; border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+    .mobile-nav-cta .mnc-primary { background: var(--v-cyan); color: var(--v-navy); }
+    .mobile-nav-cta .mnc-primary:hover { background: #6EC8D4; }
+    .mobile-nav-cta .mnc-secondary {
+      background: transparent; color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .mobile-nav-cta .mnc-secondary:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+    .mobile-nav-meta {
+      padding: 0 5.5% 32px;
+      font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7;
+    }
+    .mobile-nav-meta a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .mobile-nav-meta a:hover { color: var(--v-cyan); }
+
+    /* State-aware header during open nav */
+    .header-pill, .nav-toggle, .logo img {
+      transition: background-color 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  box-shadow 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  color 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  filter 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    body.nav-locked .site-header { z-index: 250; }
+    body.nav-locked .header-pill { background: transparent; box-shadow: none; }
+    body.nav-locked .logo img { filter: brightness(0) invert(1); }
+    body.nav-locked .nav-toggle { color: #fff; }
+    /* Hamburger <-> X morph */
+    .nav-toggle .burger-line {
+      stroke: currentColor; stroke-width: 1.5; stroke-linecap: round;
+      transform-origin: 12px 12px;
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-toggle .burger-line.top { transform: translateY(-4px); }
+    .nav-toggle .burger-line.bottom { transform: translateY(4px); }
+    body.nav-locked .nav-toggle .burger-line.top { transform: rotate(45deg); }
+    body.nav-locked .nav-toggle .burger-line.bottom { transform: rotate(-45deg); }
+    body.nav-locked { overflow: hidden; }
+
+    /* ════════════════════════════════════
+       HERO
+    ════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 76vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('assets/virtus-hero-desktop.jpg') center right / cover no-repeat;
+      z-index: 0;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(13,27,42,0.7) 0%,
+        rgba(13,27,42,0.35) 45%,
+        rgba(13,27,42,0.05) 100%
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      width: 100%;
+      max-width: var(--v-max);
+      margin: 0 auto;
+      padding: 0 28px 40px;
+    }
+    .hero-label {
+      font-family: var(--font-sans);
+      font-size: 20px; font-weight: 400; letter-spacing: 0.01em;
+      color: var(--v-cyan);
+      margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: var(--font-sans);
+      font-size: 52px; font-weight: 400; letter-spacing: -0.02em;
+      line-height: 1.2; color: var(--v-white);
+      max-width: 620px;
+    }
+
+    /* ── Audience Router ── */
+    .audience-section {
+      background: var(--v-light);
+      border-bottom: 1px solid rgba(13,27,42,0.08);
+    }
+    .audience-router {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .audience-card {
+      padding: 32px 48px;
+      text-decoration: none; color: inherit;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .audience-card p { margin-bottom: 16px; }
+    .audience-card:first-child {
+      padding-left: 0;
+      border-right: 1px solid rgba(13,27,42,0.08);
+    }
+    .audience-card:last-child {
+      padding-right: 0;
+    }
+    .audience-card:hover {
+      background: rgba(13,27,42,0.02);
+    }
+    .audience-card h3 {
+      font-family: var(--font-serif);
+      font-size: 24px; font-weight: 600;
+      margin-bottom: 12px; color: var(--v-navy);
+    }
+    .audience-card p {
+      font-size: 15px; font-weight: 400; line-height: 1.65;
+      color: rgba(13,27,42,0.6); margin-bottom: 24px;
+    }
+    .audience-card .audience-link {
+      font-size: 13px; font-weight: 500; color: var(--v-cyan);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .audience-card:hover .audience-link { color: #5BC0CD; }
+
+    /* ════════════════════════════════════
+       VIDEO BLOCK
+    ════════════════════════════════════ */
+    .video-block {
+      background: var(--v-light);
+      padding: 96px 0 48px;
+    }
+    .video-section-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(13,27,42,0.4);
+      margin-bottom: 24px;
+    }
+    .video-intro-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      margin-bottom: 96px;
+      align-items: start;
+    }
+    .video-intro {
+      font-family: var(--font-serif);
+      font-size: 32px; font-weight: 400; line-height: 1.25;
+      color: var(--v-navy);
+    }
+    .intro-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      column-gap: 40px;
+    }
+    .intro-stat:nth-child(-n+2) {
+      padding-top: 0;
+    }
+    .intro-stat {
+      text-align: left;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(13,27,42,0.08);
+    }
+    .intro-stat-number {
+      font-family: var(--font-serif);
+      font-size: 40px; font-weight: 400;
+      color: var(--v-navy); line-height: 1;
+      margin-bottom: 6px;
+    }
+    .intro-stat-label {
+      font-size: 13px; font-weight: 400;
+      color: rgba(13,27,42,0.45);
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--v-navy-mid);
+    }
+    .video-poster {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      filter: grayscale(100%);
+    }
+    .video-container::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(13,27,42,0.1) 0%, rgba(13,27,42,0.45) 100%);
+      pointer-events: none;
+    }
+    .video-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 96px; height: 96px;
+      background: transparent; border: 0; padding: 0;
+      cursor: pointer; z-index: 2;
+      transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .video-play img { width: 100%; height: 100%; display: block; }
+    .video-play:hover { transform: translate(-50%, -50%) scale(1.06); }
+    .video-thumbnail {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      background: var(--v-navy-mid);
+      border: 0;
+    }
+
+    /* ════════════════════════════════════
+       SECTION SHARED STYLES
+    ════════════════════════════════════ */
+    .section-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 48px;
+    }
+    .section-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--v-cyan);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 40px; font-weight: 400;
+      line-height: 1.15; color: var(--v-white);
+    }
+    .section-link {
+      font-size: 13px; font-weight: 500; color: var(--v-text-secondary);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .section-link:hover { color: var(--v-cyan); }
+
+    /* ════════════════════════════════════
+       SECTORS
+    ════════════════════════════════════ */
+    .sectors {
+      padding: 48px 0 96px;
+      background: var(--v-light);
+    }
+    .sectors .container {
+      border-bottom: 1px solid rgba(13,27,42,0.06);
+      padding-bottom: 96px;
+    }
+    .sectors .section-label { color: rgba(13,27,42,0.4); }
+    .sectors .section-title { color: var(--v-navy); }
+    .sectors .section-link { color: var(--v-navy); }
+    .sectors .section-link:hover { color: var(--v-cyan); }
+    .sectors-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .sector-card {
+      background: var(--v-white);
+      border-radius: 10px;
+      padding: 32px 24px;
+      text-align: left;
+      text-decoration: none; color: inherit;
+      transition: all 0.25s;
+      border: 1px solid rgba(13,27,42,0.06);
+    }
+    .sector-card:hover {
+      border-color: rgba(13,27,42,0.12);
+      background: var(--v-white);
+    }
+    .sector-icon {
+      margin-bottom: 16px;
+    }
+    .sector-icon .material-icons-outlined {
+      font-size: 28px;
+      color: var(--v-cyan);
+    }
+    .sector-name {
+      font-size: 15px; font-weight: 600; color: var(--v-navy);
+      margin-bottom: 6px;
+    }
+    .sector-count {
+      font-size: 12px; font-weight: 400; color: rgba(13,27,42,0.45);
+    }
+
+    /* ════════════════════════════════════
+       SPLIT VALUE PROP
+    ════════════════════════════════════ */
+    .value-prop {
+      background: var(--v-light);
+      padding-bottom: 96px;
+    }
+    .value-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .value-row + .value-row {
+      margin-top: 64px;
+    }
+    .value-image {
+      width: 100%; height: 100%; min-height: 400px;
+      background: rgba(13,27,42,0.06);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(13,27,42,0.25);
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+    .value-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .value-text {
+      padding: 72px 48px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .value-text .section-label {
+      color: rgba(13,27,42,0.4);
+    }
+    .value-text h3 {
+      font-family: var(--font-serif);
+      font-size: 32px; font-weight: 600; letter-spacing: -0.02em;
+      line-height: 1.2; margin-bottom: 16px;
+      color: var(--v-navy);
+    }
+    .value-text > p:not(.section-label) {
+      font-size: 15px; font-weight: 400; line-height: 1.65;
+      color: rgba(13,27,42,0.6); margin-bottom: 24px;
+      max-width: 440px;
+    }
+    .value-text .value-link {
+      font-size: 13px; font-weight: 500; color: var(--v-cyan);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .value-text .value-link:hover { color: #5BC0CD; }
+
+    /* ════════════════════════════════════
+       EMPLOYER SERVICES
+    ════════════════════════════════════ */
+    .services {
+      padding: 96px 0;
+      background: var(--v-light);
+    }
+    .services .section-label { color: rgba(13,27,42,0.4); }
+    .services .section-title { color: var(--v-navy); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .service-card {
+      background: var(--v-white);
+      border-radius: 10px;
+      padding: 36px 28px;
+      border: 1px solid rgba(13,27,42,0.06);
+      transition: all 0.2s;
+    }
+    .service-card:hover { border-color: rgba(13,27,42,0.12); }
+    .service-card h3 {
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 600;
+      margin-bottom: 12px; color: var(--v-navy);
+    }
+    .service-card p {
+      font-size: 13px; font-weight: 400; line-height: 1.65;
+      color: rgba(13,27,42,0.6); margin-bottom: 20px;
+    }
+    .service-card .card-link {
+      font-size: 13px; font-weight: 500;
+      color: var(--v-navy); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .service-card .card-link:hover { color: var(--v-cyan); }
+
+    /* ════════════════════════════════════
+       INSIGHTS / EDITORIAL
+    ════════════════════════════════════ */
+    .insights {
+      padding: 96px 0;
+      background: var(--v-navy);
+    }
+    .insights .section-link { color: var(--v-cyan); }
+    .insights .section-link:hover { color: #5BC0CD; }
+    .insights-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .insight-card {
+      text-decoration: none; color: inherit;
+      transition: opacity 0.2s;
+    }
+    .insight-card:hover { opacity: 0.85; }
+    .insight-image {
+      width: 100%; aspect-ratio: 16/10;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .insight-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .insight-category {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--v-cyan);
+      margin-bottom: 8px;
+    }
+    .insight-title {
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 600;
+      line-height: 1.35; margin-bottom: 8px; color: var(--v-white);
+    }
+    .insight-excerpt {
+      font-size: 13px; font-weight: 400; line-height: 1.55;
+      color: var(--v-text-secondary);
+    }
+
+    /* ════════════════════════════════════
+       TESTIMONIALS
+    ════════════════════════════════════ */
+    .testimonials {
+      padding: 96px 0;
+      background: var(--v-light);
+    }
+    .testimonials .section-label { color: rgba(13,27,42,0.4); }
+    .testimonials .section-title { color: var(--v-navy); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .testimonial-card {
+      text-align: center;
+      padding: 24px 0;
+    }
+    .testimonial-quote {
+      font-family: var(--font-serif);
+      font-size: 22px; font-weight: 400; line-height: 1.5;
+      color: var(--v-navy); margin-bottom: 28px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .testimonial-author .placeholder-avatar {
+      display: none;
+    }
+    .author-name {
+      font-size: 14px; font-weight: 600; color: var(--v-navy);
+    }
+    .author-role {
+      font-size: 12px; font-weight: 400; color: rgba(13,27,42,0.45);
+      margin-top: 2px;
+    }
+
+    /* ════════════════════════════════════
+       CTA BAND
+    ════════════════════════════════════ */
+    .cta-band {
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background: url('assets/virtus-hero.jpg') center center / cover no-repeat;
+      z-index: 0;
+    }
+    .cta-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(13,27,42,0.8);
+    }
+    .cta-inner {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-inner h2 {
+      font-family: var(--font-serif);
+      font-size: 44px; font-weight: 600;
+      line-height: 1.1; margin-bottom: 16px; color: var(--v-white);
+    }
+    .cta-inner p {
+      font-size: 16px; font-weight: 400; line-height: 1.6;
+      color: rgba(255,255,255,0.6); margin-bottom: 36px;
+    }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+    .cta-buttons .btn-cyan {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+    .cta-buttons .btn-outline {
+      font-size: 15px; padding: 14px 28px; border-radius: 8px;
+    }
+
+    /* ════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════ */
+    .site-footer {
+      padding: 64px 0 32px;
+      background: #07111C;
+      color: rgba(255,255,255,0.5);
+      border-top: 2px solid var(--v-cyan);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo {
+      display: inline-block; margin-bottom: 16px;
+    }
+    .footer-brand .logo img {
+      height: 18px; width: auto;
+    }
+    .footer-tagline {
+      font-size: 14px; font-weight: 400; line-height: 1.5;
+      color: rgba(255,255,255,0.35); max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a {
+      font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.45);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--v-cyan); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-copyright {
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2);
+    }
+    .footer-legal {
+      display: flex; gap: 24px;
+    }
+    .footer-legal a {
+      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2);
+      text-decoration: none;
+    }
+    .footer-legal a:hover { color: rgba(255,255,255,0.5); }
+
+
+    /* ════════════════════════════════════
+       RESPONSIVE – TABLET
+    ════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .site-header { padding: 12px 3%; }
+      .header-pill { padding: 8px 10px 8px 16px; border-radius: 12px; }
+      .nav-links, .header-right { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .logo { font-size: 12px; }
+
+      .hero { min-height: 65vh; }
+      .hero-bg { background-image: url('assets/virtus-hero-mobile.jpg'); background-position: center center; }
+      .hero h1 { font-size: 36px; max-width: none; }
+      .hero-label { font-size: 18px; }
+      .hero-content { padding: 0 28px 12%; }
+      .audience-router { grid-template-columns: 1fr; }
+      .audience-card:first-child { border-right: none; border-bottom: 1px solid rgba(13,27,42,0.08); padding-left: 0; }
+      .audience-card:last-child { padding-right: 0; }
+      .audience-card { padding: 32px 0; }
+
+      .video-block { padding: 64px 0 32px; }
+      .video-play { width: 48px; height: 48px; }
+      .video-intro-layout { grid-template-columns: 1fr; gap: 56px; margin-bottom: 48px; }
+      .video-intro { font-size: 26px; }
+
+      .sectors { padding: 40px 0 64px; }
+      .sectors .container { padding-bottom: 64px; }
+      .sectors-grid { grid-template-columns: 1fr 1fr; }
+
+      .value-prop { padding-bottom: 64px; }
+      .value-row { grid-template-columns: 1fr; }
+      .value-row + .value-row { margin-top: 48px; }
+      .value-row:nth-child(2) .value-image { order: 1; }
+      .value-row:nth-child(2) .value-text { order: 2; }
+      .value-image { min-height: 260px; }
+      .value-text { padding: 40px 0 8px; }
+
+      .services { padding: 64px 0; }
+      .services-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      .insights { padding: 64px 0; }
+      .insights-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .testimonials { padding: 64px 0; }
+      .testimonials-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .section-header {
+        flex-direction: column; align-items: flex-start;
+        gap: 16px; margin-bottom: 32px;
+      }
+      .section-title { font-size: 32px; }
+
+      .cta-band { padding: 64px 0; }
+      .cta-inner h2 { font-size: 32px; }
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-cyan,
+      .cta-buttons .btn-outline { width: 100%; text-align: center; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ════════════════════════════════════
+       RESPONSIVE – MOBILE
+    ════════════════════════════════════ */
+    @media (max-width: 480px) {
+      :root { --v-gutter: 16px; }
+
+      .hero { min-height: 60vh; }
+      .hero h1 { font-size: 28px; max-width: none; }
+      .hero-label { font-size: 16px; }
+      .hero-content { padding: 0 20px 10%; }
+      .audience-card { padding: 28px 0; }
+      .audience-card:first-child { padding-left: 0; }
+      .audience-card:last-child { padding-right: 0; }
+      .audience-card h3 { font-size: 20px; }
+      .audience-card p { font-size: 14px; }
+
+      .video-block { padding: 48px 0 24px; }
+      .video-intro-layout { gap: 48px; margin-bottom: 32px; }
+      .video-intro { font-size: 22px; }
+      .intro-stats { grid-template-columns: 1fr; }
+      .intro-stat { padding: 20px 0; }
+      .intro-stat:nth-child(2) { padding-top: 20px; }
+      .intro-stat-number { font-size: 32px; }
+
+      .sectors { padding: 32px 0 48px; }
+      .sectors .container { padding-bottom: 48px; }
+      .sectors-grid { grid-template-columns: 1fr; gap: 12px; }
+      .sector-card { padding: 24px 20px; }
+
+      .section-header { margin-bottom: 24px; }
+      .section-title { font-size: 28px; }
+
+      .value-prop { padding-bottom: 48px; }
+      .value-row + .value-row { margin-top: 32px; }
+      .value-text { padding: 32px 0 4px; }
+      .value-text h3 { font-size: 24px; }
+      .value-image { min-height: 220px; }
+
+      .services { padding: 48px 0; }
+      .service-card { padding: 28px 20px; }
+
+      .insights { padding: 48px 0; }
+      .insights-grid { gap: 32px; }
+
+      .testimonials { padding: 48px 0; }
+      .testimonials-grid { gap: 32px; }
+
+      .cta-band { padding: 48px 0; }
+      .cta-inner h2 { font-size: 28px; }
+      .cta-inner p { font-size: 14px; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+    }
+  
+    /* ── Page-load reveals ── */
+    @keyframes v-reveal {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero .hero-content > * {
+      opacity: 0;
+      animation: v-reveal 800ms cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+    .hero .hero-content > *:nth-child(1) { animation-delay: 120ms; }
+    .hero .hero-content > *:nth-child(2) { animation-delay: 280ms; }
+    .hero .hero-content > *:nth-child(3) { animation-delay: 440ms; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero .hero-content > * { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- ════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+
+
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-label">Specialist Recruitment</p>
+    <h1>White-Collar Recruitment That Delivers.</h1>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     AUDIENCE ROUTER
+════════════════════════════════════════════ -->
+<section class="audience-section">
+  <div class="container">
+    <div class="audience-router">
+      <a href="candidates.html" class="audience-card">
+        <h3>Looking for a role</h3>
+        <p>80% of our roles never hit a job board. Talk to a sector specialist who knows your market, your salary band, and the hiring managers.</p>
+        <span class="audience-link">Search Roles &rarr;</span>
+      </a>
+      <a href="employers.html" class="audience-card">
+        <h3>Hiring talent</h3>
+        <p>A bad hire costs 2.5x the salary. Virtus sends two or three candidates, not twenty. Shortlist in 48 hours. No placement, no fee.</p>
+        <span class="audience-link">Submit a Role &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     VIDEO BLOCK
+════════════════════════════════════════════ -->
+<section class="video-block">
+  <div class="container">
+    <p class="video-section-label">About Virtus</p>
+    <div class="video-intro-layout">
+      <p class="video-intro">Virtus was built inside Momentum Consulting after fifteen years of specialist recruitment. We saw the same problem across every white-collar sector: too many generalist agencies sending too many wrong candidates. So we built something different.</p>
+      <div class="intro-stats">
+        <div class="intro-stat">
+          <div class="intro-stat-number">12+</div>
+          <div class="intro-stat-label">Years placing white-collar professionals</div>
+        </div>
+        <div class="intro-stat">
+          <div class="intro-stat-number">97%</div>
+          <div class="intro-stat-label">Of clients would use Virtus again</div>
+        </div>
+        <div class="intro-stat">
+          <div class="intro-stat-number">5</div>
+          <div class="intro-stat-label">Sectors, one consultant each</div>
+        </div>
+        <div class="intro-stat">
+          <div class="intro-stat-number">92%</div>
+          <div class="intro-stat-label">Still in role at 12 months</div>
+        </div>
+      </div>
+    </div>
+    <div class="video-container">
+      <img class="video-poster" src="assets/virtus-video-thumb.jpg" alt="About Virtus">
+      <button class="video-play" type="button" aria-label="Play About Virtus video">
+        <img src="assets/virtus-playbutton.svg" alt="">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SECTORS
+════════════════════════════════════════════ -->
+<section class="sectors">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-label">Specialisations</p>
+        <h2 class="section-title">Five sectors. Specialist depth in each.</h2>
+      </div>
+      <a href="sectors.html" class="section-link">View all sectors &rarr;</a>
+    </div>
+    <div class="sectors-grid">
+      <a href="roles.html" class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">account_balance</span></div>
+        <div class="sector-name">Accounting &amp; Finance</div>
+        <div class="sector-count">24 open roles</div>
+      </a>
+      <a href="roles.html" class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">memory</span></div>
+        <div class="sector-name">Technology &amp; IT</div>
+        <div class="sector-count">18 open roles</div>
+      </a>
+      <a href="roles.html" class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">gavel</span></div>
+        <div class="sector-name">Legal</div>
+        <div class="sector-count">12 open roles</div>
+      </a>
+      <a href="roles.html" class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">groups</span></div>
+        <div class="sector-name">Human Resources</div>
+        <div class="sector-count">9 open roles</div>
+      </a>
+      <a href="roles.html" class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">campaign</span></div>
+        <div class="sector-name">Marketing</div>
+        <div class="sector-count">14 open roles</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     VALUE PROPOSITION (Candidate / Employer split)
+════════════════════════════════════════════ -->
+<section class="value-prop">
+  <div class="container">
+    <div class="value-row">
+      <div class="value-image"><img src="assets/virtus-candidates.jpg" alt="Candidate on a call with Virtus in Sydney CBD"></div>
+      <div class="value-text">
+        <p class="section-label">For Candidates</p>
+        <h3>One call. One role.<br>The right one.</h3>
+        <p>Stop scrolling job boards. Talk to a recruiter who already knows your market, has roles you will not find online, and will not waste your time.</p>
+        <a href="candidates.html" class="value-link">Search Roles &rarr;</a>
+      </div>
+    </div>
+    <div class="value-row">
+      <div class="value-text">
+        <p class="section-label">For Employers</p>
+        <h3>92% still in role<br>after 12 months.</h3>
+        <p>Bad hires cost 2.5x the salary. Virtus sends two or three candidates, not twenty. Each one referenced, culture-matched, and built to last.</p>
+        <a href="employers.html" class="value-link">Submit a Role &rarr;</a>
+      </div>
+      <div class="value-image"><img src="assets/virtus-employers.jpg" alt="Virtus placement thriving in role after twelve months"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     EMPLOYER SERVICES
+════════════════════════════════════════════ -->
+<section class="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-label">How We Work</p>
+        <h2 class="section-title">Three ways to hire with Virtus</h2>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Permanent Recruitment</h3>
+        <p>Specialist search and selection for permanent hires across our five core sectors. Every candidate is pre-qualified, referenced, and matched to your culture.</p>
+        <a href="#" class="card-link">Learn more &rarr;</a>
+      </div>
+      <div class="service-card">
+        <h3>Contract &amp; Temp</h3>
+        <p>Flexible workforce solutions for project work, parental cover, and peak periods. Access pre-vetted professionals ready to start immediately.</p>
+        <a href="#" class="card-link">Learn more &rarr;</a>
+      </div>
+      <div class="service-card">
+        <h3>Executive Search</h3>
+        <p>Senior and leadership appointments handled with discretion. Targeted search backed by deep market knowledge and established networks.</p>
+        <a href="#" class="card-link">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     INSIGHTS / EDITORIAL
+════════════════════════════════════════════ -->
+<section class="insights">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-label">Market Insights</p>
+        <h2 class="section-title">Salary data and hiring trends from your sector</h2>
+      </div>
+      <a href="insights.html" class="section-link">View all insights &rarr;</a>
+    </div>
+    <div class="insights-grid">
+      <a href="insight.html?img=assets/insight-salary-trends.jpg&amp;category=Salary%20Trends&amp;title=Finance%20salary%20benchmarks%3A%20what%20has%20shifted%20in%202026" class="insight-card">
+        <div class="insight-image"><img src="assets/insight-salary-trends.jpg" alt="Conceptual illustration of mountain peaks at different heights in dawn mist, representing shifting salary benchmarks"></div>
+        <p class="insight-category">Salary Trends</p>
+        <h3 class="insight-title">Finance salary benchmarks: what has shifted in 2026</h3>
+        <p class="insight-excerpt">A breakdown of salary movements across mid-market finance roles in Sydney, Melbourne, and Brisbane.</p>
+      </a>
+      <a href="insight.html?img=assets/insight-passive-candidates.jpg&amp;category=Hiring%20Insights&amp;title=Why%20your%20best%20candidates%20are%20not%20on%20job%20boards" class="insight-card">
+        <div class="insight-image"><img src="assets/insight-passive-candidates.jpg" alt="Conceptual illustration of a passive candidate stepping away from a crowd of identical figures"></div>
+        <p class="insight-category">Hiring Insights</p>
+        <h3 class="insight-title">Why your best candidates are not on job boards</h3>
+        <p class="insight-excerpt">The passive candidate market is larger than most employers realise. Here is how to reach them.</p>
+      </a>
+      <a href="insight.html?img=assets/insight-q1-market-update.jpg&amp;category=Market%20Update&amp;title=Q1%202026%3A%20the%20sectors%20hiring%20and%20the%20ones%20holding" class="insight-card">
+        <div class="insight-image"><img src="assets/insight-q1-market-update.jpg" alt="Conceptual illustration of five watchtowers on a ridge — two lit and three dark, representing active and holding sectors"></div>
+        <p class="insight-category">Market Update</p>
+        <h3 class="insight-title">Q1 2026: the sectors hiring and the ones holding</h3>
+        <p class="insight-excerpt">A snapshot of demand across our five specialist sectors heading into the new financial year.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════════════ -->
+<section class="testimonials">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 64px;">
+      <p class="section-label">Results, Not Promises</p>
+      <h2 class="section-title">Hear it from the people we have placed</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">&ldquo;They already knew our business before the first call. Two placements, both still here eighteen months later. That is the difference.&rdquo;</p>
+        <div class="testimonial-author">
+          <div class="placeholder-avatar"><img src="assets/testimonial-cfo.jpg" alt="CFO portrait"></div>
+          <div>
+            <div class="author-name">Client Name</div>
+            <div class="author-role">CFO, Mid-Market Financial Services</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">&ldquo;Most recruiters waste your time with roles that are not right. Virtus called once with the perfect role. I took it.&rdquo;</p>
+        <div class="testimonial-author">
+          <div class="placeholder-avatar"><img src="assets/testimonial-legal.jpg" alt="Senior Legal Counsel portrait"></div>
+          <div>
+            <div class="author-name">Candidate Name</div>
+            <div class="author-role">Senior Legal Counsel</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">&ldquo;We needed three hires in two weeks. Virtus delivered all three, and every one passed probation. No other agency came close.&rdquo;</p>
+        <div class="testimonial-author">
+          <div class="placeholder-avatar"><img src="assets/testimonial-head-of-people.jpg" alt="Head of People portrait"></div>
+          <div>
+            <div class="author-name">Client Name</div>
+            <div class="author-role">Head of People, Tech Scale-Up</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CTA BAND
+════════════════════════════════════════════ -->
+<section class="cta-band">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Built to Deliver.</h2>
+      <p>92% placement retention. 48-hour shortlists. Five specialist sectors. Talk to the recruiter who already knows your market.</p>
+      <div class="cta-buttons">
+        <a href="roles.html" class="btn-cyan" style="font-size:15px; padding:14px 28px; border-radius:8px;">Search Roles</a>
+        <a href="submit-role.html" class="btn-outline" style="font-size:15px; padding:14px 28px; border-radius:8px; background:#fff; color:var(--v-navy); border-color:rgba(255,255,255,0.9);">Submit a Role</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="assets/virtus-logo-light.svg" alt="Virtus"></a>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Candidates</h4>
+        <ul>
+          <li><a href="roles.html">Search Jobs</a></li>
+          </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Employers</h4>
+        <ul>
+          <li><a href="submit-role.html">Submit a Role</a></li>
+          <li><a href="employers.html">Our Services</a></li>
+          <li><a href="insights.html">Market Insights</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sectors</h4>
+        <ul>
+          <li><a href="sectors.html#finance">Finance</a></li>
+          <li><a href="sectors.html#technology">Technology</a></li>
+          <li><a href="sectors.html#legal">Legal</a></li>
+          <li><a href="sectors.html#hr">Human Resources</a></li>
+          <li><a href="sectors.html#marketing">Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Virtus</a></li>
+          <li><a href="about.html#team">Our Team</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/nav.js" defer></script>
+</body>
+</html>

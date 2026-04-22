@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus — For Candidates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <style>
+    @view-transition { navigation: auto; }
+    html { scrollbar-gutter: stable; }
+    .site-header { view-transition-name: site-header; }
+    ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1); }
+    @media (prefers-reduced-motion: reduce) { ::view-transition-old(root), ::view-transition-new(root) { animation: none; } }
+    :root {
+      --v-navy: #0D1B2A;
+      --v-navy-light: #132238;
+      --v-navy-mid: #1A2D42;
+      --v-cyan: #7ED4E0;
+      --v-cyan-muted: rgba(126,212,224,0.15);
+      --v-white: #FFFFFF;
+      --v-light: #FBFBFB;
+      --v-text: #FFFFFF;
+      --v-text-secondary: rgba(255,255,255,0.6);
+      --v-text-tertiary: rgba(255,255,255,0.35);
+      --v-border: rgba(255,255,255,0.08);
+      --v-border-light: rgba(255,255,255,0.12);
+      --v-surface: rgba(255,255,255,0.04);
+      --v-max: 1320px;
+      --v-gutter: 24px;
+      --font-serif: 'Source Serif 4', 'Georgia', serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); color: var(--v-navy); background: var(--v-light); -webkit-font-smoothing: antialiased; }
+    .container { max-width: var(--v-max); margin: 0 auto; padding: 0 28px; }
+    section { position: relative; }
+    .placeholder-img { background: rgba(13,27,42,0.06); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: rgba(13,27,42,0.25); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+    .placeholder-avatar { width: 48px; height: 48px; border-radius: 50%; background: rgba(13,27,42,0.08); flex-shrink: 0; }
+
+    /* ── Floating Navbar ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 5%; }
+    .header-pill { display: flex; align-items: center; justify-content: space-between; max-width: var(--v-max); margin: 0 auto; background: #FFFFFF; border-radius: 14px; padding: 12px 28px; box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04); }
+    .header-left { display: flex; align-items: center; gap: 40px; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 20px; width: auto; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 450; color: #4A4A4A; text-decoration: none; letter-spacing: 0.01em; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--v-cyan); transform: scaleX(0); transform-origin: center center; transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1); }
+    .nav-links a:hover { color: var(--v-navy); }
+    .nav-links a:hover::after { transform: scaleX(0.5); }
+    .nav-links a.is-current { color: var(--v-navy); }
+    .nav-links a.is-current::after { transform: scaleX(1); }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .btn-outline { font-size: 14px; font-weight: 500; color: var(--v-navy); text-decoration: none; padding: 10px 20px; border: 1px solid rgba(13,27,42,0.2); border-radius: 8px; transition: all 0.2s; }
+    .btn-outline:hover { border-color: rgba(13,27,42,0.4); background: rgba(13,27,42,0.03); }
+    .btn-nav-primary { font-size: 14px; font-weight: 600; color: #FFFFFF; background: var(--v-navy); text-decoration: none; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-nav-primary:hover { background: #1A2D42; }
+    .btn-primary { font-size: 13px; font-weight: 600; color: #fff; background: var(--v-navy); text-decoration: none; padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; display: inline-block; }
+    .btn-primary:hover { background: #1A2D42; }
+    .btn-secondary { font-size: 13px; font-weight: 500; color: var(--v-navy); text-decoration: none; padding: 10px 20px; border: 1px solid rgba(13,27,42,0.2); border-radius: 8px; transition: all 0.2s; display: inline-block; }
+    .btn-secondary:hover { border-color: rgba(13,27,42,0.4); background: rgba(13,27,42,0.03); }
+
+    /* ── Section helpers ── */
+    .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .section-label { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(13,27,42,0.4); margin-bottom: 12px; }
+    .section-title { font-family: var(--font-serif); font-size: 40px; font-weight: 400; line-height: 1.15; color: var(--v-navy); }
+    .section-title strong { font-weight: 600; }
+    .section-link { font-size: 13px; font-weight: 500; color: var(--v-navy); text-decoration: none; transition: color 0.2s; }
+    .section-link:hover { color: var(--v-cyan); }
+
+    /* ── Hero ── */
+    .hero { position: relative; min-height: 56vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--v-navy); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center center; filter: grayscale(100%); display: block; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,27,42,0.88) 0%, rgba(13,27,42,0.65) 45%, rgba(13,27,42,0.15) 100%); }
+    .hero-content { position: relative; z-index: 1; width: 100%; padding: 140px 0 80px; }
+    .hero-inner { max-width: 560px; }
+    .hero-label { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--v-cyan); margin-bottom: 20px; }
+    .hero h1 { font-family: var(--font-serif); font-size: 48px; font-weight: 400; letter-spacing: -0.02em; line-height: 1.12; margin-bottom: 24px; color: var(--v-white); }
+    .hero h1 strong { font-weight: 700; }
+    .hero-body { font-size: 18px; font-weight: 400; line-height: 1.55; color: rgba(255,255,255,0.72); max-width: 520px; }
+    .hero-ctas { display: flex; gap: 12px; margin-top: 32px; }
+    .hero-ctas .btn-primary { font-size: 15px; padding: 14px 28px; border-radius: 8px; background: var(--v-cyan); color: var(--v-navy); border: 1px solid var(--v-cyan); }
+    .hero-ctas .btn-primary:hover { background: #6EC8D4; border-color: #6EC8D4; }
+    .hero-ctas .btn-secondary { font-size: 15px; padding: 14px 28px; border-radius: 8px; color: #FFFFFF; border-color: rgba(255,255,255,0.3); background: transparent; }
+    .hero-ctas .btn-secondary:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
+
+    /* ── Search Bar ── */
+    .search-section { padding: 56px 0; }
+    .search-card { background: #FFFFFF; border: 1px solid rgba(13,27,42,0.06); border-radius: 12px; padding: 24px 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .search-row { display: flex; gap: 12px; align-items: center; }
+    .search-field { flex: 1; }
+    .search-field label { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(13,27,42,0.4); margin-bottom: 6px; }
+    .search-field input, .search-field select { width: 100%; padding: 10px 14px; font-size: 14px; font-family: var(--font-sans); border: 1px solid rgba(13,27,42,0.12); border-radius: 6px; background: var(--v-light); color: var(--v-navy); outline: none; transition: border-color 0.2s; }
+    .search-field input:focus, .search-field select:focus { border-color: rgba(13,27,42,0.3); }
+    .search-btn { padding: 12px 28px; font-size: 14px; font-weight: 600; color: #fff; background: var(--v-navy); border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; align-self: flex-end; white-space: nowrap; }
+    .search-btn:hover { background: #1A2D42; }
+
+    /* ── Proof Strip ── */
+    .proof-strip { min-height: 28vh; padding: 40px 0; border-bottom: 1px solid rgba(13,27,42,0.06); display: flex; align-items: center; }
+    .proof-strip > .container { width: 100%; }
+    .proof-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .proof-item { position: relative; padding: 0 40px; text-align: left; }
+    .proof-item:first-child { padding-left: 0; }
+    .proof-item:last-child { padding-right: 0; }
+    .proof-item + .proof-item::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 60%; background: rgba(13,27,42,0.1); }
+    .proof-number { font-family: var(--font-serif); font-size: 52px; font-weight: 400; letter-spacing: -0.02em; line-height: 1; color: var(--v-navy); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+    .proof-label { font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(13,27,42,0.55); max-width: 200px; }
+
+    /* ── Job Cards ── */
+    .roles-section { padding: 80px 0; }
+    .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .job-card { background: #FFFFFF; border: 1px solid rgba(13,27,42,0.06); border-radius: 10px; padding: 28px; transition: border-color 0.2s; text-decoration: none; color: inherit; display: block; }
+    .job-card:hover { border-color: rgba(13,27,42,0.2); }
+    .job-card-title { font-family: var(--font-serif); font-size: 20px; font-weight: 500; margin-bottom: 8px; color: var(--v-navy); }
+    .job-card-company { font-size: 14px; font-weight: 500; color: rgba(13,27,42,0.6); margin-bottom: 12px; }
+    .job-card-meta { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; font-size: 13px; color: rgba(13,27,42,0.5); }
+    .job-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; background: rgba(13,27,42,0.04); color: rgba(13,27,42,0.6); margin-bottom: 16px; }
+    .job-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(13,27,42,0.06); }
+    .job-card-link { font-size: 13px; font-weight: 500; color: var(--v-navy); text-decoration: none; }
+    .job-card-link:hover { color: var(--v-cyan); }
+
+    /* ── Sectors Grid ── */
+    .sectors-section { padding: 80px 0; background: #FFFFFF; }
+    .sectors-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+    .sector-card { background: var(--v-light); border: 1px solid rgba(13,27,42,0.06); border-radius: 10px; padding: 32px 24px; text-align: center; transition: border-color 0.2s; }
+    .sector-card:hover { border-color: rgba(13,27,42,0.2); }
+    .sector-icon { width: 48px; height: 48px; margin: 0 auto 16px; border-radius: 10px; background: rgba(13,27,42,0.04); display: flex; align-items: center; justify-content: center; }
+    .sector-icon .material-icons-outlined { font-size: 24px; color: var(--v-cyan); }
+    .sector-card h3 { font-family: var(--font-serif); font-size: 17px; font-weight: 500; margin-bottom: 12px; color: var(--v-navy); }
+    .sector-card-link { font-size: 13px; font-weight: 500; color: var(--v-navy); text-decoration: none; }
+    .sector-card-link:hover { color: var(--v-cyan); }
+
+    /* ── How It Works ── */
+    .how-section { padding: 80px 0; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .step-card { position: relative; }
+    .step-number { font-family: var(--font-serif); font-size: 80px; font-weight: 400; color: rgba(13,27,42,0.08); line-height: 1; margin-bottom: 16px; }
+    .step-card h3 { font-family: var(--font-serif); font-size: 22px; font-weight: 500; margin-bottom: 12px; color: var(--v-navy); }
+    .step-card p { font-size: 14px; line-height: 1.6; color: rgba(13,27,42,0.55); }
+
+    /* ── Why Virtus ── */
+    .why-section { padding: 80px 0; background: #FFFFFF; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .why-content h2 { font-family: var(--font-serif); font-size: 36px; font-weight: 400; line-height: 1.2; margin-bottom: 20px; color: var(--v-navy); }
+    .why-content p:not(.section-label) { font-size: 16px; line-height: 1.6; color: rgba(13,27,42,0.6); margin-bottom: 28px; }
+    .why-list { list-style: none; margin-bottom: 32px; }
+    .why-list li { display: flex; gap: 16px; margin-bottom: 20px; }
+    .why-list-num { font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--v-navy); flex-shrink: 0; width: 28px; }
+    .why-list-text h4 { font-size: 15px; font-weight: 600; color: var(--v-navy); margin-bottom: 4px; }
+    .why-list-text p { font-size: 14px; color: rgba(13,27,42,0.55); margin-bottom: 0; }
+    .why-image .placeholder-img { width: 100%; height: 420px; border-radius: 10px; }
+
+    /* ── Testimonial ── */
+    .testimonial-section { padding: 80px 0; background: #FFFFFF; }
+    .testimonial-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .testimonial-quote { font-family: var(--font-serif); font-size: 24px; font-weight: 400; font-style: italic; line-height: 1.5; color: var(--v-navy); margin-bottom: 28px; }
+    .testimonial-author { display: flex; align-items: center; gap: 16px; justify-content: center; }
+    .testimonial-name { font-size: 15px; font-weight: 600; color: var(--v-navy); }
+    .testimonial-role { font-size: 13px; color: rgba(13,27,42,0.5); }
+
+    /* ── CTA Band ── */
+    .cta-band { padding: 120px 0; position: relative; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; background: url('assets/virtus-hero.jpg') center center / cover no-repeat; z-index: 0; }
+    .cta-bg::after { content: ''; position: absolute; inset: 0; background: rgba(13,27,42,0.8); }
+    .cta-inner { text-align: center; max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-inner h2 { font-family: var(--font-serif); font-size: 44px; font-weight: 600; line-height: 1.1; margin-bottom: 16px; color: var(--v-white); }
+    .cta-inner p { font-size: 16px; font-weight: 400; line-height: 1.6; color: rgba(255,255,255,0.6); margin-bottom: 36px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; }
+    .cta-band .btn-nav-primary { background: var(--v-cyan); color: var(--v-navy); border-color: var(--v-cyan); }
+    .cta-band .btn-nav-primary:hover { background: #6EC8D4; }
+
+    /* ── Footer ── */
+    .site-footer { padding: 64px 0 32px; background: #07111C; color: rgba(255,255,255,0.5); border-top: 2px solid var(--v-cyan); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .logo { display: inline-block; margin-bottom: 16px; }
+    .footer-brand .logo img { height: 18px; width: auto; }
+    .footer-tagline { font-size: 14px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.35); max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--v-cyan); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-copyright { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.5); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .site-header { padding: 12px 3%; }
+      .header-pill { padding: 8px 10px 8px 16px; border-radius: 12px; }
+      .nav-links, .header-right { display: none; }
+      .hero { min-height: 65vh; }
+      .hero-content { padding: 120px 0 56px; }
+      .hero h1 { font-size: 36px; max-width: none; }
+      .hero-body { font-size: 16px; }
+      .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; }
+      .hero-ctas .btn-primary, .hero-ctas .btn-secondary { width: 100%; text-align: center; }
+      .section-header {
+        flex-direction: column; align-items: flex-start;
+        gap: 12px; margin-bottom: 32px;
+      }
+      .section-title { font-size: 32px; }
+      .search-section { padding: 40px 0; }
+      .search-card { padding: 20px; }
+      .search-row { flex-direction: column; align-items: stretch; }
+      .search-btn { align-self: stretch; }
+      .proof-strip { padding: 32px 0; min-height: auto; display: block; }
+      .proof-row {
+        display: grid; grid-template-columns: 1fr 1fr;
+        column-gap: 40px; gap: 0;
+      }
+      .proof-item {
+        text-align: left;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(13,27,42,0.08);
+      }
+      .proof-item:first-child, .proof-item:last-child { padding-left: 0; padding-right: 0; }
+      .proof-item:last-child { border-bottom: none; }
+      .proof-item:nth-child(-n+2) { padding-top: 0; }
+      .proof-item + .proof-item::before { display: none; }
+      .proof-number { font-size: 36px; font-family: var(--font-serif); line-height: 1; margin-bottom: 6px; }
+      .proof-label { font-size: 13px; color: rgba(13,27,42,0.45); }
+      .roles-section { padding: 56px 0; }
+      .roles-grid { grid-template-columns: 1fr; gap: 16px; }
+      .sectors-section { padding: 56px 0; }
+      .sectors-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .how-section { padding: 56px 0; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+      .step-number { font-size: 64px; }
+      .why-section { padding: 56px 0; }
+      .why-grid { grid-template-columns: 1fr; gap: 32px; }
+      .why-image .placeholder-img { height: 280px; }
+      .why-content h2 { font-size: 30px; }
+      .testimonial-section { padding: 56px 0; }
+      .testimonial-quote { font-size: 22px; }
+      .cta-band { padding: 64px 0; }
+      .cta-inner h2 { font-size: 32px; }
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-nav-primary, .cta-buttons .btn-outline { width: 100%; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 20px; }
+      .hero { min-height: 65vh; }
+      .hero-content { padding: 100px 0 40px; }
+      .hero h1 { font-size: 28px; }
+      .hero-body { font-size: 15px; }
+      .section-header { margin-bottom: 24px; }
+      .section-title { font-size: 26px; }
+      .search-section { padding: 32px 0; }
+      .search-card { padding: 18px; }
+      .roles-section { padding: 40px 0; }
+      .sectors-section { padding: 40px 0; }
+      .sectors-grid { grid-template-columns: 1fr; gap: 10px; }
+      .how-section { padding: 40px 0; }
+      .steps-grid { gap: 24px; }
+      .step-number { font-size: 56px; }
+      .why-section { padding: 40px 0; }
+      .why-grid { gap: 24px; }
+      .why-image .placeholder-img { height: 220px; }
+      .why-content h2 { font-size: 24px; }
+      .testimonial-section { padding: 40px 0; }
+      .testimonial-quote { font-size: 19px; }
+      .cta-band { padding: 56px 0; }
+      .cta-inner h2 { font-size: 26px; }
+      .cta-inner p { font-size: 14px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+      .proof-row { grid-template-columns: 1fr; }
+      .proof-item { padding: 20px 0; }
+      .proof-item:nth-child(-n+2) { padding-top: 20px; }
+      .proof-item:first-child { padding-top: 0; }
+      .proof-number { font-size: 32px; }
+    }
+  
+    /* ── Mobile Nav (hamburger + overlay) ── */
+    .nav-toggle {
+      display: none;
+      width: 40px; height: 40px; padding: 0;
+      background: transparent; border: none;
+      color: var(--v-navy); cursor: pointer;
+      align-items: center; justify-content: center;
+      border-radius: 8px; transition: background-color 0.2s;
+    }
+    .nav-toggle:hover { background: rgba(13,27,42,0.04); }
+    .nav-toggle svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--v-navy);
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-12px);
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  visibility 0s 0.28s;
+      pointer-events: none;
+    }
+    .mobile-nav.open {
+      opacity: 1; visibility: visible;
+      transform: translateY(0);
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  visibility 0s;
+      pointer-events: auto;
+    }
+    .mobile-nav-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 5.5%;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-nav-head .logo img { height: 22px; width: auto; filter: brightness(0) invert(1); }
+    .mobile-nav-close {
+      width: 40px; height: 40px; padding: 0;
+      background: transparent; color: #fff; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .mobile-nav-close:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+    .mobile-nav-close svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+    .mobile-nav-body {
+      flex: 1;
+      padding: 112px 5.5% 32px;
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .mobile-nav-group { display: flex; flex-direction: column; }
+    .mobile-nav-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--v-cyan);
+      margin-bottom: 20px;
+    }
+    .mobile-nav-link {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 7.5vw, 38px);
+      font-weight: 400; letter-spacing: -0.01em;
+      line-height: 1.15; color: #fff;
+      text-decoration: none;
+      padding: 14px 0;
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .mobile-nav-group .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-nav-link::after {
+      content: '→';
+      font-family: var(--font-sans);
+      font-size: 16px; color: rgba(255,255,255,0.25);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .mobile-nav-link:hover, .mobile-nav-link:active { color: var(--v-cyan); }
+    .mobile-nav-link:hover::after, .mobile-nav-link:active::after { color: var(--v-cyan); transform: translateX(4px); }
+    .mobile-nav-cta {
+      padding: 24px 5.5% 28px;
+      display: flex; flex-direction: column; gap: 10px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-nav-cta a {
+      display: block; text-align: center;
+      padding: 16px 20px; border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 14px; font-weight: 600; letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+    .mobile-nav-cta .mnc-primary { background: var(--v-cyan); color: var(--v-navy); }
+    .mobile-nav-cta .mnc-primary:hover { background: #6EC8D4; }
+    .mobile-nav-cta .mnc-secondary {
+      background: transparent; color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .mobile-nav-cta .mnc-secondary:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+    .mobile-nav-meta {
+      padding: 0 5.5% 32px;
+      font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7;
+    }
+    .mobile-nav-meta a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .mobile-nav-meta a:hover { color: var(--v-cyan); }
+
+    /* State-aware header during open nav */
+    .header-pill, .nav-toggle, .logo img {
+      transition: background-color 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  box-shadow 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  color 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  filter 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    body.nav-locked .site-header { z-index: 250; }
+    body.nav-locked .header-pill { background: transparent; box-shadow: none; }
+    body.nav-locked .logo img { filter: brightness(0) invert(1); }
+    body.nav-locked .nav-toggle { color: #fff; }
+    /* Hamburger <-> X morph */
+    .nav-toggle .burger-line {
+      stroke: currentColor; stroke-width: 1.5; stroke-linecap: round;
+      transform-origin: 12px 12px;
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-toggle .burger-line.top { transform: translateY(-4px); }
+    .nav-toggle .burger-line.bottom { transform: translateY(4px); }
+    body.nav-locked .nav-toggle .burger-line.top { transform: rotate(45deg); }
+    body.nav-locked .nav-toggle .burger-line.bottom { transform: rotate(-45deg); }
+    body.nav-locked { overflow: hidden; }
+
+    @media (max-width: 768px) { .nav-toggle { display: inline-flex; } }
+
+    /* Hero mobile polish */
+    @media (max-width: 768px) {
+      .hero-bg::after {
+        background: linear-gradient(to bottom,
+          rgba(13,27,42,0.55) 0%,
+          rgba(13,27,42,0.8) 55%,
+          rgba(13,27,42,0.98) 100%);
+      }
+      .hero-content { padding: 104px 0 44px; }
+      .hero-label { font-size: 11px; letter-spacing: 0.14em; margin-bottom: 14px; }
+      .hero h1 { line-height: 1.06; margin-bottom: 16px; max-width: none; }
+      .hero-body { font-size: 15px; line-height: 1.5; max-width: none; color: rgba(255,255,255,0.78); }
+      .hero-ctas { margin-top: 22px; gap: 10px; }
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-secondary { font-size: 14px; padding: 12px 22px; }
+    }
+    @media (max-width: 480px) {
+      .hero-content { padding: 92px 0 32px; }
+      .hero-label { font-size: 10.5px; margin-bottom: 10px; }
+      .hero h1 { line-height: 1.06; margin-bottom: 12px; letter-spacing: -0.015em; }
+      .hero-body { font-size: 14px; }
+      .hero-ctas { margin-top: 18px; gap: 8px; }
+      .hero-ctas .btn-primary,
+      .hero-ctas .btn-secondary { font-size: 13px; padding: 11px 18px; }
+    }
+  
+    /* ── Page-load reveals ── */
+    @keyframes v-reveal {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-inner > * {
+      opacity: 0;
+      animation: v-reveal 700ms cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+    .hero-inner > *:nth-child(1) { animation-delay: 80ms; }
+    .hero-inner > *:nth-child(2) { animation-delay: 180ms; }
+    .hero-inner > *:nth-child(3) { animation-delay: 280ms; }
+    .hero-inner > *:nth-child(4) { animation-delay: 380ms; }
+    .hero-inner > *:nth-child(5) { animation-delay: 480ms; }
+    .proof-item {
+      opacity: 0;
+      animation: v-reveal 600ms cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+    .proof-item:nth-child(1) { animation-delay: 500ms; }
+    .proof-item:nth-child(2) { animation-delay: 600ms; }
+    .proof-item:nth-child(3) { animation-delay: 700ms; }
+    .proof-item:nth-child(4) { animation-delay: 800ms; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-inner > *, .proof-item { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-bg"><img src="assets/virtus-candidates.jpg" alt=""></div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-inner">
+        <p class="hero-label">For Candidates</p>
+        <h1>80% of our roles never hit a job board.</h1>
+        <p class="hero-body">The best opportunities are filled through trusted networks before they are ever advertised. Register with Virtus and get access to roles you will not find anywhere else.</p>
+        <div class="hero-ctas">
+          <a href="mailto:hello@virtus.com.au?subject=Register%20with%20Virtus" class="btn-primary">Register</a>
+          <a href="roles.html" class="btn-secondary">Search Roles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Proof Strip ── -->
+<section class="proof-strip">
+  <div class="container">
+    <div class="proof-row">
+      <div class="proof-item">
+        <div class="proof-number">92%</div>
+        <div class="proof-label">Still in role at 12 months</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-number">48hr</div>
+        <div class="proof-label">Brief to first call</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-number">80%</div>
+        <div class="proof-label">Filled through our network</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-number">5</div>
+        <div class="proof-label">Specialist sectors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Featured Roles ── -->
+<section class="roles-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Latest Opportunities</p>
+        <h2 class="section-title">Featured Roles</h2>
+      </div>
+      <a href="roles.html" class="section-link">View all roles &rarr;</a>
+    </div>
+    <div class="roles-grid">
+      <a href="role.html" class="job-card">
+        <span class="job-tag">Finance</span>
+        <h3 class="job-card-title">Financial Controller</h3>
+        <p class="job-card-company">Confidential &mdash; FTSE 250</p>
+        <div class="job-card-meta"><span>London</span><span>&pound;85,000 &ndash; &pound;95,000</span></div>
+        <div class="job-card-footer"><span class="job-card-link">View Role &rarr;</span></div>
+      </a>
+      <a href="role.html" class="job-card">
+        <span class="job-tag">Technology</span>
+        <h3 class="job-card-title">Cloud Infrastructure Engineer</h3>
+        <p class="job-card-company">Series B SaaS Platform</p>
+        <div class="job-card-meta"><span>Remote / London</span><span>&pound;90,000 &ndash; &pound;110,000</span></div>
+        <div class="job-card-footer"><span class="job-card-link">View Role &rarr;</span></div>
+      </a>
+      <a href="role.html" class="job-card">
+        <span class="job-tag">Legal</span>
+        <h3 class="job-card-title">Senior Legal Counsel</h3>
+        <p class="job-card-company">International Law Firm</p>
+        <div class="job-card-meta"><span>City of London</span><span>&pound;100,000 &ndash; &pound;130,000</span></div>
+        <div class="job-card-footer"><span class="job-card-link">View Role &rarr;</span></div>
+      </a>
+      <a href="role.html" class="job-card">
+        <span class="job-tag">HR</span>
+        <h3 class="job-card-title">HR Business Partner</h3>
+        <p class="job-card-company">Global Retail Group</p>
+        <div class="job-card-meta"><span>Manchester</span><span>&pound;65,000 &ndash; &pound;75,000</span></div>
+        <div class="job-card-footer"><span class="job-card-link">View Role &rarr;</span></div>
+      </a>
+      <a href="role.html" class="job-card">
+        <span class="job-tag">Marketing</span>
+        <h3 class="job-card-title">Marketing Director</h3>
+        <p class="job-card-company">Consumer Brand</p>
+        <div class="job-card-meta"><span>London</span><span>&pound;110,000 &ndash; &pound;130,000</span></div>
+        <div class="job-card-footer"><span class="job-card-link">View Role &rarr;</span></div>
+      </a>
+      <a href="role.html" class="job-card">
+        <span class="job-tag">Finance</span>
+        <h3 class="job-card-title">FP&amp;A Manager</h3>
+        <p class="job-card-company">Private Equity Portfolio Co</p>
+        <div class="job-card-meta"><span>London</span><span>&pound;75,000 &ndash; &pound;85,000</span></div>
+        <div class="job-card-footer"><span class="job-card-link">View Role &rarr;</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Sectors Grid ── -->
+<section class="sectors-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Specialisms</p>
+        <h2 class="section-title">Our Sectors</h2>
+      </div>
+    </div>
+    <div class="sectors-grid">
+      <div class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">account_balance</span></div>
+        <h3>Accounting &amp; Finance</h3>
+        <a href="sectors.html#finance" class="sector-card-link">Explore roles &rarr;</a>
+      </div>
+      <div class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">terminal</span></div>
+        <h3>Technology &amp; IT</h3>
+        <a href="sectors.html#technology" class="sector-card-link">Explore roles &rarr;</a>
+      </div>
+      <div class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">gavel</span></div>
+        <h3>Legal</h3>
+        <a href="sectors.html#legal" class="sector-card-link">Explore roles &rarr;</a>
+      </div>
+      <div class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">groups</span></div>
+        <h3>HR</h3>
+        <a href="sectors.html#hr" class="sector-card-link">Explore roles &rarr;</a>
+      </div>
+      <div class="sector-card">
+        <div class="sector-icon"><span class="material-icons-outlined">campaign</span></div>
+        <h3>Marketing</h3>
+        <a href="sectors.html#marketing" class="sector-card-link">Explore roles &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ── -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Process</p>
+        <h2 class="section-title">How It Works</h2>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3>Register &amp; Brief</h3>
+        <p>Tell us what you are looking for. We will learn your career goals, salary expectations, and sector preferences in a confidential conversation.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3>Match &amp; Introduce</h3>
+        <p>We match you to roles that fit &mdash; including positions that are not advertised. You will only hear about opportunities worth your time.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3>Interview &amp; Place</h3>
+        <p>We prepare you for every stage, negotiate your offer, and stay in touch long after you start. 92% of our candidates are still in role at 12 months.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Virtus ── -->
+<section class="why-section">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-content">
+        <p class="section-label">Why Virtus</p>
+        <h2>The difference between a recruiter and a career partner.</h2>
+        <p>Most agencies send you jobs. We build relationships. Here is why candidates keep coming back to Virtus.</p>
+        <ul class="why-list">
+          <li>
+            <span class="why-list-num">1</span>
+            <div class="why-list-text">
+              <h4>Sector Specialist</h4>
+              <p>Your consultant has spent years in your industry. They understand the roles, the firms, and the market rates.</p>
+            </div>
+          </li>
+          <li>
+            <span class="why-list-num">2</span>
+            <div class="why-list-text">
+              <h4>Roles Not Online</h4>
+              <p>80% of positions we fill are never publicly advertised. Access exclusive, confidential opportunities.</p>
+            </div>
+          </li>
+          <li>
+            <span class="why-list-num">3</span>
+            <div class="why-list-text">
+              <h4>Confidential</h4>
+              <p>Your details are never shared without your explicit permission. Discretion is built into everything we do.</p>
+            </div>
+          </li>
+        </ul>
+        <a href="mailto:hello@virtus.com.au?subject=Register%20with%20Virtus" class="btn-primary">Register Now</a>
+      </div>
+      <div class="why-image">
+        <div class="placeholder-img"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonial ── -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="testimonial-inner">
+      <p class="testimonial-quote">&ldquo;Virtus found me a role I never would have discovered on my own. The entire process was discreet, efficient, and genuinely tailored to what I wanted from my next move.&rdquo;</p>
+      <div class="testimonial-author">
+        <div class="placeholder-avatar"></div>
+        <div>
+          <div class="testimonial-name">Candidate Name</div>
+          <div class="testimonial-role">Senior Legal Counsel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Band ── -->
+<section class="cta-band">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Your next role is not on a job board.</h2>
+      <p>Register with Virtus and access opportunities that are only shared through our network.</p>
+      <div class="cta-buttons">
+        <a href="mailto:hello@virtus.com.au?subject=Register%20with%20Virtus" class="btn-nav-primary" style="font-size:15px;padding:14px 32px;">Register Now</a>
+        <a href="roles.html" class="btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3);font-size:15px;padding:14px 32px;">Search Roles</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="assets/virtus-logo-light.svg" alt="Virtus"></a>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col"><h4>Candidates</h4><ul><li><a href="roles.html">Search Jobs</a></li><li><a href="candidates.html">Our Process</a></li></ul></div>
+      <div class="footer-col"><h4>Employers</h4><ul><li><a href="submit-role.html">Submit a Role</a></li><li><a href="employers.html">Our Services</a></li><li><a href="insights.html">Market Insights</a></li></ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul><li><a href="sectors.html#finance">Finance</a></li><li><a href="sectors.html#technology">Technology</a></li><li><a href="sectors.html#legal">Legal</a></li><li><a href="sectors.html#hr">Human Resources</a></li><li><a href="sectors.html#marketing">Marketing</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Virtus</a></li><li><a href="about.html#team">Our Team</a></li><li><a href="insights.html">Insights</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+
+
+/* ── Proof-number count-up ── */
+(function() {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nodes = document.querySelectorAll('.proof-number');
+  if (!nodes.length) return;
+  var items = [];
+  nodes.forEach(function(el) {
+    var raw = el.textContent.trim();
+    var match = raw.match(/^(\d+(?:\.\d+)?)(.*)$/);
+    if (!match) return;
+    var suffix = match[2] || '';
+    items.push({ el: el, target: parseFloat(match[1]), suffix: suffix });
+    if (!reduce) el.textContent = '0' + suffix;
+  });
+  if (reduce) return;
+  function animate(item, duration) {
+    var start = null;
+    function frame(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 4);
+      item.el.textContent = Math.round(item.target * eased) + item.suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('load', function() {
+    items.forEach(function(item, i) {
+      setTimeout(function() { animate(item, 900); }, 500 + i * 100);
+    });
+  });
+})();
+</script>
+
+<script src="assets/nav.js" defer></script>
+</body>
+</html>

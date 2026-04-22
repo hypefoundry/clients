@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtus — Terms of Use</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --v-navy: #0D1B2A;
+      --v-cyan: #7ED4E0;
+      --v-white: #FFFFFF;
+      --v-light: #FBFBFB;
+      --v-max: 1320px;
+      --v-gutter: 24px;
+      --font-serif: 'Source Serif 4', 'Georgia', serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--v-navy);
+      background: var(--v-light);
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: var(--v-max); margin: 0 auto; padding: 0 28px; }
+
+    /* ── Floating Navbar ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 5%; }
+    .header-pill {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--v-max); margin: 0 auto;
+      background: #FFFFFF; border-radius: 14px; padding: 12px 28px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .header-left { display: flex; align-items: center; gap: 40px; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo img { height: 20px; width: auto; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 450; color: #4A4A4A; text-decoration: none; letter-spacing: 0.01em; position: relative; transition: color 0.2s; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--v-cyan); transform: scaleX(0); transform-origin: center center; transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1); }
+    .nav-links a:hover { color: var(--v-navy); }
+    .nav-links a:hover::after { transform: scaleX(0.5); }
+    .nav-links a.is-current { color: var(--v-navy); }
+    .nav-links a.is-current::after { transform: scaleX(1); }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .btn-outline {
+      font-size: 14px; font-weight: 500; color: var(--v-navy);
+      text-decoration: none; padding: 10px 20px;
+      border: 1px solid rgba(13,27,42,0.2); border-radius: 8px; transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(13,27,42,0.4); background: rgba(13,27,42,0.03); }
+    .btn-nav-primary {
+      font-size: 14px; font-weight: 600; color: #FFFFFF;
+      background: var(--v-navy); text-decoration: none;
+      padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-nav-primary:hover { background: #1A2D42; }
+
+    /* ── Page Header ── */
+    .legal-header { padding: 140px 0 64px; background: var(--v-navy); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .legal-header-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .legal-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--v-cyan); margin-bottom: 16px; }
+    .legal-header h1 {
+      font-family: var(--font-serif); font-size: 44px; font-weight: 400; letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 16px; color: var(--v-white);
+    }
+    .legal-meta { font-size: 14px; color: rgba(255,255,255,0.45); }
+
+    /* ── Body ── */
+    .legal-body { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+    .legal-body p { font-size: 16px; line-height: 1.75; color: rgba(13,27,42,0.7); margin-bottom: 20px; }
+    .legal-body h2 {
+      font-family: var(--font-serif); font-size: 24px; font-weight: 600;
+      margin: 48px 0 16px; letter-spacing: -0.02em; color: var(--v-navy);
+    }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body ul { padding-left: 22px; margin-bottom: 20px; color: rgba(13,27,42,0.7); }
+    .legal-body li { font-size: 16px; line-height: 1.75; margin-bottom: 8px; }
+    .legal-body a { color: var(--v-navy); text-decoration: underline; text-underline-offset: 3px; }
+    .legal-body a:hover { color: #1A2D42; }
+
+    /* ── Footer ── */
+    .site-footer { padding: 64px 0 32px; background: #07111C; color: rgba(255,255,255,0.5); border-top: 2px solid var(--v-cyan); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .logo { display: inline-block; margin-bottom: 16px; }
+    .footer-brand .logo img { height: 18px; width: auto; }
+    .footer-tagline { font-size: 14px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.35); max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 8px; }
+    .footer-col a { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--v-cyan); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-copyright { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.2); text-decoration: none; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.5); }
+
+    /* ── Mobile Nav (hamburger + overlay) ── */
+    .nav-toggle {
+      display: none;
+      width: 40px; height: 40px; padding: 0;
+      background: transparent; border: none;
+      color: var(--v-navy); cursor: pointer;
+      align-items: center; justify-content: center;
+      border-radius: 8px; transition: background-color 0.2s;
+    }
+    .nav-toggle:hover { background: rgba(13,27,42,0.04); }
+    .nav-toggle svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; }
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--v-navy);
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-12px);
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  visibility 0s 0.28s;
+      pointer-events: none;
+    }
+    .mobile-nav.open {
+      opacity: 1; visibility: visible;
+      transform: translateY(0);
+      transition: opacity 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1),
+                  visibility 0s;
+      pointer-events: auto;
+    }
+    .mobile-nav-body { flex: 1; padding: 96px 28px 24px; display: flex; flex-direction: column; gap: 32px; }
+    .mobile-nav-group { display: flex; flex-direction: column; }
+    .mobile-nav-eyebrow { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 12px; }
+    .mobile-nav-link {
+      font-family: var(--font-serif); font-size: 28px; font-weight: 400; letter-spacing: -0.01em;
+      color: #FFFFFF; text-decoration: none; padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-nav-cta { padding: 24px 28px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .mnc-primary, .mnc-secondary {
+      display: block; text-align: center; padding: 14px 16px; border-radius: 10px;
+      text-decoration: none; font-size: 15px; font-weight: 600;
+    }
+    .mnc-primary { background: var(--v-cyan); color: var(--v-navy); }
+    .mnc-secondary { background: transparent; color: #FFFFFF; border: 1px solid rgba(255,255,255,0.25); }
+    .mobile-nav-meta { padding: 16px 28px 24px; font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.45); }
+    .mobile-nav-meta a { color: var(--v-cyan); text-decoration: none; }
+
+    body.nav-locked { overflow: hidden; }
+    body.nav-locked .header-pill { background: transparent; box-shadow: none; }
+    body.nav-locked .nav-links a { color: #FFFFFF; }
+    body.nav-locked .btn-outline { color: #FFFFFF; border-color: rgba(255,255,255,0.3); }
+    body.nav-locked .btn-nav-primary { background: var(--v-cyan); color: var(--v-navy); }
+    body.nav-locked .nav-toggle { color: #FFFFFF; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .site-header { padding: 12px 3%; }
+      .header-pill { padding: 8px 16px; border-radius: 12px; }
+      .nav-links, .header-right { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .legal-header { padding: 112px 0 48px; }
+      .legal-header h1 { font-size: 32px; }
+      .legal-body { padding: 48px 24px 72px; }
+      .legal-body h2 { font-size: 22px; margin: 40px 0 14px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 20px; }
+      .legal-header { padding: 96px 0 36px; }
+      .legal-header h1 { font-size: 26px; }
+      .legal-body { padding: 36px 20px 56px; }
+      .legal-body p, .legal-body li { font-size: 15px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-legal { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="legal-header">
+  <div class="container">
+    <div class="legal-header-inner">
+      <p class="legal-eyebrow">Legal</p>
+      <h1>Terms of Use</h1>
+      <p class="legal-meta">Last updated: April 2026</p>
+    </div>
+  </div>
+</section>
+
+<section class="legal-body">
+  <h2>Introduction</h2>
+  <p>These Terms of Use ("Terms") govern your access to and use of the Virtus Recruitment ("Virtus", "we", "our", "us") website and services. By using the site or engaging our services, you agree to be bound by these Terms.</p>
+  <p>If you do not accept these Terms, please do not use the site or our services.</p>
+
+  <h2>Use of the site</h2>
+  <p>You may use the Virtus website for lawful purposes only. You agree not to:</p>
+  <ul>
+    <li>Use the site in a way that breaches any applicable law or regulation</li>
+    <li>Attempt to gain unauthorised access to any part of the site or its underlying systems</li>
+    <li>Transmit any material that is defamatory, misleading, infringing, or harmful</li>
+    <li>Extract or scrape content in a manner inconsistent with normal browsing</li>
+  </ul>
+
+  <h2>Candidate obligations</h2>
+  <p>If you register as a candidate, you warrant that the information you provide is true, complete, and up to date. You authorise Virtus to share your details with prospective employers as part of the recruitment process, subject to our Privacy Policy. You remain responsible for evaluating any role you are presented with and for your own employment decisions.</p>
+
+  <h2>Client obligations</h2>
+  <p>If you submit a role or otherwise engage Virtus as a client, you agree that:</p>
+  <ul>
+    <li>The information you provide about the role is accurate and not misleading</li>
+    <li>You are authorised to engage Virtus on behalf of your organisation</li>
+    <li>You will handle candidate information confidentially and in accordance with applicable privacy laws</li>
+    <li>Engagement fees and terms will be governed by a separate agreement between you and Virtus</li>
+  </ul>
+
+  <h2>Confidentiality</h2>
+  <p>Information exchanged between Virtus, candidates, and clients may be confidential. Each party agrees to protect the confidentiality of such information and to use it only for the purposes of the recruitment engagement.</p>
+
+  <h2>Intellectual property</h2>
+  <p>All content on this site — including text, graphics, logos, images, and the Virtus name — is owned by or licensed to Virtus and is protected by copyright and trademark laws. You may not reproduce, distribute, or create derivative works without our prior written consent, except for personal, non-commercial use.</p>
+
+  <h2>Third-party links</h2>
+  <p>Our site may contain links to third-party websites. We do not control or endorse such sites and are not responsible for their content, policies, or practices.</p>
+
+  <h2>Disclaimers</h2>
+  <p>The site and its content are provided on an "as is" basis. While we take reasonable care in preparing content, we do not warrant that the site will be error-free, uninterrupted, or that the information provided is accurate, complete, or current. Market insights and salary data are general in nature and are not a substitute for professional advice.</p>
+
+  <h2>Limitation of liability</h2>
+  <p>To the maximum extent permitted by law, Virtus excludes liability for any indirect, incidental, consequential, or special damages arising out of or in connection with your use of the site or our services. Nothing in these Terms limits any liability that cannot be excluded under Australian Consumer Law.</p>
+
+  <h2>Governing law</h2>
+  <p>These Terms are governed by the laws of New South Wales, Australia. You submit to the non-exclusive jurisdiction of the courts of New South Wales for any dispute arising in connection with these Terms.</p>
+
+  <h2>Changes to these terms</h2>
+  <p>We may update these Terms from time to time. The date at the top of this page reflects the most recent revision. Continued use of the site following changes constitutes acceptance of the updated Terms.</p>
+
+  <h2>Contact us</h2>
+  <p>If you have questions about these Terms, please contact us at <a href="mailto:hello@virtus.com.au">hello@virtus.com.au</a> or write to Level 12, 123 Pitt Street, Sydney NSW 2000.</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><img src="assets/virtus-logo-light.svg" alt="Virtus"></a>
+        <p class="footer-tagline">Specialist white-collar recruitment. Built inside Momentum Consulting. Same people, same track record, different room.</p>
+      </div>
+      <div class="footer-col"><h4>Candidates</h4><ul><li><a href="roles.html">Search Jobs</a></li></ul></div>
+      <div class="footer-col"><h4>Employers</h4><ul><li><a href="submit-role.html">Submit a Role</a></li><li><a href="employers.html">Our Services</a></li><li><a href="insights.html">Market Insights</a></li></ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul><li><a href="sectors.html#finance">Finance</a></li><li><a href="sectors.html#technology">Technology</a></li><li><a href="sectors.html#legal">Legal</a></li><li><a href="sectors.html#hr">Human Resources</a></li><li><a href="sectors.html#marketing">Marketing</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Virtus</a></li><li><a href="about.html#team">Our Team</a></li><li><a href="insights.html">Insights</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copyright">&copy; 2026 Virtus Recruitment. Part of the Momentum Consulting group.</span>
+      <div class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/nav.js" defer></script>
+</body>
+</html>
