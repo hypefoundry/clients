@@ -7,7 +7,7 @@
       // SPA fallback for GitHub Pages: rewrite the path into a query
       // string that index.html can read and replaceState back into a route.
       (function () {
-        var segmentsToKeep = 2; // "/funnel/v1"
+        var segmentsToKeep = 1; // "/BFS"
         var l = window.location;
         var pathname = l.pathname.split('/').slice(0, 1 + segmentsToKeep).join('/') + '/';
         l.replace(
