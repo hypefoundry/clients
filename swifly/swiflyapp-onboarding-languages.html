@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swifly — 100+ languages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Poppins:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@500;700&family=Noto+Sans+Devanagari:wght@500;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --bg-canvas:          #d9d6e8;
+      --bg-screen:          #f1eff5;
+      --surface:            #ffffff;
+
+      --ink:                #0b0a14;
+      --ink-muted:          #6b6880;
+      --ink-faint:          #a5a2b5;
+      --ink-divider:        rgba(11, 10, 20, 0.06);
+
+      --accent-violet:      #7c3aed;
+      --accent-violet-soft: #a78bfa;
+
+      --radius-frame:       40px;
+
+      --font-serif:  'Castoro', 'Playfair Display', Georgia, serif;
+      --font-sans:   'Poppins', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      --font-arabic: 'Noto Naskh Arabic', serif;
+      --font-deva:   'Noto Sans Devanagari', sans-serif;
+      --font-jp:     'Noto Sans JP', sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      font-family: var(--font-sans);
+      background:
+        radial-gradient(ellipse at 15% 10%, rgba(167,139,250,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 90%, rgba(124,58,237,0.18) 0%, transparent 55%),
+        var(--bg-canvas);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 40px 24px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── PHONE FRAME ─── */
+    .phone {
+      width: 320px;
+      height: 680px;
+      border-radius: var(--radius-frame);
+      background: var(--bg-screen);
+      padding: 0;
+      position: relative;
+      box-shadow:
+        0 1px 2px rgba(20, 18, 45, 0.06),
+        0 30px 60px -20px rgba(60, 40, 120, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: -10%; left: -20%;
+      width: 140%; height: 60%;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(167, 139, 250, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 75% 40%, rgba(236, 72, 153, 0.10) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .phone > * { position: relative; z-index: 1; }
+
+    /* ─── BRAND ─── */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding-top: 26px;
+    }
+    .brand-mark { width: 22px; height: 22px; }
+    .brand-name {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    /* ─── BUBBLE STAGE ─── */
+    .bubble-stage {
+      flex: 1;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px 0;
+    }
+
+    .sketch-bubble {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bubbleBob 5s ease-in-out infinite;
+    }
+    .sketch-bubble svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    @keyframes bubbleBob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-4px); }
+    }
+
+    .sketch-cycler {
+      position: relative;
+      width: 100%;
+      height: 70px;
+      margin-bottom: 50px;       /* keeps text in the bubble's upper half, above the tail */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sketch-cycler .word {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-style: italic;
+      font-size: 50px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      opacity: 0;
+      animation: cycleWord 12s infinite;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .sketch-cycler .word:nth-child(1) { animation-delay: 0s; }
+    .sketch-cycler .word:nth-child(2) { animation-delay: 2s; }
+    .sketch-cycler .word:nth-child(3) { animation-delay: 4s; }
+    .sketch-cycler .word:nth-child(4) {
+      animation-delay: 6s;
+      font-family: var(--font-arabic);
+      font-style: normal;
+      font-size: 40px;
+      direction: rtl;
+    }
+    .sketch-cycler .word:nth-child(5) {
+      animation-delay: 8s;
+      font-family: var(--font-deva);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 36px;
+    }
+    .sketch-cycler .word:nth-child(6) {
+      animation-delay: 10s;
+      font-family: var(--font-jp);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 34px;
+    }
+
+    @keyframes cycleWord {
+      0%   { opacity: 0; transform: translateY(14px); }
+      3%   { opacity: 1; transform: translateY(0); }
+      14%  { opacity: 1; transform: translateY(0); }
+      17%  { opacity: 0; transform: translateY(-14px); }
+      100% { opacity: 0; transform: translateY(-14px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sketch-cycler .word { animation: none; opacity: 0; }
+      .sketch-cycler .word:nth-child(2) { opacity: 1; }
+      .sketch-bubble { animation: none; }
+    }
+
+    /* ─── BOTTOM CARD ─── */
+    .bottom-card {
+      position: relative;
+      z-index: 2;
+      background: var(--surface);
+      border-radius: 28px 28px 0 0;
+      padding: 28px 24px 22px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 -8px 24px -10px rgba(11, 10, 20, 0.06);
+    }
+
+    .bottom-stat {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      text-align: center;
+    }
+    .bottom-stat .num {
+      color: var(--accent-violet);
+      font-style: italic;
+    }
+
+    .bottom-sub {
+      margin-top: 8px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-muted);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(11, 10, 20, 0.18);
+    }
+    .dot--active {
+      background: var(--accent-violet);
+      width: 18px;
+      border-radius: 999px;
+    }
+
+    .bottom-cta {
+      width: 100%;
+      max-width: 260px;
+      height: 50px;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--ink);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .bottom-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 0 var(--ink); }
+    .bottom-cta:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--ink); }
+  </style>
+</head>
+<body>
+
+  <div class="phone">
+
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 28 28" fill="none">
+        <path d="M6 10.5C6 7.46 8.46 5 11.5 5H16.5C19.54 5 22 7.46 22 10.5V10.5C22 13.54 19.54 16 16.5 16H11.5" stroke="#0b0a14" stroke-width="2" stroke-linecap="round"/>
+        <path d="M22 17.5C22 20.54 19.54 23 16.5 23H11.5C8.46 23 6 20.54 6 17.5V17.5C6 14.46 8.46 12 11.5 12H16.5" stroke="#0b0a14" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">Swifly</span>
+    </div>
+
+    <div class="bubble-stage">
+      <div class="sketch-bubble">
+        <svg viewBox="0 0 280 200" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <path d="M 30 65 C 30 35, 80 18, 140 18 C 200 18, 250 35, 250 65 C 250 95, 215 115, 175 120 L 192 168 L 152 122 C 90 122, 30 100, 30 65 Z"
+                stroke="#a78bfa" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="sketch-cycler" aria-label="Hello, in many languages">
+          <span class="word">Hello</span>
+          <span class="word">Bonjour</span>
+          <span class="word">Hola</span>
+          <span class="word" lang="ar">مرحبا</span>
+          <span class="word" lang="hi">नमस्ते</span>
+          <span class="word" lang="ja">こんにちは</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-card">
+      <p class="bottom-stat"><span class="num">100+</span> languages,<br>one keyboard</p>
+      <p class="bottom-sub">Swifly is the world's voice AI keyboard</p>
+      <div class="dots">
+        <span class="dot dot--active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+      <button class="bottom-cta" type="button">Get Started</button>
+    </div>
+
+  </div>
+
+</body>
+</html>
