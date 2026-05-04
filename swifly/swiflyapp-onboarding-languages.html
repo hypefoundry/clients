@@ -123,6 +123,18 @@
       height: 100%;
       pointer-events: none;
     }
+
+    /* Draw-in animation — the bubble path "writes itself" once on load,
+       starting from the tail tip and looping around the bubble. */
+    .sketch-bubble svg path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: bubbleDraw 1.4s cubic-bezier(0.4, 0, 0.6, 1) 0.3s forwards;
+    }
+    @keyframes bubbleDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
     @keyframes bubbleBob {
       0%, 100% { transform: translateY(0); }
       50%      { transform: translateY(-4px); }
@@ -147,7 +159,7 @@
       font-family: var(--font-serif);
       font-weight: 400;
       font-style: italic;
-      font-size: 50px;
+      font-size: 48px;
       line-height: 1;
       letter-spacing: -0.02em;
       color: var(--ink);
@@ -155,29 +167,29 @@
       animation: cycleWord 12s infinite;
       animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .sketch-cycler .word:nth-child(1) { animation-delay: 0s; }
-    .sketch-cycler .word:nth-child(2) { animation-delay: 2s; }
-    .sketch-cycler .word:nth-child(3) { animation-delay: 4s; }
+    .sketch-cycler .word:nth-child(1) { animation-delay: 1.8s; }
+    .sketch-cycler .word:nth-child(2) { animation-delay: 3.8s; }
+    .sketch-cycler .word:nth-child(3) { animation-delay: 5.8s; }
     .sketch-cycler .word:nth-child(4) {
-      animation-delay: 6s;
+      animation-delay: 7.8s;
       font-family: var(--font-arabic);
       font-style: normal;
-      font-size: 40px;
+      font-size: 38px;
       direction: rtl;
     }
     .sketch-cycler .word:nth-child(5) {
-      animation-delay: 8s;
+      animation-delay: 9.8s;
       font-family: var(--font-deva);
       font-style: normal;
       font-weight: 500;
-      font-size: 36px;
+      font-size: 34px;
     }
     .sketch-cycler .word:nth-child(6) {
-      animation-delay: 10s;
+      animation-delay: 11.8s;
       font-family: var(--font-jp);
       font-style: normal;
       font-weight: 500;
-      font-size: 34px;
+      font-size: 32px;
     }
 
     @keyframes cycleWord {
@@ -272,19 +284,11 @@
 
   <div class="phone">
 
-    <div class="brand">
-      <svg class="brand-mark" viewBox="0 0 28 28" fill="none">
-        <path d="M6 10.5C6 7.46 8.46 5 11.5 5H16.5C19.54 5 22 7.46 22 10.5V10.5C22 13.54 19.54 16 16.5 16H11.5" stroke="#0b0a14" stroke-width="2" stroke-linecap="round"/>
-        <path d="M22 17.5C22 20.54 19.54 23 16.5 23H11.5C8.46 23 6 20.54 6 17.5V17.5C6 14.46 8.46 12 11.5 12H16.5" stroke="#0b0a14" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="brand-name">Swifly</span>
-    </div>
-
     <div class="bubble-stage">
       <div class="sketch-bubble">
         <svg viewBox="0 0 280 200" fill="none" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <path d="M 30 65 C 30 35, 80 18, 140 18 C 200 18, 250 35, 250 65 C 250 95, 215 115, 175 120 L 192 168 L 152 122 C 90 122, 30 100, 30 65 Z"
-                stroke="#a78bfa" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+          <path d="M 192 168 L 152 122 C 90 122, 30 100, 30 65 C 30 35, 80 18, 140 18 C 200 18, 250 35, 250 65 C 250 95, 215 115, 175 120 Z"
+                pathLength="100" stroke="#a78bfa" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
         </svg>
         <div class="sketch-cycler" aria-label="Hello, in many languages">
           <span class="word">Hello</span>
@@ -295,17 +299,6 @@
           <span class="word" lang="ja">こんにちは</span>
         </div>
       </div>
-    </div>
-
-    <div class="bottom-card">
-      <p class="bottom-stat"><span class="num">100+</span> languages,<br>one keyboard</p>
-      <p class="bottom-sub">Swifly is the world's voice AI keyboard</p>
-      <div class="dots">
-        <span class="dot dot--active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-      <button class="bottom-cta" type="button">Get Started</button>
     </div>
 
   </div>
