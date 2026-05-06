@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Guidance Co. — Landing Page Wireframe</title>
+  <style>
+    :root {
+      --ink: #111;
+      --paper: #fff;
+      --line: #ccc;
+      --soft: #f4f4f4;
+      --muted: #666;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 32px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .img-box {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative;
+      min-height: 320px;
+      background-image:
+        linear-gradient(45deg, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        linear-gradient(-45deg, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+    }
+    .img-box span {
+      position: relative;
+      z-index: 2;
+      background: var(--soft);
+      padding: 4px 10px;
+    }
+
+    .circle-box {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-bottom: 1px solid var(--line);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-size: 16px;
+      font-weight: 500;
+      border: 1px dashed var(--line);
+      padding: 4px 10px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links li {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .nav-cta {
+      font-size: 13px;
+      padding: 8px 18px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      border-radius: 100px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 96px 32px 120px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-circle-stack {
+      position: relative;
+      aspect-ratio: 1;
+      max-width: 460px;
+    }
+    .hero-circle-stack .circle-box {
+      position: absolute;
+      width: 80%;
+      height: 80%;
+    }
+    .hero-circle-stack .circle-photo {
+      top: 0;
+      left: 0;
+    }
+    .hero-circle-stack .circle-shape {
+      bottom: 0;
+      right: 0;
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+    .hero-eyebrow {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .hero-headline {
+      font-size: 56px;
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+    }
+    .btn {
+      font-size: 15px;
+      padding: 14px 24px;
+      border: 1px solid var(--ink);
+      border-radius: 100px;
+      cursor: pointer;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .section-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .section-headline {
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+    .section-intro {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .intro-strip {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 32px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .intro-strip h2 {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      max-width: 800px;
+      line-height: 1.3;
+    }
+
+    .services-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 32px 32px;
+    }
+    .service-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .service-section.image-right {
+      direction: rtl;
+    }
+    .service-section.image-right > * {
+      direction: ltr;
+    }
+    .service-num {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .service-title {
+      font-size: 36px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+    .service-para {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .service-list {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+    .service-list li {
+      padding: 10px 0 10px 24px;
+      font-size: 15px;
+      border-top: 1px solid var(--line);
+      position: relative;
+    }
+    .service-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 18px;
+      width: 8px;
+      height: 8px;
+      background: var(--ink);
+      border-radius: 50%;
+    }
+    .service-list li:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+    .service-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      display: inline-block;
+    }
+
+    .about-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: center;
+      border-top: 1px solid var(--line);
+    }
+    .about-img {
+      aspect-ratio: 4/5;
+      min-height: 0;
+    }
+
+    .how-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 32px;
+      border-top: 1px solid var(--line);
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+      margin-top: 48px;
+    }
+    .how-step {
+      padding: 32px 0 0;
+      border-top: 1px solid var(--ink);
+    }
+    .how-step-num {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+    .how-step h3 {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .how-step p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .faq-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 32px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 80px;
+    }
+    .faq-list {
+      list-style: none;
+    }
+    .faq-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .faq-item:first-child {
+      border-top: 1px solid var(--line);
+    }
+    .faq-q {
+      font-size: 17px;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-q::after {
+      content: '+';
+      font-size: 22px;
+      color: var(--muted);
+    }
+
+    .final-cta {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 120px 32px;
+      text-align: center;
+    }
+    .final-cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .final-cta h2 {
+      font-size: 56px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .final-cta p {
+      font-size: 19px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 36px;
+    }
+    .final-cta .btn-primary {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+    .footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 32px 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--line);
+    }
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 6px 0;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 24px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">[logo]</div>
+  <ul class="nav-links">
+    <li>about</li>
+    <li>what we do</li>
+    <li>how it works</li>
+    <li>contact</li>
+  </ul>
+  <button class="nav-cta">book a call</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-circle-stack">
+    <div class="circle-box circle-shape"><span>brand circle</span></div>
+    <div class="circle-box circle-photo"><span>hero photo</span></div>
+  </div>
+  <div>
+    <p class="hero-eyebrow">— behaviour support · emotional regulation · parent guidance</p>
+    <h1 class="hero-headline">the small, quiet work of raising humans.</h1>
+    <p class="hero-sub">A Sunshine Coast practice supporting NDIS-funded and private families. Real-life strategies for real-life moments. Warm, evidence-informed, parent-friendly.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary">book a first conversation</button>
+      <button class="btn">what we do</button>
+    </div>
+  </div>
+</section>
+
+<section class="intro-strip">
+  <h2>We work with families when behaviour, big feelings, or daily rhythms are making everyday life harder than it needs to be — and we walk alongside parents long enough for the strategies to actually land.</h2>
+</section>
+
+<section class="services-header">
+  <p class="section-eyebrow">what we do</p>
+  <h2 class="section-headline">Three areas of practice. One considered approach.</h2>
+  <p class="section-intro">Each service stands alone, but most families benefit from a combination — depending on what's hardest right now. A first conversation helps work out the right starting point.</p>
+</section>
+
+<section class="service-section">
+  <div class="img-box"><span>service photo</span></div>
+  <div>
+    <p class="service-num">01 · Service</p>
+    <h3 class="service-title">Behaviour Support</h3>
+    <p class="service-para">Practical, evidence-informed support for children whose behaviour is making everyday life harder than it needs to be — at home, at school, or out in the community. We start by understanding the behaviour, not labelling it.</p>
+    <ul class="service-list">
+      <li>Functional behaviour assessments</li>
+      <li>Positive behaviour support plans</li>
+      <li>In-home strategy sessions</li>
+      <li>Coaching for parents and carers</li>
+      <li>School and early-learning collaboration</li>
+    </ul>
+    <a href="#" class="service-link">learn more about behaviour support →</a>
+  </div>
+</section>
+
+<section class="service-section image-right">
+  <div class="img-box"><span>service photo</span></div>
+  <div>
+    <p class="service-num">02 · Service</p>
+    <h3 class="service-title">Emotional Regulation</h3>
+    <p class="service-para">Supporting children to understand, name, and move through big feelings — without shutting them down or hurrying them up. Strategies that work in real life, not just in therapy rooms.</p>
+    <ul class="service-list">
+      <li>Co-regulation strategies for parents</li>
+      <li>Sensory and somatic tools</li>
+      <li>Anxiety and big-feeling support</li>
+      <li>Building emotional vocabulary</li>
+      <li>Regulation that holds up at school and home</li>
+    </ul>
+    <a href="#" class="service-link">learn more about emotional regulation →</a>
+  </div>
+</section>
+
+<section class="service-section">
+  <div class="img-box"><span>service photo</span></div>
+  <div>
+    <p class="service-num">03 · Service</p>
+    <h3 class="service-title">Parent Guidance</h3>
+    <p class="service-para">One-on-one parent coaching when the strategies you've tried aren't landing — or when you'd rather have someone in your corner before things get harder. Reflective, practical, no judgement.</p>
+    <ul class="service-list">
+      <li>Personalised strategy sessions</li>
+      <li>Sleep, mealtimes, transitions, screen-time</li>
+      <li>Sibling dynamics</li>
+      <li>Reflective parent coaching</li>
+      <li>Support that meets your family where it is</li>
+    </ul>
+    <a href="#" class="service-link">learn more about parent guidance →</a>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="img-box about-img"><span>portrait</span></div>
+  <div>
+    <p class="section-eyebrow">about</p>
+    <h2 class="section-headline">Hi, I'm Sherri.</h2>
+    <p class="service-para">A short paragraph about Sherri's practice philosophy — why she works the way she does, who she works best with, what families can expect. Warm, honest, first-person voice. Closes with what motivates the work.</p>
+    <p class="service-para">A second paragraph for credentials, training, and registrations. NDIS registration, professional bodies, ongoing education. Short, factual, builds trust without overselling.</p>
+    <a href="#" class="service-link">read more about my approach →</a>
+  </div>
+</section>
+
+<section class="how-section">
+  <p class="section-eyebrow">how it works</p>
+  <h2 class="section-headline">Three steps from first hello to ongoing support.</h2>
+  <div class="how-grid">
+    <div class="how-step">
+      <p class="how-step-num">01</p>
+      <h3>Get in touch</h3>
+      <p>A short enquiry form, a phone call, or an email. Tell us what's hardest right now and we'll come back within one business day.</p>
+    </div>
+    <div class="how-step">
+      <p class="how-step-num">02</p>
+      <h3>First conversation</h3>
+      <p>A free, no-commitment 20-minute call to talk through your family's situation, what kind of support might help, and whether we're the right fit.</p>
+    </div>
+    <div class="how-step">
+      <p class="how-step-num">03</p>
+      <h3>Ongoing support</h3>
+      <p>If we're a fit, we'll plan an approach — in-home sessions, parent coaching, or a combination — and walk alongside you for as long as it's helpful.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div>
+    <p class="section-eyebrow">questions</p>
+    <h2 class="section-headline">Common questions, answered.</h2>
+    <p class="section-intro">If your question isn't here, the first conversation is the right place for it. Always free, never a sales call.</p>
+  </div>
+  <ul class="faq-list">
+    <li class="faq-item"><div class="faq-q">Are you NDIS registered?</div></li>
+    <li class="faq-item"><div class="faq-q">How does pricing work for private clients?</div></li>
+    <li class="faq-item"><div class="faq-q">Do you work in-home, in-clinic, or via telehealth?</div></li>
+    <li class="faq-item"><div class="faq-q">What ages do you work with?</div></li>
+    <li class="faq-item"><div class="faq-q">How quickly can we get started?</div></li>
+    <li class="faq-item"><div class="faq-q">Do you collaborate with schools and other practitioners?</div></li>
+  </ul>
+</section>
+
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <h2>Ready when you are.</h2>
+    <p>Whether you're at the start of working out what's going on, or you've tried everything and need someone alongside you — the first conversation is always free.</p>
+    <button class="btn btn-primary">book a first conversation</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="nav-logo" style="display: inline-block;">[logo]</div>
+      <p style="font-size: 14px; color: var(--muted); margin-top: 16px; max-width: 360px;">Behaviour support, emotional regulation, and parent guidance. Sunshine Coast, Australia. NDIS registered.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Practice</h4>
+      <ul>
+        <li>About</li>
+        <li>Behaviour Support</li>
+        <li>Emotional Regulation</li>
+        <li>Parent Guidance</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <ul>
+        <li>How it works</li>
+        <li>FAQ</li>
+        <li>Contact</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li>Instagram</li>
+        <li>Facebook</li>
+        <li>Email</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 The Guidance Co. — Sunshine Coast, Australia</span>
+    <span>NDIS Provider · Privacy · Terms</span>
+  </div>
+</footer>
+
+</body>
+</html>
