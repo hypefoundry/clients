@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Guidance Co. / Round 2 — Colour Exploration</title>
+  <link rel="icon" type="image/png" href="assets/hf-favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111111;
+      --secondary: #303030;
+      --tertiary: #777777;
+      --divider: #EDEDED;
+      --paper: #FFFFFF;
+      --accent: #C8FF00;
+      --cover-bg: #F0F0F0;
+      --cover-shape: #E2E1DE;
+      --black: #111111;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media print {
+      .slide { page-break-after: always; height: 100vh !important; }
+      .slide:last-child { page-break-after: avoid; }
+    }
+
+    /* ── Base slide ── */
+    .slide {
+      width: 100%; height: 100vh;
+      position: relative; overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    /* ── Shared header ── */
+    .slide-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px; z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .hf-bolt { height: 26px; width: auto; flex-shrink: 0; }
+    .header-center {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .header-right {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════
+       COVER
+    ════════════════════════════════════ */
+    .slide-cover {
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
+    }
+    .cover-logo { position: absolute; top: 36px; left: 36px; }
+    .cover-logo .hf-bolt { height: 27px; }
+    .cover-title { position: absolute; bottom: 36px; left: 36px; }
+    .cover-label {
+      font-size: 15px; font-weight: 700; color: var(--black);
+      letter-spacing: 0.06em; margin-bottom: 12px; display: block;
+    }
+    .cover-title h1 {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 120px; font-weight: 600; color: var(--black);
+      letter-spacing: -0.03em; line-height: 1.0;
+    }
+
+    /* ════════════════════════════════════
+       INTERNAL (grey bg)
+    ════════════════════════════════════ */
+    .slide-internal { background: var(--cover-shape); }
+
+    /* ── Full-bleed moodboard panel ── */
+    .content-panel-moodboard {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      border-radius: 8px; overflow: hidden;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .content-panel-moodboard img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      cursor: zoom-in;
+    }
+    .moodboard-hint {
+      position: absolute; bottom: 44px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--secondary);
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding: 5px 14px; border-radius: 100px;
+      pointer-events: none; z-index: 3;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .moodboard-hint svg {
+      width: 10px; height: 10px; flex-shrink: 0;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: grab;
+      overflow: hidden;
+    }
+    .lightbox.active {
+      opacity: 1; pointer-events: all;
+    }
+    .lightbox:active { cursor: grabbing; }
+    .lightbox-img {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 24px; right: 24px; z-index: 1001;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); border: none;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: ''; position: absolute;
+      width: 16px; height: 1.5px; background: #fff;
+    }
+    .lightbox-close::before { transform: rotate(45deg); }
+    .lightbox-close::after { transform: rotate(-45deg); }
+    .lightbox-zoom-hint {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%); z-index: 1001;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      pointer-events: none;
+      transition: opacity 0.5s ease 1.5s;
+    }
+    .lightbox-zoom-hint.hidden { opacity: 0; }
+
+    /* ════════════════════════════════════
+       OUTRO / CONTACT
+    ════════════════════════════════════ */
+    .slide-outro { background: var(--cover-shape); }
+    .contact-block {
+      position: absolute; left: 36px; right: 36px; bottom: 36px;
+    }
+    .contact-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .contact-row:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .contact-label {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .contact-value {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .outro-tagline {
+      position: absolute; top: 110px; left: 36px; right: 36px;
+      font-size: 42px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.02em; line-height: 1.15; max-width: 600px;
+    }
+
+    .small-device-notice {
+      display: none;
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--cover-shape);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 36px;
+    }
+    .small-device-notice p {
+      font-size: 15px; font-weight: 400; color: var(--tertiary);
+      line-height: 1.5; max-width: 260px;
+    }
+    .small-device-notice .notice-logo {
+      height: 24px; margin-bottom: 32px; opacity: 0.4;
+    }
+    @media (max-width: 1024px) {
+      .small-device-notice { display: flex; }
+      .slide { display: none; }
+    }
+
+    /* ── Entrance fade ── */
+    .entrance-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #E2E1DE;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .entrance-overlay.fade { opacity: 0; }
+  </style>
+</head>
+<body>
+
+<div class="entrance-overlay" id="entrance-overlay"></div>
+
+<div class="small-device-notice">
+  <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="notice-logo">
+  <p>This presentation is designed for larger screens. Please view on a desktop or laptop.</p>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 1: COVER
+════════════════════════════════════════════ -->
+<section class="slide slide-cover">
+  <div class="cover-logo">
+    <img class="hf-bolt" src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry">
+  </div>
+  <div class="cover-title">
+    <span class="cover-label">THE GUIDANCE CO.</span>
+    <h1>Round 2<br>Colour Exploration</h1>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 2: NAVY 01
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Navy 01</span>
+    <span class="header-right">Option 01</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/navy-01.png" alt="Navy 01 mood board" data-lightbox>
+    <span class="moodboard-hint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.2" y1="10.2" x2="14" y2="14"/></svg>Click to explore</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 3: NAVY 02
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Navy 02</span>
+    <span class="header-right">Option 02</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/navy-02.png" alt="Navy 02 mood board" data-lightbox>
+    <span class="moodboard-hint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.2" y1="10.2" x2="14" y2="14"/></svg>Click to explore</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 4: NAVY 03
+════════════════════════════════════════════ -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Navy 03</span>
+    <span class="header-right">Option 03</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/navy-03.png" alt="Navy 03 mood board" data-lightbox>
+    <span class="moodboard-hint"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><line x1="10.2" y1="10.2" x2="14" y2="14"/></svg>Click to explore</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     SLIDE 5: CONTACT / OUTRO
+════════════════════════════════════════════ -->
+<section class="slide slide-outro">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Colour Exploration</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="contact-block">
+    <div class="contact-row">
+      <span class="contact-label">Clark Spendelow</span>
+      <span class="contact-value">Creative Director &amp; Designer</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">hello@hypefoundry.studio</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">0433 061 993</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Lightbox ── -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close"></button>
+  <img class="lightbox-img" id="lightbox-img" draggable="false">
+  <span class="lightbox-zoom-hint" id="lightbox-hint">Scroll to zoom &middot; Drag to pan</span>
+</div>
+
+<script>
+(function() {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbHint = document.getElementById('lightbox-hint');
+
+  let scale = 1, minScale = 0.5, maxScale = 4;
+  let posX = 0, posY = 0;
+  let isDragging = false, startX = 0, startY = 0, startPosX = 0, startPosY = 0;
+  let imgW = 0, imgH = 0;
+
+  function open(src) {
+    const img = new Image();
+    img.onload = function() {
+      imgW = img.naturalWidth;
+      imgH = img.naturalHeight;
+
+      const vh = window.innerHeight * 0.85;
+      scale = vh / imgH;
+      minScale = scale * 0.8;
+      maxScale = scale * 5;
+
+      posX = 40;
+      posY = (window.innerHeight - imgH * scale) / 2;
+
+      lbImg.src = src;
+      lbImg.style.width = imgW + 'px';
+      lbImg.style.height = imgH + 'px';
+      applyTransform();
+
+      lb.classList.add('active');
+      lbHint.classList.remove('hidden');
+      setTimeout(function() { lbHint.classList.add('hidden'); }, 3000);
+      document.documentElement.style.overflow = 'hidden';
+    };
+    img.src = src;
+  }
+
+  function close() {
+    lb.classList.remove('active');
+    document.documentElement.style.overflow = '';
+  }
+
+  function applyTransform() {
+    lbImg.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+  }
+
+  function clampPosition() {
+    var sw = imgW * scale, sh = imgH * scale;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    if (sw <= vw) {
+      posX = (vw - sw) / 2;
+    } else {
+      if (posX > 40) posX = 40;
+      if (posX < vw - sw - 40) posX = vw - sw - 40;
+    }
+    if (sh <= vh) {
+      posY = (vh - sh) / 2;
+    } else {
+      if (posY > 40) posY = 40;
+      if (posY < vh - sh - 40) posY = vh - sh - 40;
+    }
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(function(img) {
+    img.addEventListener('click', function() { open(img.src); });
+  });
+
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) {
+    if (e.target === lb) close();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('active')) close();
+  });
+
+  lb.addEventListener('mousedown', function(e) {
+    if (e.target === lbClose) return;
+    isDragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startPosX = posX; startPosY = posY;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    posX = startPosX + (e.clientX - startX);
+    posY = startPosY + (e.clientY - startY);
+    clampPosition();
+    applyTransform();
+  });
+  window.addEventListener('mouseup', function() { isDragging = false; });
+
+  lb.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var rect = lb.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    var prevScale = scale;
+    var delta = e.deltaY > 0 ? 0.9 : 1.1;
+    scale = Math.min(maxScale, Math.max(minScale, scale * delta));
+
+    posX = mx - (mx - posX) * (scale / prevScale);
+    posY = my - (my - posY) * (scale / prevScale);
+    clampPosition();
+    applyTransform();
+  }, { passive: false });
+
+  var lastTouchDist = 0, lastTouchScale = 1;
+  lb.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      startPosX = posX; startPosY = posY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      lastTouchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      lastTouchScale = scale;
+    }
+  }, { passive: false });
+  lb.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDragging) {
+      posX = startPosX + (e.touches[0].clientX - startX);
+      posY = startPosY + (e.touches[0].clientY - startY);
+      clampPosition();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      var dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      scale = Math.min(maxScale, Math.max(minScale, lastTouchScale * (dist / lastTouchDist)));
+      clampPosition();
+      applyTransform();
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', function() { isDragging = false; });
+})();
+</script>
+
+<!-- ── Entrance fade ── -->
+<script>
+(function() {
+  window.addEventListener('load', function() {
+    var overlay = document.getElementById('entrance-overlay');
+    if (overlay) {
+      requestAnimationFrame(function() {
+        overlay.classList.add('fade');
+        setTimeout(function() { overlay.remove(); }, 700);
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
