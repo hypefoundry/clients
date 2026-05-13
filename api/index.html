@@ -1,0 +1,1281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>A website that works hard. Proposal for Active Property Investing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Inter:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4F3;
+    --ink: #090909;
+    --muted: #63615E;
+    --soft: #7F7F80;
+    --rule: #E3E0DA;
+    --accent: #D5FF02;
+    --accent-wash: #D5FF02;
+    --measure: 680px;
+    --wide: 920px;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --display: "Bricolage Grotesque", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent); color: #090909; }
+
+  article {
+    padding: 0 24px;
+  }
+
+  .prose, header.cover, footer.colophon, .section-head, .table-wrap {
+    max-width: var(--measure);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .diagram {
+    max-width: var(--wide);
+    margin: 64px auto;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .caption {
+    font-family: var(--sans);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--soft);
+    text-align: center;
+    margin: 16px auto 0;
+    max-width: var(--measure);
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+  }
+
+  /* Cover */
+  header.cover {
+    padding-top: 10vh;
+    padding-bottom: 8vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    isolation: isolate;
+  }
+
+  header.cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 50vw);
+    width: 100vw;
+    background: #F5F4F3;
+    z-index: -1;
+  }
+
+  .cover .logo {
+    display: block;
+    height: 28px;
+    width: auto;
+    margin: 0 auto 128px 0;
+    align-self: flex-start;
+  }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin: 0 0 24px;
+    font-weight: 500;
+  }
+
+  h1.title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(56px, 11vw, 112px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    margin: 0 0 32px;
+  }
+
+  .subtitle {
+    font-family: var(--sans);
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  .subtitle .highlight {
+    background-color: var(--accent);
+    padding: 4px 8px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .prepared {
+    margin-top: auto;
+    padding-top: 96px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .prepared p { margin: 0; line-height: 1.55; }
+  .prepared .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--soft);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .prepared strong { color: var(--ink); font-weight: 600; }
+  .prepared a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
+
+  /* Section breaks */
+  hr.divider {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    max-width: var(--measure);
+    margin: 96px auto;
+  }
+
+  /* Section heads */
+  .section-head {
+    margin: 0 auto 40px;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 48px 0 14px;
+  }
+
+  h4 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 32px 0 10px;
+  }
+
+  /* Numbered subsection labels for "What we'd build" */
+  h3.numbered {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-top: 56px;
+  }
+
+  h3.numbered .num {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    color: var(--soft);
+    flex-shrink: 0;
+    transform: translateY(-2px);
+  }
+
+  /* Prose */
+  .prose p, .prose ul, .prose ol {
+    margin: 0 0 24px;
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 22px;
+  }
+
+  .prose li {
+    margin-bottom: 10px;
+  }
+
+  .prose ul li::marker,
+  .prose ol li::marker {
+    color: var(--soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose strong {
+    font-weight: 600;
+  }
+
+  .prose em {
+    font-style: italic;
+  }
+
+  /* Phase blocks */
+  .phase-meta {
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--soft);
+    margin: -8px 0 24px;
+    font-weight: 500;
+  }
+
+  .optional {
+    display: block;
+    width: fit-content;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--soft);
+    padding: 3px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* Tables */
+  .table-wrap {
+    margin: 32px auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+
+  table th, table td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  table th {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--soft);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 12px;
+  }
+
+  table td:last-child, table th:last-child {
+    text-align: right;
+  }
+
+  table .total td {
+    font-weight: 600;
+    border-bottom: none;
+    padding-top: 18px;
+  }
+
+  table .total td:first-child::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: var(--ink);
+    margin-bottom: 18px;
+    width: 100%;
+  }
+
+  /* Timeline table uses left-aligned right column */
+  table.timeline td:last-child,
+  table.timeline th:last-child {
+    text-align: left;
+  }
+
+  table.timeline td:first-child,
+  table.timeline th:first-child {
+    width: 80px;
+    color: var(--soft);
+    font-family: var(--sans);
+    font-size: 13px;
+  }
+
+  table.timeline th:first-child {
+    color: var(--soft);
+  }
+
+  /* Footer */
+  footer.colophon {
+    margin: 120px auto 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--soft);
+    letter-spacing: 0.03em;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer.colophon a {
+    color: var(--soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  footer.colophon a:hover { color: var(--ink); }
+
+  /* Sign-off */
+  .signoff {
+    margin-top: 48px;
+  }
+  .signoff .name {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin: 0 0 6px;
+  }
+  .signoff .studio {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Footer logo */
+  .colophon .footer-logo {
+    height: 24px;
+    width: auto;
+    color: var(--ink);
+  }
+
+  /* Small screens */
+  @media (max-width: 600px) {
+    body { font-size: 17px; line-height: 1.65; }
+    article { padding: 0 20px; }
+    header.cover { padding-top: 10vh; padding-bottom: 12vh; }
+    .eyebrow { margin-bottom: 40px; }
+    .prepared { grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 56px; font-size: 12px; }
+    .prepared .label { font-size: 10px; letter-spacing: 0.14em; margin-bottom: 6px; }
+    .prepared p { line-height: 1.45; }
+    .pull { font-size: 19px; padding-left: 18px; }
+    h3.numbered { gap: 12px; }
+    .diagram { margin: 48px -8px; }
+    hr.divider { margin: 72px auto; }
+    table { font-size: 15px; }
+    table th, table td { padding: 12px 8px; }
+    table.timeline td:first-child,
+    table.timeline th:first-child { width: 56px; }
+  }
+
+  /* Gate (password screen) */
+  body.locked { overflow: hidden; }
+  body.locked > article,
+  body.locked > svg[role="presentation"] { display: none; }
+  body:not(.locked) #gate { display: none; }
+
+  #gate {
+    position: fixed;
+    inset: 0;
+    background: #F5F4F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 1000;
+  }
+
+  .gate-card {
+    max-width: 460px;
+    width: 100%;
+  }
+
+  .gate-logo {
+    display: block;
+    height: 32px;
+    width: auto;
+    margin-bottom: 96px;
+    color: var(--ink);
+  }
+
+  .gate-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin: 0 0 16px;
+    font-weight: 500;
+  }
+
+  .gate-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 40px;
+  }
+
+  #gate-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  #gate-form input {
+    flex: 1;
+    min-width: 160px;
+    font-family: var(--sans);
+    font-size: 15px;
+    padding: 14px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: #FFFFFF;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #gate-form input:focus { border-color: var(--ink); }
+
+  #gate-form button {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 4px;
+    background: var(--accent);
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  #gate-form button:hover { filter: brightness(0.95); }
+
+  .gate-error {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: #C42E1A;
+    margin: 16px 0 0;
+  }
+
+  /* Print */
+  @media print {
+    body { font-size: 11pt; line-height: 1.5; background: #fff; }
+    header.cover { min-height: auto; padding: 0 0 48px; }
+    hr.divider { margin: 48px auto; }
+    .diagram { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div id="gate" role="dialog" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <svg class="gate-logo" viewBox="0 0 3742 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hype Foundry">
+      <path d="M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z" fill="#D5FF02"/>
+      <path fill="currentColor" d="M990.84 234C990.84 265 994.34 287.333 1001.34 301C1008.34 314.667 1019.01 321.5 1033.34 321.5C1041.01 321.5 1048.01 319.5 1054.34 315.5C1060.67 311.167 1066.01 305 1070.34 297C1075.01 289 1078.51 279.333 1080.84 268C1083.51 256.333 1084.84 243.167 1084.84 228.5V141.5H1156.84V334.5C1156.84 355.5 1155.01 374.667 1151.34 392C1147.67 409 1142.17 423.833 1134.84 436.5C1127.84 449.5 1118.84 460.333 1107.84 469C1096.84 477.667 1084.01 484.167 1069.34 488.5C1055.01 492.833 1038.67 495 1020.34 495C1007.01 495 993.34 493.667 979.34 491C965.673 488.667 952.673 484.833 940.34 479.5C928.34 474.5 918.007 468 909.34 460L929.84 398.5C940.507 409.5 953.84 417.667 969.84 423C985.84 428.667 1001.67 431.5 1017.34 431.5C1035.01 431.5 1049.67 427.833 1061.34 420.5C1073.34 413.5 1082.34 402.667 1088.34 388C1094.67 373 1098.34 354.333 1099.34 332L1102.34 286.5H1091.34C1088.01 308.5 1082.51 326.5 1074.84 340.5C1067.51 354.5 1058.01 364.833 1046.34 371.5C1035.01 377.833 1021.51 381 1005.84 381C986.84 381 970.84 376.167 957.84 366.5C944.84 356.833 935.007 342.333 928.34 323C922.007 303.667 918.84 279.833 918.84 251.5V141.5H990.84V234ZM3575.02 234C3575.02 265 3578.52 287.333 3585.52 301C3592.52 314.667 3603.19 321.5 3617.52 321.5C3625.19 321.5 3632.19 319.5 3638.52 315.5C3644.85 311.167 3650.19 305 3654.52 297C3659.19 289 3662.69 279.333 3665.02 268C3667.69 256.333 3669.02 243.167 3669.02 228.5V141.5H3741.02V334.5C3741.02 355.5 3739.19 374.667 3735.52 392C3731.85 409 3726.35 423.833 3719.02 436.5C3712.02 449.5 3703.02 460.333 3692.02 469C3681.02 477.667 3668.19 484.167 3653.52 488.5C3639.19 492.833 3622.85 495 3604.52 495C3591.19 495 3577.52 493.667 3563.52 491C3549.85 488.667 3536.85 484.833 3524.52 479.5C3512.52 474.5 3502.19 468 3493.52 460L3514.02 398.5C3524.69 409.5 3538.02 417.667 3554.02 423C3570.02 428.667 3585.85 431.5 3601.52 431.5C3619.19 431.5 3633.85 427.833 3645.52 420.5C3657.52 413.5 3666.52 402.667 3672.52 388C3678.85 373 3682.52 354.333 3683.52 332L3686.52 286.5H3675.52C3672.19 308.5 3666.69 326.5 3659.02 340.5C3651.69 354.5 3642.19 364.833 3630.52 371.5C3619.19 377.833 3605.69 381 3590.02 381C3571.02 381 3555.02 376.167 3542.02 366.5C3529.02 356.833 3519.19 342.333 3512.52 323C3506.19 303.667 3503.02 279.833 3503.02 251.5V141.5H3575.02V234ZM1357.12 134.5C1380.45 134.5 1400.45 140.333 1417.12 152C1433.79 163.333 1446.45 179.5 1455.12 200.5C1464.12 221.167 1468.62 245.667 1468.62 274C1468.62 300.333 1464.62 323.833 1456.62 344.5C1448.62 364.833 1436.62 381 1420.62 393C1404.95 405 1385.29 411 1361.62 411C1344.95 411 1330.79 407.833 1319.12 401.5C1307.79 395.167 1298.29 386.333 1290.62 375C1283.29 363.333 1277.12 349.5 1272.12 333.5H1262.62C1264.62 342.5 1266.45 351.667 1268.12 361C1269.79 370.333 1271.12 379.5 1272.12 388.5C1273.12 397.167 1273.62 405.667 1273.62 414V488H1201.62V141.5H1261.12L1261.62 214.5L1270.62 215C1273.62 197.333 1278.79 182.5 1286.12 170.5C1293.79 158.5 1303.62 149.5 1315.62 143.5C1327.62 137.5 1341.45 134.5 1357.12 134.5ZM1618.45 134.5C1638.45 134.5 1656.28 137.833 1671.95 144.5C1687.61 150.833 1700.61 160.5 1710.95 173.5C1721.61 186.5 1729.28 202.5 1733.95 221.5C1738.95 240.167 1740.78 261.667 1739.45 286L1555.83 287.782C1557.35 310.182 1563.39 327.088 1573.95 338.5C1586.61 351.833 1603.11 358.5 1623.45 358.5C1632.78 358.5 1640.61 357.333 1646.95 355C1653.61 352.333 1658.95 349 1662.95 345C1667.28 341 1670.61 336.5 1672.95 331.5C1675.61 326.5 1677.78 321.5 1679.45 316.5L1741.95 330C1738.95 342.333 1734.45 353.5 1728.45 363.5C1722.78 373.167 1715.11 381.667 1705.45 389C1695.78 396 1684.11 401.333 1670.45 405C1657.11 409 1641.45 411 1623.45 411C1601.78 411 1582.45 408 1565.45 402C1548.78 396 1534.61 387.333 1522.95 376C1511.28 364.667 1502.28 350.667 1495.95 334C1489.95 317.333 1486.95 298.5 1486.95 277.5C1486.95 256.833 1489.78 237.833 1495.45 220.5C1501.45 202.833 1510.11 187.667 1521.45 175C1532.78 162 1546.61 152 1562.95 145C1579.28 138 1597.78 134.5 1618.45 134.5ZM2256.73 134.5C2283.07 134.5 2306.23 139.667 2326.23 150C2346.57 160.333 2362.4 175.833 2373.73 196.5C2385.4 216.833 2391.23 242.333 2391.23 273C2391.23 304 2385.23 329.833 2373.23 350.5C2361.57 370.833 2345.57 386 2325.23 396C2305.23 406 2282.4 411 2256.73 411C2230.4 411 2207.23 405.833 2187.23 395.5C2167.23 384.833 2151.57 369.333 2140.23 349C2128.9 328.333 2123.23 302.667 2123.23 272C2123.23 241.333 2128.9 215.833 2140.23 195.5C2151.9 175.167 2167.73 160 2187.73 150C2208.07 139.667 2231.07 134.5 2256.73 134.5ZM2490.92 275.5C2490.92 301.167 2494.76 320.333 2502.42 333C2510.09 345.333 2521.76 351.5 2537.42 351.5C2546.76 351.5 2554.92 349.167 2561.92 344.5C2568.92 339.833 2574.92 333.333 2579.92 325C2584.92 316.667 2588.59 306.833 2590.92 295.5C2593.59 284.167 2595.09 272 2595.42 259V141.5H2667.42V404H2609.42L2608.92 322H2599.92C2594.92 342.667 2588.59 359.667 2580.92 373C2573.59 386 2564.09 395.667 2552.42 402C2541.09 408 2527.42 411 2511.42 411C2480.76 411 2457.59 400.667 2441.92 380C2426.59 359 2418.92 327.167 2418.92 284.5V141.5H2490.92V275.5ZM3261.89 404H3201.89V328H3191.89C3188.22 346.667 3182.55 362.167 3174.89 374.5C3167.22 386.833 3157.39 396 3145.39 402C3133.72 408 3120.05 411 3104.39 411C3082.39 411 3063.05 405.333 3046.39 394C3030.05 382.667 3017.39 366.667 3008.39 346C2999.39 325.333 2994.89 300.833 2994.89 272.5C2994.89 245.833 2998.89 222.167 3006.89 201.5C3014.89 180.833 3026.72 164.667 3042.39 153C3058.05 141.333 3077.55 135.5 3100.89 135.5C3117.89 135.5 3132.22 138.667 3143.89 145C3155.55 151.333 3165.05 160.667 3172.39 173C3180.05 185 3186.05 199.5 3190.39 216.5H3201.89C3199.55 205.833 3197.39 195.5 3195.39 185.5C3193.72 175.167 3192.39 165.333 3191.39 156C3190.39 146.667 3189.89 138.5 3189.89 131.5V46.5H3261.89V404ZM655.5 207.5H800V74H871.5V404H800V266.5H655.5V404H583.5V74H655.5V207.5ZM2116.21 135.5H1942.71V221.5H2097.71V280.5H1942.71V404H1870.71V74H2116.21V135.5ZM2873.96 134.5C2904.29 134.5 2927.29 145.167 2942.96 166.5C2958.96 187.833 2966.96 221.333 2966.96 267V404H2894.46V275C2894.46 247 2890.29 226.667 2881.96 214C2873.96 201 2862.12 194.5 2846.46 194.5C2833.12 194.5 2821.96 198.667 2812.96 207C2803.96 215.333 2797.12 226.333 2792.46 240C2788.12 253.333 2785.79 268.333 2785.46 285V404H2713.46V141.5H2772.46L2771.96 220H2781.96C2786.29 201 2792.46 185.167 2800.46 172.5C2808.46 159.833 2818.46 150.333 2830.46 144C2842.79 137.667 2857.29 134.5 2873.96 134.5ZM3462.22 135.5C3465.22 135.5 3468.39 135.667 3471.72 136C3475.39 136 3479.56 136.5 3484.22 137.5L3481.22 214C3476.22 211.667 3470.72 210 3464.72 209C3458.72 208 3453.39 207.5 3448.72 207.5C3435.72 207.5 3424.56 210.5 3415.22 216.5C3405.89 222.5 3398.22 231.167 3392.22 242.5C3386.56 253.5 3382.72 267 3380.72 283V404H3308.22V141.5H3367.72L3368.22 231H3377.72C3380.39 208.667 3384.89 190.5 3391.22 176.5C3397.89 162.5 3407.06 152.167 3418.72 145.5C3430.39 138.833 3444.89 135.5 3462.22 135.5ZM2254.73 190.5C2242.4 190.5 2231.73 193.5 2222.73 199.5C2213.73 205.167 2206.9 214.167 2202.23 226.5C2197.57 238.5 2195.23 253.333 2195.23 271C2195.23 299.333 2200.9 320.833 2212.23 335.5C2223.57 350.167 2239.23 357.5 2259.23 357.5C2272.23 357.5 2283.07 354.5 2291.73 348.5C2300.73 342.5 2307.4 333.5 2311.73 321.5C2316.4 309.167 2318.73 294.333 2318.73 277C2318.73 258.667 2316.23 243.167 2311.23 230.5C2306.57 217.5 2299.57 207.667 2290.23 201C2280.9 194 2269.07 190.5 2254.73 190.5ZM1335.12 194C1324.45 194 1315.29 196.333 1307.62 201C1299.95 205.667 1293.45 211.833 1288.12 219.5C1283.12 227.167 1279.45 235.5 1277.12 244.5C1274.79 253.167 1273.62 261.5 1273.62 269.5V279C1273.62 285.333 1274.45 292 1276.12 299C1277.79 305.667 1280.45 312.333 1284.12 319C1287.79 325.333 1292.12 331.167 1297.12 336.5C1302.12 341.5 1307.95 345.667 1314.62 349C1321.29 352 1328.62 353.5 1336.62 353.5C1348.62 353.5 1358.79 350.167 1367.12 343.5C1375.45 336.833 1381.79 327.5 1386.12 315.5C1390.79 303.5 1393.12 289.833 1393.12 274.5C1393.12 257.833 1390.79 243.667 1386.12 232C1381.45 220 1374.79 210.667 1366.12 204C1357.45 197.333 1347.12 194 1335.12 194ZM3127.39 193.5C3115.39 193.5 3105.22 196.833 3096.89 203.5C3088.55 210.167 3082.05 219.5 3077.39 231.5C3072.72 243.167 3070.39 256.833 3070.39 272.5C3070.39 288.5 3072.72 302.5 3077.39 314.5C3082.39 326.5 3089.22 335.833 3097.89 342.5C3106.55 348.833 3116.72 352 3128.39 352C3139.39 352 3148.72 349.667 3156.39 345C3164.05 340.333 3170.39 334.333 3175.39 327C3180.39 319.333 3184.05 311.167 3186.39 302.5C3188.72 293.5 3189.89 285.167 3189.89 277.5V268C3189.89 261.667 3188.89 255.167 3186.89 248.5C3185.22 241.5 3182.72 234.667 3179.39 228C3176.05 221.333 3171.89 215.5 3166.89 210.5C3161.89 205.167 3156.05 201 3149.39 198C3142.72 195 3135.39 193.5 3127.39 193.5ZM1619.45 190.5C1606.78 190.5 1595.61 193.833 1585.95 200.5C1576.28 207.167 1568.78 217 1563.45 230C1561.1 235.575 1559.27 241.668 1557.95 248.276L1673.56 247.222C1673.27 238.183 1671.74 230.275 1668.95 223.5C1664.28 212.167 1657.45 203.833 1648.45 198.5C1639.78 193.167 1630.11 190.5 1619.45 190.5Z"/>
+    </svg>
+    <p class="gate-eyebrow">Private proposal</p>
+    <h1 class="gate-title">For Active Property Investing</h1>
+    <form id="gate-form" autocomplete="off">
+      <input type="password" id="gate-password" placeholder="Password" autocomplete="off" autofocus>
+      <button type="submit">Enter</button>
+    </form>
+    <p class="gate-error" id="gate-error" hidden>Sorry, that's not the right password.</p>
+  </div>
+</div>
+
+<article>
+
+  <header class="cover">
+    <svg class="logo" viewBox="0 0 3742 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hype Foundry">
+      <path d="M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z" fill="#D7F600"/>
+      <path d="M990.84 234C990.84 265 994.34 287.333 1001.34 301C1008.34 314.667 1019.01 321.5 1033.34 321.5C1041.01 321.5 1048.01 319.5 1054.34 315.5C1060.67 311.167 1066.01 305 1070.34 297C1075.01 289 1078.51 279.333 1080.84 268C1083.51 256.333 1084.84 243.167 1084.84 228.5V141.5H1156.84V334.5C1156.84 355.5 1155.01 374.667 1151.34 392C1147.67 409 1142.17 423.833 1134.84 436.5C1127.84 449.5 1118.84 460.333 1107.84 469C1096.84 477.667 1084.01 484.167 1069.34 488.5C1055.01 492.833 1038.67 495 1020.34 495C1007.01 495 993.34 493.667 979.34 491C965.673 488.667 952.673 484.833 940.34 479.5C928.34 474.5 918.007 468 909.34 460L929.84 398.5C940.507 409.5 953.84 417.667 969.84 423C985.84 428.667 1001.67 431.5 1017.34 431.5C1035.01 431.5 1049.67 427.833 1061.34 420.5C1073.34 413.5 1082.34 402.667 1088.34 388C1094.67 373 1098.34 354.333 1099.34 332L1102.34 286.5H1091.34C1088.01 308.5 1082.51 326.5 1074.84 340.5C1067.51 354.5 1058.01 364.833 1046.34 371.5C1035.01 377.833 1021.51 381 1005.84 381C986.84 381 970.84 376.167 957.84 366.5C944.84 356.833 935.007 342.333 928.34 323C922.007 303.667 918.84 279.833 918.84 251.5V141.5H990.84V234ZM3575.02 234C3575.02 265 3578.52 287.333 3585.52 301C3592.52 314.667 3603.19 321.5 3617.52 321.5C3625.19 321.5 3632.19 319.5 3638.52 315.5C3644.85 311.167 3650.19 305 3654.52 297C3659.19 289 3662.69 279.333 3665.02 268C3667.69 256.333 3669.02 243.167 3669.02 228.5V141.5H3741.02V334.5C3741.02 355.5 3739.19 374.667 3735.52 392C3731.85 409 3726.35 423.833 3719.02 436.5C3712.02 449.5 3703.02 460.333 3692.02 469C3681.02 477.667 3668.19 484.167 3653.52 488.5C3639.19 492.833 3622.85 495 3604.52 495C3591.19 495 3577.52 493.667 3563.52 491C3549.85 488.667 3536.85 484.833 3524.52 479.5C3512.52 474.5 3502.19 468 3493.52 460L3514.02 398.5C3524.69 409.5 3538.02 417.667 3554.02 423C3570.02 428.667 3585.85 431.5 3601.52 431.5C3619.19 431.5 3633.85 427.833 3645.52 420.5C3657.52 413.5 3666.52 402.667 3672.52 388C3678.85 373 3682.52 354.333 3683.52 332L3686.52 286.5H3675.52C3672.19 308.5 3666.69 326.5 3659.02 340.5C3651.69 354.5 3642.19 364.833 3630.52 371.5C3619.19 377.833 3605.69 381 3590.02 381C3571.02 381 3555.02 376.167 3542.02 366.5C3529.02 356.833 3519.19 342.333 3512.52 323C3506.19 303.667 3503.02 279.833 3503.02 251.5V141.5H3575.02V234ZM1357.12 134.5C1380.45 134.5 1400.45 140.333 1417.12 152C1433.79 163.333 1446.45 179.5 1455.12 200.5C1464.12 221.167 1468.62 245.667 1468.62 274C1468.62 300.333 1464.62 323.833 1456.62 344.5C1448.62 364.833 1436.62 381 1420.62 393C1404.95 405 1385.29 411 1361.62 411C1344.95 411 1330.79 407.833 1319.12 401.5C1307.79 395.167 1298.29 386.333 1290.62 375C1283.29 363.333 1277.12 349.5 1272.12 333.5H1262.62C1264.62 342.5 1266.45 351.667 1268.12 361C1269.79 370.333 1271.12 379.5 1272.12 388.5C1273.12 397.167 1273.62 405.667 1273.62 414V488H1201.62V141.5H1261.12L1261.62 214.5L1270.62 215C1273.62 197.333 1278.79 182.5 1286.12 170.5C1293.79 158.5 1303.62 149.5 1315.62 143.5C1327.62 137.5 1341.45 134.5 1357.12 134.5ZM1618.45 134.5C1638.45 134.5 1656.28 137.833 1671.95 144.5C1687.61 150.833 1700.61 160.5 1710.95 173.5C1721.61 186.5 1729.28 202.5 1733.95 221.5C1738.95 240.167 1740.78 261.667 1739.45 286L1555.83 287.782C1557.35 310.182 1563.39 327.088 1573.95 338.5C1586.61 351.833 1603.11 358.5 1623.45 358.5C1632.78 358.5 1640.61 357.333 1646.95 355C1653.61 352.333 1658.95 349 1662.95 345C1667.28 341 1670.61 336.5 1672.95 331.5C1675.61 326.5 1677.78 321.5 1679.45 316.5L1741.95 330C1738.95 342.333 1734.45 353.5 1728.45 363.5C1722.78 373.167 1715.11 381.667 1705.45 389C1695.78 396 1684.11 401.333 1670.45 405C1657.11 409 1641.45 411 1623.45 411C1601.78 411 1582.45 408 1565.45 402C1548.78 396 1534.61 387.333 1522.95 376C1511.28 364.667 1502.28 350.667 1495.95 334C1489.95 317.333 1486.95 298.5 1486.95 277.5C1486.95 256.833 1489.78 237.833 1495.45 220.5C1501.45 202.833 1510.11 187.667 1521.45 175C1532.78 162 1546.61 152 1562.95 145C1579.28 138 1597.78 134.5 1618.45 134.5ZM2256.73 134.5C2283.07 134.5 2306.23 139.667 2326.23 150C2346.57 160.333 2362.4 175.833 2373.73 196.5C2385.4 216.833 2391.23 242.333 2391.23 273C2391.23 304 2385.23 329.833 2373.23 350.5C2361.57 370.833 2345.57 386 2325.23 396C2305.23 406 2282.4 411 2256.73 411C2230.4 411 2207.23 405.833 2187.23 395.5C2167.23 384.833 2151.57 369.333 2140.23 349C2128.9 328.333 2123.23 302.667 2123.23 272C2123.23 241.333 2128.9 215.833 2140.23 195.5C2151.9 175.167 2167.73 160 2187.73 150C2208.07 139.667 2231.07 134.5 2256.73 134.5ZM2490.92 275.5C2490.92 301.167 2494.76 320.333 2502.42 333C2510.09 345.333 2521.76 351.5 2537.42 351.5C2546.76 351.5 2554.92 349.167 2561.92 344.5C2568.92 339.833 2574.92 333.333 2579.92 325C2584.92 316.667 2588.59 306.833 2590.92 295.5C2593.59 284.167 2595.09 272 2595.42 259V141.5H2667.42V404H2609.42L2608.92 322H2599.92C2594.92 342.667 2588.59 359.667 2580.92 373C2573.59 386 2564.09 395.667 2552.42 402C2541.09 408 2527.42 411 2511.42 411C2480.76 411 2457.59 400.667 2441.92 380C2426.59 359 2418.92 327.167 2418.92 284.5V141.5H2490.92V275.5ZM3261.89 404H3201.89V328H3191.89C3188.22 346.667 3182.55 362.167 3174.89 374.5C3167.22 386.833 3157.39 396 3145.39 402C3133.72 408 3120.05 411 3104.39 411C3082.39 411 3063.05 405.333 3046.39 394C3030.05 382.667 3017.39 366.667 3008.39 346C2999.39 325.333 2994.89 300.833 2994.89 272.5C2994.89 245.833 2998.89 222.167 3006.89 201.5C3014.89 180.833 3026.72 164.667 3042.39 153C3058.05 141.333 3077.55 135.5 3100.89 135.5C3117.89 135.5 3132.22 138.667 3143.89 145C3155.55 151.333 3165.05 160.667 3172.39 173C3180.05 185 3186.05 199.5 3190.39 216.5H3201.89C3199.55 205.833 3197.39 195.5 3195.39 185.5C3193.72 175.167 3192.39 165.333 3191.39 156C3190.39 146.667 3189.89 138.5 3189.89 131.5V46.5H3261.89V404ZM655.5 207.5H800V74H871.5V404H800V266.5H655.5V404H583.5V74H655.5V207.5ZM2116.21 135.5H1942.71V221.5H2097.71V280.5H1942.71V404H1870.71V74H2116.21V135.5ZM2873.96 134.5C2904.29 134.5 2927.29 145.167 2942.96 166.5C2958.96 187.833 2966.96 221.333 2966.96 267V404H2894.46V275C2894.46 247 2890.29 226.667 2881.96 214C2873.96 201 2862.12 194.5 2846.46 194.5C2833.12 194.5 2821.96 198.667 2812.96 207C2803.96 215.333 2797.12 226.333 2792.46 240C2788.12 253.333 2785.79 268.333 2785.46 285V404H2713.46V141.5H2772.46L2771.96 220H2781.96C2786.29 201 2792.46 185.167 2800.46 172.5C2808.46 159.833 2818.46 150.333 2830.46 144C2842.79 137.667 2857.29 134.5 2873.96 134.5ZM3462.22 135.5C3465.22 135.5 3468.39 135.667 3471.72 136C3475.39 136 3479.56 136.5 3484.22 137.5L3481.22 214C3476.22 211.667 3470.72 210 3464.72 209C3458.72 208 3453.39 207.5 3448.72 207.5C3435.72 207.5 3424.56 210.5 3415.22 216.5C3405.89 222.5 3398.22 231.167 3392.22 242.5C3386.56 253.5 3382.72 267 3380.72 283V404H3308.22V141.5H3367.72L3368.22 231H3377.72C3380.39 208.667 3384.89 190.5 3391.22 176.5C3397.89 162.5 3407.06 152.167 3418.72 145.5C3430.39 138.833 3444.89 135.5 3462.22 135.5ZM2254.73 190.5C2242.4 190.5 2231.73 193.5 2222.73 199.5C2213.73 205.167 2206.9 214.167 2202.23 226.5C2197.57 238.5 2195.23 253.333 2195.23 271C2195.23 299.333 2200.9 320.833 2212.23 335.5C2223.57 350.167 2239.23 357.5 2259.23 357.5C2272.23 357.5 2283.07 354.5 2291.73 348.5C2300.73 342.5 2307.4 333.5 2311.73 321.5C2316.4 309.167 2318.73 294.333 2318.73 277C2318.73 258.667 2316.23 243.167 2311.23 230.5C2306.57 217.5 2299.57 207.667 2290.23 201C2280.9 194 2269.07 190.5 2254.73 190.5ZM1335.12 194C1324.45 194 1315.29 196.333 1307.62 201C1299.95 205.667 1293.45 211.833 1288.12 219.5C1283.12 227.167 1279.45 235.5 1277.12 244.5C1274.79 253.167 1273.62 261.5 1273.62 269.5V279C1273.62 285.333 1274.45 292 1276.12 299C1277.79 305.667 1280.45 312.333 1284.12 319C1287.79 325.333 1292.12 331.167 1297.12 336.5C1302.12 341.5 1307.95 345.667 1314.62 349C1321.29 352 1328.62 353.5 1336.62 353.5C1348.62 353.5 1358.79 350.167 1367.12 343.5C1375.45 336.833 1381.79 327.5 1386.12 315.5C1390.79 303.5 1393.12 289.833 1393.12 274.5C1393.12 257.833 1390.79 243.667 1386.12 232C1381.45 220 1374.79 210.667 1366.12 204C1357.45 197.333 1347.12 194 1335.12 194ZM3127.39 193.5C3115.39 193.5 3105.22 196.833 3096.89 203.5C3088.55 210.167 3082.05 219.5 3077.39 231.5C3072.72 243.167 3070.39 256.833 3070.39 272.5C3070.39 288.5 3072.72 302.5 3077.39 314.5C3082.39 326.5 3089.22 335.833 3097.89 342.5C3106.55 348.833 3116.72 352 3128.39 352C3139.39 352 3148.72 349.667 3156.39 345C3164.05 340.333 3170.39 334.333 3175.39 327C3180.39 319.333 3184.05 311.167 3186.39 302.5C3188.72 293.5 3189.89 285.167 3189.89 277.5V268C3189.89 261.667 3188.89 255.167 3186.89 248.5C3185.22 241.5 3182.72 234.667 3179.39 228C3176.05 221.333 3171.89 215.5 3166.89 210.5C3161.89 205.167 3156.05 201 3149.39 198C3142.72 195 3135.39 193.5 3127.39 193.5ZM1619.45 190.5C1606.78 190.5 1595.61 193.833 1585.95 200.5C1576.28 207.167 1568.78 217 1563.45 230C1561.1 235.575 1559.27 241.668 1557.95 248.276L1673.56 247.222C1673.27 238.183 1671.74 230.275 1668.95 223.5C1664.28 212.167 1657.45 203.833 1648.45 198.5C1639.78 193.167 1630.11 190.5 1619.45 190.5Z" fill="#090909"/>
+    </svg>
+    <p class="eyebrow">Proposal</p>
+    <h1 class="title">A website that<br>works hard.</h1>
+    <p class="subtitle"><span class="highlight">For Active Property Investing</span></p>
+
+    <div class="prepared">
+      <p>
+        <span class="label">Prepared for</span>
+        <strong>Emma Allen</strong><br>
+        Founder<br>
+        Active Property Investing
+      </p>
+      <p>
+        <span class="label">Prepared by</span>
+        <strong>Clark Spendelow</strong><br>
+        Hype Foundry Studio<br>
+        <a href="https://hypefoundry.studio">hypefoundry.studio</a>
+      </p>
+    </div>
+  </header>
+
+  <section class="prose" aria-labelledby="brief" style="padding-top: 64px;">
+    <header class="section-head"><h2 id="brief">The brief</h2></header>
+
+    <p>From our conversation, the brief is clear. The website needs to do more than present information. It needs to build trust, qualify prospects, and move the right people toward the right next step before a consultation ever happens.</p>
+
+    <p>The business has evolved beyond the current site. The offer is sharper, the positioning is more aligned with professional services than traditional real estate, and the audience is clearer: capable, time-poor professionals looking for guidance and confidence in a high-stakes decision.</p>
+
+    <p>One idea kept surfacing throughout the conversation: qualification earlier in the relationship, not later. That's the principle this proposal is built around.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="frame">
+    <header class="section-head"><h2 id="frame">What the website needs to do</h2></header>
+
+    <p>Property investment is ultimately a trust business. Your clients are committing serious capital to a long-horizon decision, and the real question isn't "is this firm competent?" It's "do I trust Emma and API enough to guide a decision this important?"</p>
+
+    <p>Which means the website has a very different job. It's not a brochure. It's not a portfolio. It's a trust architecture, a system that does three things at once:</p>
+
+    <ol>
+      <li>Makes the first call feel like a second conversation, not a first.</li>
+      <li>Qualifies prospects against your readiness scale, before anyone speaks to Chris.</li>
+      <li>Routes them based on fit: into a booking, into education, or gently out.</li>
+    </ol>
+
+    <p>Most agencies sell one piece of this. Design studios sell the aesthetic. Marketing teams sell the funnel. Automation specialists sell the wiring. Not many of them sell the way those pieces work together. That's the part that turns the website into a sales tool.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="how-together">
+    <header class="section-head"><h2 id="how-together">How we'd work together</h2></header>
+
+    <p>One thing that came up on our call: the previous agency you spoke with kept asking what you wanted to do, when part of their role was to help lead the process.</p>
+
+    <p>The kickoff won't open with a blank brief. I'll arrive with a draft website strategy already in motion: where I think the positioning should sharpen, how the readiness scale should appear throughout the site, which content assets are carrying weight and which are sitting idle, and an initial visual direction worth exploring. You challenge what doesn't feel right. We refine the direction and keep the project moving.</p>
+
+    <p>That same approach carries through the whole project. Recommendations, not endless options. Clear direction throughout, collaborative decision-making where it matters, and strategic push-back where we think something weakens the outcome.</p>
+
+    <p>That also means challenging tactics we think undermine the long-term trust the brand depends on. We'd rather have those conversations directly than quietly implement something that weakens the overall system.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section aria-labelledby="what-build">
+    <div class="prose">
+      <header class="section-head"><h2 id="what-build">What we'd build</h2></header>
+
+      <p>The new website is designed as a connected system: one that builds trust, qualifies leads, and moves them toward the right next step.</p>
+
+      <p>The work breaks into six connected departments: strategy, copy, design, conversion, operations, and automation. Each plays a different role, but the value comes from how they work together.</p>
+
+      <p>The diagram below shows the structural shape of the site: two entry paths, a shared qualification engine, and three different outcomes depending on readiness.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 680 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proposed site structure: two entry paths, one qualification engine">
+        <style>
+          .sm-th { font-family: var(--sans, Arial), sans-serif; font-size: 11px; font-weight: 600; fill: #1A1A1A; }
+          .sm-ts { font-family: var(--sans, Arial), sans-serif; font-size: 10px; fill: #6C6C66; }
+          .sm-arr { stroke: #E3E0DA; stroke-width: 1; fill: none; }
+          .sm-c-gray rect,
+          .sm-c-purple rect,
+          .sm-c-blue rect,
+          .sm-c-teal rect,
+          .sm-c-coral rect { fill: #F5F4F3; stroke: #D8D4C8; }
+          .sm-c-amber rect { fill: #D5FF02; stroke: #D5FF02; stroke-width: 1.25; }
+        </style>
+        <defs>
+          <marker id="sm-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E3E0DA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          <marker id="sm-arrow-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E3E0DA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        </defs>
+
+        <g class="sm-c-gray"><rect x="40" y="30" width="260" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="170" y="52" text-anchor="middle" dominant-baseline="central" dy="-3">Cold traffic</text>
+        <text class="sm-ts" x="170" y="72" text-anchor="middle" dominant-baseline="central" dy="-3">Doesn't know Emma yet</text>
+
+        <g class="sm-c-coral"><rect x="380" y="30" width="260" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="510" y="52" text-anchor="middle" dominant-baseline="central" dy="-3">Warm referral</text>
+        <text class="sm-ts" x="510" y="72" text-anchor="middle" dominant-baseline="central" dy="-3">Sent by trusted partner</text>
+
+        <line x1="170" y1="86" x2="170" y2="120" class="sm-arr" marker-end="url(#sm-arrow)"/>
+        <line x1="510" y1="86" x2="510" y2="120" class="sm-arr" marker-end="url(#sm-arrow)"/>
+
+        <g class="sm-c-purple"><rect x="40" y="120" width="260" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="170" y="142" text-anchor="middle" dominant-baseline="central" dy="-3">Homepage</text>
+        <text class="sm-ts" x="170" y="162" text-anchor="middle" dominant-baseline="central" dy="-3">Full brand story, proof, paths</text>
+
+        <g class="sm-c-purple"><rect x="380" y="120" width="260" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="510" y="142" text-anchor="middle" dominant-baseline="central" dy="-3">Partner landing</text>
+        <text class="sm-ts" x="510" y="162" text-anchor="middle" dominant-baseline="central" dy="-3">Acknowledges referral</text>
+
+        <line x1="170" y1="176" x2="170" y2="220" class="sm-arr" marker-end="url(#sm-arrow)"/>
+
+        <g class="sm-c-blue"><rect x="40" y="220" width="260" height="40" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="170" y="242" text-anchor="middle" dominant-baseline="central" dy="-3">Build trust</text>
+
+        <g class="sm-c-blue"><rect x="40" y="275" width="80" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="80" y="297" text-anchor="middle" dominant-baseline="central" dy="-3">About</text>
+        <text class="sm-ts" x="80" y="317" text-anchor="middle" dominant-baseline="central" dy="-3">Emma, team</text>
+
+        <g class="sm-c-blue"><rect x="130" y="275" width="80" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="170" y="297" text-anchor="middle" dominant-baseline="central" dy="-3">Process</text>
+        <text class="sm-ts" x="170" y="317" text-anchor="middle" dominant-baseline="central" dy="-3">How it works</text>
+
+        <g class="sm-c-blue"><rect x="220" y="275" width="80" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="260" y="297" text-anchor="middle" dominant-baseline="central" dy="-3">Stories</text>
+        <text class="sm-ts" x="260" y="317" text-anchor="middle" dominant-baseline="central" dy="-3">Clients, results</text>
+
+        <line x1="80" y1="331" x2="80" y2="365" class="sm-arr" marker-end="url(#sm-arrow)" stroke-dasharray="3 3"/>
+        <line x1="170" y1="331" x2="170" y2="365" class="sm-arr" marker-end="url(#sm-arrow)" stroke-dasharray="3 3"/>
+        <line x1="260" y1="331" x2="260" y2="365" class="sm-arr" marker-end="url(#sm-arrow)" stroke-dasharray="3 3"/>
+
+        <g class="sm-c-teal"><rect x="40" y="365" width="260" height="40" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="170" y="387" text-anchor="middle" dominant-baseline="central" dy="-3">Explore content</text>
+
+        <g class="sm-c-teal"><rect x="40" y="420" width="80" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="80" y="442" text-anchor="middle" dominant-baseline="central" dy="-3">Podcast</text>
+        <text class="sm-ts" x="80" y="462" text-anchor="middle" dominant-baseline="central" dy="-3">Episodes</text>
+
+        <g class="sm-c-teal"><rect x="130" y="420" width="80" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="170" y="442" text-anchor="middle" dominant-baseline="central" dy="-3">Articles</text>
+        <text class="sm-ts" x="170" y="462" text-anchor="middle" dominant-baseline="central" dy="-3">Blog, updates</text>
+
+        <g class="sm-c-teal"><rect x="220" y="420" width="80" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="260" y="442" text-anchor="middle" dominant-baseline="central" dy="-3">Events</text>
+        <text class="sm-ts" x="260" y="462" text-anchor="middle" dominant-baseline="central" dy="-3">Webinars</text>
+
+        <line x1="170" y1="476" x2="170" y2="540" class="sm-arr" marker-end="url(#sm-arrow)"/>
+
+        <text class="sm-ts" x="180" y="510">Long consideration cycle</text>
+
+        <line x1="510" y1="176" x2="510" y2="330" class="sm-arr" marker-end="url(#sm-arrow)" stroke-dasharray="4 4"/>
+
+        <g class="sm-c-purple"><rect x="380" y="330" width="260" height="56" rx="8" fill="none" stroke-width="1" stroke-dasharray="1 3"/></g>
+        <text class="sm-th" x="510" y="352" text-anchor="middle" dominant-baseline="central" dy="-3">Partner landing content</text>
+        <text class="sm-ts" x="510" y="372" text-anchor="middle" dominant-baseline="central" dy="-3">See Partner pathway below for detail</text>
+
+        <line x1="510" y1="386" x2="510" y2="540" class="sm-arr" marker-end="url(#sm-arrow)" stroke-dasharray="4 4"/>
+
+        <g class="sm-c-amber"><rect x="40" y="540" width="600" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="340" y="562" text-anchor="middle" dominant-baseline="central" dy="-3">Readiness intake</text>
+        <text class="sm-ts" x="340" y="582" text-anchor="middle" dominant-baseline="central" dy="-3">Both paths converge here, with tailored questions per source</text>
+
+        <line x1="340" y1="596" x2="340" y2="630" class="sm-arr" marker-end="url(#sm-arrow)"/>
+
+        <g class="sm-c-coral"><rect x="40" y="630" width="180" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="130" y="652" text-anchor="middle" dominant-baseline="central" dy="-3">Strategy call</text>
+        <text class="sm-ts" x="130" y="672" text-anchor="middle" dominant-baseline="central" dy="-3">Good-fit</text>
+        <text class="sm-ts" x="130" y="688" text-anchor="middle" dominant-baseline="central" dy="-3">prospects</text>
+
+        <g class="sm-c-coral"><rect x="250" y="630" width="180" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="340" y="652" text-anchor="middle" dominant-baseline="central" dy="-3">Nurture sequence</text>
+        <text class="sm-ts" x="340" y="672" text-anchor="middle" dominant-baseline="central" dy="-3">Borderline</text>
+        <text class="sm-ts" x="340" y="688" text-anchor="middle" dominant-baseline="central" dy="-3">prospects</text>
+
+        <g class="sm-c-coral"><rect x="460" y="630" width="180" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="sm-th" x="550" y="652" text-anchor="middle" dominant-baseline="central" dy="-3">Resource send</text>
+        <text class="sm-ts" x="550" y="672" text-anchor="middle" dominant-baseline="central" dy="-3">Not-yet-fit</text>
+        <text class="sm-ts" x="550" y="688" text-anchor="middle" dominant-baseline="central" dy="-3">prospects</text>
+      </svg>
+      <figcaption class="caption">Proposed site structure: two entry paths, one qualification engine</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3 class="numbered"><span class="num">01</span><span>Strategy</span></h3>
+      <p>We'll work directly from the readiness scale you've already developed (finance, focus, support, flexibility) and use it as the spine of the site's qualification logic, shaping how different audiences are guided through the experience.</p>
+
+      <h3 class="numbered"><span class="num">02</span><span>Copy</span></h3>
+      <p>Refined positioning expressed across every page, headline, CTA, and form. Built around the language already present in the business, like valet service, professional services, and the journey rather than the property, rather than generic real estate or agency copy.</p>
+
+      <p>The goal is a website that feels informed, human, and advisory: closer to a real conversation with the team than a marketing layer placed on top of the business.</p>
+
+      <h3 class="numbered"><span class="num">03</span><span>Design</span></h3>
+      <p>A custom Webflow build designed for clarity, usability, accessibility, and trust. The aesthetic direction you described, simple, elegant, with restrained Tiffany-blue accents, translated into a cohesive design system that holds up across every page, every device, and every piece of brand communication surrounding it.</p>
+
+      <p>Built with industry-leading performance standards and designed to feel considered in the details, not just visually impressive at first glance.</p>
+
+      <h3 class="numbered"><span class="num">04</span><span>Conversion</span></h3>
+      <p>This is where the readiness scale comes into the website. A structured intake (quiz or guided form) that scores prospects against finance, focus, support, and flexibility before they ever reach Chris. Good-fit prospects route straight to a booking with the right call type. Borderline prospects get routed into your education content (eBooks, webinars, podcast). Bad-fit prospects get a respectful filter and something useful.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 680 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How the readiness scale drives lead routing on the website">
+        <style>
+          .ql-th { font-family: var(--sans, Arial), sans-serif; font-size: 11px; font-weight: 600; fill: #1A1A1A; }
+          .ql-ts { font-family: var(--sans, Arial), sans-serif; font-size: 10px; fill: #6C6C66; }
+          .ql-arr { stroke: #E3E0DA; stroke-width: 1; fill: none; }
+          .ql-c-gray rect,
+          .ql-c-blue rect,
+          .ql-c-teal rect,
+          .ql-c-amber rect { fill: #F5F4F3; stroke: #D8D4C8; }
+          .ql-c-purple rect { fill: #D5FF02; stroke: #D5FF02; stroke-width: 1.25; }
+        </style>
+        <defs>
+          <marker id="ql-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E3E0DA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        </defs>
+
+        <g class="ql-c-gray"><rect x="240" y="30" width="200" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="340" y="48" text-anchor="middle" dominant-baseline="central" dy="-3">Prospect arrives</text>
+        <text class="ql-ts" x="340" y="68" text-anchor="middle" dominant-baseline="central" dy="-3">Homepage, podcast, referral</text>
+
+        <line x1="340" y1="86" x2="340" y2="120" class="ql-arr" marker-end="url(#ql-arrow)"/>
+
+        <g class="ql-c-purple"><rect x="220" y="120" width="240" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="340" y="142" text-anchor="middle" dominant-baseline="central" dy="-3">Readiness scale intake</text>
+        <text class="ql-ts" x="340" y="164" text-anchor="middle" dominant-baseline="central" dy="-3">Finance · Focus · Support</text>
+        <text class="ql-ts" x="340" y="180" text-anchor="middle" dominant-baseline="central" dy="-3">Flexibility</text>
+
+        <line x1="340" y1="196" x2="340" y2="230" class="ql-arr" marker-end="url(#ql-arrow)"/>
+
+        <g class="ql-c-amber"><rect x="260" y="230" width="160" height="44" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="340" y="252" text-anchor="middle" dominant-baseline="central" dy="-3">Score &amp; route</text>
+
+        <path d="M260 252 L 140 252 L 140 320" class="ql-arr" marker-end="url(#ql-arrow)"/>
+        <line x1="340" y1="274" x2="340" y2="320" class="ql-arr" marker-end="url(#ql-arrow)"/>
+        <path d="M420 252 L 540 252 L 540 320" class="ql-arr" marker-end="url(#ql-arrow)"/>
+
+        <g class="ql-c-teal"><rect x="50" y="320" width="180" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="140" y="342" text-anchor="middle" dominant-baseline="central" dy="-3">Good fit</text>
+        <text class="ql-ts" x="140" y="362" text-anchor="middle" dominant-baseline="central" dy="-3">High readiness</text>
+
+        <g class="ql-c-blue"><rect x="250" y="320" width="180" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="340" y="342" text-anchor="middle" dominant-baseline="central" dy="-3">Borderline</text>
+        <text class="ql-ts" x="340" y="362" text-anchor="middle" dominant-baseline="central" dy="-3">Developing readiness</text>
+
+        <g class="ql-c-gray"><rect x="450" y="320" width="180" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="540" y="342" text-anchor="middle" dominant-baseline="central" dy="-3">Not yet a fit</text>
+        <text class="ql-ts" x="540" y="362" text-anchor="middle" dominant-baseline="central" dy="-3">Low readiness</text>
+
+        <line x1="140" y1="376" x2="140" y2="420" class="ql-arr" marker-end="url(#ql-arrow)"/>
+        <line x1="340" y1="376" x2="340" y2="420" class="ql-arr" marker-end="url(#ql-arrow)"/>
+        <line x1="540" y1="376" x2="540" y2="420" class="ql-arr" marker-end="url(#ql-arrow)"/>
+
+        <g class="ql-c-teal"><rect x="50" y="420" width="180" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="140" y="442" text-anchor="middle" dominant-baseline="central" dy="-3">Strategy call</text>
+        <text class="ql-ts" x="140" y="462" text-anchor="middle" dominant-baseline="central" dy="-3">Calendar booking with</text>
+        <text class="ql-ts" x="140" y="478" text-anchor="middle" dominant-baseline="central" dy="-3">Chris or Emma</text>
+
+        <g class="ql-c-blue"><rect x="250" y="420" width="180" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="340" y="442" text-anchor="middle" dominant-baseline="central" dy="-3">Education path</text>
+        <text class="ql-ts" x="340" y="462" text-anchor="middle" dominant-baseline="central" dy="-3">eBooks, webinars,</text>
+        <text class="ql-ts" x="340" y="478" text-anchor="middle" dominant-baseline="central" dy="-3">podcast, nurture</text>
+
+        <g class="ql-c-gray"><rect x="450" y="420" width="180" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="540" y="442" text-anchor="middle" dominant-baseline="central" dy="-3">Respectful filter</text>
+        <text class="ql-ts" x="540" y="462" text-anchor="middle" dominant-baseline="central" dy="-3">Useful resources,</text>
+        <text class="ql-ts" x="540" y="478" text-anchor="middle" dominant-baseline="central" dy="-3">door left open</text>
+
+        <line x1="140" y1="496" x2="140" y2="540" class="ql-arr" marker-end="url(#ql-arrow)"/>
+        <path d="M340 496 L 340 520 L 200 520 L 200 540" class="ql-arr" marker-end="url(#ql-arrow)" stroke-dasharray="3 3"/>
+
+        <g class="ql-c-teal"><rect x="50" y="540" width="300" height="44" rx="8" stroke-width="0.5"/></g>
+        <text class="ql-th" x="200" y="562" text-anchor="middle" dominant-baseline="central" dy="-3">CRM &amp; sales pipeline</text>
+
+        <text class="ql-ts" x="370" y="566">Borderline prospects re-enter</text>
+        <text class="ql-ts" x="370" y="582">when readiness develops</text>
+      </svg>
+      <figcaption class="caption">How the readiness scale drives lead routing on the website</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h4 id="partner-pathway">Partner pathway</h4>
+      <p>We'd also build a separate partner pathway, so mortgage brokers and trusted referrers can send clients into a faster, warmer flow. Warm referrals don't need the same trust-building journey cold traffic does. They arrive with that trust already established. A dedicated landing page acknowledges the referral, confirms it was sound, and routes them straight to the readiness intake.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 680 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anatomy of the partner landing page">
+        <style>
+          .pt-th { font-family: var(--sans, Arial), sans-serif; font-size: 11px; font-weight: 600; fill: #1A1A1A; }
+          .pt-ts { font-family: var(--sans, Arial), sans-serif; font-size: 10px; fill: #6C6C66; }
+          .pt-arr { stroke: #E3E0DA; stroke-width: 1; fill: none; }
+          .pt-c-teal rect,
+          .pt-c-amber rect,
+          .pt-c-coral rect { fill: #F5F4F3; stroke: #D8D4C8; }
+          .pt-c-purple rect { fill: #D5FF02; stroke: #D5FF02; stroke-width: 1.25; }
+        </style>
+        <defs>
+          <marker id="pt-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E3E0DA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          <marker id="pt-arrow-light" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C5C1B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        </defs>
+
+        <g class="pt-c-coral"><rect x="40" y="30" width="600" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="340" y="52" text-anchor="middle" dominant-baseline="central" dy="-3">Warm referral arrives</text>
+        <text class="pt-ts" x="340" y="72" text-anchor="middle" dominant-baseline="central" dy="-3">Sent by mortgage broker, advisor, or accountant</text>
+
+        <line x1="340" y1="86" x2="340" y2="120" class="pt-arr" marker-end="url(#pt-arrow)"/>
+
+        <g class="pt-c-purple"><rect x="40" y="120" width="600" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="340" y="142" text-anchor="middle" dominant-baseline="central" dy="-3">Partner landing page</text>
+        <text class="pt-ts" x="340" y="162" text-anchor="middle" dominant-baseline="central" dy="-3">Minimal navigation, focused journey, one CTA</text>
+
+        <line x1="340" y1="176" x2="340" y2="210" class="pt-arr" marker-end="url(#pt-arrow)"/>
+
+        <g class="pt-c-teal"><rect x="40" y="210" width="600" height="60" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="60" y="234" dominant-baseline="central" dy="-3">01  Welcome acknowledgement</text>
+        <text class="pt-ts" x="60" y="254" dominant-baseline="central" dy="-3">"We're glad your advisor sent you our way."  Personal, warm, expected</text>
+
+        <line x1="340" y1="270" x2="340" y2="294" class="pt-arr" marker-end="url(#pt-arrow-light)" stroke="#C5C1B7" stroke-width="0.75"/>
+
+        <g class="pt-c-teal"><rect x="40" y="294" width="600" height="60" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="60" y="318" dominant-baseline="central" dy="-3">02  What API does</text>
+        <text class="pt-ts" x="60" y="338" dominant-baseline="central" dy="-3">One paragraph. Plain language. Confirms what the partner already told them</text>
+
+        <line x1="340" y1="354" x2="340" y2="378" class="pt-arr" marker-end="url(#pt-arrow-light)" stroke="#C5C1B7" stroke-width="0.75"/>
+
+        <g class="pt-c-teal"><rect x="40" y="378" width="600" height="60" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="60" y="402" dominant-baseline="central" dy="-3">03  Trust shortcut</text>
+        <text class="pt-ts" x="60" y="422" dominant-baseline="central" dy="-3">One testimonial, key stat, or award. Confirms the referral was sound</text>
+
+        <line x1="340" y1="438" x2="340" y2="462" class="pt-arr" marker-end="url(#pt-arrow-light)" stroke="#C5C1B7" stroke-width="0.75"/>
+
+        <g class="pt-c-amber"><rect x="40" y="462" width="600" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="60" y="486" dominant-baseline="central" dy="-3">04  Emma to camera</text>
+        <text class="pt-ts" x="60" y="506" dominant-baseline="central" dy="-3">60-90 second video. Direct address to referred visitor.</text>
+        <text class="pt-ts" x="60" y="522" dominant-baseline="central" dy="-3">Highest-value element on the page. Video transfers trust fastest</text>
+
+        <line x1="340" y1="538" x2="340" y2="562" class="pt-arr" marker-end="url(#pt-arrow-light)" stroke="#C5C1B7" stroke-width="0.75"/>
+
+        <g class="pt-c-teal"><rect x="40" y="562" width="600" height="60" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="60" y="586" dominant-baseline="central" dy="-3">05  Single call to action</text>
+        <text class="pt-ts" x="60" y="606" dominant-baseline="central" dy="-3">One button. Routes into the readiness intake. No competing paths</text>
+
+        <line x1="340" y1="622" x2="340" y2="646" class="pt-arr" marker-end="url(#pt-arrow-light)" stroke="#C5C1B7" stroke-width="0.75"/>
+
+        <g class="pt-c-teal"><rect x="40" y="646" width="600" height="60" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="60" y="670" dominant-baseline="central" dy="-3">06  What happens next</text>
+        <text class="pt-ts" x="60" y="690" dominant-baseline="central" dy="-3">Short reassurance. "Few questions, then a 30-minute call. No obligation."</text>
+
+        <line x1="340" y1="706" x2="340" y2="740" class="pt-arr" marker-end="url(#pt-arrow)"/>
+
+        <g class="pt-c-coral"><rect x="40" y="740" width="600" height="40" rx="8" stroke-width="0.5"/></g>
+        <text class="pt-th" x="340" y="762" text-anchor="middle" dominant-baseline="central" dy="-3">Readiness intake → strategy call booking</text>
+      </svg>
+      <figcaption class="caption">Anatomy of the partner landing page</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>The AI concierge sits within this layer as a conversion mechanism, covered in its own section below.</p>
+
+      <h3 class="numbered"><span class="num">05</span><span>Operations</span></h3>
+      <p>CRM setup or migration, lead routing, and the operational infrastructure behind the site. Every form submission, booking, and interaction feeds a system that moves the relationship forward through qualification, follow-up, reminders, and tagging by source.</p>
+
+      <p>Instead of routing enquiries into an inbox, the website feeds a structured pipeline designed around qualification and follow-up.</p>
+
+      <h3 class="numbered"><span class="num">06</span><span>Automations</span></h3>
+      <p>The connective tissue between the site, the CRM, and the content engine your team already runs. Form submissions trigger the right workflows. New content publishes and feeds into social automatically. Personal-feeling nurture sequences keep API top-of-mind across the long property-investment consideration cycle, without anyone having to write each email by hand.</p>
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 680 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How new content compounds across channels through the automation layer">
+        <style>
+          .cl-th { font-family: var(--sans, Arial), sans-serif; font-size: 11px; font-weight: 600; fill: #1A1A1A; }
+          .cl-ts { font-family: var(--sans, Arial), sans-serif; font-size: 10px; fill: #6C6C66; }
+          .cl-arr { stroke: #E3E0DA; stroke-width: 1; fill: none; }
+          .cl-c-purple rect,
+          .cl-c-blue rect,
+          .cl-c-teal rect,
+          .cl-c-pink rect { fill: #F5F4F3; stroke: #D8D4C8; }
+          .cl-c-amber rect { fill: #D5FF02; stroke: #D5FF02; stroke-width: 1.25; }
+        </style>
+        <defs>
+          <marker id="cl-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#E3E0DA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        </defs>
+
+        <g class="cl-c-purple"><rect x="240" y="30" width="200" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="340" y="52" text-anchor="middle" dominant-baseline="central" dy="-3">New content published</text>
+        <text class="cl-ts" x="340" y="74" text-anchor="middle" dominant-baseline="central" dy="-3">Blog, podcast, video,</text>
+        <text class="cl-ts" x="340" y="90" text-anchor="middle" dominant-baseline="central" dy="-3">webinar, market update</text>
+
+        <line x1="340" y1="106" x2="340" y2="150" class="cl-arr" marker-end="url(#cl-arrow)"/>
+
+        <g class="cl-c-amber"><rect x="220" y="150" width="240" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="340" y="172" text-anchor="middle" dominant-baseline="central" dy="-3">Automation layer</text>
+        <text class="cl-ts" x="340" y="192" text-anchor="middle" dominant-baseline="central" dy="-3">Repurpose, format, schedule</text>
+
+        <path d="M220 178 L 110 178 L 110 240" class="cl-arr" marker-end="url(#cl-arrow)"/>
+        <line x1="340" y1="206" x2="340" y2="240" class="cl-arr" marker-end="url(#cl-arrow)"/>
+        <path d="M460 178 L 570 178 L 570 240" class="cl-arr" marker-end="url(#cl-arrow)"/>
+
+        <g class="cl-c-teal"><rect x="40" y="240" width="140" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="110" y="262" text-anchor="middle" dominant-baseline="central" dy="-3">Instagram</text>
+        <text class="cl-ts" x="110" y="282" text-anchor="middle" dominant-baseline="central" dy="-3">Quote cards,</text>
+        <text class="cl-ts" x="110" y="298" text-anchor="middle" dominant-baseline="central" dy="-3">video clips</text>
+
+        <g class="cl-c-teal"><rect x="270" y="240" width="140" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="340" y="262" text-anchor="middle" dominant-baseline="central" dy="-3">LinkedIn</text>
+        <text class="cl-ts" x="340" y="282" text-anchor="middle" dominant-baseline="central" dy="-3">Long-form</text>
+        <text class="cl-ts" x="340" y="298" text-anchor="middle" dominant-baseline="central" dy="-3">post draft</text>
+
+        <g class="cl-c-teal"><rect x="500" y="240" width="140" height="76" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="570" y="262" text-anchor="middle" dominant-baseline="central" dy="-3">Email</text>
+        <text class="cl-ts" x="570" y="282" text-anchor="middle" dominant-baseline="central" dy="-3">Segmented</text>
+        <text class="cl-ts" x="570" y="298" text-anchor="middle" dominant-baseline="central" dy="-3">newsletter</text>
+
+        <line x1="110" y1="316" x2="110" y2="360" class="cl-arr" marker-end="url(#cl-arrow)" stroke-dasharray="3 3"/>
+        <line x1="340" y1="316" x2="340" y2="360" class="cl-arr" marker-end="url(#cl-arrow)" stroke-dasharray="3 3"/>
+        <line x1="570" y1="316" x2="570" y2="360" class="cl-arr" marker-end="url(#cl-arrow)" stroke-dasharray="3 3"/>
+
+        <g class="cl-c-pink"><rect x="40" y="360" width="600" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="340" y="382" text-anchor="middle" dominant-baseline="central" dy="-3">Content team reviews, approves, refines</text>
+        <text class="cl-ts" x="340" y="402" text-anchor="middle" dominant-baseline="central" dy="-3">Automation drafts the work; the human keeps editorial control</text>
+
+        <line x1="340" y1="416" x2="340" y2="450" class="cl-arr" marker-end="url(#cl-arrow)"/>
+
+        <g class="cl-c-blue"><rect x="200" y="450" width="280" height="56" rx="8" stroke-width="0.5"/></g>
+        <text class="cl-th" x="340" y="472" text-anchor="middle" dominant-baseline="central" dy="-3">Audience touches content again</text>
+        <text class="cl-ts" x="340" y="492" text-anchor="middle" dominant-baseline="central" dy="-3">Loop continues, trust compounds</text>
+      </svg>
+      <figcaption class="caption">How new content compounds across channels through the automation layer</figcaption>
+    </figure>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="concierge">
+    <header class="section-head"><h2 id="concierge">The AI concierge</h2></header>
+
+    <p>Worth its own section because it's one of the parts of the system that quietly does the most work, and because it sits outside the standard six departments.</p>
+
+    <h3>What it is</h3>
+    <p>A conversational AI assistant embedded on the website, available to any visitor who wants to ask a question rather than navigate to find the answer. It uses a chat-style interface, but designed and behaved like a concierge, not a chatbot widget. Discreet, opt-in, on-brand. No pushy popups, no demanding attention, no canned greetings. Just available when wanted.</p>
+
+    <h3>Why it fits API specifically</h3>
+    <p>Property investment is a high-question category. Prospects want to know about the process, fees, timelines, property types, suburb-specific commentary, what makes a good deal, how long settlement takes, what happens if they want to exit early. A conversational interface is genuinely good UX for that kind of exploratory Q&amp;A. It's better than asking them to dig through pages or wait for a call.</p>
+    <p>It also extends the trust architecture. Visitors who aren't ready to book a call can still engage with the business in a meaningful way, getting real, accurate answers grounded in API's own content, voice, and perspective.</p>
+
+    <p>That moves the relationship forward without requiring a human at the other end of every conversation.</p>
+
+    <h3>What it's trained on</h3>
+    <p>Your existing content library: podcast transcripts, eBooks, articles, webinar recordings, market updates. The assistant answers in your voice, cites your own material, and stays within what API has actually said. If a question falls outside what the content covers, the assistant routes the visitor to a human conversation rather than guessing.</p>
+
+    <h3>How it differs from a chatbot widget</h3>
+    <p>Most chatbot widgets are designed to capture leads. They pop up, demand attention, route to a sales rep. The concierge is designed to serve trust. It only appears when invited, it reads as part of the site rather than bolted onto it, and its primary measure of success is whether the visitor felt their question was actually answered. Lead capture happens as a natural next step when the conversation suggests readiness, not as the goal of every interaction.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="findability">
+    <header class="section-head"><h2 id="findability">Findability</h2></header>
+
+    <p>How prospects discover API is changing. Traditional Google search still matters, but AI tools (ChatGPT, Claude, Perplexity, Google's AI overviews) are increasingly where buyers research advisors before they ever land on a website. You've already seen this firsthand: a client recently found you through ChatGPT.</p>
+
+    <p>A website rebuild is the right moment to address both. The underlying work is similar (structured content, clear expertise signals, technical hygiene), but the output reaches two different discovery channels.</p>
+
+    <h3>Where API gets found today</h3>
+    <p>A review of the current site's discoverability before any structural decisions get made. For traditional search: which pages are pulling traffic, which keywords API ranks for, where the structural gaps are. For AI tools: how API currently surfaces (or doesn't) in queries a prospect might actually ask, like "who are the best buyers' agents in Sydney," "how does SMSF property investing work," "what does Active Property Investing do." This isn't a generic technical scan. It's a strategic read of where the business already has visibility, so the rebuild protects and extends it rather than starting from zero.</p>
+
+    <h3>What we'd fix in the build</h3>
+    <p>The current site has visible weak spots a rebuild is the right moment to address. Generic page titles, content trapped inside videos and PDFs that neither search engines nor AI systems can read, no dedicated landing pages for high-intent searches (SMSF investing, dual-occupancy strategy, region-specific queries), and shallow internal linking that makes deeper content hard to find.</p>
+    <p>The new site structure, copy, and on-page setup are designed around these findings. Critically, content gets structured so it can be cited: clear question-and-answer formats, named expertise indicators, schema markup that helps AI systems understand who API is and what you do. The goal is to make API more likely to be the answer when an AI is asked, without overpromising specific outcomes. No-one can guarantee placement in AI search results; what we can do is set the conditions that make recommendation far more likely.</p>
+
+    <h3>Migration and continuity</h3>
+    <p>Every URL on the existing site gets mapped to its new destination, with redirect rules in place before launch. That continuity work helps preserve existing search visibility and ensures the transition into the new site happens cleanly, without losing the value already built into the current structure.</p>
+
+    <p>The same structural foundations also support continuity in how AI systems discover, interpret, and reference the site over time.</p>
+    <p>Ongoing SEO management, monthly keyword reporting, and link building campaigns sit outside this proposal. They're separate engagements if and when you want them, ideally folded into Phase 3 once the foundation is in place.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="approach">
+    <header class="section-head"><h2 id="approach">How we'd approach it</h2></header>
+
+    <p>Three phases. The first two build the system. The third optimises and evolves it.</p>
+
+    <h3>Why phasing produces a better system</h3>
+    <p>The phased approach allows the system to mature over time. Some parts of the website genuinely improve when they're built on top of real usage, behaviour, and data.</p>
+
+    <p>Each phase builds on the one before it, allowing the system to become sharper and more effective as it evolves.</p>
+
+    <p>A few concrete examples:</p>
+
+    <p><strong>The readiness quiz.</strong> Phase 1 ships a solid lead qualification form, covering the four readiness dimensions and routing visitors toward booking, nurture, or filter outcomes. That's enough to begin qualifying leads from day one.</p>
+
+    <p>Phase 2 evolves that into a more interactive experience, with adaptive questions, scoring, and more personalised routing. The second version benefits from seeing how real visitors move through the system first, allowing the experience to become more informed and effective over time.</p>
+
+    <p>The same applies to follow-up and nurture communication. Real usage reveals which questions prospects keep asking, which content builds trust, and where people need more clarity before moving forward.</p>
+
+    <p>Phasing allows the system to evolve from real behaviour rather than assumptions, making each stage more informed than the last.</p>
+
+    <h3>Phase 1: Foundation &amp; Launch</h3>
+    <p class="phase-meta">Now → Mid-July – Early August 2026</p>
+    <p>Everything required to take the new site live as a working, trust-building, lead-qualifying asset, including the AI concierge from day one.</p>
+
+    <ul>
+      <li>Website strategy: positioning, audience mapping, flow, brand direction. Presented for your review, refined from your feedback.</li>
+      <li>Wireframes for the key page types, presented for feedback before any design work begins.</li>
+      <li>Visual direction: 2-3 distinct concepts for the new look and feel, presented for feedback, then iteration on the chosen direction.</li>
+      <li>Full copy across the site (homepage, process, about, properties, events, contact, lead capture pages).</li>
+      <li>Findability audit and migration strategy: review of how API currently surfaces in both traditional search and AI tools (ChatGPT, Perplexity, etc.), gap analysis against the new sitemap, on-page work baked into the build, plus URL mapping and redirect rules so existing visibility transfers cleanly at launch.</li>
+      <li>Custom Webflow design and build, mobile-first, Lighthouse 95+ baseline.</li>
+      <li>Lead qualification form: captures the four readiness dimensions and routes to booking, nurture, or filter on submission.</li>
+      <li>Partner landing page for referral traffic: bypasses the cold-traffic journey, routes warm leads to a faster intake.</li>
+      <li>AI concierge: trained on your existing content library, designed as a guided assistant rather than a chat widget, live from launch.</li>
+      <li>CRM setup or migration, with lead routing and source tagging.</li>
+      <li>Booking flow integration (Calendly or equivalent).</li>
+      <li>Core transactional automations: form confirmations, booking reminders, no-show follow-up.</li>
+      <li>Migration, launch, training Loom and handover documentation.</li>
+    </ul>
+
+    <h3>Phase 2: Lifecycle &amp; Optimisation</h3>
+    <p class="phase-meta">August → October 2026</p>
+    <p>With real traffic data from Phase 1, the system gets sharper. This is the layer that makes the website compound rather than just sit there.</p>
+
+    <ul>
+      <li>Interactive readiness quiz: adaptive questions, real-time scoring, dynamic routing, and personalised outcome pages.</li>
+      <li>AI concierge refinement: tuning responses based on the questions visitors are actually asking, deeper integration with the readiness scale.</li>
+      <li>Advanced lead routing rules based on score, source, and behaviour.</li>
+      <li>Automated email follow-up: 2-3 core sequences triggered by visitor actions (eBook downloads, webinar attendance, form submissions without booking), with content tailored to where the prospect sits on the readiness scale.</li>
+      <li>Content repurposing workflows (new blog → social quote cards, new podcast → email feature, etc.) connecting the site to your existing content workflow.</li>
+      <li>Post-launch optimisation based on analytics, heatmaps, and conversion data.</li>
+      <li>Review session and roadmap into Phase 3.</li>
+    </ul>
+
+    <h3>Phase 3: Strategic Operations</h3>
+    <p class="phase-meta">From November 2026, ongoing</p>
+    <p>This is the phase that addresses what you said on our call: that you need someone who knows what works and what doesn't, who can tell the difference between signal and noise in a space that changes every month.</p>
+    <p>Phase 3 is where the dots keep getting connected. New tools emerge, your business evolves, the data tells you things you didn't know at launch. The work is noticing the patterns and acting on them, and just as importantly, telling you which new things to ignore.</p>
+
+    <h4>What's included each month</h4>
+    <ul>
+      <li>A written brief plus short Loom video: what's working in the system, what isn't, what to change. Delivered async so you can watch it on your time.</li>
+      <li>One 60-90 minute strategy call to discuss the brief, make decisions, prioritise next moves.</li>
+      <li>Watch-the-space report: what's emerging in AI, automation, and lifecycle marketing that's actually relevant to API. The default position is no. We only recommend things that demonstrably move the needle, not things that are merely new.</li>
+      <li>Up to 4 hours of light implementation per month: small copy tweaks, automation adjustments, minor design changes.</li>
+      <li>Async access between calls for quick questions and judgement calls.</li>
+      <li>Quarterly written review with analytics, conversion data, and a refreshed roadmap.</li>
+    </ul>
+
+    <h4>What's deliberately not included</h4>
+    <p>Phase 3 is designed around strategic oversight, optimisation, and informed decision-making as the system evolves over time.</p>
+
+    <p>Larger implementation work, such as new landing pages, campaign builds, or additional automation systems, can be scoped separately as priorities become clearer.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section aria-labelledby="investment">
+    <div class="prose">
+      <header class="section-head"><h2 id="investment">Investment</h2></header>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>AUD (ex. GST)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Phase 1: Foundation &amp; Launch</td>
+            <td>$22,000</td>
+          </tr>
+          <tr>
+            <td>Phase 2: Lifecycle &amp; Optimisation</td>
+            <td>$8,000</td>
+          </tr>
+          <tr>
+            <td>Phase 3: Strategic Operations (monthly)</td>
+            <td>$2,000 / month</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <p>For context: this scope covers the trust architecture, qualification system, AI concierge, CRM and automation integration, and nurture infrastructure as one integrated build. Comparable proposals typically split these across separate phases, exclude them from scope, or position them as add-on services. The investment here reflects the integration, not just the deliverables. The work of connecting the parts is where most of the value sits.</p>
+
+      <h3>Payment schedule</h3>
+      <ul>
+        <li>Phase 1: 40% on signing ($8,800), 30% at design sign-off ($6,600), 30% on launch ($6,600).</li>
+        <li>Phase 2: 50% on commencement ($4,000), 50% on completion ($4,000).</li>
+        <li>Phase 3: $2,000 per month, invoiced first of the month. Six-month minimum from commencement, then month-to-month with 30 days' notice.</li>
+      </ul>
+
+      <h3>Inclusions across Phases 1 &amp; 2</h3>
+      <ul>
+        <li>Up to two major design rounds and three copy rounds per phase.</li>
+        <li>Weekly check-ins via Loom or call, your preference.</li>
+        <li>Direct access to me throughout. No account manager layer.</li>
+        <li>All source files, design assets, and documentation delivered on completion.</li>
+      </ul>
+
+      <h3>Not included (and why)</h3>
+      <ul>
+        <li>Ongoing content production: your existing team is set up for this, and the system is designed to plug into that workflow rather than replace it.</li>
+        <li>Video production: handled through your existing studio relationship.</li>
+        <li>Paid advertising or campaign management.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section aria-labelledby="timeline">
+    <div class="prose">
+      <header class="section-head"><h2 id="timeline">Timeline</h2></header>
+      <p>Ten weeks from sign-off to launch, assuming sign-off within the next week.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="timeline">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Website strategy drafted and presented: positioning, audience, flow, brand direction</td></tr>
+          <tr><td>2</td><td>Messaging hierarchy, sitemap, wireframes for key page types</td></tr>
+          <tr><td>3</td><td>Visual direction: 2-3 concepts presented, feedback session, direction locked</td></tr>
+          <tr><td>4</td><td>Copy draft, full design system, key page designs</td></tr>
+          <tr><td>5</td><td>Design refinement, intake form logic, partner landing page</td></tr>
+          <tr><td>6</td><td>Webflow build begins, CRM setup, booking integration</td></tr>
+          <tr><td>7</td><td>Build continues, transactional automations, content migration</td></tr>
+          <tr><td>8</td><td>AI concierge build: content library training, voice tuning, integration</td></tr>
+          <tr><td>9</td><td>End-to-end testing, AI concierge refinement, content review</td></tr>
+          <tr><td>10</td><td>Final review, training, handover, launch</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <p>Phase 2 commences two weeks after launch (a short settling window). Phase 3 begins 30 days after Phase 2 completion.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="from-you">
+    <header class="section-head"><h2 id="from-you">What I'd need from you</h2></header>
+
+    <ul>
+      <li>Decision and sign-off by end of next week to hit the early August launch.</li>
+      <li>Access to existing brand assets, content library (eBooks, podcast, video, blog), and current site analytics.</li>
+      <li>One person at API as primary point of contact for day-to-day questions (Emma or delegate).</li>
+      <li>Coordination point with your content team so the website and ongoing content workflow align from the start.</li>
+      <li>Roughly 2-3 hours per week of your time across the build: feedback sessions, reviews, sign-offs.</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="why-me">
+    <header class="section-head"><h2 id="why-me">A few things worth saying directly.</h2></header>
+
+    <p>Most agencies in your shortlist fall into one of two camps: design-led studios that build beautiful sites, or marketing teams that build funnels. You named this gap in your original message. Hype Foundry is built deliberately between those two worlds.</p>
+
+    <p>The business is built on the idea that a website is an operational asset, not a deliverable. The value comes from connecting design, copy, conversion, operations, and automation into one coherent system.</p>
+
+    <p>Practically: twelve years of design and creative work, with deep Webflow experience and working knowledge of the automation and CRM tools the system depends on. I work solo, which means you get the operator on the call. Every call. No account manager, no junior handoff.</p>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="next">
+    <header class="section-head"><h2 id="next">Next steps</h2></header>
+
+    <p>If anything in the scope needs adjusting, we can talk it through now and shape the project around what's most important.</p>
+
+    <p>When you're ready to move forward, I'll send through a short project agreement and the Phase 1 deposit invoice. Work begins once the deposit has been received.</p>
+
+    <p>Thanks again for the conversation and the opportunity to put this together.</p>
+
+    <div class="signoff">
+      <p class="name">Clark</p>
+      <p class="studio">Hype Foundry Studio<br><a href="https://hypefoundry.studio" style="color: var(--muted); border-bottom: 1px solid var(--rule); text-decoration: none;">hypefoundry.studio</a></p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <svg class="footer-logo" viewBox="0 0 3742 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hype Foundry">
+      <path d="M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z" fill="#D5FF02"/>
+      <path d="M990.84 234C990.84 265 994.34 287.333 1001.34 301C1008.34 314.667 1019.01 321.5 1033.34 321.5C1041.01 321.5 1048.01 319.5 1054.34 315.5C1060.67 311.167 1066.01 305 1070.34 297C1075.01 289 1078.51 279.333 1080.84 268C1083.51 256.333 1084.84 243.167 1084.84 228.5V141.5H1156.84V334.5C1156.84 355.5 1155.01 374.667 1151.34 392C1147.67 409 1142.17 423.833 1134.84 436.5C1127.84 449.5 1118.84 460.333 1107.84 469C1096.84 477.667 1084.01 484.167 1069.34 488.5C1055.01 492.833 1038.67 495 1020.34 495C1007.01 495 993.34 493.667 979.34 491C965.673 488.667 952.673 484.833 940.34 479.5C928.34 474.5 918.007 468 909.34 460L929.84 398.5C940.507 409.5 953.84 417.667 969.84 423C985.84 428.667 1001.67 431.5 1017.34 431.5C1035.01 431.5 1049.67 427.833 1061.34 420.5C1073.34 413.5 1082.34 402.667 1088.34 388C1094.67 373 1098.34 354.333 1099.34 332L1102.34 286.5H1091.34C1088.01 308.5 1082.51 326.5 1074.84 340.5C1067.51 354.5 1058.01 364.833 1046.34 371.5C1035.01 377.833 1021.51 381 1005.84 381C986.84 381 970.84 376.167 957.84 366.5C944.84 356.833 935.007 342.333 928.34 323C922.007 303.667 918.84 279.833 918.84 251.5V141.5H990.84V234ZM3575.02 234C3575.02 265 3578.52 287.333 3585.52 301C3592.52 314.667 3603.19 321.5 3617.52 321.5C3625.19 321.5 3632.19 319.5 3638.52 315.5C3644.85 311.167 3650.19 305 3654.52 297C3659.19 289 3662.69 279.333 3665.02 268C3667.69 256.333 3669.02 243.167 3669.02 228.5V141.5H3741.02V334.5C3741.02 355.5 3739.19 374.667 3735.52 392C3731.85 409 3726.35 423.833 3719.02 436.5C3712.02 449.5 3703.02 460.333 3692.02 469C3681.02 477.667 3668.19 484.167 3653.52 488.5C3639.19 492.833 3622.85 495 3604.52 495C3591.19 495 3577.52 493.667 3563.52 491C3549.85 488.667 3536.85 484.833 3524.52 479.5C3512.52 474.5 3502.19 468 3493.52 460L3514.02 398.5C3524.69 409.5 3538.02 417.667 3554.02 423C3570.02 428.667 3585.85 431.5 3601.52 431.5C3619.19 431.5 3633.85 427.833 3645.52 420.5C3657.52 413.5 3666.52 402.667 3672.52 388C3678.85 373 3682.52 354.333 3683.52 332L3686.52 286.5H3675.52C3672.19 308.5 3666.69 326.5 3659.02 340.5C3651.69 354.5 3642.19 364.833 3630.52 371.5C3619.19 377.833 3605.69 381 3590.02 381C3571.02 381 3555.02 376.167 3542.02 366.5C3529.02 356.833 3519.19 342.333 3512.52 323C3506.19 303.667 3503.02 279.833 3503.02 251.5V141.5H3575.02V234ZM1357.12 134.5C1380.45 134.5 1400.45 140.333 1417.12 152C1433.79 163.333 1446.45 179.5 1455.12 200.5C1464.12 221.167 1468.62 245.667 1468.62 274C1468.62 300.333 1464.62 323.833 1456.62 344.5C1448.62 364.833 1436.62 381 1420.62 393C1404.95 405 1385.29 411 1361.62 411C1344.95 411 1330.79 407.833 1319.12 401.5C1307.79 395.167 1298.29 386.333 1290.62 375C1283.29 363.333 1277.12 349.5 1272.12 333.5H1262.62C1264.62 342.5 1266.45 351.667 1268.12 361C1269.79 370.333 1271.12 379.5 1272.12 388.5C1273.12 397.167 1273.62 405.667 1273.62 414V488H1201.62V141.5H1261.12L1261.62 214.5L1270.62 215C1273.62 197.333 1278.79 182.5 1286.12 170.5C1293.79 158.5 1303.62 149.5 1315.62 143.5C1327.62 137.5 1341.45 134.5 1357.12 134.5ZM1618.45 134.5C1638.45 134.5 1656.28 137.833 1671.95 144.5C1687.61 150.833 1700.61 160.5 1710.95 173.5C1721.61 186.5 1729.28 202.5 1733.95 221.5C1738.95 240.167 1740.78 261.667 1739.45 286L1555.83 287.782C1557.35 310.182 1563.39 327.088 1573.95 338.5C1586.61 351.833 1603.11 358.5 1623.45 358.5C1632.78 358.5 1640.61 357.333 1646.95 355C1653.61 352.333 1658.95 349 1662.95 345C1667.28 341 1670.61 336.5 1672.95 331.5C1675.61 326.5 1677.78 321.5 1679.45 316.5L1741.95 330C1738.95 342.333 1734.45 353.5 1728.45 363.5C1722.78 373.167 1715.11 381.667 1705.45 389C1695.78 396 1684.11 401.333 1670.45 405C1657.11 409 1641.45 411 1623.45 411C1601.78 411 1582.45 408 1565.45 402C1548.78 396 1534.61 387.333 1522.95 376C1511.28 364.667 1502.28 350.667 1495.95 334C1489.95 317.333 1486.95 298.5 1486.95 277.5C1486.95 256.833 1489.78 237.833 1495.45 220.5C1501.45 202.833 1510.11 187.667 1521.45 175C1532.78 162 1546.61 152 1562.95 145C1579.28 138 1597.78 134.5 1618.45 134.5ZM2256.73 134.5C2283.07 134.5 2306.23 139.667 2326.23 150C2346.57 160.333 2362.4 175.833 2373.73 196.5C2385.4 216.833 2391.23 242.333 2391.23 273C2391.23 304 2385.23 329.833 2373.23 350.5C2361.57 370.833 2345.57 386 2325.23 396C2305.23 406 2282.4 411 2256.73 411C2230.4 411 2207.23 405.833 2187.23 395.5C2167.23 384.833 2151.57 369.333 2140.23 349C2128.9 328.333 2123.23 302.667 2123.23 272C2123.23 241.333 2128.9 215.833 2140.23 195.5C2151.9 175.167 2167.73 160 2187.73 150C2208.07 139.667 2231.07 134.5 2256.73 134.5ZM2490.92 275.5C2490.92 301.167 2494.76 320.333 2502.42 333C2510.09 345.333 2521.76 351.5 2537.42 351.5C2546.76 351.5 2554.92 349.167 2561.92 344.5C2568.92 339.833 2574.92 333.333 2579.92 325C2584.92 316.667 2588.59 306.833 2590.92 295.5C2593.59 284.167 2595.09 272 2595.42 259V141.5H2667.42V404H2609.42L2608.92 322H2599.92C2594.92 342.667 2588.59 359.667 2580.92 373C2573.59 386 2564.09 395.667 2552.42 402C2541.09 408 2527.42 411 2511.42 411C2480.76 411 2457.59 400.667 2441.92 380C2426.59 359 2418.92 327.167 2418.92 284.5V141.5H2490.92V275.5ZM3261.89 404H3201.89V328H3191.89C3188.22 346.667 3182.55 362.167 3174.89 374.5C3167.22 386.833 3157.39 396 3145.39 402C3133.72 408 3120.05 411 3104.39 411C3082.39 411 3063.05 405.333 3046.39 394C3030.05 382.667 3017.39 366.667 3008.39 346C2999.39 325.333 2994.89 300.833 2994.89 272.5C2994.89 245.833 2998.89 222.167 3006.89 201.5C3014.89 180.833 3026.72 164.667 3042.39 153C3058.05 141.333 3077.55 135.5 3100.89 135.5C3117.89 135.5 3132.22 138.667 3143.89 145C3155.55 151.333 3165.05 160.667 3172.39 173C3180.05 185 3186.05 199.5 3190.39 216.5H3201.89C3199.55 205.833 3197.39 195.5 3195.39 185.5C3193.72 175.167 3192.39 165.333 3191.39 156C3190.39 146.667 3189.89 138.5 3189.89 131.5V46.5H3261.89V404ZM655.5 207.5H800V74H871.5V404H800V266.5H655.5V404H583.5V74H655.5V207.5ZM2116.21 135.5H1942.71V221.5H2097.71V280.5H1942.71V404H1870.71V74H2116.21V135.5ZM2873.96 134.5C2904.29 134.5 2927.29 145.167 2942.96 166.5C2958.96 187.833 2966.96 221.333 2966.96 267V404H2894.46V275C2894.46 247 2890.29 226.667 2881.96 214C2873.96 201 2862.12 194.5 2846.46 194.5C2833.12 194.5 2821.96 198.667 2812.96 207C2803.96 215.333 2797.12 226.333 2792.46 240C2788.12 253.333 2785.79 268.333 2785.46 285V404H2713.46V141.5H2772.46L2771.96 220H2781.96C2786.29 201 2792.46 185.167 2800.46 172.5C2808.46 159.833 2818.46 150.333 2830.46 144C2842.79 137.667 2857.29 134.5 2873.96 134.5ZM3462.22 135.5C3465.22 135.5 3468.39 135.667 3471.72 136C3475.39 136 3479.56 136.5 3484.22 137.5L3481.22 214C3476.22 211.667 3470.72 210 3464.72 209C3458.72 208 3453.39 207.5 3448.72 207.5C3435.72 207.5 3424.56 210.5 3415.22 216.5C3405.89 222.5 3398.22 231.167 3392.22 242.5C3386.56 253.5 3382.72 267 3380.72 283V404H3308.22V141.5H3367.72L3368.22 231H3377.72C3380.39 208.667 3384.89 190.5 3391.22 176.5C3397.89 162.5 3407.06 152.167 3418.72 145.5C3430.39 138.833 3444.89 135.5 3462.22 135.5ZM2254.73 190.5C2242.4 190.5 2231.73 193.5 2222.73 199.5C2213.73 205.167 2206.9 214.167 2202.23 226.5C2197.57 238.5 2195.23 253.333 2195.23 271C2195.23 299.333 2200.9 320.833 2212.23 335.5C2223.57 350.167 2239.23 357.5 2259.23 357.5C2272.23 357.5 2283.07 354.5 2291.73 348.5C2300.73 342.5 2307.4 333.5 2311.73 321.5C2316.4 309.167 2318.73 294.333 2318.73 277C2318.73 258.667 2316.23 243.167 2311.23 230.5C2306.57 217.5 2299.57 207.667 2290.23 201C2280.9 194 2269.07 190.5 2254.73 190.5ZM1335.12 194C1324.45 194 1315.29 196.333 1307.62 201C1299.95 205.667 1293.45 211.833 1288.12 219.5C1283.12 227.167 1279.45 235.5 1277.12 244.5C1274.79 253.167 1273.62 261.5 1273.62 269.5V279C1273.62 285.333 1274.45 292 1276.12 299C1277.79 305.667 1280.45 312.333 1284.12 319C1287.79 325.333 1292.12 331.167 1297.12 336.5C1302.12 341.5 1307.95 345.667 1314.62 349C1321.29 352 1328.62 353.5 1336.62 353.5C1348.62 353.5 1358.79 350.167 1367.12 343.5C1375.45 336.833 1381.79 327.5 1386.12 315.5C1390.79 303.5 1393.12 289.833 1393.12 274.5C1393.12 257.833 1390.79 243.667 1386.12 232C1381.45 220 1374.79 210.667 1366.12 204C1357.45 197.333 1347.12 194 1335.12 194ZM3127.39 193.5C3115.39 193.5 3105.22 196.833 3096.89 203.5C3088.55 210.167 3082.05 219.5 3077.39 231.5C3072.72 243.167 3070.39 256.833 3070.39 272.5C3070.39 288.5 3072.72 302.5 3077.39 314.5C3082.39 326.5 3089.22 335.833 3097.89 342.5C3106.55 348.833 3116.72 352 3128.39 352C3139.39 352 3148.72 349.667 3156.39 345C3164.05 340.333 3170.39 334.333 3175.39 327C3180.39 319.333 3184.05 311.167 3186.39 302.5C3188.72 293.5 3189.89 285.167 3189.89 277.5V268C3189.89 261.667 3188.89 255.167 3186.89 248.5C3185.22 241.5 3182.72 234.667 3179.39 228C3176.05 221.333 3171.89 215.5 3166.89 210.5C3161.89 205.167 3156.05 201 3149.39 198C3142.72 195 3135.39 193.5 3127.39 193.5ZM1619.45 190.5C1606.78 190.5 1595.61 193.833 1585.95 200.5C1576.28 207.167 1568.78 217 1563.45 230C1561.1 235.575 1559.27 241.668 1557.95 248.276L1673.56 247.222C1673.27 238.183 1671.74 230.275 1668.95 223.5C1664.28 212.167 1657.45 203.833 1648.45 198.5C1639.78 193.167 1630.11 190.5 1619.45 190.5Z" fill="currentColor"/>
+    </svg>
+    <a href="mailto:hello@hypefoundry.studio">hello@hypefoundry.studio</a>
+  </footer>
+
+</article>
+
+<script>
+  (function () {
+    const HASH = 'be8d9217587f1758ca63cb3a50f343bb7532fb5f05fc357b625ee55e35982e2b';
+
+    async function sha256(s) {
+      const buf = new TextEncoder().encode(s);
+      const hashBuf = await crypto.subtle.digest('SHA-256', buf);
+      return Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function unlock() {
+      sessionStorage.setItem('api-unlock', '1');
+      document.body.classList.remove('locked');
+    }
+
+    if (sessionStorage.getItem('api-unlock') === '1') {
+      unlock();
+    }
+
+    const form = document.getElementById('gate-form');
+    const input = document.getElementById('gate-password');
+    const error = document.getElementById('gate-error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const hash = await sha256(input.value.trim());
+      if (hash === HASH) {
+        unlock();
+      } else {
+        error.hidden = false;
+        input.value = '';
+        input.focus();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
