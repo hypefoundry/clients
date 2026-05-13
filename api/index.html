@@ -459,7 +459,7 @@
   }
 
   /* Gate (password screen) */
-  body.locked { overflow: hidden; }
+  body.locked { overflow-y: hidden; }
   body.locked > article { display: none; }
   body:not(.locked):not(.unlocking) #gate { display: none; }
 
@@ -668,7 +668,7 @@
   }
 </style>
 </head>
-<body>
+<body class="locked">
 
 <div id="gate" role="dialog" aria-labelledby="gate-title">
   <div class="gate-card">
