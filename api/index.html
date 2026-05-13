@@ -474,12 +474,12 @@
     justify-content: center;
     padding: 32px;
     z-index: 1000;
-    transition: opacity 480ms ease-out, transform 480ms ease-out;
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
   }
 
   body.revealing #loader {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     pointer-events: none;
   }
 
@@ -487,12 +487,12 @@
   body.revealing > article,
   body.revealing > footer.colophon {
     visibility: visible;
-    animation: loader-fadein 600ms ease-out 240ms both;
+    animation: loader-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) 320ms both;
   }
 
-  @keyframes loader-fadein {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @keyframes loader-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .loader-card {
@@ -537,7 +537,7 @@
     background: var(--accent);
     transform-origin: left center;
     transform: scaleX(0);
-    animation: loader-fill 1100ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: loader-fill 1600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @keyframes loader-fill {
@@ -1294,15 +1294,15 @@
 <script>
   (function () {
     const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const LOADER_MS = REDUCED ? 0 : 1200;
-    const FADE_MS   = REDUCED ? 0 : 480;
+    const LOADER_MS = REDUCED ? 0 : 1700;
+    const FADE_MS   = REDUCED ? 0 : 700;
 
     setTimeout(() => {
       document.body.classList.add('revealing');
       document.body.classList.remove('loading');
       setTimeout(() => {
         document.body.classList.remove('revealing');
-      }, FADE_MS + 240);
+      }, FADE_MS + 900);
     }, LOADER_MS);
   })();
 </script>
