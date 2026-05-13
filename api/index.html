@@ -85,7 +85,6 @@
   /* Cover */
   header.cover {
     background: #F5F4F3;
-    margin: 0 -24px;
     padding: 10vh 24px 8vh;
     min-height: 100vh;
     min-height: 100dvh;
@@ -430,7 +429,7 @@
   @media (max-width: 600px) {
     body { font-size: 17px; line-height: 1.65; }
     article { padding: 0 20px; }
-    header.cover { padding: 10vh 20px 12vh; margin: 0 -20px; }
+    header.cover { padding: 10vh 20px 12vh; }
     .eyebrow { margin-bottom: 40px; }
     .prepared { grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 56px; font-size: 12px; }
     .prepared .label { font-size: 10px; letter-spacing: 0.14em; margin-bottom: 6px; }
@@ -671,9 +670,7 @@
   <p class="gate-help">Trouble accessing? <a href="mailto:hello@hypefoundry.studio">hello@hypefoundry.studio</a></p>
 </div>
 
-<article>
-
-  <header class="cover">
+<header class="cover">
   <div class="cover-inner">
     <svg class="logo" width="193" height="28" viewBox="0 0 3742 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hype Foundry">
       <path d="M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z" fill="#D7F600"/>
@@ -698,7 +695,9 @@
       </p>
     </div>
   </div>
-  </header>
+</header>
+
+<article>
 
   <section class="prose" aria-labelledby="brief" style="padding-top: 64px;">
     <header class="section-head"><h2 id="brief">The brief</h2></header>
