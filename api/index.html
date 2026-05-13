@@ -33,7 +33,9 @@
 
   body {
     margin: 0;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
+    background-image: linear-gradient(to bottom, #F5F4F3 0, #F5F4F3 100vh, #FFFFFF 100vh);
+    background-repeat: no-repeat;
     color: var(--ink);
     font-family: var(--sans);
     font-size: 17px;
@@ -64,6 +66,7 @@
   .diagram svg {
     display: block;
     width: 100%;
+    max-width: 100%;
     height: auto;
   }
 
@@ -86,19 +89,6 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative;
-    isolation: isolate;
-  }
-
-  header.cover::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(50% - 50vw);
-    width: 100vw;
-    background: #F5F4F3;
-    z-index: -1;
   }
 
   .cover .logo {
@@ -438,7 +428,7 @@
     .prepared p { line-height: 1.45; }
     .pull { font-size: 19px; padding-left: 18px; }
     h3.numbered { gap: 12px; }
-    .diagram { margin: 48px -8px; }
+    .diagram { margin: 48px 0; }
     hr.divider { margin: 72px auto; }
     table { font-size: 15px; }
     table th, table td { padding: 12px 8px; }
