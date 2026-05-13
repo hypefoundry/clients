@@ -25,7 +25,11 @@
 
   *, *::before, *::after { box-sizing: border-box; }
 
-  html { -webkit-text-size-adjust: 100%; }
+  html {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
 
   body {
     margin: 0;
@@ -387,6 +391,40 @@
     height: 24px;
     width: auto;
     color: var(--ink);
+  }
+
+  /* Gate — small screens */
+  @media (max-width: 600px) {
+    #gate { padding: 28px; }
+    .gate-card { text-align: center; }
+    .gate-logo {
+      margin: 0 auto 56px;
+    }
+    .gate-title {
+      font-size: clamp(28px, 8vw, 36px);
+    }
+    .gate-subtitle {
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+    #gate-form {
+      flex-direction: column;
+      gap: 10px;
+    }
+    #gate-form input {
+      min-width: 0;
+      width: 100%;
+      text-align: center;
+    }
+    #gate-form button {
+      width: 100%;
+      justify-content: center;
+    }
+    .gate-help {
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+    }
   }
 
   /* Small screens */
