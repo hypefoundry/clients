@@ -33,10 +33,7 @@
 
   body {
     margin: 0;
-    background-color: #FFFFFF;
-    background-image: linear-gradient(to bottom, #F5F4F3 0, #F5F4F3 100vh, #FFFFFF 100vh);
-    background-image: linear-gradient(to bottom, #F5F4F3 0, #F5F4F3 100dvh, #FFFFFF 100dvh);
-    background-repeat: no-repeat;
+    background: #FFFFFF;
     color: var(--ink);
     font-family: var(--sans);
     font-size: 17px;
@@ -93,6 +90,8 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
+    background: #F5F4F3;
+    box-shadow: -1000px 0 0 0 #F5F4F3, 1000px 0 0 0 #F5F4F3;
   }
 
   .cover .logo {
