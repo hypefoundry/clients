@@ -35,6 +35,7 @@
     margin: 0;
     background-color: #FFFFFF;
     background-image: linear-gradient(to bottom, #F5F4F3 0, #F5F4F3 100vh, #FFFFFF 100vh);
+    background-image: linear-gradient(to bottom, #F5F4F3 0, #F5F4F3 100dvh, #FFFFFF 100dvh);
     background-repeat: no-repeat;
     color: var(--ink);
     font-family: var(--sans);
@@ -89,6 +90,7 @@
     padding-top: 10vh;
     padding-bottom: 8vh;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
   }
@@ -114,7 +116,7 @@
   h1.title {
     font-family: var(--display);
     font-weight: 600;
-    font-size: clamp(56px, 11vw, 112px);
+    font-size: clamp(44px, 11vw, 112px);
     line-height: 0.98;
     letter-spacing: -0.04em;
     margin: 0 0 32px;
