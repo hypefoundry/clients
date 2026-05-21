@@ -1,0 +1,3722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API x HF — Strategy Week 1</title>
+<link rel="icon" type="image/png" href="hf-favicon-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #EAEAEA;
+  --card: #F5F4F3;
+  --card-border: #CCCCCC;
+  --card-border-solid: #DDDDDD;
+  --ink: #1A1815;
+  --ink-soft: #6B645B;
+  --ink-mute: #A39A8E;
+  --line: #C8C8C8;
+  --lime: #D5FF02;
+  --lime-deep: #C5EC00;
+  --lime-text: #3D4500;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+html, body {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* Text-selection colour — lime instead of default browser blue */
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+::-moz-selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+/* SLIDE BASE */
+.slide {
+  min-height: 100vh;
+  padding: 80px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: var(--bg);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.slide.dark {
+  background: var(--ink);
+  color: #F5F4F3;
+}
+
+.highlight {
+  background: var(--lime);
+  padding: 2px 10px;
+  border-radius: 4px;
+  color: var(--ink);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* SLIDE FRAME */
+.slide-header,
+.slide-footer {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #999999;
+}
+.slide-header { top: 40px; }
+.slide-footer { bottom: 40px; }
+.slide.dark .slide-header,
+.slide.dark .slide-footer { color: rgba(245,244,243,0.5); }
+
+/* SLIDE BODY */
+.slide-body {
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.slide-body.wide { max-width: 1100px; }
+.slide-body.narrow { max-width: 820px; }
+
+.eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #808080;
+  margin-bottom: 16px;
+}
+.slide.dark .eyebrow { color: var(--lime); }
+
+h1 {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.slide.dark h1 { color: #F5F4F3; }
+
+p {
+  font-size: 18px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.slide.dark p { color: rgba(245,244,243,0.85); }
+p.lede { font-size: 20px; max-width: 720px; }
+
+/* ============================================== */
+/* SLIDE 01 — COVER                                */
+/* ============================================== */
+.cover {
+  align-items: center;
+  text-align: center;
+}
+.cover .cover-title {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(80px, 12vw, 180px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin: 24px 0 32px;
+}
+.cover .cover-subtitle {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #808080;
+}
+.slide.dark .cover-title { color: #F5F4F3; }
+.slide.dark .cover-subtitle { color: rgba(245,244,243,0.7); }
+
+/* MASTER TITLE HERO — slide 01 */
+.hero-cover {
+  background: var(--bg);
+}
+.hero-cover .hero-eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #808080;
+  margin-bottom: 32px;
+}
+.hero-cover .hero-title {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(120px, 18vw, 260px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  margin-bottom: 48px;
+}
+.hero-cover .hero-meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.hero-cover .hero-meta .dot {
+  width: 4px;
+  height: 4px;
+  background: var(--lime-deep);
+  border-radius: 50%;
+  display: inline-block;
+}
+.hero-cover .hero-footer-line {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--card-border-solid);
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #999999;
+  max-width: 720px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ============================================== */
+/* SLIDE 02 — DEFINITION                           */
+/* ============================================== */
+.definition-question {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 32px;
+  max-width: 1000px;
+}
+.definition-note {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #808080;
+}
+
+/* ============================================== */
+/* SLIDE 03 — CATEGORY SAMENESS                    */
+/* ============================================== */
+.sameness-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 16px;
+}
+.sameness-row {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+}
+.sameness-row .num {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: #808080;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+  justify-self: center;
+  align-self: center;
+}
+.sameness-row .text {
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.sameness-footer {
+  margin-top: 28px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #808080;
+  text-align: center;
+}
+
+/* ============================================== */
+/* SLIDE 04 — DISCOVERY QUOTES                     */
+/* ============================================== */
+.discovery-quotes {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+  max-width: 1000px;
+}
+.discovery-quote {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 28px 32px;
+}
+.discovery-quote blockquote {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+.discovery-quote .attribution {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #808080;
+}
+
+/* ============================================== */
+/* SLIDE 05 — TRUELINE OPENER (dark)               */
+/* ============================================== */
+.trueline {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(40px, 5.5vw, 76px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #F5F4F3;
+  text-align: left;
+  max-width: 1100px;
+}
+.trueline-attribution {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-top: 56px;
+}
+
+/* ============================================== */
+/* SLIDE 06 — POSITIONING STATEMENT + LINEAGE      */
+/* ============================================== */
+.positioning-statement {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 15px;
+  margin-bottom: 48px;
+}
+.positioning-statement em {
+  font-style: normal;
+  background: var(--lime);
+  padding: 2px 10px;
+  border-radius: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.presenter-note {
+  font-size: 14px;
+  color: #999999;
+  line-height: 1.6;
+  font-style: italic;
+  max-width: 880px;
+  margin-top: 0;
+  padding-top: 24px;
+  border-top: 1px dashed var(--card-border);
+}
+.lineage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 32px;
+  max-width: 900px;
+}
+.lineage-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 14px 0;
+  border-top: 1px solid var(--card-border-solid);
+}
+.lineage-row.first { border-top: 1px solid var(--card-border); }
+.lineage-clause {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.lineage-source {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #808080;
+  align-self: center;
+}
+
+/* ============================================== */
+/* SLIDE 07 — ONE WORD                             */
+/* ============================================== */
+.one-word {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(96px, 14vw, 200px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  margin-bottom: 56px;
+}
+.one-word .highlight {
+  padding: 0 0.06em;
+  border-radius: 0.04em;
+  letter-spacing: -0.04em;
+}
+.one-word-context {
+  max-width: 720px;
+  font-size: 18px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ============================================== */
+/* SLIDE 08 — CATEGORY REFRAME                     */
+/* ============================================== */
+.reframe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 16px;
+}
+.reframe-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 28px 32px;
+}
+.reframe-card.from .label,
+.reframe-card.to .label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.reframe-card.to { border-color: var(--lime-deep); background: var(--card); }
+.reframe-card .name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 18px;
+  letter-spacing: -0.015em;
+}
+.reframe-card ul {
+  list-style: none;
+}
+.reframe-card li {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  padding-left: 18px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.reframe-card li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #999999;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.reframe-card.to li::before { color: var(--lime-text); }
+.reframe-quote {
+  margin-top: 32px;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+}
+.reframe-quote .attribution {
+  display: block;
+  margin-top: 10px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #808080;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ============================================== */
+/* SLIDE 09 — THE BUILDER ICP                      */
+/* ============================================== */
+.icp-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 36px 40px;
+  width: 100%;
+  max-width: 920px;
+}
+.icp-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  padding: 16px 0;
+  border-top: 1px solid var(--card-border-solid);
+  align-items: center;
+}
+.icp-row.first { border-top: none; padding-top: 4px; }
+.icp-row .icp-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  font-weight: 400;
+}
+.icp-row .icp-value {
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+/* ============================================== */
+/* SLIDE 10 — WRONG-FIT ARCHETYPES                 */
+/* ============================================== */
+.archetypes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 16px;
+}
+.archetype-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 22px 24px;
+}
+.archetype-card .num {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #808080;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 12px;
+}
+.archetype-card .name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.015em;
+}
+.archetype-card .description {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.archetype-footer {
+  margin-top: 28px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #808080;
+  text-align: center;
+  max-width: 800px;
+}
+
+/* ============================================== */
+/* SLIDE 11 — TRADEOFF (yes/no)                    */
+/* ============================================== */
+.tradeoff-table {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 32px 40px 22px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 24px;
+}
+.tradeoff-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--card-border-solid);
+  margin-bottom: 16px;
+}
+.tradeoff-header .label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  font-weight: 400;
+}
+.tradeoff-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 40px;
+}
+.tradeoff-yes,
+.tradeoff-no {
+  font-size: 15px;
+  line-height: 1.5;
+  padding-left: 26px;
+  position: relative;
+  color: var(--ink);
+}
+.tradeoff-yes::before,
+.tradeoff-no::before {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.tradeoff-yes::before { content: '✓'; color: var(--ink); }
+.tradeoff-no::before { content: '×'; color: #999999; font-size: 18px; top: -1px; }
+.tradeoff-no { color: var(--ink-soft); }
+.tradeoff-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--card-border-solid);
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #808080;
+  text-align: center;
+}
+
+/* ============================================== */
+/* SLIDE 13 — EMMA IS THE BRAND                    */
+/* ============================================== */
+.emma-headline {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 42px;
+  max-width: 900px;
+}
+.emma-explainer {
+  max-width: 760px;
+  font-size: 19px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ============================================== */
+/* SLIDE 14 — DECISIONS TO LOCK                    */
+/* ============================================== */
+.decisions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 920px;
+  margin-top: 16px;
+}
+.decision-row {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+}
+.decision-row .num {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  color: #808080;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.decision-row .ask {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.decision-row .meta {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #808080;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* ============================================== */
+/* AUDIENCE SECTION — slides 14–19                 */
+/* ============================================== */
+
+/* SLIDE 14 — Four-factor readiness scale (2×2 grid) */
+.factor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1000px;
+}
+.factor-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+.factor-card .factor-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  margin-bottom: 8px;
+}
+.factor-card .factor-name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin-bottom: 10px;
+}
+.factor-card .factor-desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.factor-card .factor-range {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  color: #808080;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 14px;
+}
+
+/* SLIDE 15 — Three segments overview (3-column) */
+.segment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1100px;
+}
+.segment-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 24px 22px;
+  text-align: center;
+}
+.segment-card .segment-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  margin-bottom: 8px;
+}
+.segment-card .segment-name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.segment-card .segment-score {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
+.segment-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.segment-col > .segment-arrow,
+.segment-col > .segment-action {
+  align-self: center;
+}
+.segment-arrow {
+  font-size: 14px;
+  color: #C8C8C8;
+  font-weight: 200;
+  line-height: 1;
+}
+.segment-action {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  color: #808080;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* SLIDES 16–18 — Pathway step lists */
+.pathway-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 1000px;
+}
+.pathway-step {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 16px 22px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 18px;
+  align-items: flex-start;
+}
+.pathway-step .step-num {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: #808080;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+  white-space: nowrap;
+  justify-self: center;
+  align-self: center;
+}
+.pathway-step .step-body { display: flex; flex-direction: column; gap: 5px; }
+.pathway-step .step-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.pathway-step .step-desc {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+/* CRM step variant — quieter, dashed border, half-opacity bg */
+.pathway-step.crm {
+  background: rgba(245, 244, 243, 0.5);
+  border: 1px dashed var(--card-border);
+}
+.pathway-step.crm .step-num,
+.pathway-step.crm .step-title,
+.pathway-step.crm .step-desc {
+  opacity: 0.7;
+}
+
+/* ============================================== */
+/* ARCHITECTURE (FLOW) SECTION — slides 21–27      */
+/* ============================================== */
+
+/* SLIDE 20 — Architecture cover bridge note */
+.cover-note {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(245,244,243,0.5);
+  margin-top: 18px;
+  font-style: italic;
+}
+
+/* SLIDE 21 — Site map (IA flowchart, full depth) — replaces former journey + IA slides */
+.sitemap-flowchart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+}
+.sitemap-root {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.sitemap-root .sitemap-card {
+  width: auto;
+  min-width: 180px;
+  max-width: 220px;
+  text-align: center;
+  padding: 14px 22px;
+}
+.sitemap-root .sitemap-card .page-name {
+  justify-content: center;
+}
+.sitemap-fan {
+  display: block;
+  width: 100%;
+}
+.sitemap-fan svg {
+  display: block;
+  width: 100%;
+}
+.sitemap-columns {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+.sitemap-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.sitemap-col-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  font-weight: 600;
+  text-align: center;
+  padding: 6px 4px 8px;
+  border-bottom: 1px dashed var(--card-border);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+.sitemap-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 8px;
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.sitemap-card .page-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.22;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.sitemap-card .page-name .new-badge {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  color: #808080;
+  background: #EEEEEE;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px;
+  padding: 1px 4px;
+  letter-spacing: 0.08em;
+}
+.sitemap-card .page-url {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 9px;
+  color: #999999;
+  letter-spacing: 0.02em;
+  word-break: break-all;
+}
+.sitemap-card.legal {
+  background: rgba(245,244,243,0.5);
+  border: 1px dashed var(--card-border);
+}
+.sitemap-card.legal .page-name,
+.sitemap-card.legal .page-url {
+  opacity: 0.7;
+}
+.sitemap-card .page-children {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--card-border);
+}
+.sitemap-card .child-card {
+  font-size: 9px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  color: var(--ink-soft);
+  padding: 3px 5px;
+  background: #EEEEEE;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  word-break: break-all;
+}
+
+/* SLIDE 22 — ICP LP content map (3 doors, one engine) */
+.icp-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+  max-width: 1240px;
+  align-items: start;
+  margin-top: 32px;
+}
+.icp-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.icp-col-header {
+  text-align: center;
+  padding: 0 4px 12px;
+  margin-bottom: 2px;
+}
+.icp-col-header .icp-eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: #808080; margin-bottom: 6px;
+}
+.icp-col-header .icp-name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 20px; font-weight: 600; letter-spacing: -0.015em;
+  line-height: 1.15; margin-bottom: 4px; color: var(--ink);
+}
+.icp-col-header .icp-slug {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px; color: #999999; letter-spacing: 0.02em;
+}
+
+.icp-strategy {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 16px 18px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.icp-strategy .icp-strategy-eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: #808080;
+}
+.icp-strategy .icp-strategy-title {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 18px; font-weight: 600; color: var(--ink);
+  letter-spacing: -0.005em; line-height: 1.3; margin-bottom: 4px;
+}
+.icp-strategy .icp-strategy-body {
+  font-size: 14.5px; color: var(--ink-soft); line-height: 1.55;
+}
+
+.icp-step {
+  background: var(--card); border: 1px solid var(--card-border-solid);
+  border-radius: 8px; padding: 10px 12px;
+  display: grid; grid-template-columns: 22px 1fr; gap: 8px;
+  text-align: left; align-items: flex-start;
+}
+.icp-step .icp-num {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 9px; font-weight: 600; color: #808080;
+  letter-spacing: 0.1em; margin-top: 2px;
+}
+.icp-step .icp-step-title { font-size: 12px; font-weight: 600; color: var(--ink); line-height: 1.3; margin-bottom: 2px; }
+.icp-step .icp-step-desc { font-size: 10.5px; color: var(--ink-soft); line-height: 1.45; }
+
+.icp-cta {
+  background: var(--lime); border: 1px solid var(--lime-deep);
+  border-radius: 8px; padding: 12px;
+  text-align: center; margin-top: 4px;
+}
+.icp-cta .icp-cta-eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 8px; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--lime-text); margin-bottom: 4px;
+}
+.icp-cta .icp-cta-title { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+
+.icp-secondary {
+  background: rgba(245, 244, 243, 0.5);
+  border: 1px dashed var(--card-border);
+  border-radius: 8px; padding: 8px 12px;
+  text-align: center;
+}
+.icp-secondary .icp-sec-title { font-size: 10.5px; font-weight: 500; color: var(--ink); opacity: 0.7; }
+
+.icp-converge {
+  width: 100%;
+  max-width: 1240px;
+  margin-top: 14px;
+}
+.icp-converge svg { display: block; width: 100%; }
+
+.icp-engine {
+  background: var(--card);
+  border: 1px solid var(--lime-deep);
+  border-radius: 10px;
+  padding: 18px 26px;
+  text-align: center;
+  max-width: 640px;
+  margin: 6px auto 32px;
+}
+.icp-engine .icp-engine-eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em;
+  color: #808080; margin-bottom: 6px;
+}
+.icp-engine .icp-engine-title {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 19px; font-weight: 600; color: var(--ink);
+  letter-spacing: -0.015em; line-height: 1.2; margin-bottom: 6px;
+}
+.icp-engine .icp-engine-desc {
+  font-size: 11.5px; color: var(--ink-soft); line-height: 1.5;
+  max-width: 560px; margin: 0 auto;
+}
+
+.icp-crosslink {
+  margin-top: 18px;
+  padding: 12px 18px;
+  background: rgba(213,255,2,0.08);
+  border: 1px dashed var(--lime-deep);
+  border-radius: 8px;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  text-align: center;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.icp-crosslink strong { color: var(--ink); font-weight: 600; }
+
+/* SLIDE 24 — The spine (3 cards) */
+.spine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+}
+.spine-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 26px 28px;
+  text-align: left;
+}
+.spine-card .spine-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.spine-card .spine-name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+.spine-card .spine-slug {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  color: #999999;
+  margin-bottom: 14px;
+}
+.spine-card .spine-role {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* SLIDE 25 — Partners page (3 strategy cards) */
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 1180px;
+}
+
+/* SLIDE 24 — Founder page as source of truth */
+.founder-hub {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.founder-center-card {
+  background: var(--card);
+  border: 1.5px solid var(--lime-deep);
+  border-radius: 12px;
+  padding: 22px 32px;
+  text-align: center;
+  max-width: 460px;
+  margin: 0 auto;
+}
+.founder-center-card .founder-eyebrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em;
+  color: #808080; margin-bottom: 8px; font-weight: 400;
+}
+.founder-center-card .founder-name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 22px; font-weight: 600; color: var(--ink);
+  letter-spacing: -0.015em; margin-bottom: 4px;
+}
+.founder-center-card .founder-slug {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px; color: #999999;
+}
+.founder-fan {
+  width: 100%;
+  margin: -6px 0;
+}
+.founder-fan svg { display: block; width: 100%; }
+.founder-spokes {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+.founder-spoke {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.founder-spoke .spoke-arrow {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  color: var(--lime-text);
+  letter-spacing: 0.05em;
+}
+.founder-spoke .spoke-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.founder-spoke .spoke-desc {
+  font-size: 9.5px;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+.founder-note {
+  margin-top: 22px;
+  padding: 16px 22px;
+  background: rgba(213,255,2,0.08);
+  border: 1px dashed var(--lime-deep);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  text-align: center;
+  max-width: 920px;
+}
+.founder-note strong { color: var(--ink); font-weight: 600; }
+
+/* SLIDE 26 — AI concierge as ambient layer */
+.concierge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1000px;
+}
+.concierge-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.concierge-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  font-weight: 400;
+}
+.concierge-value {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+/* ============================================== */
+/* BRAND DIRECTION SECTION — slides 29–35           */
+/* ============================================== */
+
+/* SLIDE 30 — Quiet Authority direction statement */
+.direction-statement {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 40px;
+  max-width: 1000px;
+}
+.direction-statement em {
+  font-style: italic;
+}
+.direction-reasons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 32px;
+}
+.direction-reason {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.direction-reason .num {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  margin-bottom: 10px;
+}
+.direction-reason .text {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.direction-reason .text strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+.reference-brands {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px dashed var(--card-border);
+  max-width: 900px;
+  width: 100%;
+}
+.reference-brands strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Clickable reference + competitor pills (slide 33) */
+.ref-row {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.ref-row .ref-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #808080;
+  font-weight: 400;
+}
+.ref-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ref-pill {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+.ref-pill:hover {
+  background: var(--lime);
+  color: var(--ink);
+}
+.ref-pill:hover::after {
+  color: var(--ink);
+}
+.ref-pill::after {
+  content: '↗';
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1;
+}
+
+/* SLIDE 31 — Palette + typography */
+.brand-rendering {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 16px;
+}
+.brand-block {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 28px 30px;
+}
+.brand-block .label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.palette-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--card-border-solid);
+}
+.palette-row.first { border-top: none; padding-top: 4px; }
+.palette-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+.palette-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.palette-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.palette-hex {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #808080;
+}
+.palette-role {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: right;
+}
+.palette-split {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--card-border);
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.palette-bar {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+}
+.palette-bar-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  height: 100%;
+}
+.palette-family {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  margin-bottom: 18px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.family-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.family-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.08);
+  display: inline-block;
+}
+.family-sep {
+  color: #BBBBBB;
+  font-weight: 400;
+}
+.family-sep.pipe {
+  color: #888888;
+  margin: 0 4px;
+}
+.palette-bar-cell.on-light { color: var(--ink); }
+.palette-bar-cell.on-dark { color: rgba(255,255,255,0.92); }
+.palette-bar-legend {
+  display: flex;
+  width: 100%;
+  margin-bottom: 18px;
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #808080;
+}
+.palette-bar-legend > span {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.type-specimen {
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--card-border-solid);
+}
+.type-specimen:last-of-type { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.type-specimen .type-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #808080;
+  margin-bottom: 8px;
+}
+.type-specimen .type-display-serif {
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.type-specimen .type-display-sans {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.type-specimen .type-display-mono {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.type-specimen .type-note {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.specimen-caveat {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--ink-mute);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* SLIDE 32 — Photography stance */
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 8px;
+}
+.photo-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 26px 28px;
+}
+.photo-card.do { border-color: var(--lime-deep); background: var(--card); }
+.photo-card .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--card-border-solid);
+}
+.photo-card .header .label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  font-weight: 400;
+}
+.photo-card .header .tally {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #808080;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.photo-card ul { list-style: none; }
+.photo-card li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  padding: 6px 0 6px 22px;
+  position: relative;
+}
+.photo-card.do li::before { content: '✓'; position: absolute; left: 0; top: 6px; color: var(--ink); font-size: 14px; }
+.photo-card.dont li::before { content: '×'; position: absolute; left: 0; top: 5px; color: #999999; font-size: 16px; }
+.photo-card.dont li { color: var(--ink-soft); }
+.photo-keystone {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--card);
+  border: 1px solid var(--lime-deep);
+  border-radius: 10px;
+  max-width: 1100px;
+  width: 100%;
+}
+.photo-keystone .keystone-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.photo-keystone .keystone-text {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* SLIDE 33 — Voice principle */
+.voice-principle {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 14px;
+  padding: 44px 48px;
+  max-width: 980px;
+  width: 100%;
+}
+.voice-principle .quote-mark {
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-size: 72px;
+  line-height: 0.4;
+  color: var(--lime-deep);
+  margin-bottom: 14px;
+  display: block;
+}
+.voice-principle .voice-line {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.voice-principle .voice-line em {
+  font-style: italic;
+}
+.voice-test {
+  margin-top: 32px;
+  padding: 18px 22px;
+  background: rgba(255,255,255,0.4);
+  border: 1px dashed var(--card-border);
+  border-radius: 8px;
+}
+.voice-test .test-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.voice-test .test-line {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.voice-anchors {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  max-width: 980px;
+  width: 100%;
+}
+.voice-anchor {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.voice-anchor .anchor-label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #808080;
+  margin-bottom: 6px;
+}
+.voice-anchor .anchor-name {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.voice-anchor .anchor-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* SLIDE 34 — Use / avoid words */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 16px;
+}
+.vocab-card {
+  background: var(--card);
+  border: 1px solid var(--card-border-solid);
+  border-radius: 12px;
+  padding: 28px 30px;
+}
+.vocab-card.use { border-color: var(--lime-deep); background: var(--card); }
+.vocab-card .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--card-border-solid);
+  min-height: 40px;
+}
+.vocab-card .header .label {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #808080;
+  font-weight: 400;
+}
+.vocab-card .header .sub {
+  font-family: 'SF Mono', 'Menlo', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #808080;
+  background: #EEEEEE;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.vocab-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.vocab-pill {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 13px;
+  line-height: 1.2;
+  background: rgba(255,255,255,0.5);
+  color: var(--ink);
+  border: 1px solid var(--card-border-solid);
+}
+.vocab-card.use .vocab-pill.primary {
+  background: var(--lime);
+  border-color: var(--lime-deep);
+  color: var(--lime-text);
+  font-weight: 600;
+}
+.vocab-card.avoid .vocab-pill {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-color: rgba(0,0,0,0.3);
+}
+.vocab-rule {
+  margin-top: 24px;
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, -apple-system, sans-serif;
+  font-size: 15px;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  text-align: center;
+  max-width: 880px;
+  line-height: 1.55;
+}
+.vocab-rule strong { color: var(--ink); font-weight: 600; }
+
+/* OUTRO SLIDE — Hype Foundry logo */
+.outro-logo {
+  width: 60%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .slide { padding: 64px 32px; }
+  .slide-header, .slide-footer { left: 32px; right: 32px; }
+  .lineage, .reframe-grid, .archetypes, .sameness-grid { grid-template-columns: 1fr; }
+  .tradeoff-rows, .tradeoff-header { grid-template-columns: 1fr; }
+  .icp-row { grid-template-columns: 1fr; gap: 6px; }
+  .decision-row { grid-template-columns: auto 1fr; gap: 12px; }
+  .decision-row .meta { grid-column: 1 / -1; justify-self: start; }
+  .factor-grid, .segment-grid { grid-template-columns: 1fr; }
+  .pathway-step { grid-template-columns: 1fr; gap: 4px; }
+  .ia-flat-grid { grid-template-columns: 1fr 1fr; }
+  .icp-columns { grid-template-columns: 1fr; }
+  .icp-converge { display: none; }
+  .spine-grid { grid-template-columns: 1fr; }
+  .founder-spokes { grid-template-columns: repeat(2, 1fr); }
+  .founder-fan { display: none; }
+  .partner-grid { grid-template-columns: 1fr; }
+  .concierge-grid { grid-template-columns: 1fr; }
+  .direction-reasons, .brand-rendering, .photo-grid, .voice-anchors, .vocab-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================== -->
+<!-- SLIDE 01 — MASTER TITLE HERO (light) -->
+<!-- ============================================== -->
+<section class="slide cover hero-cover">
+  <div class="slide-header">
+    <span>Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <div class="hero-eyebrow">Positioning · Readiness · Architecture · Findability · Brand Direction</div>
+    <h1 class="hero-title">Strategy.</h1>
+    <div class="hero-meta">
+      <span>21 May 2026</span>
+      <span class="dot"></span>
+      <span>Prepared for Emma Allen</span>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Hype Foundry</span>
+    <span>01 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 02 — POSITIONING COVER (dark) -->
+<!-- ============================================== -->
+<section class="slide cover dark">
+  <div class="slide-header">
+    <span>Hype Foundry × Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <h1 class="cover-title">Positioning.</h1>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>Prepared for Emma Allen, Founder</span>
+    <span>02 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 03 — CATEGORY SAMENESS (was 03) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Category sameness</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">1,000+ AU buyer's agents.<br>Most use the same playbook.</h1>
+
+    <div class="sameness-grid">
+      <div class="sameness-row">
+        <span class="num">01</span>
+        <span class="text">Similar colour palette</span>
+      </div>
+      <div class="sameness-row">
+        <span class="num">02</span>
+        <span class="text">"Off-market access" claim (8 of 10 use this)</span>
+      </div>
+      <div class="sameness-row">
+        <span class="num">03</span>
+        <span class="text">"Free discovery call" as the hero CTA</span>
+      </div>
+      <div class="sameness-row">
+        <span class="num">04</span>
+        <span class="text">Award badges + Google reviews carousel</span>
+      </div>
+      <div class="sameness-row">
+        <span class="num">05</span>
+        <span class="text">Team headshots + combined years of experience</span>
+      </div>
+      <div class="sameness-row">
+        <span class="num">06</span>
+        <span class="text">"Wealth through property" / "stress-free" / "data-driven"</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>The category sameness</span>
+    <span>03 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 04 — DISCOVERY QUOTES -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <div class="eyebrow">Discovery · 14 May 2026</div>
+    <h1 style="font-size: 64px; max-width: 900px; margin-bottom: 42px;">The positioning has been crafted from the patterns, language, and principles that surfaced consistently throughout discovery.</h1>
+
+    <div class="discovery-quotes">
+      <div class="discovery-quote">
+        <blockquote>"The brand is inspired to be a valet service for busy professionals. We're more aligned with professional services than we are with real estate."</blockquote>
+      </div>
+      <div class="discovery-quote">
+        <blockquote>"As affordability gets squeezed, we have to want our ideal client — rather than trying to cater for everyone."</blockquote>
+      </div>
+      <div class="discovery-quote">
+        <blockquote>"I created this readiness scale with Chris just before Christmas. Finance, focus, support, flexibility. The closer to the top end, the more ideal — but the scale also tells us when we can't help."</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Discovery quotes</span>
+    <span>04 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 05 — TRUELINE OPENER (dark) -->
+<!-- ============================================== -->
+<section class="slide dark">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <div class="eyebrow">The trueline</div>
+    <blockquote class="trueline">"We'd rather decline the wrong client than sell them the wrong property."</blockquote>
+    <div class="trueline-attribution">Every Phase 1 decision tests against this</div>
+  </div>
+
+  <div class="slide-footer">
+    <span>The trueline</span>
+    <span>05 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 06 — POSITIONING STATEMENT + LINEAGE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <div class="eyebrow">The positioning, in one sentence</div>
+    <p class="positioning-statement">Active Property Investing is the valet-service buyer's agency for busy professional rentvestors. A 12-year, female-founded, award-winning advisory that uses a published readiness scale to qualify the right clients in and respectfully decline the wrong fit, so portfolios get built around the investor's life, not around a deal's commission.</p>
+
+    <p class="presenter-note">Every clause in this is something you said in discovery. "Valet-service" was your line. "Busy professional rentvesters" was your Ideal Customer Profile description. The readiness scale is what you have on your wall.</p>
+  </div>
+
+  <div class="slide-footer">
+    <span>The positioning</span>
+    <span>06 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 07 — CATEGORY REFRAME (was 07) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">The category reframe</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Professional services frame.<br>Not real estate.</h1>
+
+    <div class="reframe-grid">
+      <div class="reframe-card from">
+        <div class="label">Where the category sits</div>
+        <div class="name">Buyer's agent</div>
+        <ul>
+          <li>Transactional · per-deal</li>
+          <li>Value = off-market access</li>
+          <li>Deal-closer frame</li>
+          <li>Volume-driven model</li>
+          <li>Comparison set: other buyer's agents</li>
+        </ul>
+      </div>
+      <div class="reframe-card to">
+        <div class="label">Where API positions</div>
+        <div class="name">Professional services advisory</div>
+        <ul>
+          <li>Long-arc · multi-year relationship</li>
+          <li>Value = methodology + readiness scoring</li>
+          <li>Authority = Emma's 12 years as a founder-investor</li>
+          <li>Wealth-architect frame</li>
+          <li>Selectivity-driven model</li>
+          <li>Comparison set: wealth advisors, financial planners</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="reframe-quote">"We're more aligned with professional services than we are with real estate."<span class="attribution">Emma Allen</span></p>
+  </div>
+
+  <div class="slide-footer">
+    <span>Category reframe</span>
+    <span>07 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 08 — THE BUILDERS ICP -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Who this positioning is for</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">The Active Investors.</h1>
+
+    <div class="icp-card">
+      <div class="icp-row first">
+        <div class="icp-label">Profile</div>
+        <div class="icp-value">Busy professional rentvestors with capital + clarity. Often on their 3rd–4th property; sometimes their first with strong fundamentals. Time-poor, results-focused, want a delegated outcome.</div>
+      </div>
+      <div class="icp-row">
+        <div class="icp-label">Capital + finance</div>
+        <div class="icp-value">$800k–$1.1M+ deployable · broker relationship already in place · structure thinking (personal / trust / SMSF) emerging or formalised</div>
+      </div>
+      <div class="icp-row">
+        <div class="icp-label">Decision-making style</div>
+        <div class="icp-value">High delegation. "Summarise it and tell me, I'll decide." Outcome-focused, not detail-perfectionist.</div>
+      </div>
+      <div class="icp-row">
+        <div class="icp-label">Readiness score</div>
+        <div class="icp-value">16–20 on the readiness scale</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Who this attracts</span>
+    <span>08 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 09 — WRONG-FIT ARCHETYPES -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Who this positioning is not for</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Four wrong-fit clients.</h1>
+
+    <div class="archetypes">
+      <div class="archetype-card">
+        <div class="num">01</div>
+        <div class="name">The Disengaged Wealthy</div>
+        <div class="description">API's process only adds value where the client values API's process.</div>
+      </div>
+      <div class="archetype-card">
+        <div class="num">02</div>
+        <div class="name">The Priced-Out $300k Buyer</div>
+        <div class="description">Budget no longer matches market reality for the strategies API uses. Still welcome at educational events.</div>
+      </div>
+      <div class="archetype-card">
+        <div class="num">03</div>
+        <div class="name">The Detail-Perfectionist</div>
+        <div class="description">Fusses about door colour while properties move. Better served by an agent who can spend longer on each property.</div>
+      </div>
+      <div class="archetype-card">
+        <div class="num">04</div>
+        <div class="name">The 2010 Cash-Flow Dreamer</div>
+        <div class="description">Wants "$600k positive cash flow in Sydney." Mathematically impossible today. Needs a reset before any buyer's agent can help.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>The four wrong-fit archetypes</span>
+    <span>09 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 10 — WHAT THIS KILLS -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Positioning is sacrifice</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Five things we say no to.</h1>
+
+    <div class="tradeoff-table">
+      <div class="tradeoff-header">
+        <div class="label">What we say yes to</div>
+        <div class="label">What we say no to</div>
+      </div>
+      <div class="tradeoff-rows">
+        <div class="tradeoff-yes">Busy professional rentvestors</div>
+        <div class="tradeoff-no">Owner-occupier work</div>
+
+        <div class="tradeoff-yes">Published readiness scale</div>
+        <div class="tradeoff-no">"Everyone welcome" qualification</div>
+
+        <div class="tradeoff-yes">Female-founded brand identity</div>
+        <div class="tradeoff-no">Voiceless company brand</div>
+
+        <div class="tradeoff-yes">Investor-only specialism</div>
+        <div class="tradeoff-no">First-home-buyer work</div>
+
+        <div class="tradeoff-yes">1–3 year client cycles</div>
+        <div class="tradeoff-no">Volume-driven deal flow</div>
+      </div>
+      <div class="tradeoff-footer">If it doesn't cost something, it isn't real positioning</div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Positioning sacrifice</span>
+    <span>10 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 11 — EMMA IS THE BRAND -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <h1 class="emma-headline">Emma is the brand.<br>API is the company.</h1>
+    <p class="emma-explainer">Emma has 12 years on the record, a published process, a published author, regular webinars and in-person events, and the Property Boss Mums platform. That's the brand the category remembers.<br><br>Emma's face, story, and credentials front and centre across every surface. The Founder page becomes the second-most important page on the site, after the home.</p>
+  </div>
+
+  <div class="slide-footer">
+    <span>Emma is the brand</span>
+    <span>11 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 12 — DECISIONS TO LOCK -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Positioning</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">What we need from you</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Four things to sign off.</h1>
+
+    <div class="decisions">
+      <div class="decision-row">
+        <span class="num">01</span>
+        <span class="ask">Does the positioning statement feel right to you, and is there anything you'd want to change?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">02</span>
+        <span class="ask">Does this trueline feel right to you? "We'd rather decline the wrong client than sell them the wrong property."</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">03</span>
+        <span class="ask">Do the four wrong-fit archetype names feel right to show publicly?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">04</span>
+        <span class="ask">Does Emma being the brand-face feel right to you?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Sign off decisions</span>
+    <span>12 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 13 — AUDIENCE COVER (dark) -->
+<!-- ============================================== -->
+<section class="slide cover dark">
+  <div class="slide-header">
+    <span>Hype Foundry × Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <h1 class="cover-title" style="line-height: 0.85;"><span style="white-space: nowrap;">The Readiness</span><br>Scale.</h1>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>How the readiness scale routes every prospect</span>
+    <span>13 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 14 — THE FOUR-FACTOR READINESS SCALE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Readiness</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">The process framework</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">The four pieces.</h1>
+
+    <div class="factor-grid">
+      <div class="factor-card">
+        <div class="factor-label">01</div>
+        <div class="factor-name">Finance</div>
+        <div class="factor-desc">Capital + borrowing capacity + structure thinking. The closer to deployable, the higher the score.</div>
+        <div class="factor-range">Scored 1–5</div>
+      </div>
+      <div class="factor-card">
+        <div class="factor-label">02</div>
+        <div class="factor-name">Focus</div>
+        <div class="factor-desc">Outcome-led vs detail-perfectionist. Prospects looking at the <em>ingredients</em> of a property vs prospects fussing about door colour.</div>
+        <div class="factor-range">Scored 1–5</div>
+      </div>
+      <div class="factor-card">
+        <div class="factor-label">03</div>
+        <div class="factor-name">Support</div>
+        <div class="factor-desc">DIY vs full delegation. Where the prospect sits on the spectrum from "I'll research it myself" to "summarise it and tell me."</div>
+        <div class="factor-range">Scored 1–5</div>
+      </div>
+      <div class="factor-card">
+        <div class="factor-label">04</div>
+        <div class="factor-name">Flexibility</div>
+        <div class="factor-desc">Rigid vs open on location and property type. "Must be Mosman" vs "open to interstate, trust the methodology."</div>
+        <div class="factor-range">Scored 1–5</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>The four pieces</span>
+    <span>14 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 15 — THE THREE SEGMENTS OVERVIEW -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Readiness</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Where each score lands</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">The Three Pathways.</h1>
+
+    <div class="segment-grid">
+      <div class="segment-col">
+        <div class="segment-card">
+          <div class="segment-label">Pathway A</div>
+          <div class="segment-name">Active Investors</div>
+          <div class="segment-score">Score 16–20</div>
+        </div>
+        <div class="segment-arrow">↓</div>
+        <div class="segment-action">Book a strategy session</div>
+      </div>
+      <div class="segment-col">
+        <div class="segment-card">
+          <div class="segment-label">Pathway B</div>
+          <div class="segment-name">Aspiring</div>
+          <div class="segment-score">Score 11–15</div>
+        </div>
+        <div class="segment-arrow">↓</div>
+        <div class="segment-action">Build readiness over 90 days</div>
+      </div>
+      <div class="segment-col">
+        <div class="segment-card">
+          <div class="segment-label">Pathway C</div>
+          <div class="segment-name">Not the right fit (for now)</div>
+          <div class="segment-score">Score 4–10</div>
+        </div>
+        <div class="segment-arrow">↓</div>
+        <div class="segment-action">Respectfully decline</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>The three pathways</span>
+    <span>15 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 16 — PATHWAY A · ACTIVE INVESTORS -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Readiness</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <div class="eyebrow">Pathway A</div>
+    <h1 style="font-size: 64px; max-width: 900px; margin-bottom: 42px;">Active Investors are routed straight to booking.</h1>
+
+    <div class="pathway-steps">
+      <div class="pathway-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Routing screen · strong fit</div>
+          <div class="step-desc">"You're a strong fit for our valet-service model. Let's get a strategy session booked."</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">Calendly opens inline</div>
+          <div class="step-desc">Next 3 available slots surfaced · routes to Emma or Chris · strategy session 30 min</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">Confirmation + prep questions</div>
+          <div class="step-desc">Confirmation email · Calendly link · brief brand intro · session prep so the call doesn't start cold</div>
+        </div>
+      </div>
+      <div class="pathway-step crm">
+        <div class="step-num">CRM</div>
+        <div class="step-body">
+          <div class="step-title">"Active Investor" tag</div>
+          <div class="step-desc">Auto-advances to "Strategy Booked" on Calendly confirmation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Pathway A · Active Investors</span>
+    <span>16 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 17 — PATHWAY B · ASPIRING -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Readiness</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <div class="eyebrow">Pathway B</div>
+    <h1 style="font-size: 64px; max-width: 900px; margin-bottom: 42px;">Aspiring investors are routed to a tailored 90-day nurture.</h1>
+
+    <div class="pathway-steps">
+      <div class="pathway-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Routing screen · gap explanation</div>
+          <div class="step-desc">Specific to lowest-scoring factor. E.g. "Your finance is strong but your flexibility score suggests broader market exposure before locking in."</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">Tailored resources</div>
+          <div class="step-desc">Relevant eBook (Rentvesting / Women / Family) · next webinar invite · Property Boss Mums episode for their gap factor</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">8-touch nurture sequence</div>
+          <div class="step-desc">Confirmation → Emma email → podcast → case study → webinar → founder story → check-in → re-assessment invite. Spread across 90 days.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">Re-assessment loop · the secret value</div>
+          <div class="step-desc">If new score ≥16 → routes to Active Investor pathway and books. If still mid → continues quarterly market briefs cadence.</div>
+        </div>
+      </div>
+      <div class="pathway-step crm">
+        <div class="step-num">CRM</div>
+        <div class="step-body">
+          <div class="step-title">"Aspiring" + sub-tag by lowest factor</div>
+          <div class="step-desc">e.g. "Aspiring-Finance" · sequences fire automatically · advances to "Engaged" on 3+ touches</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Pathway B · Aspiring</span>
+    <span>17 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 18 — PATHWAY C · DECLINE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Readiness</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide">
+    <div class="eyebrow">Pathway C</div>
+    <h1 style="font-size: 64px; max-width: 900px; margin-bottom: 42px;">Wrong-fit prospects are routed to a respectful decline.</h1>
+
+    <div class="pathway-steps">
+      <div class="pathway-step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Routing screen · respectful decline</div>
+          <div class="step-desc">Named-archetype copy matched to one of the four wrong-fit clients from earlier. Honest, specific, not patronising.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">1–2 named alternatives</div>
+          <div class="step-desc">Named broker / first-home-buyer specialist / transactional buyer's agent. Whichever fits the gap. Real recommendations, not deflection.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">1–2 educational resources</div>
+          <div class="step-desc">Investing Made Simple eBook · webinar · Property Boss Mums. Useful regardless of outcome.</div>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">NOT added to marketing list</div>
+          <div class="step-desc">Compliance: APP 6. No implied consent. Optional opt-in checkbox at bottom of screen for quarterly newsletter ONLY if explicitly ticked. The "no" is real.</div>
+        </div>
+      </div>
+      <div class="pathway-step crm">
+        <div class="step-num">CRM</div>
+        <div class="step-body">
+          <div class="step-title">"Decline" tag · analytics only</div>
+          <div class="step-desc">Logged for false-negative monitoring · thresholds recalibrated quarterly if needed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Pathway C · Decline</span>
+    <span>18 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 19 — AUDIENCE DECISIONS TO LOCK -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Readiness</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">What we need from you</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Five things to sign off.</h1>
+
+    <div class="decisions">
+      <div class="decision-row">
+        <span class="num">01</span>
+        <span class="ask">Does the readiness scale (Finance / Focus / Support / Flexibility) feel right as the way you actually qualify clients?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">02</span>
+        <span class="ask">Do these segment names feel right to you? Active Investors, Aspiring, Not the right fit.</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">03</span>
+        <span class="ask">Do the scoring thresholds (16–20 / 11–15 / 4–10) feel right to you, or would you adjust them?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">04</span>
+        <span class="ask">Does an 8-touch nurture cadence over 90 days for Aspiring feel right to you? Too much, too little, or just right?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">05</span>
+        <span class="ask">Does keeping declined prospects off the marketing list feel right to you?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Sign off decisions</span>
+    <span>19 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 20 — ARCHITECTURE COVER (dark) -->
+<!-- ============================================== -->
+<section class="slide cover dark">
+  <div class="slide-header">
+    <span>Hype Foundry × Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <h1 class="cover-title">Architecture.</h1>
+  </div>
+
+  <div class="slide-footer">
+    <span>The system architecture</span>
+    <span>20 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 21 — THE SITE MAP (full IA flowchart) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body" style="max-width: 1320px; align-items: center;">
+    <div class="sitemap-flowchart">
+
+      <div class="sitemap-root">
+        <div class="sitemap-card">
+          <div class="page-name">Home</div>
+        </div>
+      </div>
+
+      <div class="sitemap-fan">
+        <svg viewBox="0 0 1320 80" preserveAspectRatio="none" height="80">
+          <defs>
+            <marker id="sm-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 0 L 9 5 L 0 10 z" fill="#C8C8C8"/>
+            </marker>
+          </defs>
+          <path d="M 660 0 V 36" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 94 36 H 1226" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 94 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+          <path d="M 283 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+          <path d="M 471 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+          <path d="M 660 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+          <path d="M 849 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+          <path d="M 1037 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+          <path d="M 1226 36 V 80" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#sm-arrow)"/>
+        </svg>
+      </div>
+
+      <div class="sitemap-columns">
+
+        <!-- ABOUT -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">About</div>
+          <div class="sitemap-card"><div class="page-name">About</div><div class="page-url">/about/</div></div>
+          <div class="sitemap-card"><div class="page-name">Founder <span class="new-badge">NEW</span></div><div class="page-url">/about/founder/</div></div>
+          <div class="sitemap-card"><div class="page-name">Team</div><div class="page-url">/about/team/</div></div>
+          <div class="sitemap-card"><div class="page-name">Giving Back</div><div class="page-url">/about/giving-back/</div></div>
+          <div class="sitemap-card"><div class="page-name">Press <span class="new-badge">NEW</span></div><div class="page-url">/about/press/</div></div>
+        </div>
+
+        <!-- PROCESS -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">Process</div>
+          <div class="sitemap-card"><div class="page-name">Our Process</div><div class="page-url">/process/</div></div>
+          <div class="sitemap-card"><div class="page-name">Readiness Scale <span class="new-badge">NEW</span></div><div class="page-url">/process/readiness-scale/</div></div>
+          <div class="sitemap-card"><div class="page-name">Why No List <span class="new-badge">NEW</span></div><div class="page-url">/process/why-no-list/</div></div>
+          <div class="sitemap-card"><div class="page-name">Properties</div><div class="page-url">/properties/</div></div>
+        </div>
+
+        <!-- WHO WE WORK WITH -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">Who we work with</div>
+          <div class="sitemap-card">
+            <div class="page-name">For Investors <span class="new-badge">NEW</span></div>
+            <div class="page-url">/for-investors/</div>
+            <div class="page-children">
+              <div class="child-card">/buyers-agent-sydney/</div>
+              <div class="child-card">/buyers-agent-[city-2]/</div>
+              <div class="child-card">/buyers-agent-[suburb]/ × N</div>
+            </div>
+          </div>
+          <div class="sitemap-card"><div class="page-name">For Women <span class="new-badge">NEW</span></div><div class="page-url">/for-women/</div></div>
+          <div class="sitemap-card"><div class="page-name">Rentvesting <span class="new-badge">NEW</span></div><div class="page-url">/rentvesting/</div></div>
+          <div class="sitemap-card"><div class="page-name">Partners <span class="new-badge">NEW</span></div><div class="page-url">/partners/</div></div>
+        </div>
+
+        <!-- CASE STUDIES -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">Case Studies</div>
+          <div class="sitemap-card">
+            <div class="page-name">Case Studies <span class="new-badge">NEW</span></div>
+            <div class="page-url">/case-studies/</div>
+            <div class="page-children">
+              <div class="child-card">/case-studies/[slug]/ × 20</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESOURCES -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">Resources</div>
+          <div class="sitemap-card">
+            <div class="page-name">Resources hub</div>
+            <div class="page-url">/resources/</div>
+            <div class="page-children">
+              <div class="child-card">/blog/</div>
+              <div class="child-card">/ebooks/ — 4</div>
+              <div class="child-card">/webinars/</div>
+              <div class="child-card">/podcast/ — PBM hub</div>
+              <div class="child-card">/books/ — 2 anthology</div>
+              <div class="child-card">/events/</div>
+            </div>
+          </div>
+          <div class="sitemap-card">
+            <div class="page-name">Guides <span class="new-badge">NEW</span></div>
+            <div class="page-url">/guides/</div>
+            <div class="page-children">
+              <div class="child-card">/guides/buyers-agent-cost/</div>
+              <div class="child-card">/guides/what-does-a-buyers-agent-do/</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GET STARTED -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">Get Started</div>
+          <div class="sitemap-card"><div class="page-name">Get Started</div><div class="page-url">/get-started/</div></div>
+          <div class="sitemap-card"><div class="page-name">Contact</div><div class="page-url">/contact/</div></div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-label">Footer</div>
+          <div class="sitemap-card legal"><div class="page-name">Privacy Policy</div><div class="page-url">/privacy-policy/</div></div>
+          <div class="sitemap-card legal"><div class="page-name">Terms &amp; Conditions</div><div class="page-url">/terms/</div></div>
+          <div class="sitemap-card legal"><div class="page-name">AI Assistant Notice <span class="new-badge">NEW</span></div><div class="page-url">/ai-assistant-notice/</div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="presenter-note" style="margin-top: 32px;">
+      Sub-pages under <strong>For Investors</strong> and the new <strong>Guides</strong> section serve the SEO strategy &nbsp;·&nbsp; see slide 30
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>The site map</span>
+    <span>21 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 22 — THREE DOORS, ONE ENGINE (ICP LP content map) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body" style="max-width: 1320px; align-items: center;">
+    <div class="eyebrow" style="text-align: center; margin-bottom: 18px;">ICP Landing Pages</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">A landing page for each ICP.</h1>
+
+    <div class="icp-columns">
+
+      <!-- COLUMN 1: FOR INVESTORS -->
+      <div class="icp-col">
+        <div class="icp-col-header">
+          <div class="icp-eyebrow">Primary commercial LP</div>
+          <div class="icp-name">For Investors</div>
+          <div class="icp-slug">/for-investors/</div>
+        </div>
+
+        <div class="icp-strategy">
+          <div class="icp-strategy-eyebrow">What it's for</div>
+          <div class="icp-strategy-title">Generic High Intent Search</div>
+          <div class="icp-strategy-body">API's commercial home for investors. The conversion page where city/suburb-search traffic funnels up, where referral and paid traffic land. Portfolio-builder language, investor proof, partner ecosystem visible. Without this page, investors land on About, which is built to tell the story, not close them.</div>
+        </div>
+
+      </div>
+
+      <!-- COLUMN 2: FOR WOMEN -->
+      <div class="icp-col">
+        <div class="icp-col-header">
+          <div class="icp-eyebrow">Female-founded ICP LP</div>
+          <div class="icp-name">For Women</div>
+          <div class="icp-slug">/for-women/</div>
+        </div>
+
+        <div class="icp-strategy">
+          <div class="icp-strategy-eyebrow">What it's for</div>
+          <div class="icp-strategy-title">Emma's Identity Audience</div>
+          <div class="icp-strategy-body">This page is designed for Emma's audience. The Property Boss Mums listeners, anthology readers, podcast guests. Search demand for "female buyer's agent" is near-zero, so this isn't built for cold organic search. It's built for the warm community Emma's been growing for years. The female-led positioning also runs through the main commercial pages as a differentiator.</div>
+        </div>
+
+      </div>
+
+      <!-- COLUMN 3: RENTVESTING -->
+      <div class="icp-col">
+        <div class="icp-col-header">
+          <div class="icp-eyebrow">ICP cornerstone</div>
+          <div class="icp-name">Rentvesting</div>
+          <div class="icp-slug">/rentvesting/</div>
+        </div>
+
+        <div class="icp-strategy">
+          <div class="icp-strategy-eyebrow">What it's for</div>
+          <div class="icp-strategy-title">Win organic search</div>
+          <div class="icp-strategy-body">About 2,400 Australians search "rentvesting" on Google every month. Competition is light. Advisory firms like InvestorKit and Finspo already rank with content alone. Banks own page one so we won't be number one, but mid-page is enough. The page funnels qualified prospects into the existing rentvesting eBook and readiness assessment.</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CONVERGENCE -->
+    <div class="icp-converge">
+      <svg viewBox="0 0 1240 70" preserveAspectRatio="none" height="70">
+        <defs>
+          <marker id="j-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M 0 0 L 9 5 L 0 10 z" fill="#C8C8C8"/>
+          </marker>
+        </defs>
+        <path d="M 207 0 V 36 H 620" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+        <path d="M 620 0 V 36" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+        <path d="M 1033 0 V 36 H 620" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+        <path d="M 620 36 V 70" stroke="#C8C8C8" stroke-width="1" fill="none" marker-end="url(#j-arrow)"/>
+      </svg>
+    </div>
+
+    <!-- SHARED ENGINE -->
+    <div class="icp-engine">
+      <div class="icp-engine-eyebrow">The shared engine</div>
+      <div class="icp-engine-title">Readiness Assessment</div>
+    </div>
+
+    <!-- CROSS-LINK NOTE -->
+    <div class="presenter-note" style="margin-top: 32px; text-align: center; margin-left: auto; margin-right: auto;">
+      <strong>Cross-linking between siblings.</strong> Each LP carries discreet cross-links to the other two. A female rentvester might land on /for-women/, click through to /rentvesting/ to verify the math, then assess. Each page converts on its own; cross-links let curious prospects triangulate without bouncing.
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>ICP Landing Pages</span>
+    <span>22 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 23 — THE SPINE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">The cross-link architecture</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Three pages every other page links to.</h1>
+
+    <div class="spine-grid">
+      <div class="spine-card">
+        <div class="spine-label">1 of 3 · methodology hub</div>
+        <div class="spine-name">Readiness Scale</div>
+        <div class="spine-slug">/process/readiness-scale/</div>
+        <div class="spine-role">Every page either explains readiness or routes based on it. This page is where the methodology lives in public.</div>
+      </div>
+      <div class="spine-card">
+        <div class="spine-label">2 of 3 · conversion gate</div>
+        <div class="spine-name">Get Started</div>
+        <div class="spine-slug">/get-started/</div>
+        <div class="spine-role">The single intake. Every page's primary CTA points here. One funnel, one form, three calibrated outcomes.</div>
+      </div>
+      <div class="spine-card">
+        <div class="spine-label">3 of 3 · brand-face anchor</div>
+        <div class="spine-name">Founder · Emma</div>
+        <div class="spine-slug">/about/founder/</div>
+        <div class="spine-role">Emma is the brand. Every page links here for entity authority on AI surfaces and for the trust moment in the funnel.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Critical pages</span>
+    <span>23 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 24 — FOUNDER PAGE AS SOURCE OF TRUTH -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body" style="max-width: 1180px; align-items: center;">
+    <div class="eyebrow" style="text-align: center; margin-bottom: 18px;">Entity authority · the AI-era differentiator</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 24px;">The founder page is Emma's source of truth online.</h1>
+    <p class="lede" style="text-align: center; margin-bottom: 36px; max-width: 820px;">It tells Google, ChatGPT, Perplexity, and visitors that this is the official Emma Allen, founder of Active Property Investing. Every external profile points back to it; it points back to every external profile. That two-way wiring is what AI systems use to verify identity.</p>
+
+    <div class="founder-hub">
+      <div class="founder-center-card">
+        <div class="founder-eyebrow">The source of truth</div>
+        <div class="founder-name">Founder · Emma Allen</div>
+        <div class="founder-slug">/about/founder/</div>
+      </div>
+
+      <div class="founder-fan">
+        <svg viewBox="0 0 1100 90" preserveAspectRatio="none" height="90">
+          <path d="M 92 90 V 60 H 550 V 0" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 275 90 V 60 H 550" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 458 90 V 60 H 550" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 642 90 V 60 H 550" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 825 90 V 60 H 550" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+          <path d="M 1008 90 V 60 H 550" stroke="#C8C8C8" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="founder-spokes">
+        <div class="founder-spoke">
+          <div class="spoke-name">LinkedIn</div>
+          <div class="spoke-desc">Professional profile</div>
+        </div>
+        <div class="founder-spoke">
+          <div class="spoke-name">Podcast appearances</div>
+          <div class="spoke-desc">Property Boss Mums + guest spots</div>
+        </div>
+        <div class="founder-spoke">
+          <div class="spoke-name">Book pages</div>
+          <div class="spoke-desc">Back Yourself · Women Changing the World</div>
+        </div>
+        <div class="founder-spoke">
+          <div class="spoke-name">Press features</div>
+          <div class="spoke-desc">Named articles, interviews</div>
+        </div>
+        <div class="founder-spoke">
+          <div class="spoke-name">Partner websites</div>
+          <div class="spoke-desc">Broker, planner, QS, accountant</div>
+        </div>
+        <div class="founder-spoke">
+          <div class="spoke-name">Social profiles</div>
+          <div class="spoke-desc">Instagram, public socials</div>
+        </div>
+      </div>
+
+      <div class="presenter-note" style="margin-top: 32px;">
+        Without the two-way wiring, Emma's references float as disconnected mentions across the web. A podcast here, a chapter there. With it, every platform resolves to one person, one company, one source of truth. That's how API shows up when someone asks ChatGPT "who's a good buyer's agent in Sydney?"
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>The founder page</span>
+    <span>24 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 25 — THE PARTNERS PAGE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body" style="max-width: 1200px; align-items: center;">
+    <div class="eyebrow" style="text-align: center; margin-bottom: 18px;">The Partners Page</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 24px;">A landing page for partner referrals.</h1>
+    <p class="lede" style="text-align: center; margin-bottom: 36px; max-width: 820px;">Brokers, financial planners, accountants and conveyancers refer their clients to API. This is the page those referrals land on, and the page partners point to as public proof of the relationship.</p>
+
+    <div class="partner-grid">
+
+      <div class="icp-strategy">
+        <div class="icp-strategy-eyebrow">Role 01</div>
+        <div class="icp-strategy-title">The warm-referral landing pad.</div>
+        <div class="icp-strategy-body">When a broker tells their client "I trust API for buyer's agent work," the client lands here, sees the broker's name listed, and the verbal referral becomes verified. Trust is pre-loaded. Conversion is higher than cold traffic ever gets.</div>
+      </div>
+
+      <div class="icp-strategy">
+        <div class="icp-strategy-eyebrow">Role 02</div>
+        <div class="icp-strategy-title">Public proof of the relationship.</div>
+        <div class="icp-strategy-body">Partners get a public page they can point clients to. "Here's who I trust." The relationship becomes visible instead of informal, which makes it more durable. It also signals to future potential partners that the network is a real, named thing.</div>
+      </div>
+
+      <div class="icp-strategy">
+        <div class="icp-strategy-eyebrow">Role 03</div>
+        <div class="icp-strategy-title">Two-way linking.</div>
+        <div class="icp-strategy-body">Every partner site that links to API, and that API links back to, compounds entity authority on AI search. The Partners page is where this happens at scale. The more partners in the network, the stronger the signal.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>The partners page</span>
+    <span>25 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 26 — AI CONCIERGE AMBIENT LAYER -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Available on every page · the first humanised touch</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">An AI concierge on every page.</h1>
+
+    <div class="concierge-grid">
+      <div class="concierge-item">
+        <div class="concierge-label">Where it lives</div>
+        <div class="concierge-value">Lower-right chat bubble on every page. Persistent across navigation. Page-specific prompts on the Readiness Scale, For Women, and Rentvesting pages.</div>
+      </div>
+      <div class="concierge-item">
+        <div class="concierge-label">What it does</div>
+        <div class="concierge-value">Answers in your voice, trained on 50 pieces of your content (discovery transcript, podcast, methodology, anthology chapters). Listens for readiness signals and routes to the assessment when fit is clear.</div>
+      </div>
+      <div class="concierge-item">
+        <div class="concierge-label">What it never does</div>
+        <div class="concierge-value">Never predicts suburb performance. Never quotes specific returns. Never claims to be Emma. Never replaces the formal assessment. Lawyer-reviewed pre-launch.</div>
+      </div>
+      <div class="concierge-item">
+        <div class="concierge-label">When it hands off</div>
+        <div class="concierge-value">Anyone who asks for a human gets routed to Chris with the conversation transcript attached. The AI is the door. The human closes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>AI concierge</span>
+    <span>26 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 27 — ARCHITECTURE DECISIONS TO LOCK -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Architecture</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">What we need from you</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Three things to sign off.</h1>
+
+    <div class="decisions">
+      <div class="decision-row">
+        <span class="num">01</span>
+        <span class="ask">Does the 7-section IA (About / Process / Audience cornerstones / Proof / Resources / Conversion / Legal) feel right as the groupings?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">02</span>
+        <span class="ask">Does having three critical pages (Readiness Scale, Get Started, Founder), with every other page cross-linking back to these three, feel right to you?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">03</span>
+        <span class="ask">Does the AI concierge approach feel right to you? Sitewide chat bubble plus tailored starting questions on three priority pages (e.g., "Take the assessment" on the Readiness Scale page). Or just the sitewide bubble with no page-specific prompts?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Sign off decisions</span>
+    <span>27 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 28 — FINDABILITY COVER (dark) -->
+<!-- ============================================== -->
+<section class="slide cover dark">
+  <div class="slide-header">
+    <span>Hype Foundry × Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <h1 class="cover-title">Findability.</h1>
+  </div>
+
+  <div class="slide-footer">
+    <span>How we get found, and what we preserve</span>
+    <span>28 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 29 — FINDABILITY · HOW WE GET FOUND -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Findability</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">How AI search finds us</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.025em; margin: 0 auto; margin-bottom: 24px;">When prospects ask AI for a buyer's agent, you come up.</h1>
+    <p class="lede" style="text-align: center; max-width: 820px; margin-bottom: 36px;">When someone asks ChatGPT or Perplexity "who's a good buyer's agent in Sydney for rentvestors," you already show up. You saw it happen in January, when one of your clients recommended you to her sister and ChatGPT verified the recommendation. Two things make that work, and both run quietly in the background.</p>
+
+    <div class="direction-reasons" style="grid-template-columns: 1fr 1fr;">
+      <div class="direction-reason">
+        <div class="num">01 · Make Emma legible to AI</div>
+        <div class="text"><strong>AI systems need confirmation before they cite someone.</strong> The Founder page becomes Emma's official online source. Every link from her LinkedIn, Crunchbase, podcast, anthology, and the 10 named partners points back to it. Behind the scenes, structured data tells AI exactly who she is and how she connects to the company, the books, and reviews.</div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">02 · Quiet background work</div>
+        <div class="text"><strong>The site speaks AI's language behind the scenes.</strong> A small file at the root of the site (called llms.txt) tells AI crawlers what to read and cite. Structured metadata makes every page machine-readable. None of it shows in the visible design. None of it needs Emma's attention. It just runs.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>How AI finds Emma</span>
+    <span>29 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 30 — FINDABILITY · KEYWORD STRATEGY (three tiers) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Findability</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">How keywords work for us</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 24px;">Three tiers.</h1>
+    <p class="lede" style="text-align: center; max-width: 820px; margin-bottom: 36px;">Some searches exist already, some don't. The strategy treats them differently, and stacks them in the right order.</p>
+
+    <div class="direction-reasons">
+      <div class="direction-reason">
+        <div class="num">01 · Capture demand that exists</div>
+        <div class="text"><strong>Buyers agent + rentvesting</strong>, where real search volume lives. <strong>"Buyers agent [city]"</strong> at keyword difficulty 38–47 is the commercial core ($7–12 cost-per-click). City + suburb pages are achievable for a focused local play. <strong>Rentvesting</strong> at keyword difficulty 21 (~2,400 monthly searches) is winnable. Low-difficulty supporting content like <em>"how much does a buyers agent cost"</em> (keyword difficulty 8) and <em>"what does a buyers agent do"</em> (keyword difficulty 31) ranks fast and feeds the money pages through internal links. <strong>These pages live as children of /for-investors/ and under /guides/ in the site map.</strong></div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">02 · Convert with differentiators</div>
+        <div class="text"><strong>Female-led positioning + the readiness scale.</strong> Near-zero search demand for either phrase, but they're what closes the visitor SEO brings in. The female-led story runs through the buyers-agent pages as a conversion differentiator. The readiness scale gets its own explainer page that converts visitors arriving from buyers-agent and rentvesting search.</div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">03 · Build branded demand over time</div>
+        <div class="text"><strong>The readiness scale becomes a search term.</strong> Used consistently across content, webinars, and Emma's events, it grows into branded search demand API creates. People who hear Emma speak or read an eBook later search for it directly. It also strengthens AI-assistant visibility. Distinctive named frameworks get cited over generic content.</div>
+      </div>
+    </div>
+
+    <div class="reference-brands" style="margin-top: 28px;">
+      <strong>Low-difficulty content + rentvesting first</strong> to build authority and show early results &nbsp;·&nbsp; then the competitive buyers-agent terms as the long-term commercial core.
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Three-tier keyword strategy</span>
+    <span>30 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 31 — FINDABILITY · WHAT WE PRESERVE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Findability</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">The migration safety net</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.025em; margin: 0 auto; margin-bottom: 42px;">Nothing that's already converting gets broken.</h1>
+
+    <div class="direction-reasons">
+      <div class="direction-reason">
+        <div class="num">01 · URL preservation</div>
+        <div class="text"><strong>1:1 redirect map at launch.</strong> Every URL on the current site → matched to its new URL, or kept identical. Manual launch-day verification of every redirect. No silent 404s. No ranking left on a dead page.</div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">02 · Entity preservation</div>
+        <div class="text"><strong>Every external link updated at launch.</strong> LinkedIn, Crunchbase, RocketReach, every podcast guest-appearance backlink, the 10 named partner firm backlinks, Property Boss Mums cross-references. The web of links that already verifies Emma stays intact.</div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">03 · Analytics continuity</div>
+        <div class="text"><strong>Google Analytics + Google Search Console installed on the current site Week 1.</strong> Same property persists through migration. We land with a baseline, not zero data. Microsoft Clarity captures pre-launch behavioural patterns to compare against.</div>
+      </div>
+    </div>
+
+    <div class="photo-keystone" style="margin-top: 28px;">
+      <div class="keystone-label">Urgent action</div>
+      <div class="keystone-text">Google Analytics is not currently installed on the live site. Every week of pre-launch Google Analytics + Google Search Console data is migration safety net we don't have yet. The install is a 30-minute Week 1 task.</div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Preservation · URLs, entities, analytics</span>
+    <span>31 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 32 — BRAND DIRECTION COVER (dark) -->
+<!-- ============================================== -->
+<section class="slide cover dark">
+  <div class="slide-header">
+    <span>Hype Foundry × Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <h1 class="cover-title" style="line-height: 0.78;">Brand Direction.</h1>
+  </div>
+
+  <div class="slide-footer">
+    <span>The visual + voice direction — Quiet Authority, Sage / Caregiver</span>
+    <span>32 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 33 — QUIET AUTHORITY DIRECTION -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.03em; margin: 0 auto; margin-bottom: 42px;">Quiet Authority.</h1>
+
+    <p class="direction-statement" style="text-align: center;">A premium editorial property advisory. Generous whitespace, considered typography, Tiffany blue as a confident accent against warm-neutral foundations, photography that frames <em>people in places</em>, not properties as products.</p>
+  </div>
+
+  <div class="slide-footer">
+    <span>The recommended direction</span>
+    <span>33 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 34 — WHY THIS DIRECTION (reasons + refs + competitors) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Why this direction</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Three reasons.</h1>
+
+    <div class="direction-reasons">
+      <div class="direction-reason">
+        <div class="num">01 · Existing brand colour</div>
+        <div class="text">Tiffany blue is API's current accent. No rebrand needed. It stands apart in a field of navy, gold and teal. And it pairs naturally with the <strong>simple, elegant, restrained</strong> direction you asked for.</div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">02 · Category Contrast</div>
+        <div class="text">A near-uniform navy + gold + aerial-drone-photography category. Quiet Authority reads like <strong>wealth advisory</strong>, not real estate.</div>
+      </div>
+      <div class="direction-reason">
+        <div class="num">03 · It ages well</div>
+        <div class="text">Restraint stays timeless. Loud goes stale. This is a <strong>ten-year direction</strong>, not a 2026 trend.</div>
+      </div>
+    </div>
+
+    <div class="ref-row">
+      <div class="ref-label">Look and feel reference set</div>
+      <div class="ref-pills">
+        <a class="ref-pill" href="https://www.net-a-porter.com/en-au/journal" target="_blank" rel="noopener">Net-a-Porter Journal</a>
+        <a class="ref-pill" href="https://cabinethealth.com/manufacturers" target="_blank" rel="noopener">Cabinet Health</a>
+        <a class="ref-pill" href="https://www.coutts.com" target="_blank" rel="noopener">Coutts wealth advisory</a>
+      </div>
+    </div>
+
+    <div class="ref-row">
+      <div class="ref-label">Competitor Links</div>
+      <div class="ref-pills">
+        <a class="ref-pill" href="https://cohenhandler.com.au/" target="_blank" rel="noopener">Cohen Handler</a>
+        <a class="ref-pill" href="https://www.propertybuyer.com.au/" target="_blank" rel="noopener">Propertybuyer</a>
+        <a class="ref-pill" href="https://www.investorkit.com.au/" target="_blank" rel="noopener">InvestorKit</a>
+        <a class="ref-pill" href="https://www.searchproperty.com.au/" target="_blank" rel="noopener">Search Property</a>
+        <a class="ref-pill" href="https://australianpropertyexperts.com.au/" target="_blank" rel="noopener">Australian Property Experts</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Why this direction</span>
+    <span>34 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 35 — PALETTE + TYPOGRAPHY -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Palette + typography</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.02em; margin: 0 auto; margin-bottom: 42px;">The Visual System.</h1>
+
+    <div class="brand-rendering">
+
+      <!-- PALETTE -->
+      <div class="brand-block">
+        <div class="label">Colour Palette</div>
+
+        <div class="palette-bar">
+          <div class="palette-bar-cell" style="width: 90%; background: #FAF7F2;"></div>
+          <div class="palette-bar-cell" style="width: 8%; background: #0BB5B0;"></div>
+          <div class="palette-bar-cell" style="width: 2%; background: #E07856;"></div>
+        </div>
+
+        <div class="palette-row first">
+          <div class="palette-swatch" style="background: #FAF7F2;"></div>
+          <div class="palette-meta">
+            <div class="palette-name">Warm white</div>
+            <div class="palette-hex">#FAF7F2</div>
+          </div>
+          <div class="palette-role">90% · background</div>
+        </div>
+        <div class="palette-row">
+          <div class="palette-swatch" style="background: #0BB5B0;"></div>
+          <div class="palette-meta">
+            <div class="palette-name">Tiffany blue</div>
+            <div class="palette-hex">#0BB5B0</div>
+          </div>
+          <div class="palette-role">8% · brand accent</div>
+        </div>
+        <div class="palette-row">
+          <div class="palette-swatch" style="background: #E07856;"></div>
+          <div class="palette-meta">
+            <div class="palette-name">Warm coral</div>
+            <div class="palette-hex">#E07856</div>
+          </div>
+          <div class="palette-role">2% · restraint</div>
+        </div>
+        <div class="palette-row">
+          <div class="palette-swatch" style="background: #2D5D4F;"></div>
+          <div class="palette-meta">
+            <div class="palette-name">Forest</div>
+            <div class="palette-hex">#2D5D4F</div>
+          </div>
+          <div class="palette-role">Giving Back only</div>
+        </div>
+        <div class="palette-row">
+          <div class="palette-swatch" style="background: #1F1B19;"></div>
+          <div class="palette-meta">
+            <div class="palette-name">Soft charcoal</div>
+            <div class="palette-hex">#1F1B19</div>
+          </div>
+          <div class="palette-role">primary text</div>
+        </div>
+        <div class="palette-row">
+          <div class="palette-swatch" style="background: #737373;"></div>
+          <div class="palette-meta">
+            <div class="palette-name">Mid grey</div>
+            <div class="palette-hex">#737373</div>
+          </div>
+          <div class="palette-role">secondary text</div>
+        </div>
+
+        <div class="palette-split">
+          Tiffany blue is the accent on most pages
+        </div>
+      </div>
+
+      <!-- TYPOGRAPHY -->
+      <div class="brand-block">
+        <div class="label">Typography</div>
+
+        <div class="type-specimen">
+          <div class="type-label">Headline: Tiempos</div>
+          <div class="type-display-serif">The valet service for property investors.</div>
+          <div class="type-note">Editorial Serif: <a class="ref-pill" href="https://klim.co.nz/collections/tiempos/" target="_blank" rel="noopener">Klim Type Foundry</a> Used by Stripe, NYT digital, NYRB.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-label">Body: Söhne</div>
+          <div class="type-display-sans">A neutral sans with warmth — for long-form reading, UI labels, form fields.</div>
+          <div class="type-note">Neutral Sans: <a class="ref-pill" href="https://klim.co.nz/collections/soehne/" target="_blank" rel="noopener">Klim Type Foundry</a> Used by Linear, The Browser Company, dozens of premium product teams.</div>
+        </div>
+
+        <div class="type-specimen">
+          <div class="type-label">Eyebrows + numerals + compliance: Söhne Mono</div>
+          <div class="type-display-mono">12 YEARS · 30+ DEALS · LICENCE #1234567</div>
+        </div>
+
+        <div class="specimen-caveat">Specimens rendered in Fraunces + Inter as licensed substitutes; final build licenses Tiempos Headline + Söhne from Klim Type Foundry.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Palette + typography</span>
+    <span>35 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 36 — PHOTOGRAPHY STANCE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">Photography direction</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.02em; margin: 0 auto; margin-bottom: 42px;">People in places. Not properties as products.</h1>
+
+    <div class="photo-grid">
+
+      <div class="photo-card do">
+        <div class="header">
+          <span class="label">What we shoot</span>
+          <span class="tally">in priority order</span>
+        </div>
+        <ul>
+          <li><strong>People in places.</strong> Emma + clients + team in real spaces. Reportage-leaning, eye-level, natural light, calm expressions. Treated like editorial profile photography (think <em>New Yorker</em> profile, not corporate headshot).</li>
+          <li><strong>Architecture as place.</strong> When we show properties, we show them as places where lives happen, not as listings. Streetscapes, neighbourhood context, light through windows.</li>
+          <li><strong>Objects of the work.</strong> The readiness scale on Emma's wall, open notebooks with handwritten suburb notes, anthology covers. Documentary-style.</li>
+        </ul>
+      </div>
+
+      <div class="photo-card dont">
+        <div class="header">
+          <span class="label">What we don't shoot</span>
+          <span class="tally">category clichés</span>
+        </div>
+        <ul>
+          <li>Aerial drone shots of suburbs (category default)</li>
+          <li>Stock "professional couple smiling at laptop"</li>
+          <li>Hands shaking on documents</li>
+          <li>House-sold signs</li>
+          <li>Posed team headshots against neutral backgrounds</li>
+          <li>Generic Sydney Harbour Bridge / Opera House</li>
+          <li>Image-library photography on hero surfaces</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="photo-keystone">
+      <div class="keystone-label">The most important asset</div>
+      <div class="keystone-text">Emma's photography is the single most important visual asset in the build. The Founder-page hero is the lever that makes <em>"Emma is the brand"</em> actually land. One half-day editorial shoot in Phase 1 is the recommended commitment.</div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Photography Direction</span>
+    <span>36 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 37 — VOICE PRINCIPLE -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">The Brand Voice</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.02em; margin: 0 auto; margin-bottom: 42px;">Speak like a senior advisor who's seen the cycle three times.</h1>
+
+    <div class="voice-principle">
+      <span class="quote-mark">"</span>
+      <p class="voice-line">Direct without being cold. Warm without being eager. Confident enough to <em>say no</em>. Generous enough to teach when it's not the right time.</p>
+
+      <div class="voice-test">
+        <div class="test-label">The simplest possible test</div>
+        <div class="test-line">If a sentence couldn't plausibly be said by Emma to a friend's sister at dinner, it's not on-brand. That's the whole rule, distilled.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-footer">
+    <span>The Brand Voice</span>
+    <span>37 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 38 — USE / AVOID WORDS -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">The API Vocabulary</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; letter-spacing: -0.02em; margin: 0 auto; margin-bottom: 42px;">Specific over generic.</h1>
+
+    <div class="vocab-grid">
+
+      <div class="vocab-card use">
+        <div class="header">
+          <span class="label">Use</span>
+        </div>
+        <div class="vocab-pills">
+          <span class="vocab-pill">readiness</span>
+          <span class="vocab-pill">valet</span>
+          <span class="vocab-pill">ingredients</span>
+          <span class="vocab-pill">portfolio</span>
+          <span class="vocab-pill">professional services</span>
+          <span class="vocab-pill">rentvesting</span>
+          <span class="vocab-pill">Active Investors</span>
+          <span class="vocab-pill">strategy session</span>
+          <span class="vocab-pill">matched</span>
+          <span class="vocab-pill">considered</span>
+          <span class="vocab-pill">honest</span>
+          <span class="vocab-pill">12 years</span>
+          <span class="vocab-pill">founder-investor</span>
+          <span class="vocab-pill">around your life</span>
+        </div>
+      </div>
+
+      <div class="vocab-card avoid">
+        <div class="header">
+          <span class="label">Avoid</span>
+          <span class="sub">Category Cliches</span>
+        </div>
+        <div class="vocab-pills">
+          <span class="vocab-pill">wealth through property</span>
+          <span class="vocab-pill">build generational wealth</span>
+          <span class="vocab-pill">stress-free</span>
+          <span class="vocab-pill">off-market access</span>
+          <span class="vocab-pill">exclusive opportunities</span>
+          <span class="vocab-pill">best / leading / premier</span>
+          <span class="vocab-pill">trusted advisor</span>
+          <span class="vocab-pill">personalised approach</span>
+          <span class="vocab-pill">take advantage of</span>
+          <span class="vocab-pill">don't miss out</span>
+          <span class="vocab-pill">game-changer</span>
+          <span class="vocab-pill">hassle-free</span>
+          <span class="vocab-pill">cutting-edge AI</span>
+          <span class="vocab-pill">24/7</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vocab-rule">
+      <strong>General Rule:</strong> Numbers beat adjectives. Names beat roles. Concrete beats abstract. If any buyer's agent in Australia could say it, it's not on-brand. If only API could say it, it's right.
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Vocabulary</span>
+    <span>38 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 39 — BRAND DECISIONS TO LOCK (deck close) -->
+<!-- ============================================== -->
+<section class="slide">
+  <div class="slide-header">
+    <span>Brand Direction</span>
+    <span>Strategy</span>
+  </div>
+
+  <div class="slide-body wide" style="align-items: center;">
+    <div class="eyebrow" style="text-align: center;">What we need from you</div>
+    <h1 style="font-size: 64px; max-width: 900px; text-align: center; margin: 0 auto; margin-bottom: 42px;">Three things to sign off.</h1>
+
+    <div class="decisions">
+      <div class="decision-row">
+        <span class="num">01</span>
+        <span class="ask">Does Quiet Authority as the visual direction (warm neutrals + Tiffany blue + editorial serif) read right and feel right to you?</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">02</span>
+        <span class="ask">Does this voice register sound like you? Sage / Caregiver, formal-leaning, "senior advisor who's seen the cycle three times."</span>
+      </div>
+      <div class="decision-row">
+        <span class="num">03</span>
+        <span class="ask">Do the alternatives feel worth keeping in reserve, or would you commit fully to Quiet Authority? Office Hours (warmer, documentary) and Glasshouse (cooler, architectural).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <span>Sign off decisions</span>
+    <span>39 / 40</span>
+  </div>
+</section>
+
+<!-- ============================================== -->
+<!-- SLIDE 40 — OUTRO (Hype Foundry logo, dark) -->
+<!-- ============================================== -->
+<section class="slide cover dark">
+  <div class="slide-header">
+    <span>Hype Foundry × Active Property Investing</span>
+    <span>Strategy foundation</span>
+  </div>
+
+  <div class="slide-body" style="text-align: center; align-items: center;">
+    <img class="outro-logo" src="hf-logo-light.svg" alt="Hype Foundry" />
+  </div>
+
+  <div class="slide-footer">
+    <span>Thank you, Emma</span>
+    <span>End · 40 / 40</span>
+  </div>
+</section>
+
+</body>
+</html>
