@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe · Events | Active Property Investing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="_styles.css">
+<script src="_scripts.js" defer></script>
+</head>
+<body>
+
+<div class="page-shell">
+
+  <div class="page-title">
+    <div class="eyebrow">Wireframe · Events</div>
+    <a href="wireframes.html" class="back-to-index">← All wireframes</a>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <div class="ann-cell left"></div>
+  <header class="wf nav first">
+    <div class="wf-inner">
+      <a href="home.html" class="nav-logo">Active Property Investing</a>
+      <ul>
+        <li class="nav-dropdown"><a href="about.html">About</a>
+          <ul class="nav-submenu">
+            <li><a href="about.html">About</a></li>
+            <li><a href="founder.html">Founder</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="giving-back.html">Giving Back</a></li>
+            <li><a href="press.html">Press</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown"><a href="process.html">Process</a>
+          <ul class="nav-submenu">
+            <li><a href="process.html">Our Process</a></li>
+            <li><a href="readiness-scale.html">Active or Aspiring?</a></li>
+            <li><a href="research-and-selection.html">Research &amp; Selection</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown"><a href="for-investors.html">Who we work with</a>
+          <ul class="nav-submenu">
+            <li><a href="for-investors.html">For Investors</a></li>
+            <li><a href="aspiring-investors.html">Aspiring Investors</a></li>
+            <li><a href="for-women.html">For Women</a></li>
+            <li><a href="rentvesting.html">Rentvesting</a></li>
+            <li><a href="partners.html">Partners</a></li>
+          </ul>
+        </li>
+        <li><a href="client-journeys.html">Client Journeys</a></li>
+        <li class="nav-dropdown current"><a href="resources.html">Resources</a>
+          <ul class="nav-submenu">
+            <li><a href="resources.html">Resources Hub</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="ebooks.html">eBooks</a></li>
+            <li><a href="webinars.html">Webinars</a></li>
+            <li><a href="podcast.html">Podcast</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="events.html">Events</a></li>
+          </ul>
+        </li>
+        <li><a href="get-started.html" class="cta cta-primary">Get Started</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 01 · HERO ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">01 · HERO</span>
+      <div class="ann-body">Events page. Captures both upcoming events (registration) and past events (replays). Sits at /events/ flat, not nested under /resources/, per the sitemap.</div>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner hero-inner">
+      <div class="col" style="max-width: 720px; margin: 0 auto; text-align: center; gap: 16px;">
+        <div class="box">
+          <span class="lbl">Eyebrow</span>
+          <p class="ph">Upcoming Events.</p>
+        </div>
+        <div class="box xl">
+          <span class="lbl">H1 · Headline</span>
+          <p class="h1 ph" style="margin-top: 4px;">What's coming up at API?</p>
+        </div>
+        <div class="box">
+          <span class="lbl">Sub / Value prop</span>
+          <p class="ph">The supporting line. Names the cadence (2-4 per year), the formats (webinar, in-person, panel), and how to sign up for notifications.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 02 · NEXT LIVE EVENT ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">02 · NEXT LIVE</span>
+      <div class="ann-body">Anchor block. Mirrors the Webinars page's next-live block but broader: covers webinars, in-person events, and panels.</div>
+      <div class="ann-body"><strong>Schema:</strong> Event schema (startDate, endDate, eventStatus, organizer, location). Discrete upcoming-event datapoint for Google and LLM crawlers.</div>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="row" style="gap: 32px;">
+        <div class="col" style="flex: 1;">
+          <div class="img" style="min-height: 320px;">Event promo image</div>
+        </div>
+        <div class="col" style="flex: 1; justify-content: center;">
+          <div class="box">
+            <span class="lbl">Next live · Eyebrow</span>
+            <p class="ph">A short tag naming the event type (webinar · in-person · panel).</p>
+          </div>
+          <div class="box">
+            <span class="lbl">H2 · Event title</span>
+            <p class="h2 ph">Names the event topic.</p>
+          </div>
+          <div class="box">
+            <span class="lbl">Body</span>
+            <p class="ph">A short paragraph naming what the event covers, who's speaking, and who it's for.</p>
+          </div>
+          <div class="box short">
+            <span class="lbl">Event meta</span>
+            <p class="ph small">Date · time · location (virtual or address) · format · replay availability.</p>
+          </div>
+          <div class="box" style="background: #FAFAF9; border-style: dashed;">
+            <span class="lbl">Registration form</span>
+            <p class="ph">Name + email + dietary / accessibility notes (if in-person). Submission tags the attendee in HubSpot.</p>
+          </div>
+          <div class="ctas">
+            <a href="#" class="cta cta-primary">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 03 · UPCOMING EVENTS LIST ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">Upcoming events.</p>
+      <div class="grid-2">
+        <div class="box tall">
+          <span class="lbl">Upcoming · Webinar</span>
+          <p class="h3 ph">Event title.</p>
+          <p class="ph small" style="margin-top: 8px;">Date · format · topic.</p>
+          <div class="ctas" style="margin-top: 10px;">
+            <a href="#" class="cta cta-secondary">Register</a>
+          </div>
+        </div>
+        <div class="box tall">
+          <span class="lbl">Upcoming · In-person panel</span>
+          <p class="h3 ph">Event title.</p>
+          <p class="ph small" style="margin-top: 8px;">Date · venue · topic.</p>
+          <div class="ctas" style="margin-top: 10px;">
+            <a href="#" class="cta cta-secondary">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">03 · UPCOMING LIST</span>
+      <div class="ann-body">Two cards for other events on the calendar. Hidden if no other events are scheduled.</div>
+    </div>
+  </div>
+
+  <!-- ============ 04 · PAST EVENTS / REPLAY LIBRARY ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">04 · REPLAY LIBRARY</span>
+      <div class="ann-body">Past events with replays available. Webinars replay here too (this is the broader archive; Webinars page mirrors it specifically for the webinar format).</div>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">Past events archive.</p>
+      <div class="grid-3">
+        <div class="box tall anchor-link">
+          <span class="lbl">Past event 1</span>
+          <div class="video sm" style="aspect-ratio: 16 / 9; margin-bottom: 10px;"><div class="play"></div></div>
+          <p class="h3 ph">Event title.</p>
+          <p class="ph small" style="margin-top: 6px;">Date · format · duration.</p>
+          <p class="small"><a class="link" href="#">Watch replay →</a></p>
+        </div>
+        <div class="box tall anchor-link">
+          <span class="lbl">Past event 2</span>
+          <div class="video sm" style="aspect-ratio: 16 / 9; margin-bottom: 10px;"><div class="play"></div></div>
+          <p class="h3 ph">Event title.</p>
+          <p class="ph small" style="margin-top: 6px;">Date · format · duration.</p>
+          <p class="small"><a class="link" href="#">Watch replay →</a></p>
+        </div>
+        <div class="box tall anchor-link">
+          <span class="lbl">Past event 3</span>
+          <div class="video sm" style="aspect-ratio: 16 / 9; margin-bottom: 10px;"><div class="play"></div></div>
+          <p class="h3 ph">Event title.</p>
+          <p class="ph small" style="margin-top: 6px;">Date · format · duration.</p>
+          <p class="small"><a class="link" href="#">Watch replay →</a></p>
+        </div>
+      </div>
+      <div class="ctas" style="margin-top: 18px;">
+        <a href="webinars.html" class="cta cta-secondary">See all webinars</a>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 05 · STAY IN TOUCH ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">05 · STAY IN TOUCH</span>
+      <div class="ann-body">Lighter-touch email capture. For visitors who want event notifications but aren't ready to register for anything specific. Smaller commitment than the assessment.</div>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="box xl" style="background: #FAFAF9; border-style: dashed; padding: 32px; text-align: center;">
+        <span class="lbl">Stay in touch</span>
+        <p class="h2 ph" style="margin-top: 12px;">Invites visitors to hear about future events.</p>
+        <p class="ph small" style="margin-top: 10px;">A short line naming what they'll get (event notifications), how often (no more than monthly), and the opt-out option.</p>
+        <div class="ctas" style="margin-top: 14px; justify-content: center;">
+          <a href="#" class="cta cta-primary">Sign up for event notifications</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="ann-cell left"></div>
+  <footer class="wf footer last">
+    <div class="wf-inner">
+      <div><h4>About</h4><ul><li><a href="about.html">About</a></li><li><a href="founder.html">Founder</a></li><li><a href="team.html">Team</a></li><li><a href="giving-back.html">Giving Back</a></li><li><a href="press.html">Press</a></li></ul></div>
+      <div><h4>Process</h4><ul><li><a href="process.html">Our Process</a></li><li><a href="readiness-scale.html">Active or Aspiring?</a></li><li><a href="research-and-selection.html">Research &amp; Selection</a></li></ul></div>
+      <div><h4>Who we work with</h4><ul><li><a href="for-investors.html">For Investors</a></li><li><a href="aspiring-investors.html">Aspiring Investors</a></li><li><a href="for-women.html">For Women</a></li><li><a href="rentvesting.html">Rentvesting</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+      <div><h4>Resources</h4><ul><li><a href="resources.html">Resources Hub</a></li><li><a href="blog.html">Blog</a></li><li><a href="ebooks.html">eBooks</a></li><li><a href="webinars.html">Webinars</a></li><li><a href="podcast.html">Podcast</a></li><li><a href="books.html">Books</a></li><li><a href="events.html">Events</a></li><li><a href="client-journeys.html">Client Journeys</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="get-started.html">Get Started</a></li><li><a href="contact.html">Contact</a></li><li><a href="partner-network.html">Become a partner</a></li><li>1300 449 974</li><li>LinkedIn · IG</li><li><a href="#">Privacy · Terms · AI Notice</a></li></ul></div>
+    </div>
+  </footer>
+  <div class="ann-cell right"></div>
+
+
+</div>
+
+</body>
+</html>
