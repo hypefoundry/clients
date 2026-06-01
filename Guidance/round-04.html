@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Guidance Co. / Round 4 — Logo Concepts</title>
+  <link rel="icon" type="image/png" href="assets/hf-favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #111111;
+      --secondary: #303030;
+      --tertiary: #777777;
+      --divider: #EDEDED;
+      --paper: #FFFFFF;
+      --accent: #C8FF00;
+      --cover-bg: #F0F0F0;
+      --cover-shape: #E2E1DE;
+      --black: #111111;
+      --white: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media print {
+      .slide { page-break-after: always; height: 100vh !important; }
+      .slide:last-child { page-break-after: avoid; }
+    }
+
+    .slide {
+      width: 100%; height: 100vh;
+      position: relative; overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .slide-header {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px; z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .hf-bolt { height: 26px; width: auto; flex-shrink: 0; }
+    .header-center {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .header-right {
+      font-size: 11px; font-weight: 400; letter-spacing: 0.14em;
+      color: var(--tertiary); text-transform: uppercase;
+    }
+
+    .slide-cover {
+      background: url('assets/hf-bg-image.jpg') center center / cover no-repeat;
+    }
+    .cover-logo { position: absolute; top: 36px; left: 36px; }
+    .cover-logo .hf-bolt { height: 27px; }
+    .cover-title { position: absolute; bottom: 36px; left: 36px; }
+    .cover-label {
+      font-size: 15px; font-weight: 700; color: var(--black);
+      letter-spacing: 0.06em; margin-bottom: 12px; display: block;
+    }
+    .cover-title h1 {
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 120px; font-weight: 600; color: var(--black);
+      letter-spacing: -0.03em; line-height: 1.0;
+    }
+
+    /* Concept divider */
+    .slide-divider { background: var(--cover-shape); }
+    .divider-content {
+      position: absolute; left: 36px; bottom: 36px;
+      max-width: 720px; z-index: 2;
+    }
+    .divider-title {
+      font-size: 96px; font-weight: 400; color: var(--primary);
+      letter-spacing: -0.03em; line-height: 1.0; margin-bottom: 0;
+      font-family: 'Bricolage Grotesque', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .divider-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--tertiary);
+      margin-bottom: 16px; display: block;
+    }
+
+    /* Concept theme variants */
+    .slide-terracotta { background: #A24527 !important; }
+    .slide-terracotta .divider-title { color: #F8EEDC; }
+    .slide-terracotta .divider-label { color: rgba(248,238,220,0.55); }
+    .slide-terracotta .header-center,
+    .slide-terracotta .header-right { color: rgba(248,238,220,0.5); }
+
+    .slide-navy { background: #15293D !important; }
+    .slide-navy .divider-title { color: #F4EDDB; }
+    .slide-navy .divider-label { color: rgba(244,237,219,0.55); }
+    .slide-navy .header-center,
+    .slide-navy .header-right { color: rgba(244,237,219,0.5); }
+
+    .slide-burgundy { background: #5D2532 !important; }
+    .slide-burgundy .divider-title { color: #F2EBDC; }
+    .slide-burgundy .divider-label { color: rgba(242,235,220,0.55); }
+    .slide-burgundy .header-center,
+    .slide-burgundy .header-right { color: rgba(242,235,220,0.5); }
+
+    .slide-internal { background: var(--cover-shape); }
+
+    .content-panel-moodboard {
+      position: absolute; left: 36px; right: 36px; bottom: 36px; top: 110px;
+      border-radius: 8px; overflow: hidden;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .content-panel-moodboard img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      cursor: zoom-in;
+    }
+
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: grab;
+      overflow: hidden;
+    }
+    .lightbox.active {
+      opacity: 1; pointer-events: all;
+    }
+    .lightbox:active { cursor: grabbing; }
+    .lightbox-img {
+      position: absolute;
+      transform-origin: 0 0;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-close {
+      position: fixed; top: 24px; right: 24px; z-index: 1001;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); border: none;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-close::before,
+    .lightbox-close::after {
+      content: ''; position: absolute;
+      width: 16px; height: 1.5px; background: #fff;
+    }
+    .lightbox-close::before { transform: rotate(45deg); }
+    .lightbox-close::after { transform: rotate(-45deg); }
+    .lightbox-zoom-hint {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%); z-index: 1001;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4);
+      pointer-events: none;
+      transition: opacity 0.5s ease 1.5s;
+    }
+    .lightbox-zoom-hint.hidden { opacity: 0; }
+
+    .slide-outro { background: var(--cover-shape); }
+    .contact-block {
+      position: absolute; left: 36px; right: 36px; bottom: 36px;
+    }
+    .contact-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .contact-row:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .contact-label {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+    .contact-value {
+      font-size: 18px; font-weight: 400; color: #999999; letter-spacing: 0;
+    }
+
+    .small-device-notice {
+      display: none;
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--cover-shape);
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 36px;
+    }
+    .small-device-notice p {
+      font-size: 15px; font-weight: 400; color: var(--tertiary);
+      line-height: 1.5; max-width: 260px;
+    }
+    .small-device-notice .notice-logo {
+      height: 24px; margin-bottom: 32px; opacity: 0.4;
+    }
+    @media (max-width: 1024px) {
+      .small-device-notice { display: flex; }
+      .slide { display: none; }
+    }
+
+    .entrance-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #E2E1DE;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .entrance-overlay.fade { opacity: 0; }
+  </style>
+</head>
+<body>
+
+<div class="entrance-overlay" id="entrance-overlay"></div>
+
+<div class="small-device-notice">
+  <img src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry" class="notice-logo">
+  <p>This presentation is designed for larger screens. Please view on a desktop or laptop.</p>
+</div>
+
+<!-- COVER -->
+<section class="slide slide-cover">
+  <div class="cover-logo">
+    <img class="hf-bolt" src="assets/hf-logo-horizontal@2x.png" alt="Hype Foundry">
+  </div>
+  <div class="cover-title">
+    <span class="cover-label">THE GUIDANCE CO.</span>
+    <h1>Round 4<br>Logo Concepts</h1>
+  </div>
+</section>
+
+<!-- CONCEPT A DIVIDER -->
+<section class="slide slide-divider slide-terracotta">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept A</span>
+    <span class="header-right">Logo Concepts</span>
+  </div>
+  <div class="divider-content">
+    <span class="divider-label">Round 04</span>
+    <h1 class="divider-title">Concept A</h1>
+  </div>
+</section>
+
+<!-- CONCEPT A — A1 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept A</span>
+    <span class="header-right">A1</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-A1.png" alt="Concept A — variation 01" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT A — A2 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept A</span>
+    <span class="header-right">A2</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-A2.png" alt="Concept A — variation 02" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT A — A3 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept A</span>
+    <span class="header-right">A3</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-A3.png" alt="Concept A — variation 03" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT B DIVIDER -->
+<section class="slide slide-divider slide-navy">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept B</span>
+    <span class="header-right">Logo Concepts</span>
+  </div>
+  <div class="divider-content">
+    <span class="divider-label">Round 04</span>
+    <h1 class="divider-title">Concept B</h1>
+  </div>
+</section>
+
+<!-- CONCEPT B — B1 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept B</span>
+    <span class="header-right">B1</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-B1.png" alt="Concept B — variation 01" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT B — B2 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept B</span>
+    <span class="header-right">B2</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-B2.png" alt="Concept B — variation 02" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT B — B3 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept B</span>
+    <span class="header-right">B3</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-B3.png" alt="Concept B — variation 03" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT C DIVIDER -->
+<section class="slide slide-divider slide-burgundy">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept C</span>
+    <span class="header-right">Logo Concepts</span>
+  </div>
+  <div class="divider-content">
+    <span class="divider-label">Round 04</span>
+    <h1 class="divider-title">Concept C</h1>
+  </div>
+</section>
+
+<!-- CONCEPT C — C1 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept C</span>
+    <span class="header-right">C1</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-C1.png" alt="Concept C — variation 01" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT C — C2 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept C</span>
+    <span class="header-right">C2</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-C2.png" alt="Concept C — variation 02" data-lightbox>
+  </div>
+</section>
+
+<!-- CONCEPT C — C3 -->
+<section class="slide slide-internal">
+  <div class="slide-header">
+    <div class="header-left"><img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry"></div>
+    <span class="header-center">Concept C</span>
+    <span class="header-right">C3</span>
+  </div>
+  <div class="content-panel-moodboard">
+    <img src="assets/round-04-C3.png" alt="Concept C — variation 03" data-lightbox>
+  </div>
+</section>
+
+<!-- OUTRO -->
+<section class="slide slide-outro">
+  <div class="slide-header">
+    <div class="header-left">
+      <img class="hf-bolt" src="assets/hf-logo-symbol-green@2x.png" alt="Hype Foundry">
+    </div>
+    <span class="header-center">Logo Concepts</span>
+    <span class="header-right">&copy; 2026</span>
+  </div>
+  <div class="contact-block">
+    <div class="contact-row">
+      <span class="contact-label">Clark Spendelow</span>
+      <span class="contact-value">Creative Director &amp; Designer</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <span class="contact-value">hello@hypefoundry.studio</span>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Phone</span>
+      <span class="contact-value">0433 061 993</span>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close"></button>
+  <img class="lightbox-img" id="lightbox-img" draggable="false">
+  <span class="lightbox-zoom-hint" id="lightbox-hint">Scroll to zoom &middot; Drag to pan</span>
+</div>
+
+<script>
+(function() {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbHint = document.getElementById('lightbox-hint');
+
+  let scale = 1, minScale = 0.5, maxScale = 4;
+  let posX = 0, posY = 0;
+  let isDragging = false, startX = 0, startY = 0, startPosX = 0, startPosY = 0;
+  let imgW = 0, imgH = 0;
+
+  function open(src) {
+    const img = new Image();
+    img.onload = function() {
+      imgW = img.naturalWidth;
+      imgH = img.naturalHeight;
+      const vh = window.innerHeight * 0.85;
+      scale = vh / imgH;
+      minScale = scale * 0.8;
+      maxScale = scale * 5;
+      posX = (window.innerWidth - imgW * scale) / 2;
+      posY = (window.innerHeight - imgH * scale) / 2;
+      lbImg.src = src;
+      lbImg.style.width = imgW + 'px';
+      lbImg.style.height = imgH + 'px';
+      applyTransform();
+      lb.classList.add('active');
+      lbHint.classList.remove('hidden');
+      setTimeout(function() { lbHint.classList.add('hidden'); }, 3000);
+      document.documentElement.style.overflow = 'hidden';
+    };
+    img.src = src;
+  }
+  function close() {
+    lb.classList.remove('active');
+    document.documentElement.style.overflow = '';
+  }
+  function applyTransform() {
+    lbImg.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+  }
+  function clampPosition() {
+    var sw = imgW * scale, sh = imgH * scale;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    if (sw <= vw) { posX = (vw - sw) / 2; }
+    else { if (posX > 40) posX = 40; if (posX < vw - sw - 40) posX = vw - sw - 40; }
+    if (sh <= vh) { posY = (vh - sh) / 2; }
+    else { if (posY > 40) posY = 40; if (posY < vh - sh - 40) posY = vh - sh - 40; }
+  }
+  document.querySelectorAll('[data-lightbox]').forEach(function(img) {
+    img.addEventListener('click', function() { open(img.src); });
+  });
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lb.classList.contains('active')) close();
+  });
+  lb.addEventListener('mousedown', function(e) {
+    if (e.target === lbClose) return;
+    isDragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startPosX = posX; startPosY = posY;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    posX = startPosX + (e.clientX - startX);
+    posY = startPosY + (e.clientY - startY);
+    clampPosition(); applyTransform();
+  });
+  window.addEventListener('mouseup', function() { isDragging = false; });
+  lb.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var rect = lb.getBoundingClientRect();
+    var mx = e.clientX - rect.left; var my = e.clientY - rect.top;
+    var prevScale = scale;
+    var delta = e.deltaY > 0 ? 0.9 : 1.1;
+    scale = Math.min(maxScale, Math.max(minScale, scale * delta));
+    posX = mx - (mx - posX) * (scale / prevScale);
+    posY = my - (my - posY) * (scale / prevScale);
+    clampPosition(); applyTransform();
+  }, { passive: false });
+  var lastTouchDist = 0, lastTouchScale = 1;
+  lb.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+      startPosX = posX; startPosY = posY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      lastTouchScale = scale;
+    }
+  }, { passive: false });
+  lb.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDragging) {
+      posX = startPosX + (e.touches[0].clientX - startX);
+      posY = startPosY + (e.touches[0].clientY - startY);
+      clampPosition(); applyTransform();
+    } else if (e.touches.length === 2) {
+      var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      scale = Math.min(maxScale, Math.max(minScale, lastTouchScale * (dist / lastTouchDist)));
+      clampPosition(); applyTransform();
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', function() { isDragging = false; });
+})();
+</script>
+
+<script>
+(function() {
+  window.addEventListener('load', function() {
+    var overlay = document.getElementById('entrance-overlay');
+    if (overlay) {
+      requestAnimationFrame(function() {
+        overlay.classList.add('fade');
+        setTimeout(function() { overlay.remove(); }, 700);
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
