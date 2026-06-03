@@ -73,7 +73,7 @@
   <div class="ann-cell left">
     <div class="annotation">
       <span class="num">01 · THE FORM</span>
-      <div class="ann-body">Single-purpose page. The assessment is the first and only thing on screen. No hero, no preamble, no competing CTAs. Fillout-embedded, 12 questions across 5 pages, mobile-native. Conditional logic routes each completion to Active, Aspiring, or "not the right fit (for now)".</div>
+      <div class="ann-body">Single-purpose page. The assessment is the first and only thing on screen. No hero, no preamble, no competing CTAs. Fillout-embedded, 12 questions across 5 pages, mobile-native. Behavioural questions reveal intent without forcing self-labels. Conditional logic selects the outcome screen template (see §03 below); the prospect's choice on that screen fires the primary CTA.</div>
     </div>
   </div>
   <section class="wf">
@@ -133,30 +133,38 @@
   <section class="wf">
     <div class="wf-inner">
       <p class="h2 ph" style="margin-bottom: 18px;">Explains what happens after submission.</p>
-      <p class="ph" style="margin-bottom: 18px;">A short intro paragraph framing this as the routing logic that triggers when someone completes the form. (This block is shown on the wireframe for client review. In production it's the back-end routing, not a visible page section.)</p>
-      <div class="grid-3">
+      <p class="ph" style="margin-bottom: 18px;">A short intro paragraph framing this as the routing logic that triggers when someone completes the form. The prospect sees an outcome screen tailored to their answers: a short mirror of what they shared, a plain-language recommendation, and a clear choice about what would be most useful from here. They never see a score or a band label. The internal scoring still runs in the background for the sales team. (This block is shown on the wireframe for client review. In production it's the back-end routing, not a visible page section.)</p>
+      <div class="grid-2" style="margin-bottom: 16px;">
         <div class="box tall">
-          <span class="lbl">Pathway A · Active (16–20)</span>
-          <p class="h3 ph">Names this pathway.</p>
-          <p class="ph small" style="margin-top: 8px;">Inline result screen + invitation to book a Strategy Session via Calendly. Auto-tagged as Active in HubSpot.</p>
+          <span class="lbl">Outcome A · Active (16–20)</span>
+          <p class="h3 ph">Names this outcome screen template.</p>
+          <p class="ph small" style="margin-top: 8px;">Mirror reflects strengths across all four factors. Recommendation positions a strategy conversation. Choice options: book a strategy conversation (primary), Property Letters subscription, both, not sure. Auto-tagged Active in HubSpot.</p>
         </div>
         <div class="box tall">
-          <span class="lbl">Pathway B · Aspiring (11–15)</span>
-          <p class="h3 ph">Names this pathway.</p>
-          <p class="ph small" style="margin-top: 8px;">Inline result screen + tailored eBook + 90-day nurture sequence kickoff. Re-assessment invite at day 90 and day 180.</p>
-        </div>
-        <div class="box tall dashed">
-          <span class="lbl">Pathway C · Help, not goodbye (4–10)</span>
-          <p class="h3 ph">Names this pathway.</p>
-          <p class="ph small" style="margin-top: 8px;">Inline result with a named-archetype message, opt-in partner introductions, and a lighter-touch stay-in-touch list. Not added to the Aspiring nurture.</p>
+          <span class="lbl">Outcome B · Aspiring (11–15)</span>
+          <p class="h3 ph">Names this outcome screen template.</p>
+          <p class="ph small" style="margin-top: 8px;">Mirror reflects strengths first, then the one piece that would help most. Recommendation names the action that would put the prospect in a stronger position to move next. Choice options: enrol in The Active Investor Path (primary, the rebranded nurture program), book a conversation, both, not sure.</p>
         </div>
       </div>
+      <div class="grid-2">
+        <div class="box tall">
+          <span class="lbl">Outcome C · Self-directed (any band, Support ≤ 2)</span>
+          <p class="h3 ph">Names this outcome screen template.</p>
+          <p class="ph small" style="margin-top: 8px;">Mirror acknowledges the preference to keep most of the property work in the prospect's own hands. Recommendation pitched at long-arc context and market reads. Choice options: subscribe to API Property Letters (primary), book a conversation when ready, both, not sure. Standing assessment-retake invitation in the confirmation email.</p>
+        </div>
+        <div class="box tall dashed">
+          <span class="lbl">Outcome D · Help, not goodbye (4–10)</span>
+          <p class="h3 ph">Names this outcome screen template.</p>
+          <p class="ph small" style="margin-top: 8px;">Mirror reflects the mismatch honestly using archetype copy (the archetype names themselves stay internal). Recommendation points at the right next step, even if it sits outside API. Choice options: named alternative + educational resource (primary), opt-in stay-in-touch, opt-in Property Letters, nothing right now.</p>
+        </div>
+      </div>
+      <p class="ph small" style="margin-top: 18px; font-style: italic;">All four outcome screens follow the same architecture: mirror, recommendation, choice. The prospect's click on the choice options is what fires the primary CTA. The gap between the algorithm's recommendation and the prospect's choice is logged as sales intelligence.</p>
     </div>
   </section>
   <div class="ann-cell right">
     <div class="annotation">
       <span class="num">03 · ROUTING</span>
-      <div class="ann-body">Shown here for client review so Emma can see the full routing logic on one page. In production this is back-end conditional logic, not a visible page section.</div>
+      <div class="ann-body">Shown here for client review so Emma can see the full outcome architecture on one page. In production the back-end picks the template based on the scoring; the prospect sees only the assigned outcome screen plus their choice options.</div>
     </div>
   </div>
 
