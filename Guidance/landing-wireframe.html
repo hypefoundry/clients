@@ -3,614 +3,1552 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Guidance Co. — Landing Page Wireframe</title>
+  <title>The Guidance Co. — Specialist therapy for high-risk and complex family situations</title>
+  <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: light)" href="assets/figma/favicon.svg">
+  <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: dark)" href="assets/figma/favicon-light.svg">
+  <link rel="alternate icon" type="image/svg+xml" href="assets/figma/favicon.svg">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #111;
-      --paper: #fff;
-      --line: #ccc;
-      --soft: #f4f4f4;
-      --muted: #666;
+      --navy: #0C1C28;
+      --navy-2: #15303F;
+      --cream: #FAF8F4;
+      --cream-2: #F1ECDC;
+      --white: #FFFFFF;
+      --ink: #0C1C28;
+      --ink-soft: #FAF8F4;
+      --muted: #5A6A75;
+      --line: #E6DFCD;
+      --line-soft: #EEE7D4;
+
+      --font-display: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; width: 100%; }
+    body { max-width: 100vw; }
+    body.menu-open { overflow: hidden; }
+    /* Allow long words to break rather than force horizontal overflow */
+    h1, h2, h3, h4, p, blockquote, a, span { overflow-wrap: anywhere; }
+    /* Breathing room for in-page anchor jumps */
+    #why, #capability, #contact, #faq, #audiences, #services { scroll-margin-top: 80px; }
+    #refer { scroll-margin-top: 120px; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: var(--paper);
+      font-family: var(--font-body);
+      background: var(--cream);
       color: var(--ink);
+      font-size: 16px;
       line-height: 1.5;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 12px 32px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--soft);
+    /* ============================================
+       BUTTONS — match Figma button-primary spec
+       padding 16px 32px, border-radius 9999px
+       ============================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 9999px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: -0.02em;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background 200ms ease, color 200ms ease, transform 200ms ease, border-color 200ms ease;
     }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-navy { background: var(--navy); color: var(--cream); border-color: var(--navy); }
+    .btn-navy:hover { background: var(--navy-2); border-color: var(--navy-2); }
+    .btn-cream { background: var(--cream); color: var(--navy); border-color: var(--cream); }
+    .btn-cream:hover { background: var(--cream-2); border-color: var(--cream-2); }
+    .btn-outline-cream { background: transparent; color: var(--cream); border-color: var(--cream); }
+    .btn-outline-cream:hover { background: rgba(250,248,244,0.10); }
 
-    .img-box {
-      background: var(--soft);
-      border: 1px solid var(--line);
+    /* ============================================
+       TOP BLOCK — wraps topbar + navbar + hero
+       Forces combined height = 100vh
+       ============================================ */
+    .top-block {
+      min-height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      position: relative;
-      min-height: 320px;
-      background-image:
-        linear-gradient(45deg, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
-        linear-gradient(-45deg, transparent calc(50% - 0.5px), var(--line) calc(50% - 0.5px), var(--line) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+      flex-direction: column;
     }
-    .img-box span {
-      position: relative;
-      z-index: 2;
-      background: var(--soft);
-      padding: 4px 10px;
-    }
+    .top-block > .hero { flex: 1; min-height: 0; }
 
-    .circle-box {
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 16px;
+    /* ============================================
+       TOP BAR — navy w/ phone + socials
+       padding 0px 32px (text lineHeight 36px = bar height)
+       ============================================ */
+    .topbar {
+      background: var(--navy);
+      color: var(--cream);
+      position: relative;
+      z-index: 110;
     }
-
-    .nav {
+    .topbar-inner {
+      max-width: 1441px;
+      margin: 0 auto;
+      padding: 0 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 32px;
-      border-bottom: 1px solid var(--line);
-      max-width: 1200px;
+    }
+    .topbar .phone {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 36px;
+      color: var(--cream);
+    }
+    .topbar .phone img { width: 16px; height: 16px; flex-shrink: 0; }
+    .topbar .socials {
+      display: inline-flex; align-items: center; gap: 9px;
+    }
+    .topbar .socials a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px;
+      transition: opacity 180ms ease;
+    }
+    .topbar .socials a:hover { opacity: 0.75; }
+    .topbar .socials img { width: 20px; height: 20px; }
+
+    /* ============================================
+       NAV BAR — cream w/ logo + links + Contact us pill
+       padding 14px 32px
+       ============================================ */
+    .navbar {
+      background: var(--cream);
+      position: relative;
+      z-index: 110;
+    }
+    .navbar-inner {
+      max-width: 1441px;
       margin: 0 auto;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
     }
     .nav-logo {
-      font-size: 16px;
-      font-weight: 500;
-      border: 1px dashed var(--line);
-      padding: 4px 10px;
+      display: inline-flex; align-items: center;
+      color: var(--navy);
+    }
+    .nav-logo .logo-desktop {
+      display: inline-block;
+      height: 32px;
+      width: auto;
+    }
+    .nav-logo .logo-mobile {
+      display: none;
+      height: 32px;
+      width: auto;
     }
     .nav-links {
-      display: flex;
-      gap: 28px;
+      display: flex; align-items: center; gap: 32px;
       list-style: none;
+      padding: 12px 0;
     }
-    .nav-links li {
-      font-size: 14px;
-      color: var(--muted);
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 24px;
+      color: var(--navy);
+      transition: opacity 180ms ease;
+      position: relative;
+      padding: 4px 0;
     }
+    .nav-links a:hover { opacity: 0.65; }
     .nav-cta {
-      font-size: 13px;
-      padding: 8px 18px;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--paper);
-      border-radius: 100px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-      padding: 96px 32px 120px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .hero-circle-stack {
-      position: relative;
-      aspect-ratio: 1;
-      max-width: 460px;
-    }
-    .hero-circle-stack .circle-box {
-      position: absolute;
-      width: 80%;
-      height: 80%;
-    }
-    .hero-circle-stack .circle-photo {
-      top: 0;
-      left: 0;
-    }
-    .hero-circle-stack .circle-shape {
-      bottom: 0;
-      right: 0;
-      background: var(--ink);
-      color: var(--paper);
-      border-color: var(--ink);
-    }
-    .hero-eyebrow {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-    .hero-headline {
-      font-size: 56px;
-      font-weight: 500;
-      line-height: 1.05;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 16px 32px;
+      border-radius: 9999px;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 16px;
       letter-spacing: -0.02em;
-      margin-bottom: 24px;
-    }
-    .hero-sub {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 480px;
-      margin-bottom: 32px;
-    }
-    .hero-ctas {
-      display: flex;
-      gap: 16px;
-    }
-    .btn {
-      font-size: 15px;
-      padding: 14px 24px;
-      border: 1px solid var(--ink);
-      border-radius: 100px;
+      border: 2px solid var(--navy);
       cursor: pointer;
-      background: var(--paper);
-      color: var(--ink);
+      transition: background 200ms ease, transform 200ms ease;
     }
-    .btn-primary {
-      background: var(--ink);
-      color: var(--paper);
+    .nav-cta:hover { background: var(--navy-2); border-color: var(--navy-2); transform: translateY(-1px); }
+
+    /* ============================================
+       HAMBURGER + MOBILE MENU
+       ============================================ */
+    .nav-hamburger {
+      display: none;
+      width: 44px; height: 44px;
+      border: 0; background: transparent;
+      padding: 0; cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      color: var(--navy);
+    }
+    .nav-hamburger .bar {
+      position: absolute; left: 10px; right: 10px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: transform 240ms ease, opacity 200ms ease, top 240ms ease;
+    }
+    .nav-hamburger .bar:nth-child(1) { top: 14px; }
+    .nav-hamburger .bar:nth-child(2) { top: 21px; }
+    .nav-hamburger .bar:nth-child(3) { top: 28px; }
+    body.menu-open .nav-hamburger .bar:nth-child(1) { top: 21px; transform: rotate(45deg); }
+    body.menu-open .nav-hamburger .bar:nth-child(2) { opacity: 0; }
+    body.menu-open .nav-hamburger .bar:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0;
+      background: var(--cream);
+      z-index: 50;
+      padding: 100px 24px 32px;
+      flex-direction: column;
+      transform: translateY(-100%);
+      transition: transform 320ms cubic-bezier(0.2,0.7,0.2,1);
+      visibility: hidden;
+    }
+    body.menu-open .mobile-menu {
+      transform: translateY(0);
+      visibility: visible;
+    }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; flex: 1; }
+    .mobile-menu li a {
+      display: block;
+      padding: 20px 4px;
+      border-bottom: 1px solid rgba(12,28,40,0.10);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.018em;
+      color: var(--navy);
+    }
+    .mobile-menu li a:active { opacity: 0.6; }
+    .mobile-menu .menu-cta {
+      width: 100%;
+      justify-content: center;
+      margin-top: 24px;
+      padding: 18px 28px;
     }
 
-    .section-eyebrow {
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
+    /* ============================================
+       HERO — navy 800px, centered text, big H1
+       padding 64px 128px
+       ============================================ */
+    .hero {
+      background: var(--navy);
+      padding: 64px 128px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .section-headline {
-      font-size: 44px;
+    .hero-inner {
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+      width: 100%;
+      max-width: 1185px;
+      margin: 0 auto;
+      min-width: 0;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 80px;
+      line-height: 80px;
+      letter-spacing: -0.0112em;
+      color: var(--cream);
+      width: 100%;
+      max-width: 921px;
+      overflow-wrap: break-word;
+    }
+    .hero .sub {
+      font-family: var(--font-display);
       font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      max-width: 720px;
+      font-size: 20px;
+      line-height: 1.6em;
+      letter-spacing: -0.0178em;
+      color: var(--ink-soft);
+      width: 100%;
+      max-width: 629px;
     }
-    .section-intro {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 640px;
-    }
-
-    .intro-strip {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 32px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-    .intro-strip h2 {
-      font-size: 32px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      max-width: 800px;
-      line-height: 1.3;
-    }
-
-    .services-header {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 96px 32px 32px;
-    }
-    .service-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 64px 32px;
+    .hero .ctas {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 420px;
+      margin: 8px auto 0;
     }
-    .service-section.image-right {
-      direction: rtl;
+    .hero .btn {
+      font-family: var(--font-body);
+      font-weight: 700;
+      width: 100%;
+      justify-content: center;
+      white-space: nowrap;
     }
-    .service-section.image-right > * {
-      direction: ltr;
+
+    /* ============================================
+       WHY — WHITE bg, 3 icon cards
+       padding 80px 120px, gap 32px
+       ============================================ */
+    .why {
+      background: var(--white);
+      padding: 80px 120px;
     }
-    .service-num {
-      font-size: 13px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .service-title {
+    .why-inner { display: flex; flex-direction: column; gap: 32px; max-width: 1441px; margin: 0 auto; }
+    .why h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
       font-size: 36px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      margin-bottom: 20px;
-    }
-    .service-para {
-      font-size: 17px;
-      color: var(--muted);
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
-    .service-list {
-      list-style: none;
-      margin-bottom: 28px;
-    }
-    .service-list li {
-      padding: 10px 0 10px 24px;
-      font-size: 15px;
-      border-top: 1px solid var(--line);
-      position: relative;
-    }
-    .service-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 18px;
-      width: 8px;
-      height: 8px;
-      background: var(--ink);
-      border-radius: 50%;
-    }
-    .service-list li:last-child {
-      border-bottom: 1px solid var(--line);
-    }
-    .service-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink);
-      text-decoration: none;
-      border-bottom: 1px solid var(--ink);
-      padding-bottom: 2px;
-      display: inline-block;
-    }
-
-    .about-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 96px 32px;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 80px;
-      align-items: center;
-      border-top: 1px solid var(--line);
-    }
-    .about-img {
-      aspect-ratio: 4/5;
-      min-height: 0;
-    }
-
-    .how-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 96px 32px;
-      border-top: 1px solid var(--line);
-    }
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
-      margin-top: 48px;
-    }
-    .how-step {
-      padding: 32px 0 0;
-      border-top: 1px solid var(--ink);
-    }
-    .how-step-num {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      margin-bottom: 16px;
-    }
-    .how-step h3 {
-      font-size: 22px;
-      font-weight: 500;
-      margin-bottom: 12px;
-      letter-spacing: -0.01em;
-    }
-    .how-step p {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .faq-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 96px 32px;
-      border-top: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 80px;
-    }
-    .faq-list {
-      list-style: none;
-    }
-    .faq-item {
-      padding: 24px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .faq-item:first-child {
-      border-top: 1px solid var(--line);
-    }
-    .faq-q {
-      font-size: 17px;
-      font-weight: 500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .faq-q::after {
-      content: '+';
-      font-size: 22px;
-      color: var(--muted);
-    }
-
-    .final-cta {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 120px 32px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
       text-align: center;
     }
-    .final-cta-inner {
-      max-width: 700px;
-      margin: 0 auto;
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      justify-content: center;
     }
-    .final-cta h2 {
-      font-size: 56px;
-      font-weight: 500;
+    .why-card {
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .why-card .icon {
+      width: 64px; height: 64px;
+      flex-shrink: 0;
+    }
+    .why-card .icon img,
+    .why-card .icon svg,
+    .why-card .icon i { width: 48px; height: 48px; color: var(--navy); display: inline-block; }
+    .why-card .text {
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+    .why-card h3 {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
       letter-spacing: -0.02em;
-      margin-bottom: 24px;
+      color: var(--navy);
     }
-    .final-cta p {
-      font-size: 19px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 36px;
-    }
-    .final-cta .btn-primary {
-      background: var(--paper);
-      color: var(--ink);
-      border-color: var(--paper);
+    .why-card p {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
     }
 
-    .footer {
+    /* ============================================
+       AUDIENCES — Who we work with (2-col table)
+       ============================================ */
+    .audiences {
+      background: var(--cream);
+      padding: 80px 120px;
+    }
+    .audiences-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .audiences .section-head { margin: 0 auto; max-width: 720px; text-align: center; }
+    .audiences .section-head h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .audiences .section-head p {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--navy);
+      opacity: 0.78;
+    }
+    .audiences-table {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .audiences-head,
+    .audiences-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 2fr;
+      column-gap: 40px;
+      padding: 22px 32px;
+      align-items: baseline;
+    }
+    .audiences-head {
+      background: var(--navy);
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 18px 32px;
+    }
+    .audiences-row {
+      border-top: 1px solid var(--line);
+    }
+    .audiences-row:nth-child(even) { background: #FDFBF7; }
+    .audiences-row .col-aud {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.012em;
+      color: var(--navy);
+    }
+    .audiences-row .col-help {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--navy);
+    }
+
+    /* ============================================
+       REFER + FOUNDER — CREAM bg
+       padding 80px 128px, gap 120px between
+       ============================================ */
+    .refer-founder {
+      background: var(--cream);
+      padding: 80px 128px;
+      display: flex;
+      flex-direction: column;
+      gap: 120px;
+    }
+
+    .refer {
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+      max-width: 1441px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .refer h2 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      text-align: center;
+      width: 100%;
+      max-width: 1008px;
+      margin: 0 auto;
+      overflow-wrap: break-word;
+    }
+    .refer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .refer-card {
+      background: var(--white);
+      padding: 20px 32px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+    .refer-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -16px rgba(12,28,40,0.18);
+    }
+    .refer-card .icon-l {
+      width: 32px; height: 32px; flex-shrink: 0;
+    }
+    .refer-card .icon-l img,
+    .refer-card .icon-l svg,
+    .refer-card .icon-l i { width: 32px; height: 32px; color: var(--navy); }
+    .refer-card .text {
+      display: flex; flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .refer-card .label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--navy);
+    }
+    .refer-card .body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: var(--navy);
+    }
+    .refer-card .chev {
+      width: 24px; height: 24px; flex-shrink: 0;
+    }
+    .refer-card .chev img,
+    .refer-card .chev svg,
+    .refer-card .chev i {
+      width: 24px; height: 24px;
+      color: var(--navy);
+      transition: transform 220ms ease;
+    }
+    .refer-card:hover .chev img,
+    .refer-card:hover .chev svg { transform: translateX(4px); }
+
+    .founder {
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      max-width: 1184px;
+      margin: 0 auto;
+      text-align: center;
+      width: 100%;
+    }
+    .founder .kicker {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .founder blockquote {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 42px;
+      line-height: 1.2em;
+      letter-spacing: -0.024em;
+      color: var(--navy);
+      width: 100%;
+      max-width: 950px;
+      overflow-wrap: break-word;
+    }
+    .founder .attrib {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .founder .attrib strong { font-weight: 700; }
+    .founder .mark img { width: 36px; height: 36px; }
+
+    /* ============================================
+       CAPABILITY — navy bg containing
+       Services + Founder + Capability card
+       padding 80px 120px
+       ============================================ */
+    .capability {
+      background: var(--navy);
+      padding: 80px 120px;
+    }
+    .capability-inner {
+      max-width: 1441px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    /* ----- Services block ----- */
+    .cap-services {
+      display: flex;
+      flex-direction: column;
+      gap: 64px;
+    }
+    .cap-services h2 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      text-align: center;
+    }
+    .cap-services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .cap-service-card {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+    .cap-service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -20px rgba(0,0,0,0.4);
+    }
+    .cap-service-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+    }
+    .cap-service-card p {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+    }
+
+    /* ----- Founder on navy (cream text) ----- */
+    .cap-founder {
+      max-width: 1184px;
+      margin: 0 auto;
+      padding: 48px 0;
+    }
+    .capability .founder .kicker,
+    .capability .founder blockquote,
+    .capability .founder .attrib { color: var(--cream); }
+    .capability .founder .mark img {
+      /* Convert navy SVG fill to cream via CSS filter */
+      filter: brightness(0) saturate(100%) invert(98%) sepia(10%) saturate(213%) hue-rotate(10deg) brightness(99%) contrast(94%);
+    }
+
+    /* ----- Capability statement card ----- */
+    .cap-card {
+      background: var(--cream);
+      border: 1px solid var(--cream);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 361px;
+    }
+    .cap-text {
+      padding: 24px 32px 24px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 15.5px;
+    }
+    .cap-text .label {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      width: 100%;
+      max-width: 452px;
+    }
+    .cap-text h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 28px;
+      line-height: 1.22em;
+      letter-spacing: -0.022em;
+      color: var(--navy);
+    }
+    .cap-text p {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      width: 100%;
+      max-width: 452px;
+    }
+    .cap-text .btn-wrap { padding-top: 8.5px; }
+    .cap-photo {
+      background: var(--white);
+      overflow: hidden;
+      position: relative;
+    }
+    .cap-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ============================================
+       FAQ — cream bg
+       ============================================ */
+    .faq {
+      background: transparent;
+      padding: 96px 128px;
+    }
+    .faq-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .faq h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .faq-list { list-style: none; }
+    .faq-list li { border-bottom: 1px solid var(--line); }
+    .faq-list li:first-child { border-top: 1px solid var(--line); }
+    .faq-list .q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .faq-list .q .plus {
+      width: 32px; height: 32px;
+      background: transparent;
+      color: var(--navy);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1;
+      flex-shrink: 0; margin-left: 16px;
+      transition: transform 220ms ease;
+    }
+    .faq-list li.open .q .plus { transform: rotate(45deg); }
+    .faq-list .a {
+      max-height: 0; overflow: hidden;
+      font-family: var(--font-body);
+      font-size: 15px; line-height: 1.65; color: var(--muted);
+      padding-right: 48px;
+      transition: max-height 300ms ease, padding 300ms ease;
+    }
+    .faq-list li.open .a { max-height: 360px; padding-bottom: 24px; }
+
+    /* ============================================
+       WE'RE HERE TO HELP — cream-2 bg
+       ============================================ */
+    .help {
+      background: var(--cream);
+      padding: 96px 128px;
+    }
+    .help-inner { max-width: 1200px; margin: 0 auto; }
+    .help h2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 64px 32px 40px;
     }
-    .footer-grid {
+    .help-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+      min-height: 240px;
+    }
+    .help-card-top { display: flex; flex-direction: column; gap: 8px; }
+    .help-card-bottom { display: flex; flex-direction: column; gap: 6px; }
+    .help-card .value a {
+      color: inherit;
+      transition: opacity 180ms ease;
+    }
+    .help-card .value a:hover { opacity: 0.7; }
+    .help-feedback {
+      max-width: 880px;
+      margin: 32px auto 0;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .help-feedback a {
+      color: var(--navy);
+      font-weight: 500;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+    }
+    .help-feedback a:hover { opacity: 0.7; }
+    .help-card h3 {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .help-card p {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .help-card .value {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+    .help-card .meta {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .help-cta {
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    /* ============================================
+       FEEDBACK STRIP — cream w/ thin border
+       ============================================ */
+    .feedback {
+      background: var(--cream);
+      padding: 48px 32px;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      text-align: center;
+    }
+    .feedback p {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .feedback a {
+      color: var(--navy);
+      font-weight: 500;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+    }
+    .feedback a:hover { opacity: 0.7; }
+
+    /* ============================================
+       ACCREDITATIONS — cream
+       ============================================ */
+    .accred {
+      background: var(--cream);
+      padding: 64px 32px 80px;
+      text-align: center;
+    }
+    .accred .title {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      letter-spacing: 0.04em;
+    }
+    .accred .row {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; align-items: center;
+      gap: 56px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .accred .accred-logo {
+      height: 64px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      opacity: 0.92;
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+    .accred .accred-logo:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+    .accred .badge {
+      padding: 12px 20px;
+      border: 1px solid var(--line);
+      border-radius: 9999px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+      background: var(--cream);
+    }
+
+    /* ============================================
+       FOOTER — navy
+       ============================================ */
+    .footer {
+      background: var(--navy);
+      color: var(--cream);
+      padding: 72px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1441px;
+      margin: 0 auto;
+      padding: 0 32px;
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 48px;
-      padding-bottom: 48px;
-      border-bottom: 1px solid var(--line);
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+    .footer-brand .footer-logo {
+      display: inline-flex;
+      align-items: flex-start;
+    }
+    .footer-brand .footer-logo img {
+      width: 220px;
+      height: auto;
+      max-width: 100%;
     }
     .footer-col h4 {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      color: var(--muted);
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      margin-bottom: 18px;
     }
-    .footer-col ul {
-      list-style: none;
-    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer-col li {
+      font-family: var(--font-body);
       font-size: 14px;
-      color: var(--muted);
-      padding: 6px 0;
+      color: rgba(250,248,244,0.7);
+      transition: color 180ms ease;
     }
+    .footer-col li a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+    .footer-col li a:hover { color: var(--cream); }
     .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 24px;
+      max-width: 1441px;
+      margin: 56px auto 0;
+      padding: 24px 32px 0;
+      border-top: 1px solid rgba(250,248,244,0.14);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-body);
       font-size: 12px;
-      color: var(--muted);
+      color: rgba(250,248,244,0.55);
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================
+       MOTION
+       ============================================ */
+    .reveal {
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 600ms cubic-bezier(0.2,0.7,0.2,1), transform 600ms cubic-bezier(0.2,0.7,0.2,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1280px) {
+      .hero { padding: 64px 48px; min-height: 640px; }
+      .hero h1 { font-size: 64px; line-height: 64px; }
+      .why, .capability { padding: 80px 48px; }
+      .refer-founder { padding: 80px 48px; gap: 96px; }
+      .faq, .help { padding: 80px 48px; }
+    }
+    /* Intermediate (≤1100px): why-grid becomes 2 columns, services 2-col */
+    @media (max-width: 1100px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .cap-services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ---- Tablet & mobile (≤980px) ---- */
+    @media (max-width: 980px) {
+      .topbar-inner { padding: 0 20px; }
+      .navbar-inner { padding: 12px 20px; gap: 12px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: block; }
+      .mobile-menu { display: flex; }
+      .nav-logo .logo-desktop { display: none; }
+      .nav-logo .logo-mobile { display: inline-block; height: 28px; }
+
+      .hero { padding: 56px 20px; }
+      .hero-inner { gap: 20px; }
+      .hero h1 { font-size: 36px; line-height: 1.08; letter-spacing: -0.015em; }
+      .hero .sub { font-size: 16px; line-height: 1.55em; }
+      .hero .ctas { grid-template-columns: 1fr; gap: 10px; max-width: 320px; }
+      .hero .btn { padding: 14px 22px; font-size: 15px; }
+
+      .why, .capability, .audiences { padding: 64px 24px; }
+      .capability-inner { gap: 56px; }
+      .cap-services { gap: 32px; }
+      .cap-services h2 { font-size: 28px; line-height: 1.18; }
+      .cap-services-grid { grid-template-columns: 1fr; gap: 12px; }
+      .cap-service-card { padding: 24px; gap: 8px; }
+      .cap-service-card h3 { font-size: 18px; }
+      .cap-service-card p { font-size: 15px; line-height: 1.55; }
+      .audiences-inner { gap: 32px; }
+      .audiences .section-head h2 { font-size: 28px; line-height: 1.18; }
+      .audiences-head { display: none; }
+      .audiences-row {
+        grid-template-columns: 1fr;
+        row-gap: 6px;
+        padding: 22px 24px;
+      }
+      .audiences-row .col-aud { font-size: 16px; }
+      .audiences-row .col-help { font-size: 14px; line-height: 1.55; }
+      .why-inner { gap: 24px; }
+      .why h2, .refer h2, .help h2, .faq h2 { font-size: 28px; line-height: 1.18; letter-spacing: -0.02em; }
+      .why-grid { grid-template-columns: 1fr; gap: 8px; max-width: 480px; margin: 0 auto; }
+      .why-card { padding: 24px 16px; gap: 16px; }
+
+      .refer-founder { padding: 64px 24px; gap: 56px; }
+      .refer { gap: 32px; }
+      .refer-grid { grid-template-columns: 1fr; }
+      .refer-card { padding: 20px; gap: 14px; }
+      .refer-card .label { font-size: 15px; }
+      .refer-card .body { font-size: 13px; line-height: 20px; }
+
+      .founder { gap: 20px; }
+      .founder blockquote { font-size: 22px; line-height: 1.3; letter-spacing: -0.018em; }
+      .founder .attrib { font-size: 14px; }
+
+      .cap-card { grid-template-columns: 1fr; min-height: 0; }
+      .cap-text { padding: 28px 24px; gap: 12px; }
+      .cap-text h2 { font-size: 26px; line-height: 1.2; }
+      .cap-text p { font-size: 15px; }
+      .cap-photo { aspect-ratio: 4/3; }
+
+      .faq, .help { padding: 64px 24px; }
+      .faq h2 { margin-bottom: 32px; }
+      .faq-list .q { font-size: 15px; padding: 20px 0; gap: 12px; }
+      .faq-list .a { padding-right: 0; font-size: 14px; }
+      .faq-list li.open .a { max-height: 600px; padding-bottom: 20px; }
+
+      .help h2 { margin-bottom: 28px; }
+      .help-grid { grid-template-columns: 1fr; gap: 12px; }
+      .help-card { padding: 24px; }
+      .help-card .value { font-size: 18px; word-break: break-word; }
+      .help-feedback { font-size: 13px; margin-top: 24px; }
+
+      .accred { padding: 48px 24px 64px; }
+
+      .footer { padding: 56px 0 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 20px; }
+      .footer-brand .footer-logo img { width: 180px; }
+      .footer-bottom { flex-direction: column; gap: 8px; align-items: flex-start; padding: 24px 20px 0; }
+    }
+
+    /* ---- Phone (≤480px) ---- */
+    @media (max-width: 480px) {
+      .topbar .phone { font-size: 13px; }
+      .topbar .socials { gap: 8px; }
+      .hero h1 { font-size: 32px; }
+      .founder blockquote { font-size: 20px; }
+      .why h2, .refer h2, .help h2, .faq h2 { font-size: 26px; }
+      .cap-text h2 { font-size: 24px; }
+      .accred .row { gap: 32px; }
+      .accred .badge { padding: 10px 14px; font-size: 12px; }
+      .accred .accred-logo { height: 48px; max-width: 140px; }
+      .help-card .value { font-size: 17px; }
     }
   </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-logo">[logo]</div>
-  <ul class="nav-links">
-    <li>about</li>
-    <li>what we do</li>
-    <li>how it works</li>
-    <li>contact</li>
+<!-- ============ TOP BLOCK (topbar + nav + hero = 100vh) ============ -->
+<div class="top-block">
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="tel:0414516167" class="phone">
+      <img src="assets/figma/icon-phone.svg" alt="" aria-hidden="true">
+      0414 516 167
+    </a>
+    <div class="socials">
+      <a href="https://facebook.com/theguidanceco" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/figma/icon-fb.svg" alt=""></a>
+      <a href="https://instagram.com/theguidanceco" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/figma/icon-ig.svg" alt=""></a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAV BAR ============ -->
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="nav-logo">
+      <img class="logo-desktop" src="assets/figma/guidance-logo-desktop.svg" alt="The Guidance Co.">
+      <img class="logo-mobile" src="assets/figma/guidance-logo-mobile.svg" alt="The Guidance Co.">
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#refer">Who we work with</a></li>
+        <li><a href="#capability">Capabilities</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Make a referral</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav-cta">Contact us</a>
+    <button class="nav-hamburger" id="hamburger" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU OVERLAY ============ -->
+<nav class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#refer">Who we work with</a></li>
+    <li><a href="#capability">Capabilities</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Make a referral</a></li>
   </ul>
-  <button class="nav-cta">book a call</button>
+  <a href="#contact" class="btn btn-navy menu-cta">Contact us</a>
 </nav>
 
+<!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="hero-circle-stack">
-    <div class="circle-box circle-shape"><span>brand circle</span></div>
-    <div class="circle-box circle-photo"><span>hero photo</span></div>
-  </div>
-  <div>
-    <p class="hero-eyebrow">— behaviour support · emotional regulation · parent guidance</p>
-    <h1 class="hero-headline">the small, quiet work of raising humans.</h1>
-    <p class="hero-sub">A Sunshine Coast practice supporting NDIS-funded and private families. Real-life strategies for real-life moments. Warm, evidence-informed, parent-friendly.</p>
-    <div class="hero-ctas">
-      <button class="btn btn-primary">book a first conversation</button>
-      <button class="btn">what we do</button>
+  <div class="hero-inner reveal in">
+    <h1>Specialist behaviour support for high-risk and complex situations.</h1>
+    <p class="sub">Evidence-informed strategies, practical guidance, and hands-on support that help children, adults, families, and support teams navigate real-life challenges, not reports that sit unread on a shelf.</p>
+    <div class="ctas">
+      <a href="#contact" class="btn btn-cream">Contact us</a>
+      <a href="#refer" class="btn btn-outline-cream">Make a referral</a>
     </div>
   </div>
 </section>
 
-<section class="intro-strip">
-  <h2>We work with families when behaviour, big feelings, or daily rhythms are making everyday life harder than it needs to be — and we walk alongside parents long enough for the strategies to actually land.</h2>
+</div><!-- /.top-block -->
+
+<!-- ============ WHY ============ -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <h2 class="reveal">Why work with The Guidance Co?</h2>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="icon"><i data-lucide="network" aria-hidden="true"></i></div>
+        <div class="text">
+          <h3>Complex care expertise</h3>
+          <p>More than a decade supporting children, young people, and adults across Child Safety, Youth Justice, residential care, schools, and community settings.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="icon"><i data-lucide="users-round" aria-hidden="true"></i></div>
+        <div class="text">
+          <h3>In-placement delivery</h3>
+          <p>We work where behaviours occur in placements, schools, and community settings, providing practical support alongside the people working with the individual every day.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="icon"><i data-lucide="heart-pulse" aria-hidden="true"></i></div>
+        <div class="text">
+          <h3>Trauma-informed practice</h3>
+          <p>Our approach is informed by an understanding of trauma, attachment, and lived experience, helping create strategies that are realistic, consistent, and sustainable.</p>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="icon"><i data-lucide="list-checks" aria-hidden="true"></i></div>
+        <div class="text">
+          <h3>Practical, not just paperwork</h3>
+          <p>Our focus is on strategies that can be used in everyday situations. The goal is to provide support that leads to meaningful change, not reports that sit on a shelf.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="services-header">
-  <p class="section-eyebrow">what we do</p>
-  <h2 class="section-headline">Three areas of practice. One considered approach.</h2>
-  <p class="section-intro">Each service stands alone, but most families benefit from a combination — depending on what's hardest right now. A first conversation helps work out the right starting point.</p>
+<!-- ============ WHO WE WORK WITH ============ -->
+<section class="audiences" id="audiences">
+  <div class="audiences-inner">
+    <header class="section-head reveal">
+      <h2>Who we work with</h2>
+      <p>The practice supports families, schools, care teams, and individuals. Find yourself below — and see how we can help.</p>
+    </header>
+
+    <div class="audiences-table reveal">
+      <div class="audiences-head">
+        <div>You might be…</div>
+        <div>How we can help</div>
+      </div>
+
+      <div class="audiences-row">
+        <div class="col-aud">Parents and carers</div>
+        <div class="col-help">Practical, in-the-moment strategies for the everyday challenges of raising or caring for a child whose behaviour feels hard to navigate.</div>
+      </div>
+
+      <div class="audiences-row">
+        <div class="col-aud">Children and teenagers</div>
+        <div class="col-help">Direct, age-appropriate support for young people learning to regulate big feelings, navigate change, and build skills that hold up at home and school.</div>
+      </div>
+
+      <div class="audiences-row">
+        <div class="col-aud">Adults</div>
+        <div class="col-help">Behaviour support shaped around your goals and routines — focused on what makes daily life work, not what's written in a manual.</div>
+      </div>
+
+      <div class="audiences-row">
+        <div class="col-aud">Schools and educators</div>
+        <div class="col-help">Consultation, planning, and in-classroom strategies for students whose behaviour is making the school day harder than it needs to be.</div>
+      </div>
+
+      <div class="audiences-row">
+        <div class="col-aud">Support workers and care teams</div>
+        <div class="col-help">Coaching, supervision, and shared planning so the team around a young person can hold the work — not just file it.</div>
+      </div>
+
+      <div class="audiences-row">
+        <div class="col-aud">NDIS participants</div>
+        <div class="col-help">Specialist behaviour support delivered under your NDIS plan, with reports and reviews that meet plan-manager and Quality and Safeguards Commission requirements.</div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section class="service-section">
-  <div class="img-box"><span>service photo</span></div>
-  <div>
-    <p class="service-num">01 · Service</p>
-    <h3 class="service-title">Behaviour Support</h3>
-    <p class="service-para">Practical, evidence-informed support for children whose behaviour is making everyday life harder than it needs to be — at home, at school, or out in the community. We start by understanding the behaviour, not labelling it.</p>
-    <ul class="service-list">
-      <li>Functional behaviour assessments</li>
-      <li>Positive behaviour support plans</li>
-      <li>In-home strategy sessions</li>
-      <li>Coaching for parents and carers</li>
-      <li>School and early-learning collaboration</li>
+<!-- ============ CAPABILITY (Services + Founder + Capability card) ============ -->
+<section class="capability" id="capability">
+  <div class="capability-inner">
+
+    <!-- Services block -->
+    <div class="cap-services" id="services">
+      <h2 class="reveal">Practical, hands-on services</h2>
+      <div class="cap-services-grid reveal">
+        <article class="cap-service-card">
+          <h3>Behaviour Support</h3>
+          <p>Functional Behaviour Assessments, Behaviour Support Plans, and practical strategies tailored to the individual's needs.</p>
+        </article>
+        <article class="cap-service-card">
+          <h3>One-to-One Support</h3>
+          <p>Individualised support and intervention strategies that build skills, confidence, and positive outcomes.</p>
+        </article>
+        <article class="cap-service-card">
+          <h3>Parent and Carer Coaching</h3>
+          <p>Practical guidance to help families and carers respond consistently and confidently to challenging behaviours.</p>
+        </article>
+        <article class="cap-service-card">
+          <h3>Support for Adults</h3>
+          <p>Behaviour support and capacity-building strategies that promote independence and participation in everyday life.</p>
+        </article>
+        <article class="cap-service-card">
+          <h3>School Support</h3>
+          <p>Collaboration with teachers and support staff to develop consistent approaches across educational settings.</p>
+        </article>
+        <article class="cap-service-card">
+          <h3>Consultation and Guidance</h3>
+          <p>Support for individuals, families, or professionals who need expert advice or are unsure where to begin.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- Founder message -->
+    <div class="founder cap-founder reveal">
+      <p class="kicker">A message from the Founder</p>
+      <blockquote>“I started The Guidance Co. to do the work properly, supporting the young people the system finds hardest to hold and the families, carers, and professionals working alongside them.”</blockquote>
+      <p class="attrib"><strong>Sherri, Principal practitioner</strong> · NDIS-registered behaviour support</p>
+      <span class="mark"><img src="assets/figma/founder-mark.svg" alt=""></span>
+    </div>
+
+    <!-- Capability statement card -->
+    <div class="cap-card reveal">
+      <div class="cap-text">
+        <span class="label">Capability statement</span>
+        <h2>Service profile, accreditations,<br>and operating framework.</h2>
+        <p>A concise overview of The Guidance Co, including services, registrations, operating model, and key information for referrals and procurement.</p>
+        <div class="btn-wrap"><button class="btn btn-navy">Download PDF</button></div>
+      </div>
+      <div class="cap-photo">
+        <img src="assets/figma/capability-photo.png" alt="The Guidance Co. capability statement">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MAKE A REFERRAL (cream) ============ -->
+<section class="refer-founder">
+  <div class="refer" id="refer">
+    <h2 class="reveal">Make a referral</h2>
+    <div class="refer-grid reveal">
+
+      <a href="#contact" class="refer-card">
+        <span class="icon-l"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+        <div class="text">
+          <span class="label">Child Safety</span>
+          <p class="body">Behaviour support, functional assessments, and practical strategies to help children, families, and care teams navigate complex situations with confidence.</p>
+        </div>
+        <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+      </a>
+
+      <a href="#contact" class="refer-card">
+        <span class="icon-l"><i data-lucide="scale" aria-hidden="true"></i></span>
+        <div class="text">
+          <span class="label">Youth Justice</span>
+          <p class="body">Behaviour support and intervention strategies tailored to young people with complex needs, including collaboration with families, carers, and multidisciplinary teams.</p>
+        </div>
+        <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+      </a>
+
+      <a href="#contact" class="refer-card">
+        <span class="icon-l"><i data-lucide="heart-handshake" aria-hidden="true"></i></span>
+        <div class="text">
+          <span class="label">Carers and support teams</span>
+          <p class="body">Practical coaching, in-placement guidance, and collaborative support for foster carers, kinship carers, residential care staff, and other professionals working directly with the individual.</p>
+        </div>
+        <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ WE'RE HERE TO HELP ============ -->
+<section class="help" id="contact">
+  <div class="help-inner">
+    <h2 class="reveal">We're here to help</h2>
+    <div class="help-grid reveal">
+      <div class="help-card">
+        <div class="help-card-top">
+          <h3>Call us</h3>
+          <p>Best for urgent enquiries, fast scoping conversations, or talking through a referral with a real person.</p>
+        </div>
+        <div class="help-card-bottom">
+          <p class="value"><a href="tel:+61414516167">0414 516 167</a></p>
+          <span class="meta">Mon – Fri · 9am – 5pm AEST</span>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-top">
+          <h3>Referrals</h3>
+          <p>Best for referrals with attachments, brokerage and panel questions, or anything you'd like in writing.</p>
+        </div>
+        <div class="help-card-bottom">
+          <p class="value"><a href="mailto:referrals@guidanceco.com.au">referrals@guidanceco.com.au</a></p>
+          <span class="meta">Response within one business day</span>
+        </div>
+      </div>
+      <div class="help-card">
+        <div class="help-card-top">
+          <h3>General enquiries</h3>
+          <p>Best for anything that isn't a referral — partnerships, training, capability questions, or just saying hello.</p>
+        </div>
+        <div class="help-card-bottom">
+          <p class="value"><a href="mailto:hello@guidanceco.com.au">hello@guidanceco.com.au</a></p>
+          <span class="meta">Response within one business day</span>
+        </div>
+      </div>
+    </div>
+    <p class="help-feedback">Have feedback or a complaint? <a href="mailto:hello@guidanceco.com.au">Get in touch with the practice</a> — or, if you'd prefer, <a href="https://www.ndiscommission.gov.au/about/complaints" target="_blank" rel="noopener">contact the NDIS Quality and Safeguards Commission</a>.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <h2 class="reveal">Frequently asked questions</h2>
+    <ul class="faq-list reveal">
+      <li>
+        <div class="q">Are you NDIS registered and aligned to the PBS Capability Framework?<span class="plus">+</span></div>
+        <div class="a">Yes. We're an NDIS-registered behaviour support provider operating under the PBS Capability Framework, with current Working with Children Check and Blue Card credentials.</div>
+      </li>
+      <li>
+        <div class="q">Do you accept Child Safety and Youth Justice brokerage?<span class="plus">+</span></div>
+        <div class="a">Yes. We invoice CSO and YJ brokerage directly, alongside NDIS plan-managed and self-managed funding. We can also work on direct-billed engagements outside the NDIS where required.</div>
+      </li>
+      <li>
+        <div class="q">How do you work with residential care and kinship placements?<span class="plus">+</span></div>
+        <div class="a">In the placement. We coach the team carrying the young person — residential workers, kinship and foster carers — and stay long enough for the regulation and behaviour strategies to land in practice, not just on paper.</div>
+      </li>
+      <li>
+        <div class="q">What ages and order types do you work with?<span class="plus">+</span></div>
+        <div class="a">Children and young people 4–18 on Child Protection Orders, Youth Justice orders, and at the edge of statutory involvement. We work across short-term, long-term, kinship, foster, and residential placement types.</div>
+      </li>
+      <li>
+        <div class="q">What's your turnaround on assessments and reports?<span class="plus">+</span></div>
+        <div class="a">Most functional behaviour assessments turn around inside 4–6 weeks from referral. Court and review reports are scoped to deadline at the scoping conversation — we don't take work we can't deliver on time.</div>
+      </li>
+      <li>
+        <div class="q">Do you provide reports for court, case plans, and reviews?<span class="plus">+</span></div>
+        <div class="a">Yes. We provide functional behaviour reports, PBS plans, restrictive-practice reviews, and supporting documentation for case planning, ongoing reviews, and Children's Court matters where appropriate.</div>
+      </li>
+      <li>
+        <div class="q">Do you offer secondary consultation between formal sessions?<span class="plus">+</span></div>
+        <div class="a">Yes — and it's often the most useful part of an engagement. Teams can call between sessions for a 15-minute consult on what's coming up. It's built into the engagement scope, not billed separately.</div>
+      </li>
     </ul>
-    <a href="#" class="service-link">learn more about behaviour support →</a>
   </div>
 </section>
 
-<section class="service-section image-right">
-  <div class="img-box"><span>service photo</span></div>
-  <div>
-    <p class="service-num">02 · Service</p>
-    <h3 class="service-title">Emotional Regulation</h3>
-    <p class="service-para">Supporting children to understand, name, and move through big feelings — without shutting them down or hurrying them up. Strategies that work in real life, not just in therapy rooms.</p>
-    <ul class="service-list">
-      <li>Co-regulation strategies for parents</li>
-      <li>Sensory and somatic tools</li>
-      <li>Anxiety and big-feeling support</li>
-      <li>Building emotional vocabulary</li>
-      <li>Regulation that holds up at school and home</li>
-    </ul>
-    <a href="#" class="service-link">learn more about emotional regulation →</a>
+<!-- ============ ACCREDITATIONS ============ -->
+<section class="accred">
+  <p class="title">Working under and registered with</p>
+  <div class="row">
+    <img class="accred-logo" src="assets/accreditations/ndis.png" alt="NDIS">
+    <img class="accred-logo" src="assets/accreditations/capability.png" alt="Capability Support Services">
+    <img class="accred-logo" src="assets/accreditations/workingwithchildren.png" alt="Working with Children Check">
+    <img class="accred-logo" src="assets/accreditations/aasw.png" alt="AASW — Australian Association of Social Workers">
   </div>
 </section>
 
-<section class="service-section">
-  <div class="img-box"><span>service photo</span></div>
-  <div>
-    <p class="service-num">03 · Service</p>
-    <h3 class="service-title">Parent Guidance</h3>
-    <p class="service-para">One-on-one parent coaching when the strategies you've tried aren't landing — or when you'd rather have someone in your corner before things get harder. Reflective, practical, no judgement.</p>
-    <ul class="service-list">
-      <li>Personalised strategy sessions</li>
-      <li>Sleep, mealtimes, transitions, screen-time</li>
-      <li>Sibling dynamics</li>
-      <li>Reflective parent coaching</li>
-      <li>Support that meets your family where it is</li>
-    </ul>
-    <a href="#" class="service-link">learn more about parent guidance →</a>
-  </div>
-</section>
-
-<section class="about-section">
-  <div class="img-box about-img"><span>portrait</span></div>
-  <div>
-    <p class="section-eyebrow">about</p>
-    <h2 class="section-headline">Hi, I'm Sherri.</h2>
-    <p class="service-para">A short paragraph about Sherri's practice philosophy — why she works the way she does, who she works best with, what families can expect. Warm, honest, first-person voice. Closes with what motivates the work.</p>
-    <p class="service-para">A second paragraph for credentials, training, and registrations. NDIS registration, professional bodies, ongoing education. Short, factual, builds trust without overselling.</p>
-    <a href="#" class="service-link">read more about my approach →</a>
-  </div>
-</section>
-
-<section class="how-section">
-  <p class="section-eyebrow">how it works</p>
-  <h2 class="section-headline">Three steps from first hello to ongoing support.</h2>
-  <div class="how-grid">
-    <div class="how-step">
-      <p class="how-step-num">01</p>
-      <h3>Get in touch</h3>
-      <p>A short enquiry form, a phone call, or an email. Tell us what's hardest right now and we'll come back within one business day.</p>
-    </div>
-    <div class="how-step">
-      <p class="how-step-num">02</p>
-      <h3>First conversation</h3>
-      <p>A free, no-commitment 20-minute call to talk through your family's situation, what kind of support might help, and whether we're the right fit.</p>
-    </div>
-    <div class="how-step">
-      <p class="how-step-num">03</p>
-      <h3>Ongoing support</h3>
-      <p>If we're a fit, we'll plan an approach — in-home sessions, parent coaching, or a combination — and walk alongside you for as long as it's helpful.</p>
-    </div>
-  </div>
-</section>
-
-<section class="faq-section">
-  <div>
-    <p class="section-eyebrow">questions</p>
-    <h2 class="section-headline">Common questions, answered.</h2>
-    <p class="section-intro">If your question isn't here, the first conversation is the right place for it. Always free, never a sales call.</p>
-  </div>
-  <ul class="faq-list">
-    <li class="faq-item"><div class="faq-q">Are you NDIS registered?</div></li>
-    <li class="faq-item"><div class="faq-q">How does pricing work for private clients?</div></li>
-    <li class="faq-item"><div class="faq-q">Do you work in-home, in-clinic, or via telehealth?</div></li>
-    <li class="faq-item"><div class="faq-q">What ages do you work with?</div></li>
-    <li class="faq-item"><div class="faq-q">How quickly can we get started?</div></li>
-    <li class="faq-item"><div class="faq-q">Do you collaborate with schools and other practitioners?</div></li>
-  </ul>
-</section>
-
-<section class="final-cta">
-  <div class="final-cta-inner">
-    <h2>Ready when you are.</h2>
-    <p>Whether you're at the start of working out what's going on, or you've tried everything and need someone alongside you — the first conversation is always free.</p>
-    <button class="btn btn-primary">book a first conversation</button>
-  </div>
-</section>
-
+<!-- ============ FOOTER ============ -->
 <footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-col">
-      <div class="nav-logo" style="display: inline-block;">[logo]</div>
-      <p style="font-size: 14px; color: var(--muted); margin-top: 16px; max-width: 360px;">Behaviour support, emotional regulation, and parent guidance. Sunshine Coast, Australia. NDIS registered.</p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo" aria-label="The Guidance Co. — Disability · Behaviour · Intervention">
+        <img src="assets/figma/guidance-logo-square.svg" alt="The Guidance Co. — Disability · Behaviour · Intervention">
+      </a>
     </div>
     <div class="footer-col">
-      <h4>Practice</h4>
+      <h4>Site</h4>
       <ul>
-        <li>About</li>
-        <li>Behaviour Support</li>
-        <li>Emotional Regulation</li>
-        <li>Parent Guidance</li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#refer">Who we work with</a></li>
+        <li><a href="#capability">Capabilities</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Make a referral</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Visit</h4>
+      <h4>Contact</h4>
       <ul>
-        <li>How it works</li>
-        <li>FAQ</li>
-        <li>Contact</li>
+        <li><a href="tel:+61414516167">0414 516 167</a></li>
+        <li><a href="mailto:referrals@guidanceco.com.au">referrals@guidanceco.com.au</a></li>
+        <li><a href="mailto:hello@guidanceco.com.au">hello@guidanceco.com.au</a></li>
+        <li>Sunshine Coast, QLD</li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Connect</h4>
+      <h4>Social</h4>
       <ul>
-        <li>Instagram</li>
-        <li>Facebook</li>
-        <li>Email</li>
+        <li><a href="https://facebook.com/theguidanceco" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://instagram.com/theguidanceco" target="_blank" rel="noopener">Instagram</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 The Guidance Co. — Sunshine Coast, Australia</span>
-    <span>NDIS Provider · Privacy · Terms</span>
+    <span>© 2026 The Guidance Co. — Sunshine Coast, Queensland</span>
+    <span>NDIS Provider · Blue Card · Privacy · Terms</span>
   </div>
 </footer>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  // Initialise Lucide icons
+  if (window.lucide && lucide.createIcons) {
+    lucide.createIcons({ attrs: { 'stroke-width': 1.6 } });
+  }
+</script>
+<script>
+  // Reveal on scroll
+  (function () {
+    var els = document.querySelectorAll('.reveal:not(.in)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  // Mobile menu
+  (function () {
+    var btn = document.getElementById('hamburger');
+    var menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    function setOpen(open) {
+      document.body.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+    btn.addEventListener('click', function () {
+      setOpen(!document.body.classList.contains('menu-open'));
+    });
+    // Close when a menu link is tapped
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setOpen(false);
+    });
+    // Close if resized above the mobile breakpoint
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 980 && document.body.classList.contains('menu-open')) setOpen(false);
+    });
+  })();
+
+  // FAQ accordion — single-open
+  (function () {
+    var items = document.querySelectorAll('.faq-list li');
+    items.forEach(function (li) {
+      var q = li.querySelector('.q');
+      if (!q) return;
+      q.addEventListener('click', function () {
+        var wasOpen = li.classList.contains('open');
+        items.forEach(function (other) { other.classList.remove('open'); });
+        if (!wasOpen) li.classList.add('open');
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
