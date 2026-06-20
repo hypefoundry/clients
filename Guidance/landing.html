@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Guidance Co. — Specialist therapy for high-risk and complex family situations</title>
+  <title>The Guidance Co. — Specialist behaviour support for children, teenagers and adults</title>
   <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: light)" href="assets/figma/favicon.svg">
   <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: dark)" href="assets/figma/favicon-light.svg">
   <link rel="alternate icon" type="image/svg+xml" href="assets/figma/favicon.svg">
@@ -14,12 +14,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0C1C28;
+      --navy: #142838;
       --navy-2: #15303F;
       --cream: #FAF8F4;
       --cream-2: #F1ECDC;
       --white: #FFFFFF;
-      --ink: #0C1C28;
+      --ink: #142838;
       --ink-soft: #FAF8F4;
       --muted: #5A6A75;
       --line: #E6DFCD;
@@ -108,24 +108,24 @@
       justify-content: space-between;
     }
     .topbar .phone {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 9px;
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
-      line-height: 36px;
+      line-height: 40px;
       color: var(--cream);
     }
-    .topbar .phone img { width: 16px; height: 16px; flex-shrink: 0; }
+    .topbar .phone img { width: 18px; height: 18px; flex-shrink: 0; }
     .topbar .socials {
-      display: inline-flex; align-items: center; gap: 9px;
+      display: inline-flex; align-items: center; gap: 10px;
     }
     .topbar .socials a {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 20px; height: 20px;
+      width: 22px; height: 22px;
       transition: opacity 180ms ease;
     }
     .topbar .socials a:hover { opacity: 0.75; }
-    .topbar .socials img { width: 20px; height: 20px; }
+    .topbar .socials img { width: 22px; height: 22px; }
 
     /* ============================================
        NAV BAR — cream w/ logo + links + Contact us pill
@@ -273,15 +273,20 @@
       margin: 0 auto;
       min-width: 0;
     }
+    .hero-logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 8px;
+    }
     .hero h1 {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 80px;
-      line-height: 80px;
-      letter-spacing: -0.0112em;
+      font-size: 60px;
+      line-height: 64px;
+      letter-spacing: -0.012em;
       color: var(--cream);
       width: 100%;
-      max-width: 921px;
+      max-width: 1040px;
       overflow-wrap: break-word;
     }
     .hero .sub {
@@ -357,17 +362,17 @@
     .why-card h3 {
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 22px;
+      line-height: 28px;
       letter-spacing: -0.02em;
       color: var(--navy);
     }
     .why-card p {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.02em;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: -0.015em;
       color: var(--navy);
     }
 
@@ -433,14 +438,14 @@
     .audiences-row .col-aud {
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: 17px;
+      font-size: 19px;
       letter-spacing: -0.012em;
       color: var(--navy);
     }
     .audiences-row .col-help {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 15px;
+      font-size: 17px;
       line-height: 1.6;
       color: var(--navy);
     }
@@ -480,8 +485,10 @@
     }
     .refer-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
+      max-width: 980px;
+      margin: 0 auto;
     }
     .refer-card {
       background: var(--white);
@@ -787,9 +794,9 @@
     }
     .help-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-      max-width: 1200px;
+      max-width: 880px;
       margin: 0 auto;
     }
     .help-card {
@@ -1019,9 +1026,10 @@
       .nav-logo .logo-desktop { display: none; }
       .nav-logo .logo-mobile { display: inline-block; height: 28px; }
 
-      .hero { padding: 56px 20px; }
-      .hero-inner { gap: 20px; }
-      .hero h1 { font-size: 36px; line-height: 1.08; letter-spacing: -0.015em; }
+      .hero { padding: 48px 20px; }
+      .hero-inner { gap: 18px; }
+      .hero-logo { width: 140px; margin-bottom: 4px; }
+      .hero h1 { font-size: 30px; line-height: 1.12; letter-spacing: -0.012em; }
       .hero .sub { font-size: 16px; line-height: 1.55em; }
       .hero .ctas { grid-template-columns: 1fr; gap: 10px; max-width: 320px; }
       .hero .btn { padding: 14px 22px; font-size: 15px; }
@@ -1133,7 +1141,7 @@
         <li><a href="#refer">Who we work with</a></li>
         <li><a href="#capability">Capabilities</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Make a referral</a></li>
+        <li><a href="#contact">Request support</a></li>
       </ul>
     </nav>
     <a href="#contact" class="nav-cta">Contact us</a>
@@ -1152,7 +1160,7 @@
     <li><a href="#refer">Who we work with</a></li>
     <li><a href="#capability">Capabilities</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact">Make a referral</a></li>
+    <li><a href="#contact">Request support</a></li>
   </ul>
   <a href="#contact" class="btn btn-navy menu-cta">Contact us</a>
 </nav>
@@ -1160,11 +1168,12 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-inner reveal in">
-    <h1>Specialist behaviour support for high-risk and complex situations.</h1>
+    <img class="hero-logo" src="assets/figma/guidance-logo-square.svg" alt="The Guidance Co. — Disability · Behaviour · Intervention">
+    <h1>Specialist behaviour support for children, teenagers and adults — from everyday challenges to complex situations.</h1>
     <p class="sub">Evidence-informed strategies, practical guidance, and hands-on support that help children, adults, families, and support teams navigate real-life challenges, not reports that sit unread on a shelf.</p>
     <div class="ctas">
       <a href="#contact" class="btn btn-cream">Contact us</a>
-      <a href="#refer" class="btn btn-outline-cream">Make a referral</a>
+      <a href="#refer" class="btn btn-outline-cream">Request support</a>
     </div>
   </div>
 </section>
@@ -1318,23 +1327,14 @@
 <!-- ============ MAKE A REFERRAL (cream) ============ -->
 <section class="refer-founder">
   <div class="refer" id="refer">
-    <h2 class="reveal">Make a referral</h2>
+    <h2 class="reveal">Request support</h2>
     <div class="refer-grid reveal">
 
       <a href="#contact" class="refer-card">
-        <span class="icon-l"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+        <span class="icon-l"><i data-lucide="compass" aria-hidden="true"></i></span>
         <div class="text">
-          <span class="label">Child Safety</span>
-          <p class="body">Behaviour support, functional assessments, and practical strategies to help children, families, and care teams navigate complex situations with confidence.</p>
-        </div>
-        <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
-      </a>
-
-      <a href="#contact" class="refer-card">
-        <span class="icon-l"><i data-lucide="scale" aria-hidden="true"></i></span>
-        <div class="text">
-          <span class="label">Youth Justice</span>
-          <p class="body">Behaviour support and intervention strategies tailored to young people with complex needs, including collaboration with families, carers, and multidisciplinary teams.</p>
+          <span class="label">Behaviour Support and Intervention</span>
+          <p class="body">Functional assessments, behaviour support plans, and practical intervention strategies for children, teenagers, and adults — including collaboration with families, carers, and multidisciplinary teams.</p>
         </div>
         <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
       </a>
@@ -1342,7 +1342,7 @@
       <a href="#contact" class="refer-card">
         <span class="icon-l"><i data-lucide="heart-handshake" aria-hidden="true"></i></span>
         <div class="text">
-          <span class="label">Carers and support teams</span>
+          <span class="label">Carers and Support Teams</span>
           <p class="body">Practical coaching, in-placement guidance, and collaborative support for foster carers, kinship carers, residential care staff, and other professionals working directly with the individual.</p>
         </div>
         <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
@@ -1369,26 +1369,16 @@
       </div>
       <div class="help-card">
         <div class="help-card-top">
-          <h3>Referrals</h3>
-          <p>Best for referrals with attachments, brokerage and panel questions, or anything you'd like in writing.</p>
+          <h3>Get in touch</h3>
+          <p>Best for referrals, enquiries, partnerships, or anything you'd like in writing — we'll come back within one business day.</p>
         </div>
         <div class="help-card-bottom">
-          <p class="value"><a href="mailto:referrals@guidanceco.com.au">referrals@guidanceco.com.au</a></p>
-          <span class="meta">Response within one business day</span>
-        </div>
-      </div>
-      <div class="help-card">
-        <div class="help-card-top">
-          <h3>General enquiries</h3>
-          <p>Best for anything that isn't a referral — partnerships, training, capability questions, or just saying hello.</p>
-        </div>
-        <div class="help-card-bottom">
-          <p class="value"><a href="mailto:hello@guidanceco.com.au">hello@guidanceco.com.au</a></p>
+          <p class="value"><a href="mailto:hello@theguidanceco.com">hello@theguidanceco.com</a></p>
           <span class="meta">Response within one business day</span>
         </div>
       </div>
     </div>
-    <p class="help-feedback">Have feedback or a complaint? <a href="mailto:hello@guidanceco.com.au">Get in touch with the practice</a> — or, if you'd prefer, <a href="https://www.ndiscommission.gov.au/about/complaints" target="_blank" rel="noopener">contact the NDIS Quality and Safeguards Commission</a>.</p>
+    <p class="help-feedback">Have feedback or a complaint? <a href="mailto:hello@theguidanceco.com">Get in touch with the practice</a> — or, if you'd prefer, <a href="https://www.ndiscommission.gov.au/about/complaints" target="_blank" rel="noopener">contact the NDIS Quality and Safeguards Commission</a>.</p>
   </div>
 </section>
 
@@ -1455,15 +1445,14 @@
         <li><a href="#refer">Who we work with</a></li>
         <li><a href="#capability">Capabilities</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Make a referral</a></li>
+        <li><a href="#contact">Request support</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
         <li><a href="tel:+61414516167">0414 516 167</a></li>
-        <li><a href="mailto:referrals@guidanceco.com.au">referrals@guidanceco.com.au</a></li>
-        <li><a href="mailto:hello@guidanceco.com.au">hello@guidanceco.com.au</a></li>
+        <li><a href="mailto:hello@theguidanceco.com">hello@theguidanceco.com</a></li>
         <li>Sunshine Coast, QLD</li>
       </ul>
     </div>
