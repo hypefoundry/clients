@@ -3,23 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Guidance Co. — Specialist therapy for high-risk and complex family situations</title>
+  <title>The Guidance Co. — Specialist behaviour support for children, teenagers and adults</title>
   <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: light)" href="assets/figma/favicon.svg">
   <link rel="icon" type="image/svg+xml" media="(prefers-color-scheme: dark)" href="assets/figma/favicon-light.svg">
   <link rel="alternate icon" type="image/svg+xml" href="assets/figma/favicon.svg">
   <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=optional">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=optional" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0C1C28;
+      --navy: #142838;
       --navy-2: #15303F;
       --cream: #FAF8F4;
       --cream-2: #F1ECDC;
       --white: #FFFFFF;
-      --ink: #0C1C28;
+      --ink: #142838;
       --ink-soft: #FAF8F4;
       --muted: #5A6A75;
       --line: #E6DFCD;
@@ -33,7 +35,8 @@
     html { scroll-behavior: smooth; }
     html, body { overflow-x: hidden; width: 100%; }
     body { max-width: 100vw; }
-    body.menu-open { overflow: hidden; }
+    body.menu-open,
+    html.menu-open { overflow: hidden; height: 100%; touch-action: none; }
     /* Allow long words to break rather than force horizontal overflow */
     h1, h2, h3, h4, p, blockquote, a, span { overflow-wrap: anywhere; }
     /* Breathing room for in-page anchor jumps */
@@ -41,7 +44,7 @@
     #refer { scroll-margin-top: 120px; }
     body {
       font-family: var(--font-body);
-      background: var(--cream);
+      background: var(--navy);
       color: var(--ink);
       font-size: 16px;
       line-height: 1.5;
@@ -90,75 +93,72 @@
     .top-block > .hero { flex: 1; min-height: 0; }
 
     /* ============================================
-       TOP BAR — navy w/ phone + socials
-       padding 0px 32px (text lineHeight 36px = bar height)
+       TOP BAR — cream w/ phone + socials (navy text)
        ============================================ */
     .topbar {
-      background: var(--navy);
-      color: var(--cream);
+      background: var(--cream);
+      color: var(--navy);
       position: relative;
       z-index: 110;
     }
     .topbar-inner {
       max-width: 1441px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 32px 0 42px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .topbar .phone {
-      display: inline-flex; align-items: center; gap: 8px;
+      display: inline-flex; align-items: center; gap: 7px;
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
-      line-height: 36px;
-      color: var(--cream);
+      line-height: 40px;
+      color: var(--navy);
     }
-    .topbar .phone img { width: 16px; height: 16px; flex-shrink: 0; }
+    .topbar .phone img { width: 18px; height: 18px; flex-shrink: 0; }
     .topbar .socials {
-      display: inline-flex; align-items: center; gap: 9px;
+      display: inline-flex; align-items: center; gap: 10px;
     }
     .topbar .socials a {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 20px; height: 20px;
+      width: 22px; height: 22px;
       transition: opacity 180ms ease;
     }
-    .topbar .socials a:hover { opacity: 0.75; }
-    .topbar .socials img { width: 20px; height: 20px; }
+    .topbar .socials a:hover { opacity: 0.7; }
+    .topbar .socials img { width: 22px; height: 22px; display: block; }
 
     /* ============================================
        NAV BAR — cream w/ logo + links + Contact us pill
        padding 14px 32px
        ============================================ */
     .navbar {
-      background: var(--cream);
+      background: var(--navy);
       position: relative;
       z-index: 110;
     }
     .navbar-inner {
       max-width: 1441px;
       margin: 0 auto;
-      padding: 14px 32px;
+      padding: 20px 32px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
+      gap: 64px;
     }
     .nav-logo {
       display: inline-flex; align-items: center;
-      color: var(--navy);
+      color: var(--cream);
+      flex-shrink: 0;
     }
-    .nav-logo .logo-desktop {
+    .nav-logo .logo-stacked {
       display: inline-block;
-      height: 32px;
-      width: auto;
+      width: 170px;
+      height: auto;
     }
-    .nav-logo .logo-mobile {
-      display: none;
-      height: 32px;
-      width: auto;
-    }
+    .nav-logo .logo-desktop,
+    .nav-logo .logo-mobile { display: none; }
     .nav-links {
       display: flex; align-items: center; gap: 32px;
       list-style: none;
@@ -169,28 +169,12 @@
       font-size: 16px;
       font-weight: 900;
       line-height: 24px;
-      color: var(--navy);
+      color: var(--cream);
       transition: opacity 180ms ease;
       position: relative;
       padding: 4px 0;
     }
-    .nav-links a:hover { opacity: 0.65; }
-    .nav-cta {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 16px 32px;
-      border-radius: 9999px;
-      background: var(--navy);
-      color: var(--cream);
-      font-family: var(--font-display);
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 16px;
-      letter-spacing: -0.02em;
-      border: 2px solid var(--navy);
-      cursor: pointer;
-      transition: background 200ms ease, transform 200ms ease;
-    }
-    .nav-cta:hover { background: var(--navy-2); border-color: var(--navy-2); transform: translateY(-1px); }
+    .nav-links a:hover { opacity: 0.7; }
 
     /* ============================================
        HAMBURGER + MOBILE MENU
@@ -223,8 +207,9 @@
       position: fixed; inset: 0;
       background: var(--cream);
       z-index: 50;
-      padding: 100px 24px 32px;
+      padding: 140px 24px 32px;
       flex-direction: column;
+      overflow-y: auto;
       transform: translateY(-100%);
       transition: transform 320ms cubic-bezier(0.2,0.7,0.2,1);
       visibility: hidden;
@@ -258,57 +243,58 @@
        ============================================ */
     .hero {
       background: var(--navy);
-      padding: 64px 128px;
+      padding: 64px 32px 42px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
     }
     .hero-inner {
       display: flex; flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       gap: 24px;
-      text-align: center;
+      text-align: left;
       width: 100%;
-      max-width: 1185px;
+      max-width: 1380px;
       margin: 0 auto;
       min-width: 0;
     }
     .hero h1 {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 80px;
-      line-height: 80px;
-      letter-spacing: -0.0112em;
+      font-size: 56px;
+      line-height: 60px;
+      letter-spacing: -0.02em;
       color: var(--cream);
       width: 100%;
-      max-width: 921px;
+      max-width: 1200px;
       overflow-wrap: break-word;
     }
     .hero .sub {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 1.6em;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.55em;
       letter-spacing: -0.0178em;
       color: var(--ink-soft);
       width: 100%;
-      max-width: 629px;
+      max-width: 800px;
     }
     .hero .ctas {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
       gap: 16px;
-      width: 100%;
-      max-width: 420px;
-      margin: 8px auto 0;
+      margin-top: 8px;
     }
     .hero .btn {
       font-family: var(--font-body);
       font-weight: 700;
-      width: 100%;
+      font-size: 16px;
+      line-height: 16px;
+      letter-spacing: -0.02em;
+      padding: 16px 32px;
       justify-content: center;
       white-space: nowrap;
     }
+    .hero .btn-cream { width: 173px; }
 
     /* ============================================
        WHY — WHITE bg, 3 icon cards
@@ -316,7 +302,7 @@
        ============================================ */
     .why {
       background: var(--white);
-      padding: 80px 120px;
+      padding: 80px 32px;
     }
     .why-inner { display: flex; flex-direction: column; gap: 32px; max-width: 1441px; margin: 0 auto; }
     .why h2 {
@@ -357,17 +343,17 @@
     .why-card h3 {
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 22px;
+      line-height: 28px;
       letter-spacing: -0.02em;
       color: var(--navy);
     }
     .why-card p {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.02em;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: -0.015em;
       color: var(--navy);
     }
 
@@ -433,14 +419,14 @@
     .audiences-row .col-aud {
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: 17px;
+      font-size: 19px;
       letter-spacing: -0.012em;
       color: var(--navy);
     }
     .audiences-row .col-help {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 15px;
+      font-size: 17px;
       line-height: 1.6;
       color: var(--navy);
     }
@@ -480,8 +466,10 @@
     }
     .refer-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
+      max-width: 1140px;
+      margin: 0 auto;
     }
     .refer-card {
       background: var(--white);
@@ -511,15 +499,15 @@
     .refer-card .label {
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 19px;
+      line-height: 28px;
       color: var(--navy);
     }
     .refer-card .body {
       font-family: var(--font-body);
       font-weight: 400;
-      font-size: 14px;
-      line-height: 21px;
+      font-size: 17px;
+      line-height: 26px;
       color: var(--navy);
     }
     .refer-card .chev {
@@ -787,9 +775,9 @@
     }
     .help-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-      max-width: 1200px;
+      max-width: 880px;
       margin: 0 auto;
     }
     .help-card {
@@ -827,13 +815,13 @@
     .help-card h3 {
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: 18px;
+      font-size: 21px;
       letter-spacing: -0.02em;
       color: var(--navy);
     }
     .help-card p {
       font-family: var(--font-body);
-      font-size: 14px;
+      font-size: 16px;
       color: var(--muted);
       line-height: 1.6;
     }
@@ -846,7 +834,7 @@
     }
     .help-card .meta {
       font-family: var(--font-body);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
     }
     .help-cta {
@@ -981,15 +969,44 @@
     }
 
     /* ============================================
-       MOTION
+       MOTION — scroll reveal + page-load entrance
        ============================================ */
     .reveal {
       opacity: 0; transform: translateY(10px);
       transition: opacity 600ms cubic-bezier(0.2,0.7,0.2,1), transform 600ms cubic-bezier(0.2,0.7,0.2,1);
     }
     .reveal.in { opacity: 1; transform: none; }
+
+    /* Page-load entrance keyframes */
+    @keyframes guideFadeDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes guideFadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes guideFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Top chrome eases in first */
+    .topbar { animation: guideFade 600ms cubic-bezier(0.2,0.7,0.2,1) both; }
+    .navbar { animation: guideFade 700ms cubic-bezier(0.2,0.7,0.2,1) 120ms both; }
+
+    /* Hero content staggers in after the chrome lands */
+    .hero h1 { animation: guideFadeUp 800ms cubic-bezier(0.2,0.7,0.2,1) 260ms both; }
+    .hero .sub { animation: guideFadeUp 800ms cubic-bezier(0.2,0.7,0.2,1) 420ms both; }
+    .hero .ctas { animation: guideFadeUp 800ms cubic-bezier(0.2,0.7,0.2,1) 560ms both; }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
+      .topbar, .navbar, .hero h1, .hero .sub, .hero .ctas {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+      }
     }
 
     /* ============================================
@@ -1012,19 +1029,23 @@
     @media (max-width: 980px) {
       .topbar-inner { padding: 0 20px; }
       .navbar-inner { padding: 12px 20px; gap: 12px; }
+      /* Stick the top chrome to the viewport top on mobile */
+      .topbar { position: sticky; top: 0; left: 0; right: 0; }
+      .navbar { position: sticky; top: 40px; left: 0; right: 0; }
       .nav-links { display: none; }
       .nav-cta { display: none; }
       .nav-hamburger { display: block; }
       .mobile-menu { display: flex; }
-      .nav-logo .logo-desktop { display: none; }
-      .nav-logo .logo-mobile { display: inline-block; height: 28px; }
+      .nav-logo .logo-stacked { width: 90px; }
+      .nav-hamburger { color: var(--cream); }
 
-      .hero { padding: 56px 20px; }
-      .hero-inner { gap: 20px; }
-      .hero h1 { font-size: 36px; line-height: 1.08; letter-spacing: -0.015em; }
-      .hero .sub { font-size: 16px; line-height: 1.55em; }
-      .hero .ctas { grid-template-columns: 1fr; gap: 10px; max-width: 320px; }
-      .hero .btn { padding: 14px 22px; font-size: 15px; }
+      .hero { padding: 24px 20px 56px; max-width: 100vw; overflow-x: hidden; }
+      .hero-inner { gap: 18px; max-width: 100%; }
+      .hero h1 { font-size: 28px; line-height: 1.18; letter-spacing: -0.012em; max-width: 100%; min-width: 0; overflow-wrap: anywhere; word-break: break-word; }
+      .hero h1 br { display: none; }
+      .hero .sub { font-size: 16px; max-width: 100%; overflow-wrap: anywhere; }
+      .hero .ctas { flex-direction: column; width: 100%; gap: 10px; }
+      .hero .btn { width: 100%; min-width: 0; padding: 14px 22px; font-size: 15px; }
 
       .why, .capability, .audiences { padding: 64px 24px; }
       .capability-inner { gap: 56px; }
@@ -1090,7 +1111,7 @@
     @media (max-width: 480px) {
       .topbar .phone { font-size: 13px; }
       .topbar .socials { gap: 8px; }
-      .hero h1 { font-size: 32px; }
+      .hero h1 { font-size: 28px; }
       .founder blockquote { font-size: 20px; }
       .why h2, .refer h2, .help h2, .faq h2 { font-size: 26px; }
       .cap-text h2 { font-size: 24px; }
@@ -1110,12 +1131,12 @@
 <div class="topbar">
   <div class="topbar-inner">
     <a href="tel:0414516167" class="phone">
-      <img src="assets/figma/icon-phone.svg" alt="" aria-hidden="true">
+      <img src="assets/figma/icon-phone-navy.svg" alt="" aria-hidden="true">
       0414 516 167
     </a>
     <div class="socials">
-      <a href="https://facebook.com/theguidanceco" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/figma/icon-fb.svg" alt=""></a>
-      <a href="https://instagram.com/theguidanceco" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/figma/icon-ig.svg" alt=""></a>
+      <a href="https://facebook.com/theguidanceco" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/figma/icon-fb-navy.svg" alt=""></a>
+      <a href="https://instagram.com/theguidanceco" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/figma/icon-ig-navy.svg" alt=""></a>
     </div>
   </div>
 </div>
@@ -1124,8 +1145,7 @@
 <header class="navbar">
   <div class="navbar-inner">
     <a href="#" class="nav-logo">
-      <img class="logo-desktop" src="assets/figma/guidance-logo-desktop.svg" alt="The Guidance Co.">
-      <img class="logo-mobile" src="assets/figma/guidance-logo-mobile.svg" alt="The Guidance Co.">
+      <img class="logo-stacked" src="assets/figma/guidance-logo-notag.svg" alt="The Guidance Co.">
     </a>
     <nav>
       <ul class="nav-links">
@@ -1133,10 +1153,10 @@
         <li><a href="#refer">Who we work with</a></li>
         <li><a href="#capability">Capabilities</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Make a referral</a></li>
+        <li><a href="#refer">Request Support</a></li>
+        <li><a href="#contact">Contact us</a></li>
       </ul>
     </nav>
-    <a href="#contact" class="nav-cta">Contact us</a>
     <button class="nav-hamburger" id="hamburger" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -1152,19 +1172,19 @@
     <li><a href="#refer">Who we work with</a></li>
     <li><a href="#capability">Capabilities</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact">Make a referral</a></li>
+    <li><a href="#refer">Request Support</a></li>
+    <li><a href="#contact">Contact us</a></li>
   </ul>
-  <a href="#contact" class="btn btn-navy menu-cta">Contact us</a>
 </nav>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="hero-inner reveal in">
-    <h1>Specialist behaviour support for high-risk and complex situations.</h1>
-    <p class="sub">Evidence-informed strategies, practical guidance, and hands-on support that help children, adults, families, and support teams navigate real-life challenges, not reports that sit unread on a shelf.</p>
+    <h1>Specialist behaviour support for children, <br>teenagers and adults from everyday <br>challenges to complex situations.</h1>
+    <p class="sub">Behaviour support, regulation, and carer coaching for Child Safety, Youth Justice, and out-of-home care across the Sunshine Coast. Trauma-informed, evidence-based, and built for the realities of statutory work.</p>
     <div class="ctas">
       <a href="#contact" class="btn btn-cream">Contact us</a>
-      <a href="#refer" class="btn btn-outline-cream">Make a referral</a>
+      <a href="#refer" class="btn btn-outline-cream">Request support</a>
     </div>
   </div>
 </section>
@@ -1174,7 +1194,7 @@
 <!-- ============ WHY ============ -->
 <section class="why" id="why">
   <div class="why-inner">
-    <h2 class="reveal">Why work with The Guidance Co?</h2>
+    <h2 class="reveal">Why work with us</h2>
     <div class="why-grid reveal">
       <div class="why-card">
         <div class="icon"><i data-lucide="network" aria-hidden="true"></i></div>
@@ -1213,7 +1233,6 @@
   <div class="audiences-inner">
     <header class="section-head reveal">
       <h2>Who we work with</h2>
-      <p>The practice supports families, schools, care teams, and individuals. Find yourself below — and see how we can help.</p>
     </header>
 
     <div class="audiences-table reveal">
@@ -1318,23 +1337,14 @@
 <!-- ============ MAKE A REFERRAL (cream) ============ -->
 <section class="refer-founder">
   <div class="refer" id="refer">
-    <h2 class="reveal">Make a referral</h2>
+    <h2 class="reveal">Request support</h2>
     <div class="refer-grid reveal">
 
       <a href="#contact" class="refer-card">
-        <span class="icon-l"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+        <span class="icon-l"><i data-lucide="compass" aria-hidden="true"></i></span>
         <div class="text">
-          <span class="label">Child Safety</span>
-          <p class="body">Behaviour support, functional assessments, and practical strategies to help children, families, and care teams navigate complex situations with confidence.</p>
-        </div>
-        <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
-      </a>
-
-      <a href="#contact" class="refer-card">
-        <span class="icon-l"><i data-lucide="scale" aria-hidden="true"></i></span>
-        <div class="text">
-          <span class="label">Youth Justice</span>
-          <p class="body">Behaviour support and intervention strategies tailored to young people with complex needs, including collaboration with families, carers, and multidisciplinary teams.</p>
+          <span class="label">Behaviour Support and Intervention</span>
+          <p class="body">Functional assessments, behaviour support plans, and practical intervention strategies for children, teenagers, and adults — including collaboration with families, carers, and multidisciplinary teams.</p>
         </div>
         <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
       </a>
@@ -1342,7 +1352,7 @@
       <a href="#contact" class="refer-card">
         <span class="icon-l"><i data-lucide="heart-handshake" aria-hidden="true"></i></span>
         <div class="text">
-          <span class="label">Carers and support teams</span>
+          <span class="label">Carers and Support Teams</span>
           <p class="body">Practical coaching, in-placement guidance, and collaborative support for foster carers, kinship carers, residential care staff, and other professionals working directly with the individual.</p>
         </div>
         <span class="chev"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
@@ -1369,26 +1379,16 @@
       </div>
       <div class="help-card">
         <div class="help-card-top">
-          <h3>Referrals</h3>
-          <p>Best for referrals with attachments, brokerage and panel questions, or anything you'd like in writing.</p>
+          <h3>Get in touch</h3>
+          <p>Best for referrals, enquiries, partnerships, or anything you'd like in writing — we'll come back within one business day.</p>
         </div>
         <div class="help-card-bottom">
-          <p class="value"><a href="mailto:referrals@guidanceco.com.au">referrals@guidanceco.com.au</a></p>
-          <span class="meta">Response within one business day</span>
-        </div>
-      </div>
-      <div class="help-card">
-        <div class="help-card-top">
-          <h3>General enquiries</h3>
-          <p>Best for anything that isn't a referral — partnerships, training, capability questions, or just saying hello.</p>
-        </div>
-        <div class="help-card-bottom">
-          <p class="value"><a href="mailto:hello@guidanceco.com.au">hello@guidanceco.com.au</a></p>
+          <p class="value"><a href="mailto:hello@theguidanceco.com">hello@theguidanceco.com</a></p>
           <span class="meta">Response within one business day</span>
         </div>
       </div>
     </div>
-    <p class="help-feedback">Have feedback or a complaint? <a href="mailto:hello@guidanceco.com.au">Get in touch with the practice</a> — or, if you'd prefer, <a href="https://www.ndiscommission.gov.au/about/complaints" target="_blank" rel="noopener">contact the NDIS Quality and Safeguards Commission</a>.</p>
+    <p class="help-feedback">Have feedback or a complaint? <a href="mailto:hello@theguidanceco.com">Get in touch with the practice</a> — or, if you'd prefer, <a href="https://www.ndiscommission.gov.au/about/complaints" target="_blank" rel="noopener">contact the NDIS Quality and Safeguards Commission</a>.</p>
   </div>
 </section>
 
@@ -1455,15 +1455,14 @@
         <li><a href="#refer">Who we work with</a></li>
         <li><a href="#capability">Capabilities</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Make a referral</a></li>
+        <li><a href="#contact">Request support</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
         <li><a href="tel:+61414516167">0414 516 167</a></li>
-        <li><a href="mailto:referrals@guidanceco.com.au">referrals@guidanceco.com.au</a></li>
-        <li><a href="mailto:hello@guidanceco.com.au">hello@guidanceco.com.au</a></li>
+        <li><a href="mailto:hello@theguidanceco.com">hello@theguidanceco.com</a></li>
         <li>Sunshine Coast, QLD</li>
       </ul>
     </div>
@@ -1514,6 +1513,7 @@
     if (!btn || !menu) return;
     function setOpen(open) {
       document.body.classList.toggle('menu-open', open);
+      document.documentElement.classList.toggle('menu-open', open);
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       menu.setAttribute('aria-hidden', open ? 'false' : 'true');
