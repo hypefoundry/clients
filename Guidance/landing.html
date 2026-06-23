@@ -1234,6 +1234,9 @@
       .refer h2 { max-width: 1320px; }
       .founder blockquote { max-width: 1680px; }
 
+      /* Cap the hero band so the headline doesn't float on tall viewports */
+      .top-block { min-height: min(100vh, 980px); }
+
       /* Top chrome */
       .topbar .phone { font-size: 18px; line-height: 48px; }
       .topbar .phone img { width: 20px; height: 20px; }
@@ -1332,6 +1335,9 @@
       .cap-founder { max-width: 2200px; }
       .refer h2 { max-width: 1620px; }
       .founder blockquote { max-width: 2100px; }
+
+      /* Cap the hero band so the headline doesn't float on 4K/ultrawide */
+      .top-block { min-height: min(100vh, 1080px); }
 
       /* Top chrome — make it feel substantial */
       .topbar-inner { padding: 0 56px 0 64px; }
