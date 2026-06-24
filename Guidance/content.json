@@ -1,0 +1,114 @@
+{
+  "topbar": {
+    "phone": "0414 516 167"
+  },
+  "nav": {
+    "link1": "Health",
+    "link2": "Services",
+    "link3": "Who we work with",
+    "link4": "Resources",
+    "link5": "Make a referral",
+    "ctaContact": "Contact us"
+  },
+  "hero": {
+    "headline": "Specialist behaviour support for children, teenagers and adults from everyday challenges to complex situations.",
+    "sub": "Behaviour support, regulation, and carer coaching for Child Safety, Youth Justice, and out-of-home care across the Sunshine Coast. Trauma-informed, evidence-based, and built for the realities of statutory work.",
+    "ctaPrimary": "Contact us",
+    "ctaSecondary": "Request support"
+  },
+  "why": {
+    "title": "Why work with us",
+    "card1Title": "Complex care expertise",
+    "card1Body": "More than a decade supporting children, young people, and adults across Child Safety, Youth Justice, residential care, schools, and community settings.",
+    "card2Title": "In-placement delivery",
+    "card2Body": "We work where behaviours occur in placements, schools, and community settings, providing practical support alongside the people working with the individual every day.",
+    "card3Title": "Trauma-informed practice",
+    "card3Body": "Our approach is informed by an understanding of trauma, attachment, and lived experience, helping create strategies that are realistic, consistent, and sustainable.",
+    "card4Title": "Practical, not just paperwork",
+    "card4Body": "Our focus is on strategies that can be used in everyday situations. The goal is to provide support that leads to meaningful change, not reports that sit on a shelf."
+  },
+  "audiences": {
+    "title": "Who we work with",
+    "row1Label": "Parents and carers",
+    "row1Help": "Practical, in-the-moment strategies for the everyday challenges of raising or caring for a child whose behaviour feels hard to navigate.",
+    "row2Label": "Children and teenagers",
+    "row2Help": "Direct, age-appropriate support for young people learning to regulate big feelings, navigate change, and build skills that hold up at home and school.",
+    "row3Label": "Adults",
+    "row3Help": "Behaviour support shaped around your goals and routines — focused on what makes daily life work, not what's written in a manual.",
+    "row4Label": "Schools and educators",
+    "row4Help": "Consultation, planning, and in-classroom strategies for students whose behaviour is making the school day harder than it needs to be.",
+    "row5Label": "Support workers and care teams",
+    "row5Help": "Coaching, supervision, and shared planning so the team around a young person can hold the work — not just file it.",
+    "row6Label": "NDIS participants",
+    "row6Help": "Specialist behaviour support delivered under your NDIS plan, with reports and reviews that meet plan-manager and Quality and Safeguards Commission requirements."
+  },
+  "services": {
+    "title": "Practical, hands-on services",
+    "card1Title": "Behaviour Support",
+    "card1Body": "Functional Behaviour Assessments, Behaviour Support Plans, and practical strategies tailored to the individual's needs.",
+    "card2Title": "One-to-One Support",
+    "card2Body": "Individualised support and intervention strategies that build skills, confidence, and positive outcomes.",
+    "card3Title": "Parent and Carer Coaching",
+    "card3Body": "Practical guidance to help families and carers respond consistently and confidently to challenging behaviours.",
+    "card4Title": "Support for Adults",
+    "card4Body": "Behaviour support and capacity-building strategies that promote independence and participation in everyday life.",
+    "card5Title": "School Support",
+    "card5Body": "Collaboration with teachers and support staff to develop consistent approaches across educational settings.",
+    "card6Title": "Consultation and Guidance",
+    "card6Body": "Support for individuals, families, or professionals who need expert advice or are unsure where to begin."
+  },
+  "founder": {
+    "kicker": "A message from the Founder",
+    "quote": "I started The Guidance Co. to do the work properly, supporting the young people the system finds hardest to hold and the families, carers, and professionals working alongside them.",
+    "attribution": "Sherri, Principal practitioner",
+    "credentials": "NDIS-registered behaviour support"
+  },
+  "capabilityCard": {
+    "label": "Capability statement",
+    "title": "Service profile, accreditations, and operating framework.",
+    "body": "A concise overview of The Guidance Co, including services, registrations, operating model, and key information for referrals and procurement.",
+    "buttonLabel": "Download PDF"
+  },
+  "refer": {
+    "title": "Request support",
+    "card1Label": "Behaviour Support and Intervention",
+    "card1Body": "Functional assessments, behaviour support plans, and practical intervention strategies for children, teenagers, and adults — including collaboration with families, carers, and multidisciplinary teams.",
+    "card2Label": "Carers and Support Teams",
+    "card2Body": "Practical coaching, in-placement guidance, and collaborative support for foster carers, kinship carers, residential care staff, and other professionals working directly with the individual."
+  },
+  "help": {
+    "title": "We're here to help",
+    "card1Title": "Call us",
+    "card1Body": "Best for urgent enquiries, fast scoping conversations, or talking through a referral with a real person.",
+    "card1Value": "0414 516 167",
+    "card1Meta": "Mon – Fri · 9am – 5pm AEST",
+    "card2Title": "Get in touch",
+    "card2Body": "Best for referrals, enquiries, partnerships, or anything you'd like in writing — we'll come back within one business day.",
+    "card2Value": "hello@theguidanceco.com",
+    "card2Meta": "Response within one business day"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "q1Question": "Are you NDIS registered and aligned to the PBS Capability Framework?",
+    "q1Answer": "Yes. We're an NDIS-registered behaviour support provider operating under the PBS Capability Framework, with current Working with Children Check and Blue Card credentials.",
+    "q2Question": "Do you accept Child Safety and Youth Justice brokerage?",
+    "q2Answer": "Yes. We invoice CSO and YJ brokerage directly, alongside NDIS plan-managed and self-managed funding. We can also work on direct-billed engagements outside the NDIS where required.",
+    "q3Question": "How do you work with residential care and kinship placements?",
+    "q3Answer": "In the placement. We coach the team carrying the young person — residential workers, kinship and foster carers — and stay long enough for the regulation and behaviour strategies to land in practice, not just on paper.",
+    "q4Question": "What ages and order types do you work with?",
+    "q4Answer": "Children and young people 4–18 on Child Protection Orders, Youth Justice orders, and at the edge of statutory involvement. We work across short-term, long-term, kinship, foster, and residential placement types.",
+    "q5Question": "What's your turnaround on assessments and reports?",
+    "q5Answer": "Most functional behaviour assessments turn around inside 4–6 weeks from referral. Court and review reports are scoped to deadline at the scoping conversation — we don't take work we can't deliver on time.",
+    "q6Question": "Do you provide reports for court, case plans, and reviews?",
+    "q6Answer": "Yes. We provide functional behaviour reports, PBS plans, restrictive-practice reviews, and supporting documentation for case planning, ongoing reviews, and Children's Court matters where appropriate.",
+    "q7Question": "Do you offer secondary consultation between formal sessions?",
+    "q7Answer": "Yes — and it's often the most useful part of an engagement. Teams can call between sessions for a 15-minute consult on what's coming up. It's built into the engagement scope, not billed separately."
+  },
+  "accreditations": {
+    "title": "Working under and registered with"
+  },
+  "footer": {
+    "copyright": "© 2026 The Guidance Co. — Sunshine Coast, Queensland",
+    "credentials": "NDIS Provider · Blue Card · Privacy · Terms"
+  }
+}

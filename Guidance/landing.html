@@ -1952,6 +1952,158 @@
       });
     });
   })();
+
+  // ============ CMS HYDRATION ============
+  // Loads content.json and applies the editable copy to the page.
+  // Defaults baked into the HTML survive if the fetch fails so the
+  // page never breaks. Sherri edits content.json via Pages CMS.
+  (function () {
+    fetch('content.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (c) { if (c) hydrate(c); })
+      .catch(function () { /* keep defaults */ });
+
+    function get(obj, path) {
+      return path.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, obj);
+    }
+
+    // Set the first non-empty text node in the element (preserves
+    // sibling icons/spans). Falls back to textContent if no text node.
+    function setText(el, value) {
+      if (!el || value == null) return;
+      var nodes = el.childNodes;
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].nodeType === Node.TEXT_NODE && nodes[i].textContent.trim()) {
+          nodes[i].textContent = value;
+          return;
+        }
+      }
+      el.textContent = value;
+    }
+
+    function each(selector, fn) {
+      var els = document.querySelectorAll(selector);
+      for (var i = 0; i < els.length; i++) fn(els[i], i);
+    }
+
+    function hydrate(c) {
+      // Topbar phone — text + linked href
+      each('.topbar .phone', function (el) {
+        var v = get(c, 'topbar.phone');
+        if (v) {
+          // Replace the trailing text node (after the icon)
+          var nodes = el.childNodes;
+          for (var i = nodes.length - 1; i >= 0; i--) {
+            if (nodes[i].nodeType === Node.TEXT_NODE) {
+              nodes[i].textContent = ' ' + v;
+              break;
+            }
+          }
+          el.setAttribute('href', 'tel:' + v.replace(/\s+/g, ''));
+        }
+      });
+
+      // Nav links
+      var navTargets = ['nav.link1', 'nav.link2', 'nav.link3', 'nav.link4', 'nav.link5'];
+      each('.nav-links a', function (el, i) { setText(el, get(c, navTargets[i])); });
+      each('.mobile-menu ul li a', function (el, i) {
+        if (i < 5) setText(el, get(c, navTargets[i]));
+        else if (i === 5) setText(el, get(c, 'nav.ctaContact'));
+      });
+      each('.nav-cta .btn', function (el) { setText(el, get(c, 'nav.ctaContact')); });
+
+      // Hero
+      setText(document.querySelector('.hero h1'), get(c, 'hero.headline'));
+      setText(document.querySelector('.hero .sub'), get(c, 'hero.sub'));
+      setText(document.querySelector('.hero .ctas .btn-cream'), get(c, 'hero.ctaPrimary'));
+      setText(document.querySelector('.hero .ctas .btn-outline-cream'), get(c, 'hero.ctaSecondary'));
+
+      // Why
+      setText(document.querySelector('.why h2'), get(c, 'why.title'));
+      each('.why-card', function (card, i) {
+        var n = i + 1;
+        setText(card.querySelector('h3'), get(c, 'why.card' + n + 'Title'));
+        setText(card.querySelector('p'), get(c, 'why.card' + n + 'Body'));
+      });
+
+      // Audiences
+      setText(document.querySelector('.audiences .section-head h2'), get(c, 'audiences.title'));
+      each('.audiences-row', function (row, i) {
+        var n = i + 1;
+        setText(row.querySelector('.col-aud'), get(c, 'audiences.row' + n + 'Label'));
+        setText(row.querySelector('.col-help'), get(c, 'audiences.row' + n + 'Help'));
+      });
+
+      // Services
+      setText(document.querySelector('.cap-services h2'), get(c, 'services.title'));
+      each('.cap-service-card', function (card, i) {
+        var n = i + 1;
+        setText(card.querySelector('h3'), get(c, 'services.card' + n + 'Title'));
+        setText(card.querySelector('p'), get(c, 'services.card' + n + 'Body'));
+      });
+
+      // Founder
+      setText(document.querySelector('.founder .kicker'), get(c, 'founder.kicker'));
+      var fq = document.querySelector('.founder blockquote');
+      if (fq && get(c, 'founder.quote')) fq.textContent = '“' + get(c, 'founder.quote') + '”';
+      var fa = document.querySelector('.founder .attrib');
+      if (fa && get(c, 'founder.attribution')) {
+        fa.innerHTML = '<strong></strong> · <span></span>';
+        fa.querySelector('strong').textContent = get(c, 'founder.attribution');
+        fa.querySelector('span').textContent = get(c, 'founder.credentials') || '';
+      }
+
+      // Capability card
+      setText(document.querySelector('.cap-text .label'), get(c, 'capabilityCard.label'));
+      setText(document.querySelector('.cap-text h2'), get(c, 'capabilityCard.title'));
+      setText(document.querySelector('.cap-text p'), get(c, 'capabilityCard.body'));
+      setText(document.querySelector('.cap-text .btn'), get(c, 'capabilityCard.buttonLabel'));
+
+      // Refer
+      setText(document.querySelector('.refer h2'), get(c, 'refer.title'));
+      each('.refer-card', function (card, i) {
+        var n = i + 1;
+        setText(card.querySelector('.label'), get(c, 'refer.card' + n + 'Label'));
+        setText(card.querySelector('.body'), get(c, 'refer.card' + n + 'Body'));
+      });
+
+      // Help
+      setText(document.querySelector('.help h2'), get(c, 'help.title'));
+      each('.help-card', function (card, i) {
+        var n = i + 1;
+        setText(card.querySelector('h3'), get(c, 'help.card' + n + 'Title'));
+        setText(card.querySelector('.help-card-top p'), get(c, 'help.card' + n + 'Body'));
+        var valueLink = card.querySelector('.value a');
+        var newValue = get(c, 'help.card' + n + 'Value');
+        if (valueLink && newValue) {
+          valueLink.textContent = newValue;
+          // Auto-update href so the tel:/mailto: link stays correct
+          if (valueLink.getAttribute('href').indexOf('tel:') === 0) {
+            valueLink.setAttribute('href', 'tel:' + newValue.replace(/\s+/g, ''));
+          } else if (valueLink.getAttribute('href').indexOf('mailto:') === 0) {
+            valueLink.setAttribute('href', 'mailto:' + newValue);
+          }
+        }
+        setText(card.querySelector('.meta'), get(c, 'help.card' + n + 'Meta'));
+      });
+
+      // FAQ
+      setText(document.querySelector('.faq h2'), get(c, 'faq.title'));
+      each('.faq-list li', function (li, i) {
+        var n = i + 1;
+        setText(li.querySelector('.q'), get(c, 'faq.q' + n + 'Question'));
+        setText(li.querySelector('.a'), get(c, 'faq.q' + n + 'Answer'));
+      });
+
+      // Accreditations
+      setText(document.querySelector('.accred .title'), get(c, 'accreditations.title'));
+
+      // Footer
+      var footerSpans = document.querySelectorAll('.footer-bottom span');
+      if (footerSpans[0]) setText(footerSpans[0], get(c, 'footer.copyright'));
+      if (footerSpans[1]) setText(footerSpans[1], get(c, 'footer.credentials'));
+    }
+  })();
 </script>
 
 </body>

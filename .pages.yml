@@ -1,0 +1,186 @@
+# Pages CMS configuration — Hype Foundry / Clients
+# https://pagescms.org/docs/configuration/
+#
+# IMPORTANT: This schema is intentionally LOCKED.
+# - No list/array fields (Sherri cannot add/remove rows or cards)
+# - No image/file/upload fields (assets are controlled by the design team)
+# - All visible text has a maxlength guardrail so a paste-bombing accident
+#   can't break the layout.
+# - URL/structural elements (links, accreditation logos, etc.) are NOT exposed.
+
+content:
+  - name: guidance_landing
+    label: "The Guidance Co. — Landing page"
+    type: file
+    path: Guidance/content.json
+    format: json
+    fields:
+
+      # ---------- Contact strip (top of page) ----------
+      - name: topbar
+        label: "Top bar (contact strip)"
+        type: object
+        fields:
+          - { name: phone, label: "Phone number (displayed + dial link)", type: string, options: { maxlength: 24 } }
+
+      # ---------- Main navigation ----------
+      - name: nav
+        label: "Main navigation"
+        type: object
+        fields:
+          - { name: link1, label: "Nav link 1", type: string, options: { maxlength: 30 } }
+          - { name: link2, label: "Nav link 2", type: string, options: { maxlength: 30 } }
+          - { name: link3, label: "Nav link 3", type: string, options: { maxlength: 30 } }
+          - { name: link4, label: "Nav link 4", type: string, options: { maxlength: 30 } }
+          - { name: link5, label: "Nav link 5", type: string, options: { maxlength: 30 } }
+          - { name: ctaContact, label: "Contact button label", type: string, options: { maxlength: 24 } }
+
+      # ---------- Hero ----------
+      - name: hero
+        label: "Hero (top of page)"
+        type: object
+        fields:
+          - { name: headline, label: "Headline", type: text, options: { maxlength: 220 } }
+          - { name: sub, label: "Sub copy", type: text, options: { maxlength: 400 } }
+          - { name: ctaPrimary, label: "Primary button label", type: string, options: { maxlength: 24 } }
+          - { name: ctaSecondary, label: "Secondary button label", type: string, options: { maxlength: 24 } }
+
+      # ---------- Why work with us ----------
+      - name: why
+        label: "Why work with us (4 cards)"
+        type: object
+        fields:
+          - { name: title, label: "Section heading", type: string, options: { maxlength: 60 } }
+          - { name: card1Title, label: "Card 1 — title", type: string, options: { maxlength: 60 } }
+          - { name: card1Body, label: "Card 1 — body", type: text, options: { maxlength: 280 } }
+          - { name: card2Title, label: "Card 2 — title", type: string, options: { maxlength: 60 } }
+          - { name: card2Body, label: "Card 2 — body", type: text, options: { maxlength: 280 } }
+          - { name: card3Title, label: "Card 3 — title", type: string, options: { maxlength: 60 } }
+          - { name: card3Body, label: "Card 3 — body", type: text, options: { maxlength: 280 } }
+          - { name: card4Title, label: "Card 4 — title", type: string, options: { maxlength: 60 } }
+          - { name: card4Body, label: "Card 4 — body", type: text, options: { maxlength: 280 } }
+
+      # ---------- Who we work with ----------
+      - name: audiences
+        label: "Who we work with (6 rows)"
+        type: object
+        fields:
+          - { name: title, label: "Section heading", type: string, options: { maxlength: 60 } }
+          - { name: row1Label, label: "Row 1 — audience", type: string, options: { maxlength: 60 } }
+          - { name: row1Help, label: "Row 1 — how we can help", type: text, options: { maxlength: 280 } }
+          - { name: row2Label, label: "Row 2 — audience", type: string, options: { maxlength: 60 } }
+          - { name: row2Help, label: "Row 2 — how we can help", type: text, options: { maxlength: 280 } }
+          - { name: row3Label, label: "Row 3 — audience", type: string, options: { maxlength: 60 } }
+          - { name: row3Help, label: "Row 3 — how we can help", type: text, options: { maxlength: 280 } }
+          - { name: row4Label, label: "Row 4 — audience", type: string, options: { maxlength: 60 } }
+          - { name: row4Help, label: "Row 4 — how we can help", type: text, options: { maxlength: 280 } }
+          - { name: row5Label, label: "Row 5 — audience", type: string, options: { maxlength: 60 } }
+          - { name: row5Help, label: "Row 5 — how we can help", type: text, options: { maxlength: 280 } }
+          - { name: row6Label, label: "Row 6 — audience", type: string, options: { maxlength: 60 } }
+          - { name: row6Help, label: "Row 6 — how we can help", type: text, options: { maxlength: 280 } }
+
+      # ---------- Services ----------
+      - name: services
+        label: "Services (6 cards)"
+        type: object
+        fields:
+          - { name: title, label: "Section heading", type: string, options: { maxlength: 60 } }
+          - { name: card1Title, label: "Service 1 — title", type: string, options: { maxlength: 48 } }
+          - { name: card1Body, label: "Service 1 — body", type: text, options: { maxlength: 220 } }
+          - { name: card2Title, label: "Service 2 — title", type: string, options: { maxlength: 48 } }
+          - { name: card2Body, label: "Service 2 — body", type: text, options: { maxlength: 220 } }
+          - { name: card3Title, label: "Service 3 — title", type: string, options: { maxlength: 48 } }
+          - { name: card3Body, label: "Service 3 — body", type: text, options: { maxlength: 220 } }
+          - { name: card4Title, label: "Service 4 — title", type: string, options: { maxlength: 48 } }
+          - { name: card4Body, label: "Service 4 — body", type: text, options: { maxlength: 220 } }
+          - { name: card5Title, label: "Service 5 — title", type: string, options: { maxlength: 48 } }
+          - { name: card5Body, label: "Service 5 — body", type: text, options: { maxlength: 220 } }
+          - { name: card6Title, label: "Service 6 — title", type: string, options: { maxlength: 48 } }
+          - { name: card6Body, label: "Service 6 — body", type: text, options: { maxlength: 220 } }
+
+      # ---------- Founder message ----------
+      - name: founder
+        label: "Founder message"
+        type: object
+        fields:
+          - { name: kicker, label: "Kicker (label above quote)", type: string, options: { maxlength: 50 } }
+          - { name: quote, label: "Quote (do not include quote marks — they're added automatically)", type: text, options: { maxlength: 400 } }
+          - { name: attribution, label: "Attribution (name + role)", type: string, options: { maxlength: 80 } }
+          - { name: credentials, label: "Credentials (after the dot)", type: string, options: { maxlength: 80 } }
+
+      # ---------- Capability statement card ----------
+      - name: capabilityCard
+        label: "Capability statement card"
+        type: object
+        fields:
+          - { name: label, label: "Eyebrow label", type: string, options: { maxlength: 40 } }
+          - { name: title, label: "Card heading", type: text, options: { maxlength: 80 } }
+          - { name: body, label: "Body", type: text, options: { maxlength: 280 } }
+          - { name: buttonLabel, label: "Button label", type: string, options: { maxlength: 30 } }
+
+      # ---------- Request support / Refer ----------
+      - name: refer
+        label: "Request support (2 cards)"
+        type: object
+        fields:
+          - { name: title, label: "Section heading", type: string, options: { maxlength: 60 } }
+          - { name: card1Label, label: "Card 1 — title", type: string, options: { maxlength: 60 } }
+          - { name: card1Body, label: "Card 1 — body", type: text, options: { maxlength: 280 } }
+          - { name: card2Label, label: "Card 2 — title", type: string, options: { maxlength: 60 } }
+          - { name: card2Body, label: "Card 2 — body", type: text, options: { maxlength: 280 } }
+
+      # ---------- We're here to help ----------
+      - name: help
+        label: "We're here to help (2 cards)"
+        type: object
+        fields:
+          - { name: title, label: "Section heading", type: string, options: { maxlength: 60 } }
+          - { name: card1Title, label: "Card 1 — title", type: string, options: { maxlength: 30 } }
+          - { name: card1Body, label: "Card 1 — body", type: text, options: { maxlength: 220 } }
+          - { name: card1Value, label: "Card 1 — value (phone)", type: string, options: { maxlength: 30 } }
+          - { name: card1Meta, label: "Card 1 — meta (hours)", type: string, options: { maxlength: 60 } }
+          - { name: card2Title, label: "Card 2 — title", type: string, options: { maxlength: 30 } }
+          - { name: card2Body, label: "Card 2 — body", type: text, options: { maxlength: 220 } }
+          - { name: card2Value, label: "Card 2 — value (email)", type: string, options: { maxlength: 60 } }
+          - { name: card2Meta, label: "Card 2 — meta (response time)", type: string, options: { maxlength: 60 } }
+
+      # ---------- FAQ ----------
+      - name: faq
+        label: "FAQ (7 questions)"
+        type: object
+        fields:
+          - { name: title, label: "Section heading", type: string, options: { maxlength: 60 } }
+          - { name: q1Question, label: "Q1 — question", type: text, options: { maxlength: 180 } }
+          - { name: q1Answer, label: "Q1 — answer", type: text, options: { maxlength: 600 } }
+          - { name: q2Question, label: "Q2 — question", type: text, options: { maxlength: 180 } }
+          - { name: q2Answer, label: "Q2 — answer", type: text, options: { maxlength: 600 } }
+          - { name: q3Question, label: "Q3 — question", type: text, options: { maxlength: 180 } }
+          - { name: q3Answer, label: "Q3 — answer", type: text, options: { maxlength: 600 } }
+          - { name: q4Question, label: "Q4 — question", type: text, options: { maxlength: 180 } }
+          - { name: q4Answer, label: "Q4 — answer", type: text, options: { maxlength: 600 } }
+          - { name: q5Question, label: "Q5 — question", type: text, options: { maxlength: 180 } }
+          - { name: q5Answer, label: "Q5 — answer", type: text, options: { maxlength: 600 } }
+          - { name: q6Question, label: "Q6 — question", type: text, options: { maxlength: 180 } }
+          - { name: q6Answer, label: "Q6 — answer", type: text, options: { maxlength: 600 } }
+          - { name: q7Question, label: "Q7 — question", type: text, options: { maxlength: 180 } }
+          - { name: q7Answer, label: "Q7 — answer", type: text, options: { maxlength: 600 } }
+
+      # ---------- Accreditations ----------
+      - name: accreditations
+        label: "Accreditations (heading only)"
+        type: object
+        fields:
+          - { name: title, label: "Heading above the logo row", type: string, options: { maxlength: 60 } }
+
+      # ---------- Footer ----------
+      - name: footer
+        label: "Footer"
+        type: object
+        fields:
+          - { name: copyright, label: "Copyright line", type: string, options: { maxlength: 80 } }
+          - { name: credentials, label: "Credentials line", type: string, options: { maxlength: 80 } }
+
+media:
+  # Sherri cannot upload or change images via the CMS.
+  # The design team owns the assets folder.
+  input: false
