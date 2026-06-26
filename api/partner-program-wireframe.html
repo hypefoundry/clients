@@ -3,1128 +3,591 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Partner Program · The specialist in new property | Active Property Investing</title>
-<meta name="description" content="API Partner Program. Specialist consultancy in new property for twelve years. Refer with confidence. Host an exclusive client session with Emma or Chris. After the May 2026 federal budget, the client relationship remains firmly in your hands.">
+<title>Wireframe · Partner Campaign Landing Page | Active Property Investing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@300,301,400,401,500,501,600,601,700&display=swap">
-<link rel="icon" type="image/png" href="website-v1/hf-favicon.png">
-<link rel="stylesheet" href="website-v1/_styles.css">
-<script src="website-v1/_scripts.js" defer></script>
-<style>
-  /* Campaign-only minimal additions — no main nav distractions, plus a handful of helpers
-     for sections that don't have a perfect existing component. Everything else uses the
-     wireframes-v2 component system. */
-
-  /* Hero · override the .hero-internal-bg > .section-inner padding rule that
-     would otherwise add 72px top / 96px bottom (more specific than .section-inner.hero
-     so we need to match its specificity). Lets .hero-content sit flush within the
-     90vh-min hero section with the trust-strip pinned to the bottom. */
-  .hero-internal-bg > .section-inner.hero {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  /* Reform comparison · two-card split */
-  .reform-grid {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: clamp(24px, 3vw, 40px);
-    align-items: stretch;
-  }
-  .reform-summary {
-    padding: clamp(32px, 4vw, 48px);
-    background: var(--warm-white-soft);
-    border-radius: 4px;
-  }
-  .reform-summary .label {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ink-mute); display: block; margin-bottom: 18px;
-  }
-  .reform-summary p {
-    font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0;
-  }
-  .reform-summary strong { color: var(--ink); font-weight: 500; }
-  .reform-compare { display: grid; grid-template-rows: 1fr 1fr; gap: 16px; }
-  .reform-card {
-    padding: 28px;
-    border-radius: 4px;
-    background: #fff;
-    border: 1px solid var(--hairline);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .reform-card.is-restricted {
-    background: var(--warm-white-soft);
-  }
-  .reform-card.is-eligible {
-    background: var(--ink); color: #fff; border-color: var(--ink);
-  }
-  .reform-card .tag {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    display: inline-flex; align-items: center; gap: 8px;
-    color: var(--ink-mute);
-  }
-  .reform-card.is-eligible .tag { color: rgba(255,255,255,0.6); }
-  .reform-card .tag::before {
-    content: ""; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--ink-mute);
-  }
-  .reform-card.is-restricted .tag::before { background: #C4564A; }
-  .reform-card.is-eligible .tag::before { background: var(--tiffany-500); }
-  .reform-card .title {
-    font-family: inherit; font-weight: 500; font-size: 20px;
-    line-height: 1.25; letter-spacing: -0.015em; margin: 0;
-  }
-  .reform-card.is-eligible .title { color: #fff; }
-  .reform-card .meta {
-    font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin: 0;
-  }
-  .reform-card.is-eligible .meta { color: rgba(255,255,255,0.82); }
-
-  /* Reform timeline · single-row 4-step */
-  .reform-timeline {
-    margin-top: clamp(40px, 4vw, 56px);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    background: #fff;
-    border: 1px solid var(--hairline);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .reform-timeline .tl-item {
-    padding: 28px;
-    border-right: 1px solid var(--hairline);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .reform-timeline .tl-item:last-child { border-right: none; }
-  .reform-timeline .tl-date {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--tiffany-700, #55A4A5); font-weight: 600;
-  }
-  .reform-timeline .tl-event {
-    font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin: 0;
-  }
-  .reform-timeline .tl-event strong { color: var(--ink); font-weight: 500; }
-  .reform-sources {
-    margin-top: 16px; font-size: 12px; color: var(--ink-mute);
-    line-height: 1.6;
-  }
-  @media (max-width: 900px) {
-    .reform-grid { grid-template-columns: 1fr; }
-    .reform-timeline { grid-template-columns: 1fr; }
-    .reform-timeline .tl-item {
-      border-right: none;
-      border-bottom: 1px solid var(--hairline);
-    }
-    .reform-timeline .tl-item:last-child { border-bottom: none; }
-  }
-
-  /* Thinking section · 5 selection questions */
-  .thinking-grid {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: clamp(32px, 4vw, 56px);
-    align-items: stretch;
-  }
-  .thinking-copy {
-    display: flex; flex-direction: column; gap: 18px;
-  }
-  .thinking-copy .lede {
-    font-size: clamp(22px, 2.2vw, 26px);
-    line-height: 1.35; letter-spacing: -0.01em;
-    color: var(--ink); margin: 0; font-weight: 500;
-  }
-  .thinking-copy .body {
-    font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0;
-  }
-  .thinking-copy .closer {
-    font-size: 13px; color: var(--ink-mute);
-    padding-top: 16px; margin-top: auto;
-    border-top: 1px dashed var(--hairline);
-    line-height: 1.6;
-  }
-  .questions-panel {
-    background: var(--ink); color: #fff;
-    padding: clamp(32px, 4vw, 44px);
-    border-radius: 4px;
-  }
-  .questions-panel .label {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--tiffany-500); display: block; margin-bottom: 22px;
-  }
-  .questions-panel ol {
-    list-style: none; counter-reset: q;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column; gap: 14px;
-  }
-  .questions-panel li {
-    counter-increment: q;
-    display: grid; grid-template-columns: 36px 1fr; gap: 14px;
-    align-items: start;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .questions-panel li:last-child { border-bottom: none; padding-bottom: 0; }
-  .questions-panel li::before {
-    content: "0" counter(q);
-    font-size: 14px; color: var(--tiffany-500);
-    letter-spacing: 0.05em; font-weight: 500;
-  }
-  .questions-panel li span {
-    font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.88);
-  }
-  @media (max-width: 900px) {
-    .thinking-grid { grid-template-columns: 1fr; }
-  }
-
-  /* Credibility section · stacked content below the feature-video component */
-  .credibility-body {
-    display: grid; grid-template-columns: 1.2fr 1fr;
-    gap: clamp(32px, 4vw, 56px); align-items: start;
-  }
-  .credibility-body .heading {
-    font-family: inherit; font-weight: 400;
-    font-size: clamp(28px, 3vw, 36px); line-height: 1.18;
-    letter-spacing: -0.025em; color: var(--ink); margin: 0 0 20px;
-  }
-  .credibility-body .body-text {
-    font-size: 17px; line-height: 1.65; color: var(--ink-soft); margin: 0;
-  }
-  .credibility-stats {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-  }
-  .credibility-stats .stat {
-    padding: 22px;
-    background: var(--warm-white-soft);
-    border-radius: 4px;
-  }
-  .credibility-stats .stat .v {
-    font-size: 22px; line-height: 1.2;
-    letter-spacing: -0.015em; color: var(--ink);
-    font-weight: 500; margin: 0 0 4px;
-  }
-  .credibility-stats .stat .k {
-    font-size: 12px; color: var(--ink-mute);
-    line-height: 1.5; margin: 0;
-  }
-  .credibility-markets {
-    margin-top: 16px;
-    padding: 16px 20px;
-    background: var(--warm-white-soft);
-    border-radius: 4px;
-    font-size: 13px; line-height: 1.55;
-    color: var(--ink-soft);
-  }
-  .credibility-markets strong {
-    color: var(--ink); font-weight: 500;
-    display: block; margin-bottom: 4px;
-    font-size: 11px; letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-  @media (max-width: 900px) {
-    .credibility-body { grid-template-columns: 1fr; }
-  }
-
-  /* Partner program · 3-service grid using belief-card pattern, plus the dashed placeholder */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, 2vw, 28px);
-  }
-  .service-card {
-    background: #fff;
-    border: 1px solid var(--hairline);
-    padding: clamp(28px, 3vw, 36px);
-    border-radius: 4px;
-    display: flex; flex-direction: column; gap: 16px;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-  .service-card:hover {
-    border-color: var(--ink); transform: translateY(-2px);
-  }
-  .service-card .marker {
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-mute);
-  }
-  .service-card .heading {
-    font-family: inherit; font-weight: 400;
-    font-size: 22px; line-height: 1.25;
-    letter-spacing: -0.015em; color: var(--ink); margin: 0;
-  }
-  .service-card .heading .accent { color: var(--tiffany-500); font-weight: 400; }
-  .service-card .body {
-    font-size: 15px; line-height: 1.6;
-    color: var(--ink-soft); margin: 0;
-  }
-  .service-card .link {
-    font-size: 13px; color: var(--ink);
-    text-decoration: none; border-bottom: 1px solid var(--ink);
-    align-self: flex-start; padding-bottom: 1px; margin-top: auto;
-  }
-  @media (max-width: 900px) {
-    .services-grid { grid-template-columns: 1fr; }
-  }
-
-  /* Featured offer · the speaking deep-dive */
-  .offer-top {
-    display: grid; grid-template-columns: 1.2fr 1fr;
-    gap: clamp(32px, 4vw, 56px); align-items: start;
-    margin-bottom: clamp(32px, 4vw, 48px);
-  }
-  .offer-copy .h2 { margin-bottom: 18px; }
-  .offer-copy .lede {
-    font-size: 17px; line-height: 1.65;
-    color: var(--ink-soft); margin: 0;
-  }
-  .offer-included {
-    background: var(--warm-white-soft);
-    padding: clamp(28px, 3vw, 36px);
-    border-radius: 4px;
-  }
-  .offer-included .label {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ink-mute); display: block; margin-bottom: 18px;
-  }
-  .offer-included ul {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .offer-included li {
-    font-size: 14px; line-height: 1.55;
-    color: var(--ink-soft);
-    padding-left: 22px; position: relative;
-  }
-  .offer-included li::before {
-    content: ""; position: absolute; left: 0; top: 9px;
-    width: 12px; height: 1px; background: var(--tiffany-500);
-  }
-  .offer-included .availability {
-    margin-top: 18px; padding-top: 18px;
-    border-top: 1px solid var(--hairline);
-    font-size: 12px; line-height: 1.6;
-    color: var(--ink-mute);
-  }
-
-  /* Slots strip */
-  .slots-strip {
-    display: grid; grid-template-columns: repeat(6, 1fr);
-    gap: 10px; margin-bottom: clamp(32px, 4vw, 48px);
-  }
-  .slot {
-    background: #fff;
-    border: 1px solid var(--hairline);
-    border-radius: 4px;
-    padding: 18px 14px; text-align: center;
-    display: flex; flex-direction: column; gap: 6px;
-  }
-  .slot.is-booked { opacity: 0.6; }
-  .slot.is-available { border-color: var(--tiffany-500); }
-  .slot.is-limited { border-color: #E0A23A; background: #FFF8EC; }
-  .slot .month {
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-mute); font-weight: 600;
-  }
-  .slot .format {
-    font-size: 13px; color: var(--ink); margin: 0;
-  }
-  .slot .status {
-    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
-    font-weight: 600; margin: 0;
-  }
-  .slot.is-booked .status { color: #C4564A; }
-  .slot.is-available .status { color: var(--tiffany-700, #55A4A5); }
-  .slot.is-limited .status { color: #B27A1F; }
-  @media (max-width: 900px) {
-    .offer-top { grid-template-columns: 1fr; }
-    .slots-strip { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  /* Format A / B squares */
-  .formats-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: clamp(20px, 2vw, 28px);
-    margin-bottom: clamp(32px, 4vw, 48px);
-  }
-  .format-card {
-    aspect-ratio: 1 / 1;
-    background: var(--warm-white-soft);
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    display: flex; flex-direction: column;
-  }
-  .format-card .format-copy {
-    padding: clamp(28px, 3vw, 36px);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .format-card .format-tag {
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--ink-mute);
-  }
-  .format-card .format-title {
-    font-family: inherit; font-weight: 500;
-    font-size: 22px; line-height: 1.2;
-    letter-spacing: -0.015em; color: var(--ink); margin: 0;
-  }
-  .format-card .format-meta {
-    font-size: 14px; line-height: 1.55;
-    color: var(--ink-soft); margin: 0;
-  }
-  .format-card .format-image {
-    flex: 1 1 auto;
-    background-image: linear-gradient(135deg, transparent 49%, #cdc8be 49%, #cdc8be 51%, transparent 51%);
-    background-size: 20px 20px;
-    background-color: #f0ece2;
-    border-top: 1px solid var(--hairline);
-    color: var(--ink-mute);
-    font-size: 12px; letter-spacing: 0.04em;
-    display: flex; align-items: flex-end; padding: 18px;
-    line-height: 1.5;
-  }
-  @media (max-width: 700px) {
-    .formats-grid { grid-template-columns: 1fr; }
-    .format-card { aspect-ratio: auto; min-height: 360px; }
-  }
-
-  /* Multi-intent form */
-  .form-grid {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-    gap: clamp(32px, 4vw, 64px); align-items: start;
-  }
-  .form-copy { display: flex; flex-direction: column; gap: 18px; padding-top: 12px; }
-  .form-copy .h2 { margin: 0; }
-  .form-copy .lede {
-    font-size: 17px; line-height: 1.65;
-    color: var(--ink-soft); margin: 0;
-    max-width: 440px;
-  }
-  .form-copy .meta {
-    font-size: 13px; color: var(--ink-mute);
-    line-height: 1.6;
-  }
-  .partner-form {
-    background: #fff;
-    border: 1px solid var(--hairline);
-    border-radius: 4px;
-    padding: clamp(32px, 3vw, 40px);
-    display: flex; flex-direction: column; gap: 18px;
-  }
-  .partner-form .field { display: flex; flex-direction: column; gap: 6px; }
-  .partner-form label {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    font-weight: 600; color: var(--ink-mute);
-  }
-  .partner-form input,
-  .partner-form select,
-  .partner-form textarea {
-    font-family: inherit; font-size: 14px;
-    padding: 12px 14px;
-    background: #fff;
-    border: 1px solid var(--neutral-300);
-    border-radius: 6px;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .partner-form input:focus, .partner-form select:focus, .partner-form textarea:focus {
-    border-color: var(--tiffany-500);
-    box-shadow: 0 0 0 3px rgba(138, 202, 203, 0.12);
-  }
-  .partner-form .field-row {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-  }
-  .partner-form .intent-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
-  }
-  .partner-form .intent-card {
-    border: 1px solid var(--neutral-300); padding: 14px;
-    border-radius: 6px; cursor: pointer;
-    display: flex; flex-direction: column; gap: 4px;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-  .partner-form .intent-card:hover { border-color: var(--ink); }
-  .partner-form .intent-card input { display: none; }
-  .partner-form .intent-card .title {
-    font-size: 14px; font-weight: 500; color: var(--ink);
-  }
-  .partner-form .intent-card .desc {
-    font-size: 12px; color: var(--ink-mute);
-  }
-  .partner-form .submit-row {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px; margin-top: 8px;
-  }
-  .partner-form .submit-note { font-size: 12px; color: var(--ink-mute); }
-  @media (max-width: 900px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .partner-form .field-row { grid-template-columns: 1fr; }
-    .partner-form .intent-row { grid-template-columns: 1fr; }
-  }
-
-  /* Next webinar · split */
-  .webinar-split {
-    display: grid; grid-template-columns: 1fr 1.1fr;
-    gap: clamp(32px, 4vw, 64px); align-items: center;
-  }
-  .webinar-split .media {
-    aspect-ratio: 5 / 4;
-    background: var(--warm-white-soft);
-    background-image: linear-gradient(135deg, transparent 49%, #cdc8be 49%, #cdc8be 51%, transparent 51%);
-    background-size: 24px 24px;
-    border-radius: 4px;
-    position: relative;
-  }
-  .webinar-split .copy { display: flex; flex-direction: column; gap: 18px; }
-  .webinar-split .meta-row {
-    display: flex; gap: 18px;
-    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-mute);
-  }
-  .webinar-split .meta-row span + span {
-    padding-left: 18px; border-left: 1px solid var(--hairline);
-  }
-  @media (max-width: 900px) {
-    .webinar-split { grid-template-columns: 1fr; }
-  }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@400;500;600&display=swap">
+<link rel="icon" type="image/png" href="hf-favicon.png">
+<link rel="stylesheet" href="_styles.css">
+<script src="_scripts.js" defer></script>
 </head>
 <body>
 
-<!-- ============ ANNOUNCEMENT STRIP ============ -->
-<announcement-strip></announcement-strip>
+<div class="page-shell">
 
-<!-- ============ CAMPAIGN HEADER (minimal) ============ -->
-<header class="nav">
-  <div class="nav-inner">
-    <a href="home.html" class="nav-logo" aria-label="Active Property Investing"><img src="website-v1/images/api-logo.svg" alt="Active Property Investing"></a>
-    <ul>
-      <li><a href="home.html" class="link" style="font-size: 14px; color: var(--ink-soft);">Main site</a></li>
-      <li><a href="#refer" class="cta cta-primary">Refer a client <svg class="cta-chev" width="6" height="10" viewBox="0 0 6 10" aria-hidden="true"><path d="M1 1L5 5L1 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-    </ul>
-  </div>
-</header>
-
-<!-- ============ 01 · HERO ============ -->
-<section class="section hero-internal-bg">
-  <div class="section-inner hero">
-    <div class="hero-content" style="text-align: center;">
-      <span class="eyebrow-tag fade-up"><span class="dot"></span><span class="label-primary">API Partner Program</span></span>
-      <h1 class="h1 fade-up delay-1" style="max-width: none;">Your specialist partner<br>in <span class="accent">new property</span>.</h1>
-      <p class="sub fade-up delay-2" style="margin: 24px auto 0; max-width: 620px;">For twelve years, API has worked alongside referral partners, providing the strategy, research and support behind every opportunity, complementing the relationship you've already built with your clients.</p>
-      <div class="hero-rating fade-up delay-2">
-        <img src="website-v1/images/api-stars-yellow.svg" alt="5 out of 5 based on 150+ Google reviews">
-      </div>
-      <div class="ctas fade-up delay-3" style="justify-content: center;">
-        <a href="#refer" class="cta cta-primary">Refer a client <svg class="cta-chev" width="6" height="10" viewBox="0 0 6 10" aria-hidden="true"><path d="M1 1L5 5L1 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="#services" class="cta cta-secondary">See the partner program</a>
-      </div>
+  <!-- ============ NAV ============ -->
+  <div class="ann-cell left"></div>
+  <header class="wf nav first">
+    <div class="wf-inner">
+      <a href="home.html" class="nav-logo">Active Property Investing</a>
+      <ul>
+        <li><a href="home.html" class="link">Main site</a></li>
+        <li><a href="#refer" class="cta cta-primary">Refer a client</a></li>
+      </ul>
     </div>
-    <div class="trust-strip">
-      <div class="trust-tile">
-        <div class="trust-tile-inner">
-          <span class="icon-box" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-              <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-          </span>
+  </header>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 01 · HERO ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">01 · HERO</span>
+      <div class="ann-body">The first thing partners see.<br>· Repositioning headline<br>· 4-tile context strip</div>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner hero-inner">
+      <div class="col" style="max-width: 760px; margin: 0 auto; text-align: center; align-items: center; gap: 20px; padding: 64px 0;">
+        <p class="ph">API Partner Program</p>
+        <p class="h1 ph" style="margin-top: 4px;">Your specialist partner in <strong>new property</strong>.</p>
+        <p class="ph">For twelve years, API has worked alongside referral partners, providing the research and strategy behind every opportunity. The client relationship remains firmly in your hands.</p>
+        <div class="ctas" style="flex-wrap: nowrap; justify-content: center; margin-top: 8px;">
+          <a href="#refer" class="cta cta-primary">Refer a client</a>
+          <a href="#services" class="cta cta-secondary">See the partner program</a>
+        </div>
+      </div>
+      <div class="trust-strip">
+        <div class="trust-tile">
           <span class="lbl">Specialism</span>
           <p class="val">New property</p>
         </div>
-      </div>
-      <div class="trust-tile">
-        <div class="trust-tile-inner">
-          <span class="icon-box" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-          </span>
+        <div class="trust-tile">
           <span class="lbl">Experience</span>
           <p class="val">12 years</p>
         </div>
-      </div>
-      <div class="trust-tile">
-        <div class="trust-tile-inner">
-          <span class="icon-box" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
-              <line x1="8" y1="2" x2="8" y2="18"/>
-              <line x1="16" y1="6" x2="16" y2="22"/>
-            </svg>
-          </span>
+        <div class="trust-tile">
           <span class="lbl">Research</span>
           <p class="val">10 Australian markets</p>
         </div>
-      </div>
-      <div class="trust-tile">
-        <div class="trust-tile-inner">
-          <span class="icon-box" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <polyline points="9 12 11 14 15 10"/>
-            </svg>
-          </span>
+        <div class="trust-tile">
           <span class="lbl">Client relationship</span>
           <p class="val">Remains yours</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <div class="ann-cell right"></div>
 
-<!-- ============ 02 · WHY PARTNERS CHOOSE API ============ -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-heading in-view">
-      <h2 class="h2">Why partners choose <span class="accent">API</span>.</h2>
-      <p class="sub">Every opportunity begins with strategy, is shaped through research, and is surfaced only when it earns its place.</p>
+  <!-- ============ 02 · WHY SPECIALIST MATTERS ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">Why specialist matters.</p>
+      <div class="grid-3">
+        <div class="box tall">
+          <span class="lbl">Principle 01 · specialism</span>
+          <p class="h3 ph">Specialists in new property.</p>
+          <p class="ph" style="margin-top: 10px;">Twelve years focused on one category. Every process and research decision has been refined around it.</p>
+        </div>
+        <div class="box tall">
+          <span class="lbl">Principle 02 · research</span>
+          <p class="h3 ph">Research before selection.</p>
+          <p class="ph" style="margin-top: 10px;">Every opportunity is assessed against market fundamentals, supply, tenant demand, and long-term competitiveness before it reaches the client.</p>
+        </div>
+        <div class="box tall">
+          <span class="lbl">Principle 03 · strategy</span>
+          <p class="h3 ph">Strategy before property.</p>
+          <p class="ph" style="margin-top: 10px;">Every engagement begins with the client's objectives and investment brief. Research narrows the field before a property is ever surfaced.</p>
+        </div>
+      </div>
     </div>
-    <div class="belief-grid in-view">
-      <div class="belief-card">
-        <span class="belief-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4.5L5.5 20l2-7L2 9h7z"/>
-          </svg>
-        </span>
-        <p class="body-text"><span class="highlight">Specialists in new property.</span> Twelve years focused on new property. Every process, methodology and research decision has been refined around that focus.</p>
-      </div>
-      <div class="belief-card">
-        <span class="belief-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12h18M3 6h18M3 18h18"/>
-          </svg>
-        </span>
-        <p class="body-text"><span class="highlight">Research before selection.</span> Every opportunity is assessed against market fundamentals, supply, tenant demand and long-term competitiveness before it is ever surfaced.</p>
-      </div>
-      <div class="belief-card">
-        <span class="belief-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/><path d="M12 5v14"/><circle cx="12" cy="12" r="10"/>
-          </svg>
-        </span>
-        <p class="body-text"><span class="highlight">Strategy before property.</span> Every engagement begins with the client's objectives and investment brief. Research narrows the field until an opportunity earns its place.</p>
-      </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">02 · WHY SPECIALIST MATTERS</span>
+      <div class="ann-body">Answers the question: why API not someone else? Three API principles that answer this question.</div>
     </div>
   </div>
-</section>
 
-<!-- ============ 03 · THE REFORM ============ -->
-<section class="section soft-bg" id="reform">
-  <div class="section-inner">
-    <div class="section-heading in-view">
-      <span class="eyebrow-tag" style="margin-bottom: 14px;"><span class="label-primary">The reform</span><span class="label-secondary">  ·  What partners need to know</span></span>
-      <h2 class="h2">What changed on <span class="accent">12 May 2026</span>.</h2>
-      <p class="sub">A short, factual brief partners can pass to clients. The detail is settled; the strategy advice is where you and we come in.</p>
-    </div>
+  <!-- ============ 03 · THE REFORM ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf" id="shift">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">What changed on 12 May 2026.</p>
 
-    <div class="reform-grid in-view" style="margin-top: clamp(40px, 4vw, 64px);">
-      <aside class="reform-summary">
-        <span class="label">Summary</span>
-        <p>From <strong>7:30pm on 12 May 2026</strong>, negative gearing on newly purchased established residential property is restricted to residential property income only. The change was effective immediately. From <strong>1 July 2027</strong>, the 50% CGT discount is being replaced. New builds remain fully eligible for negative gearing, including off-the-plan apartments, knock-down rebuilds that add a dwelling, new construction on vacant land, and properties occupied under twelve months before first sale. Anyone already in the market before the 7:30pm cut-off on 12 May is grandfathered.</p>
-      </aside>
-      <div class="reform-compare">
-        <article class="reform-card is-restricted">
-          <span class="tag">Now restricted</span>
-          <p class="title">Established residential property</p>
-          <p class="meta">Bought after 7:30pm on 12 May 2026. Rental losses quarantined immediately. No deduction against wages or other income.</p>
-        </article>
-        <article class="reform-card is-eligible">
-          <span class="tag">Still fully eligible</span>
-          <p class="title">New property (new build)</p>
-          <p class="meta">Off-the-plan, KDR with net dwelling increase, vacant land builds, properties occupied under twelve months. Negative gearing unchanged.</p>
-        </article>
+      <div class="row" style="align-items: stretch;">
+        <div class="col" style="flex: 1;">
+          <p class="h3" style="margin-bottom: 14px;">3a · Factual brief</p>
+          <div class="box xl" style="height: 100%;">
+            <span class="lbl">Summary · what changed in one paragraph</span>
+            <p class="ph" style="margin-top: 8px;">From 7:30pm on 12 May 2026, negative gearing on newly purchased established residential property is restricted to residential property income only. The change was effective immediately. From 1 July 2027, the 50% CGT discount is being replaced. New builds remain fully eligible for negative gearing, including off-the-plan apartments, knock-down rebuilds that add a dwelling, new construction on vacant land, and properties occupied under twelve months before first sale. Anyone already in the market before the 7:30pm cut-off on 12 May is grandfathered.</p>
+          </div>
+        </div>
+        <div class="col" style="flex: 1;">
+          <p class="h3" style="margin-bottom: 14px;">3b · Restricted vs eligible</p>
+          <div class="box tall">
+            <span class="lbl">Card A · now restricted</span>
+            <p class="h3 ph">Established residential property.</p>
+            <p class="ph small" style="margin-top: 8px;">Bought after 7:30pm on 12 May 2026. Rental losses quarantined immediately. No deduction against wages or other income.</p>
+          </div>
+          <div class="box tall">
+            <span class="lbl">Card B · still fully eligible</span>
+            <p class="h3 ph">New property (new build).</p>
+            <p class="ph small" style="margin-top: 8px;">Off-the-plan, KDR with net dwelling increase, vacant land builds, properties occupied under twelve months. Negative gearing unchanged.</p>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="reform-timeline in-view">
-      <div class="tl-item">
-        <span class="tl-date">12 May 2026, 7:30pm</span>
-        <p class="tl-event"><strong>Negative gearing changes</strong> take effect immediately for newly purchased established residential. Grandfathering line drawn at the same moment.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-date">Now</span>
-        <p class="tl-event">Clients deciding whether to buy <strong>established or new</strong> are weighing the reform directly.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-date">1 July 2027</span>
-        <p class="tl-event"><strong>The 50% CGT discount</strong> is scheduled to be replaced. Legislation still progressing through parliament.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-date">Ongoing</span>
-        <p class="tl-event"><strong>New builds remain</strong> the tax-efficient residential pathway under the new rules.</p>
+      <div class="divider dashed"></div>
+
+      <p class="h3" style="margin-bottom: 14px;">3c · Key dates timeline</p>
+      <div class="box dashed">
+        <span class="lbl">Timeline panel · 4 rows</span>
+        <p class="ph"><strong>12 May 2026, 7:30pm</strong> · Negative gearing changes take effect immediately for newly purchased established residential. Grandfathering line drawn at the same moment.</p>
+        <p class="ph"><strong>Now</strong> · Clients deciding whether to buy established or new are weighing the reform directly.</p>
+        <p class="ph"><strong>1 July 2027</strong> · The 50% CGT discount is scheduled to be replaced. Legislation still progressing through parliament.</p>
+        <p class="ph"><strong>Ongoing</strong> · New builds remain the tax-efficient residential pathway under the new rules.</p>
+        <p class="ph small" style="margin-top: 10px;">Sources: Australian Taxation Office, Federal Budget 2026 to 2027, Treasury fact sheets. CGT changes are still being legislated; we will keep this page current as the bill progresses.</p>
       </div>
     </div>
-    <p class="reform-sources">Sources: Australian Taxation Office, Federal Budget 2026 to 2027, Treasury fact sheets. CGT changes are still being legislated; we will keep this page current as the bill progresses.</p>
-  </div>
-</section>
-
-<!-- ============ 04 · THINKING (selection methodology) ============ -->
-<section class="section">
-  <div class="section-inner">
-    <div class="section-heading in-view">
-      <h2 class="h2">Not all new property is <span class="accent">created equal</span>.</h2>
-    </div>
-    <div class="thinking-grid in-view" style="margin-top: clamp(40px, 4vw, 64px);">
-      <div class="thinking-copy">
-        <p class="lede">The reform makes new property the tax-efficient path. Selection still decides the outcome.</p>
-        <p class="body">Rising values used to mask weak selection. That cover is gone. Location, demographics, infrastructure, employment base, supply pipeline, tenant demand, and resale appeal often matter more than the dwelling itself. Selection begins long before a contract is signed.</p>
-        <p class="closer">Research, not speculation. Methodology developed across twelve years and ten Australian markets.</p>
-      </div>
-      <aside class="questions-panel">
-        <span class="label">Five questions we work through</span>
-        <ol>
-          <li><span>Is population growth supporting long-term demand?</span></li>
-          <li><span>Is new supply being carefully managed, or oversupplied?</span></li>
-          <li><span>What industries are driving local employment?</span></li>
-          <li><span>Who is the likely tenant profile?</span></li>
-          <li><span>Will owner-occupiers want to buy this property in ten years?</span></li>
-        </ol>
-      </aside>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">03 · THE REFORM</span>
+      <div class="ann-body">Context block that talks about the facts around Negative Gearing and Capital Gains Tax Reform and key dates.</div>
     </div>
   </div>
-</section>
 
-<!-- ============ 05 · EMMA PULL-QUOTE ============ -->
-<section class="section">
-  <div class="section-inner tight">
-    <div class="mission-quote in-view">
-      <p class="mission-text">&ldquo;Successful property selection begins long before a contract is signed.&rdquo;</p>
-      <div class="mission-attribution">
-        <div class="mission-avatar" style="background-image: url('website-v1/images/api-founder.jpg');" aria-hidden="true"></div>
-        <div class="mission-credit">
-          <span class="mission-name">Emma Allen</span>
-          <span class="mission-role">Founder, Active Property Investing</span>
+  <!-- ============ 04 · THINKING ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">Not all new property is created equal.</p>
+
+      <div class="row" style="align-items: stretch;">
+        <div class="col" style="flex: 3;">
+          <p class="h3" style="margin-bottom: 14px;">4a · Intro</p>
+          <div class="box auto-h">
+            <span class="lbl">Title</span>
+            <p class="h3 ph">The reform makes new property the tax-efficient path. Selection still decides the outcome.</p>
+          </div>
+          <div class="box tall">
+            <span class="lbl">Supporting paragraph</span>
+            <p class="ph">Rising values used to mask weak selection. That cover is gone. Location, demographics, infrastructure, employment base, supply pipeline, tenant demand, and resale appeal often matter more than the dwelling itself. Selection begins long before a contract is signed.</p>
+          </div>
+          <div class="box dashed">
+            <span class="lbl">Methodology footer line</span>
+            <p class="ph small">Research, not speculation. Methodology developed across twelve years and ten Australian markets.</p>
+          </div>
+        </div>
+        <div class="col" style="flex: 2;">
+          <p class="h3" style="margin-bottom: 14px;">4b · 5 selection questions</p>
+          <div class="box short"><span class="lbl">Q1</span><p class="ph small">Is population growth supporting long-term demand?</p></div>
+          <div class="box short"><span class="lbl">Q2</span><p class="ph small">Is new supply being carefully managed, or oversupplied?</p></div>
+          <div class="box short"><span class="lbl">Q3</span><p class="ph small">What industries are driving local employment?</p></div>
+          <div class="box short"><span class="lbl">Q4</span><p class="ph small">Who is the likely tenant profile?</p></div>
+          <div class="box short"><span class="lbl">Q5</span><p class="ph small">Will owner-occupiers want to buy this property in ten years?</p></div>
         </div>
       </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">04 · THINKING</span>
+      <div class="ann-body">Demo's API's thinking. Selection criteria question examples. Used to separate a specialist consultancy from a firm that simply recommends new property,</div>
     </div>
   </div>
-</section>
 
-<!-- ============ 06 · CREDIBILITY (founder video + body) ============ -->
-<feature-video
-  image="website-v1/images/api-video-thumb.jpg"
-  attribution="Emma Allen · Founder"
-  duration="60-90s"
-  label="Play founder message to the partner network">
-  <span data-quote>Twelve years.<br><span class="accent">One specialism</span>.</span>
-</feature-video>
+  <!-- ============ 05 · EMMA PULL-QUOTE ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="box xl auto-h" style="text-align: center;">
+        <span class="lbl">Editorial pull-quote · Emma to the partner network</span>
+        <p class="h2 ph" style="margin-top: 10px;">"Successful property selection begins long before a contract is signed."</p>
+        <p class="ph small" style="margin-top: 10px;">Emma Allen · Founder, Active Property Investing</p>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
 
-<section class="section">
-  <div class="section-inner">
-    <div class="credibility-body in-view">
-      <div>
-        <h2 class="heading">Twelve years specialising in <span class="accent">new property</span>.</h2>
-        <p class="body-text">Active Property Investing was founded by Emma Allen to specialise in new property. Not a category added when the rules changed. Twelve years of research, selection, settlement, and post-settlement support for clients buying new builds across Australia. For referral partners, that means a property consultancy your clients can rely on, and a partner you can.</p>
+  <!-- ============ 06 · CREDIBILITY ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="video" style="min-height: 420px; margin-bottom: 24px;"><div class="play"></div></div>
+
+      <div class="box">
+        <span class="lbl">H2</span>
+        <p class="h2 ph">Twelve years specialising in new property.</p>
       </div>
-      <div>
-        <div class="credibility-stats">
-          <div class="stat">
-            <p class="v">12 years</p>
-            <p class="k">specialising in new property</p>
-          </div>
-          <div class="stat">
-            <p class="v">Female-founded</p>
-            <p class="k">by Emma Allen</p>
-          </div>
-          <div class="stat">
-            <p class="v">10 markets</p>
-            <p class="k">researched continuously</p>
-          </div>
-          <div class="stat">
-            <p class="v">2026 ASBCA</p>
-            <p class="k">Finalist</p>
-          </div>
-        </div>
-        <div class="credibility-markets">
-          <strong>Coverage</strong>
-          Sydney · Newcastle · Central Coast · Brisbane · Toowoomba · Sunshine Coast · Capricorn Coast · Melbourne · Geelong · Adelaide.
-        </div>
+      <div class="box">
+        <span class="lbl">Body</span>
+        <p class="ph">Active Property Investing was founded by Emma Allen to specialise in new property. Not a category added when the rules changed. Twelve years of research, selection, settlement, and post-settlement support for clients buying new builds across Australia. For referral partners, that means a property consultancy your clients can rely on, and a partner you can.</p>
       </div>
+      <div class="grid-4" style="margin-top: 10px;">
+        <div class="box short"><span class="lbl">Stat 1</span><p class="ph small">12 years specialising in new property</p></div>
+        <div class="box short"><span class="lbl">Stat 2</span><p class="ph small">Female-founded by Emma Allen</p></div>
+        <div class="box short"><span class="lbl">Stat 3</span><p class="ph small">10 markets researched continuously</p></div>
+        <div class="box short"><span class="lbl">Stat 4</span><p class="ph small">2026 ASBCA Finalist</p></div>
+      </div>
+      <div class="box dashed" style="margin-top: 10px;">
+        <span class="lbl">Coverage markets line</span>
+        <p class="ph small">Sydney · Newcastle · Central Coast · Brisbane · Toowoomba · Sunshine Coast · Capricorn Coast · Melbourne · Geelong · Adelaide.</p>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">06 · CREDIBILITY</span>
+      <div class="ann-body">Short 60-90 sec video. Emma to camera with a short message to the partner network: post-budget context, what API specialises in, the speaking engagement offer, and the relationship-protection promise. Doubles as the social outreach kit's asset.</div>
     </div>
   </div>
-</section>
 
-<!-- ============ 07 · WHAT THE PARTNER RELATIONSHIP LOOKS LIKE ============ -->
-<section class="section soft-bg" id="services">
-  <div class="section-inner">
-    <div class="section-heading in-view">
-      <h2 class="h2">What the partner relationship <span class="accent">looks like</span>.</h2>
-      <p class="sub">By invitation, kept deliberately small. Built around your clients, and the trust you've spent years earning.</p>
-    </div>
-    <div class="services-grid in-view" style="margin-top: clamp(40px, 4vw, 64px);">
-      <article class="service-card">
-        <span class="marker">01</span>
-        <h3 class="heading">Exclusive education for <span class="accent">your clients</span>.</h3>
-        <p class="body">A 60-minute webinar or in-person session with Emma or Chris, created exclusively for your clients. Limited availability every six months.</p>
-        <a href="#book" class="link">See dates and book →</a>
-      </article>
-      <article class="service-card">
-        <span class="marker">02</span>
-        <h3 class="heading">Referrals that <span class="accent">protect your relationship</span>.</h3>
-        <p class="body">A predictable hand-off from introduction to settlement. You make the introduction, your client completes our intake assessment, and you receive updates at strategy, selection, and settlement.</p>
-        <a href="#how" class="link">See how it works →</a>
-      </article>
-      <article class="service-card">
-        <span class="marker">03</span>
-        <h3 class="heading"><span class="accent">Quarterly</span> partner lunches.</h3>
-        <p class="body">Small-table lunches in Sydney with the API team and a handful of partner firms. Held once a quarter, with capped numbers so the conversations stay valuable.</p>
-        <a href="#refer" class="link">Request an invitation →</a>
-      </article>
+  <!-- ============ 07 · PARTNER PROGRAM ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">07 · PARTNER PROGRAM</span>
+      <div class="ann-body">Proposed partner offerings.</div>
     </div>
   </div>
-</section>
+  <section class="wf" id="services">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">What you get as a partner, and what your clients get.</p>
 
-<!-- ============ 08 · FEATURED OFFER (speaking deep-dive) ============ -->
-<section class="section" id="book">
-  <div class="section-inner">
-    <div class="offer-top in-view">
-      <div class="offer-copy">
-        <h2 class="h2">Partner speaking sessions with Emma or Chris. <span class="accent">Limited dates this year</span>.</h2>
-        <p class="lede">The reform is the conversation your clients want to have. Pick a webinar slot for your list, or an in-person event in Sydney for your clients only. Emma or Chris walks the room through what changed, what new property still does, and how to weigh the next decision. Two formats. Limited slots. Your audience, not ours.</p>
-      </div>
-      <aside class="offer-included">
-        <span class="label">What is included</span>
-        <ul>
-          <li>A session led by Emma or Chris, shaped around your client base and the post-budget questions they are asking.</li>
-          <li>A short kick-off call to set the agenda and the audience.</li>
-          <li>Co-branded promotional assets you can send to your list.</li>
-          <li>A recording you can share afterwards (webinars).</li>
-          <li>A follow-up note to attendees with a clear next step.</li>
-        </ul>
-        <p class="availability">Availability is limited by Emma's and Chris's consulting commitments. First booked is first served. If your preferred month is already taken, we will offer the next available date.</p>
-      </aside>
-    </div>
-
-    <div style="margin-bottom: 14px;">
-      <p style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600;">Upcoming slots</p>
-    </div>
-    <div class="slots-strip in-view">
-      <div class="slot is-booked">
-        <span class="month">Jul 2026</span>
-        <p class="format">Webinar</p>
-        <p class="status">Booked</p>
-      </div>
-      <div class="slot is-booked">
-        <span class="month">Aug 2026</span>
-        <p class="format">In-person</p>
-        <p class="status">Booked</p>
-      </div>
-      <div class="slot is-available">
-        <span class="month">Sep 2026</span>
-        <p class="format">Either format</p>
-        <p class="status">Available</p>
-      </div>
-      <div class="slot is-available">
-        <span class="month">Oct 2026</span>
-        <p class="format">Either format</p>
-        <p class="status">Available</p>
-      </div>
-      <div class="slot is-limited">
-        <span class="month">Nov 2026</span>
-        <p class="format">Webinar</p>
-        <p class="status">1 left</p>
-      </div>
-      <div class="slot is-booked">
-        <span class="month">Dec 2026</span>
-        <p class="format">Either format</p>
-        <p class="status">Booked</p>
-      </div>
-    </div>
-
-    <div class="formats-grid in-view">
-      <article class="format-card">
-        <div class="format-copy">
-          <span class="format-tag">Format A · Live webinar</span>
-          <h3 class="format-title">Live webinar.</h3>
-          <p class="format-meta">A 60-minute live session for your clients, with a recording available to share afterwards.</p>
+      <div class="grid-3">
+        <div class="box tall anchor-link">
+          <span class="lbl">Service 01 · speaking engagement</span>
+          <p class="h3 ph">A session with Emma or Chris, exclusively for your clients.</p>
+          <p class="ph small" style="margin-top: 6px;">A 60-minute webinar to your list, or in person in Sydney. Limited slots over six months.</p>
+          <p class="small"><a class="link" href="#book">See dates and book →</a></p>
         </div>
-        <div class="format-image">Emma or Chris presenting at a webinar · screen-share or speaker view</div>
-      </article>
-      <article class="format-card">
-        <div class="format-copy">
-          <span class="format-tag">Format B · In person, Sydney</span>
-          <h3 class="format-title">In person, Sydney.</h3>
-          <p class="format-meta">A dedicated session for your clients in Sydney. You provide the venue. We shape the session and lead the conversation.</p>
+        <div class="box tall anchor-link">
+          <span class="lbl">Service 02 · referral framework</span>
+          <p class="h3 ph">Referrals that protect your relationship.</p>
+          <p class="ph small" style="margin-top: 6px;">A predictable hand-off. You send a warm intro, the client takes our intake assessment, and you get a brief at strategy, selection, and settlement.</p>
+          <p class="small"><a class="link" href="#how">See how it works →</a></p>
         </div>
-        <div class="format-image">Emma or Chris presenting at an intimate in-room event · candid audience shot</div>
-      </article>
-    </div>
+        <div class="box tall anchor-link">
+          <span class="lbl">Service 03 · partner lunches</span>
+          <p class="h3 ph">Quarterly partner lunches in Sydney, by invitation.</p>
+          <p class="ph small" style="margin-top: 6px;">A small-table lunch with the API team and other active partner firms, once a quarter. Capped seating, invitation only, so the room stays small enough to actually talk.</p>
+          <p class="small"><a class="link" href="#refer">Request an invitation →</a></p>
+        </div>
+      </div>
 
-    <div class="ctas" style="justify-content: center;">
-      <a href="#refer" class="cta cta-primary">Book a date <svg class="cta-chev" width="6" height="10" viewBox="0 0 6 10" aria-hidden="true"><path d="M1 1L5 5L1 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a href="#" class="cta cta-secondary">Download the one-pager</a>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 08 · FEATURED OFFER ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="row">
+        <div class="col" style="flex: 1.2;">
+          <div class="box">
+            <span class="lbl">H2</span>
+            <p class="h2 ph">Partner speaking sessions with Emma or Chris. Limited dates this year.</p>
+          </div>
+          <div class="box">
+            <span class="lbl">Lede</span>
+            <p class="ph">The reform is the conversation your clients want to have. Pick a webinar slot for your list, or an in-person event in Sydney for your clients only. Emma or Chris walks the room through what changed, what new property still does, and how to weigh the next decision. Two formats. Limited slots. Your audience, not ours.</p>
+          </div>
+        </div>
+        <div class="col" style="flex: 1;">
+          <div class="box tall">
+            <span class="lbl">What is included</span>
+            <p class="ph small" style="margin-top: 6px;">A session led by Emma or Chris, shaped around your client base and the post-budget questions they are asking.</p>
+            <p class="ph small">A short kick-off call to set the agenda and the audience.</p>
+            <p class="ph small">Co-branded promotional assets you can send to your list.</p>
+            <p class="ph small">A recording you can share afterwards (webinars).</p>
+            <p class="ph small">A follow-up note to attendees with a clear next step.</p>
+            <div class="divider dashed"></div>
+            <p class="ph small">Availability is limited by Emma's consulting commitments. First booked is first served. If your preferred month is already taken, we will offer the next available date.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="h3" style="margin-top: 24px; margin-bottom: 14px;">Upcoming slots</p>
+      <div class="grid-3" style="grid-template-columns: repeat(6, 1fr); gap: 10px;">
+        <div class="box short" style="text-align: center;">
+          <span class="lbl" style="justify-content: center;">Jul 2026</span>
+          <p class="ph small">Webinar</p>
+          <p class="ph small" style="color: #c44;">Booked</p>
+        </div>
+        <div class="box short" style="text-align: center;">
+          <span class="lbl" style="justify-content: center;">Aug 2026</span>
+          <p class="ph small">In-person</p>
+          <p class="ph small" style="color: #c44;">Booked</p>
+        </div>
+        <div class="box short" style="text-align: center;">
+          <span class="lbl" style="justify-content: center;">Sep 2026</span>
+          <p class="ph small">Webinar</p>
+          <p class="ph small" style="color: #4a7;">Available</p>
+        </div>
+        <div class="box short" style="text-align: center;">
+          <span class="lbl" style="justify-content: center;">Oct 2026</span>
+          <p class="ph small">Either format</p>
+          <p class="ph small" style="color: #4a7;">Available</p>
+        </div>
+        <div class="box short" style="text-align: center;">
+          <span class="lbl" style="justify-content: center;">Nov 2026</span>
+          <p class="ph small">Webinar</p>
+          <p class="ph small" style="color: #c80;">1 left</p>
+        </div>
+        <div class="box short" style="text-align: center;">
+          <span class="lbl" style="justify-content: center;">Dec 2026</span>
+          <p class="ph small">Either format</p>
+          <p class="ph small" style="color: #c44;">Booked</p>
+        </div>
+      </div>
+      <p class="ph small" style="margin-top: 10px; color: #999;">Availability per Emma: one session per month maximum. July, August and December already booked. September and October open for either format. November has one webinar slot available.</p>
+
+      <div class="row" style="margin-top: 24px;">
+        <div class="box" style="flex: 1; aspect-ratio: 1 / 1; display: flex; flex-direction: column; justify-content: flex-start; min-height: 0;">
+          <span class="lbl">Format A · live webinar</span>
+          <p class="h3 ph">Live webinar.</p>
+          <p class="ph small" style="margin-top: 8px;">A 60-minute session, delivered live, with a recording you can share afterwards.</p>
+          <div class="img" style="flex: 1 1 auto; margin-top: 14px; min-height: 0;">Image: Emma or Chris presenting at a webinar · screen-share or speaker view</div>
+        </div>
+        <div class="box" style="flex: 1; aspect-ratio: 1 / 1; display: flex; flex-direction: column; justify-content: flex-start; min-height: 0;">
+          <span class="lbl">Format B · in-person Sydney</span>
+          <p class="h3 ph">In-person, Sydney.</p>
+          <p class="ph small" style="margin-top: 8px;">A small-room session for your clients in Sydney. You provide the venue. We shape the session and lead the night.</p>
+          <div class="img" style="flex: 1 1 auto; margin-top: 14px; min-height: 0;">Image: Emma or Chris presenting at an intimate in-room event · candid audience shot</div>
+        </div>
+      </div>
+
+      <div class="ctas" style="margin-top: 28px; justify-content: center;">
+        <a href="#book" class="cta cta-primary">Book a date</a>
+        <a href="#" class="cta cta-secondary">Download the one-pager</a>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">08 · FEATURED OFFER</span>
+      <div class="ann-body">The speaking engagement deep-dive. Anchor target for in-page CTAs. Two formats, included list, availability.</div>
     </div>
   </div>
-</section>
 
-<!-- ============ 09 · MULTI-INTENT FORM ============ -->
-<section class="section soft-bg" id="refer">
-  <div class="section-inner">
-    <div class="form-grid in-view">
-      <div class="form-copy">
-        <h2 class="h2">Refer, book, <span class="accent">or join</span>.</h2>
-        <p class="lede">One short form. Three intents. Pick what you need. The request lands with the right person at API.</p>
-        <p class="meta">Prefer to talk first? Call <strong>1300 449 974</strong> or email <strong>partners@activepropertyinvesting.com</strong>.</p>
-      </div>
-      <form class="partner-form" onsubmit="event.preventDefault();">
-        <div class="field">
-          <label>What do you need?</label>
-          <div class="intent-row">
-            <label class="intent-card">
-              <input type="radio" name="intent" value="refer" checked>
-              <span class="title">Refer a client</span>
-              <span class="desc">Warm hand-off</span>
-            </label>
-            <label class="intent-card">
-              <input type="radio" name="intent" value="book">
-              <span class="title">Book a session</span>
-              <span class="desc">Webinar or in-person Sydney</span>
-            </label>
-            <label class="intent-card">
-              <input type="radio" name="intent" value="join">
-              <span class="title">Join the network</span>
-              <span class="desc">For new firms</span>
-            </label>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="firm">Your firm</label>
-            <input id="firm" type="text" placeholder="Firm name" required>
-          </div>
-          <div class="field">
-            <label for="role">Your role</label>
-            <select id="role" required>
-              <option value="">Select a role</option>
-              <option>Mortgage broker</option>
-              <option>Financial planner</option>
-              <option>Accountant</option>
-              <option>Quantity surveyor</option>
-              <option>Conveyancer / solicitor</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" type="text" placeholder="First and last name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="you@firm.com" required>
-          </div>
-        </div>
-        <div class="field">
-          <label for="context">A line of context (optional)</label>
-          <textarea id="context" rows="3" placeholder="Anything we should know? Client situation, preferred month for a session, audience size."></textarea>
-        </div>
-        <div class="submit-row">
-          <span class="submit-note">We will reply within a few working days.</span>
-          <button type="submit" class="cta cta-primary">Send the request</button>
-        </div>
-      </form>
+  <!-- ============ 09 · FORM ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">09 · MULTI-INTENT FORM</span>
+      <div class="ann-body">Refer / book / join intents. Each maps to a CTA: refer-a-client, book-a-speaking-engagement, and join the network for prospective partners arriving from the social outreach. Submission routes to the right Mailchimp segment.</div>
     </div>
   </div>
-</section>
-
-<!-- ============ 10 · NEXT WEBINAR ============ -->
-<section class="section">
-  <div class="section-inner">
-    <div class="webinar-split in-view">
-      <div class="media" aria-hidden="true"></div>
-      <div class="copy">
-        <div class="meta-row">
-          <span>Upcoming webinar</span>
-        </div>
-        <h2 class="h2">Not ready to host? <span class="accent">Join the next session</span>.</h2>
-        <p class="sub">See how Emma or Chris explains the post-budget changes and what they mean for new property. Bring a client along, or watch the replay afterwards. It's an opportunity to experience the session before deciding whether to host one for your own clients.</p>
-        <div class="ctas">
-          <a href="webinars.html" class="cta cta-primary">Register for the next webinar <svg class="cta-chev" width="6" height="10" viewBox="0 0 6 10" aria-hidden="true"><path d="M1 1L5 5L1 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a href="webinars.html" class="cta cta-secondary">See all upcoming sessions</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 11 · HOW IT WORKS ============ -->
-<section class="section tiffany-bg" id="how">
-  <div class="section-inner">
-    <div class="how-api-begins in-view">
-      <div class="intro-split">
-        <h2 class="heading">How a partner referral actually runs.</h2>
-        <p class="body-text"><span class="highlight">Warm intro, kept warm.</span> A short, predictable path from your email to the strategy session, with you kept in the loop the whole way.</p>
-      </div>
-      <div class="step-row">
-        <div class="step-card">
-          <div class="step-visual">
-            <span>Step 1 · Intro</span>
+  <section class="wf" id="refer">
+    <div class="wf-inner">
+      <div class="row">
+        <div class="col" style="flex: 1;">
+          <div class="box">
+            <span class="lbl">H2</span>
+            <p class="h2 ph">Refer, book, or join.</p>
           </div>
-          <div class="step-content">
-            <span class="step-num">Step 1</span>
-            <h4 class="h4">You send a warm intro.</h4>
-            <p class="body">A short note copying your client and the API team. Context on what stage they are at, what advice has been given, and what you are asking for.</p>
+          <div class="box">
+            <span class="lbl">Lede</span>
+            <p class="ph">One short form. Three intents. Pick what you need. The request lands with the right person at API.</p>
+          </div>
+          <div class="box dashed">
+            <span class="lbl">Direct contact line</span>
+            <p class="ph small">Prefer to talk first? Call 1300 449 974 or email partners@activepropertyinvesting.com.</p>
           </div>
         </div>
-        <div class="step-card">
-          <div class="step-visual">
-            <span>Step 2 · Assessment</span>
-          </div>
-          <div class="step-content">
-            <span class="step-num">Step 2</span>
-            <h4 class="h4">The client takes the assessment.</h4>
-            <p class="body">Our short intake routes the client to the right next step. A strategy session, the Active Investor Path, or a curated reading list. You get a summary either way.</p>
-          </div>
-        </div>
-        <div class="step-card">
-          <div class="step-visual">
-            <span>Step 3 · Loop</span>
-          </div>
-          <div class="step-content">
-            <span class="step-num">Step 3</span>
-            <h4 class="h4">You stay in the loop.</h4>
-            <p class="body">A brief once strategy is agreed. A brief once the property is selected. A brief at settlement. You see what is happening without having to chase.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 12 · PARTNER PROOF ============ -->
-<section class="section">
-  <div class="section-inner tight">
-    <div class="mission-quote in-view">
-      <p class="mission-text">&ldquo;The reason I keep sending clients to Emma is the qualification. She tells them what they need to hear, not what gets the deal closed. That protects my relationship as much as it serves the client.&rdquo;</p>
-      <div class="mission-attribution">
-        <div class="mission-avatar" aria-hidden="true"></div>
-        <div class="mission-credit">
-          <span class="mission-name">Partner name</span>
-          <span class="mission-role">Title, firm</span>
-        </div>
-      </div>
-    </div>
-    <p style="text-align: center; font-size: 12px; color: var(--ink-mute); margin-top: 24px;">Real partner quote to be sourced from the partner network.</p>
-  </div>
-</section>
-
-<!-- ============ 13 · FAQ ============ -->
-<section class="section" style="border-top: 1px solid var(--hairline);">
-  <div class="section-inner" style="padding-top: clamp(48px, 5vw, 80px); padding-bottom: clamp(48px, 5vw, 80px);">
-    <div class="intro-split in-view">
-      <h2 class="heading">Common questions from partners.</h2>
-      <p class="body-text">Reform-specific and program-specific answers in one place.</p>
-    </div>
-    <div class="faq-accordion in-view" style="margin-top: clamp(40px, 4vw, 64px);">
-      <details class="faq-item">
-        <summary>
-          <span class="faq-question">What counts as a "new build" under the reform?</span>
-          <span class="faq-indicator" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </summary>
-        <div class="faq-answer">
-          <p class="body-text">Eligible new builds include off-the-plan apartments, knock-down rebuilds that increase the dwelling count (for example, a duplex replacing a single house), residential construction on previously vacant land, and properties occupied less than twelve months before first sale. We will keep this page current as the regulations are finalised.</p>
-        </div>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <span class="faq-question">My client already owns established property. What changes for them?</span>
-          <span class="faq-indicator" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </summary>
-        <div class="faq-answer">
-          <p class="body-text">Nothing, for as long as they hold the asset. Established property owned before 7:30pm on 12 May 2026 (including properties under contract at that time) is grandfathered. Existing negative gearing arrangements continue under the current rules until sale.</p>
-        </div>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <span class="faq-question">How is a hosted session shaped for my client base?</span>
-          <span class="faq-indicator" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </summary>
-        <div class="faq-answer">
-          <p class="body-text">A short kick-off call before the session covers who is in the room, where they are at, and what you want them to walk away with. Emma or Chris builds the session from there. The default frame is the post-budget landscape and what new property does for clients deciding between established and new.</p>
-        </div>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <span class="faq-question">Is there a cost to me or to my clients?</span>
-          <span class="faq-indicator" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </summary>
-        <div class="faq-answer">
-          <p class="body-text">The session is offered to partners at no cost. In-person events sometimes involve venue or catering costs that the host partner covers. We walk through this on the kick-off call.</p>
-        </div>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <span class="faq-question">What happens to a referral who turns out not to be ready to engage?</span>
-          <span class="faq-indicator" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </summary>
-        <div class="faq-answer">
-          <p class="body-text">The client is enrolled in the Active Investor Path, a named education program with reading, webinars, and an open-door reassessment. You get a short note explaining the routing. Right-fit qualification protects your relationship at the point of intake.</p>
-        </div>
-      </details>
-      <details class="faq-item">
-        <summary>
-          <span class="faq-question">My firm is not on the partner network yet. Can I still refer or host?</span>
-          <span class="faq-indicator" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg></span>
-        </summary>
-        <div class="faq-answer">
-          <p class="body-text">Yes. Start with the form above. A short conversation first, then we move into the referral or the session from there.</p>
-        </div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 14 · FINAL CTA ============ -->
-<section class="section">
-  <div class="section-inner">
-    <div class="final-cta-card in-view">
-      <div class="copy">
-        <h2 class="h2">Three ways to take <span class="accent">the next step</span>.</h2>
-        <p class="sub">Existing partners: refer with confidence or book an exclusive session. New firm: request an introduction. Anyone: come along to the next open webinar.</p>
-        <div class="ctas">
-          <a href="#refer" class="cta cta-on-dark">Refer a client <svg class="cta-chev" width="6" height="10" viewBox="0 0 6 10" aria-hidden="true"><path d="M1 1L5 5L1 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a href="#book" class="cta cta-ghost-on-dark">Book a session</a>
-          <a href="webinars.html" class="cta cta-ghost-on-dark">Register for the webinar</a>
-        </div>
-      </div>
-      <div class="visual" aria-hidden="true">
-        <div class="device-frame">
-          <div class="device-bar">
-            <span class="device-dot"></span><span class="device-dot"></span><span class="device-dot"></span>
-          </div>
-          <div class="device-screen">
-            <span class="device-eyebrow">API Partner Program · Get in touch</span>
-            <p class="device-question">What do you need?</p>
-            <div class="device-options">
-              <span class="option is-active">
-                <span class="option-radio"><span class="option-radio-dot"></span></span>
-                Refer a client
-              </span>
-              <span class="option">Book a session for my clients</span>
-              <span class="option">Join the partner network</span>
+        <div class="col" style="flex: 1.3;" id="book">
+          <div class="box xl">
+            <span class="lbl">Form · partner request</span>
+            <div class="col" style="margin-top: 12px; gap: 8px;">
+              <div class="box short"><span class="lbl">Field 1 · what do you need? (radio · 3 options)</span><p class="ph small">○ Refer a client &nbsp; ○ Book a session for my clients &nbsp; ○ Join the partner network</p></div>
+              <div class="box short"><span class="lbl">Field 2 · your firm + role</span><p class="ph small">Firm name + role (broker, planner, accountant, QS, conveyancer, other)</p></div>
+              <div class="box short"><span class="lbl">Field 3 · your name + email</span><p class="ph small">First and last name + work email</p></div>
+              <div class="box short"><span class="lbl">Field 4 · a line of context (optional)</span><p class="ph small">Anything we should know? Client situation, preferred month for a session, topic interest, audience size.</p></div>
             </div>
-            <div class="device-progress"><span></span></div>
+            <div class="ctas" style="margin-top: 14px; justify-content: space-between;">
+              <span class="ph small">We will reply within a few working days.</span>
+              <a href="#" class="cta cta-primary">Send the request</a>
+            </div>
           </div>
-        </div>
-        <div class="result-card">
-          <span class="result-eyebrow">Suggested next step</span>
-          <p class="result-title">Send the request</p>
-          <span class="result-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
         </div>
       </div>
     </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 10 · NEXT WEBINAR ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="row">
+        <div class="img sm" style="flex: 0 0 280px;">Webinar promo image · next scheduled session title card</div>
+        <div class="col" style="flex: 1;">
+          <div class="box">
+            <span class="lbl">Meta strip</span>
+            <p class="ph small">Open to all partners  ·  Live webinar  ·  Replay available</p>
+          </div>
+          <div class="box">
+            <span class="lbl">H2</span>
+            <p class="h2 ph">Not ready to host? Come to the next one.</p>
+          </div>
+          <div class="box">
+            <span class="lbl">Sub</span>
+            <p class="ph">A standing webinar walking partners and their clients through the post-budget landscape and what new property does under the new rules. Bring a client along, or watch the replay afterwards. You will see how Emma frames the conversation before you commit to hosting your own.</p>
+          </div>
+          <div class="ctas">
+            <a href="webinars.html" class="cta cta-primary">Register for the next webinar</a>
+            <a href="webinars.html" class="cta cta-secondary">See all upcoming sessions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">10 · NEXT WEBINAR</span>
+      <div class="ann-body">Lower-friction CTA for partners not ready to host. Doubles as Mailchimp warm-intent capture for a future speaking ask.</div>
+    </div>
   </div>
-</section>
 
-<!-- ============ FOOTER ============ -->
-<site-footer></site-footer>
+  <!-- ============ 11 · HOW IT WORKS ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf" id="how">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">How a partner referral actually runs.</p>
+      <div class="grid-3">
+        <div class="box tall">
+          <span class="lbl">Step 1 · Intro</span>
+          <p class="h3 ph">You send a warm intro.</p>
+          <p class="ph small" style="margin-top: 8px;">A short note copying your client and the API team. Context on what stage they are at, what advice has been given, and what you are asking for.</p>
+        </div>
+        <div class="box tall">
+          <span class="lbl">Step 2 · Assessment</span>
+          <p class="h3 ph">The client takes the assessment.</p>
+          <p class="ph small" style="margin-top: 8px;">Our short intake routes the client to the right next step. A strategy session, the Active Investor Path, or a curated reading list. You get a summary either way.</p>
+        </div>
+        <div class="box tall">
+          <span class="lbl">Step 3 · Loop</span>
+          <p class="h3 ph">You stay in the loop.</p>
+          <p class="ph small" style="margin-top: 8px;">A brief once strategy is agreed. A brief once the property is selected. A brief at settlement. You see what is happening without having to chase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">11 · HOW IT WORKS</span>
+      <div class="ann-body">The three-step hand-off pattern.</div>
+    </div>
+  </div>
 
-<div class="concierge">AI<br>Concierge</div>
+  <!-- ============ 12 · PROOF ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">12 · THE PARTNER PROOF</span>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 24px;">From inside the partner network.</p>
+
+      <div class="box xl auto-h" style="text-align: center;">
+        <span class="lbl">Editorial pull-quote · existing partner</span>
+        <p class="h2 ph" style="margin-top: 10px;">"The reason I keep sending clients to Emma is the qualification. She tells them what they need to hear, not what gets the deal closed. That protects my relationship as much as it serves the client."</p>
+        <p class="ph small" style="margin-top: 10px;">Partner name · Title, firm  <em>(real partner quote to be sourced from the partner network)</em></p>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ 13 · FAQ ============ -->
+  <div class="ann-cell left"></div>
+  <section class="wf">
+    <div class="wf-inner">
+      <p class="h2 ph" style="margin-bottom: 18px;">Common questions from partners.</p>
+      <div class="col" style="gap: 8px;">
+        <div class="box short">
+          <span class="lbl">FAQ 1</span>
+          <p class="h3 ph">What counts as a "new build" under the reform?</p>
+          <p class="ph small" style="margin-top: 6px;">Eligible new builds include off-the-plan apartments, knock-down rebuilds that increase the dwelling count (for example, a duplex replacing a single house), residential construction on previously vacant land, and properties occupied less than twelve months before first sale. We will keep this page current as the regulations are finalised.</p>
+        </div>
+        <div class="box short">
+          <span class="lbl">FAQ 2</span>
+          <p class="h3 ph">My client already owns established property. What changes for them?</p>
+          <p class="ph small" style="margin-top: 6px;">Nothing, for as long as they hold the asset. Established property owned before 7:30pm on 12 May 2026 (including properties under contract at that time) is grandfathered. Existing negative gearing arrangements continue under the current rules until sale.</p>
+        </div>
+        <div class="box short">
+          <span class="lbl">FAQ 3</span>
+          <p class="h3 ph">How is a hosted session shaped for my client base?</p>
+          <p class="ph small" style="margin-top: 6px;">A short kick-off call before the session covers who is in the room, where they are at, and what you want them to walk away with. Emma builds the session from there. The default frame is the post-budget landscape and what new property does for clients deciding between established and new.</p>
+        </div>
+        <div class="box short">
+          <span class="lbl">FAQ 4</span>
+          <p class="h3 ph">Is there a cost to me or to my clients?</p>
+          <p class="ph small" style="margin-top: 6px;">The session is offered to partners at no cost. In-person events sometimes involve venue or catering costs that the host partner covers. We walk through this on the kick-off call.</p>
+        </div>
+        <div class="box short">
+          <span class="lbl">FAQ 5</span>
+          <p class="h3 ph">What happens to a referral who turns out to be aspiring, not active?</p>
+          <p class="ph small" style="margin-top: 6px;">The client goes onto the Active Investor Path, a named education program with reading, webinars, and an open-door reassessment. You get a short note explaining the routing. Right-fit qualification protects your relationship at the point of intake.</p>
+        </div>
+        <div class="box short">
+          <span class="lbl">FAQ 6</span>
+          <p class="h3 ph">My firm is not on the partner network yet. Can I still refer or host?</p>
+          <p class="ph small" style="margin-top: 6px;">Yes. Start with the form above. A short conversation first, then we move into the referral or the session from there.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right">
+    <div class="annotation">
+      <span class="num">13 · FAQ</span>
+      <div class="ann-body">Mix of program FAQs and reform-specific FAQs.</div>
+    </div>
+  </div>
+
+  <!-- ============ 14 · FINAL CTA ============ -->
+  <div class="ann-cell left">
+    <div class="annotation">
+      <span class="num">14 · FINAL CTA</span>
+    </div>
+  </div>
+  <section class="wf">
+    <div class="wf-inner">
+      <div class="box xl" style="text-align: center;">
+        <span class="lbl">H2 + sub</span>
+        <p class="h2 ph" style="margin-top: 10px;">Four ways to put twelve years of new property specialism to work.</p>
+        <p class="ph" style="margin-top: 8px;">Existing partners: refer with confidence or book an exclusive session. New firm: request an introduction. Anyone: come along to the next open webinar.</p>
+        <div class="ctas" style="margin-top: 18px; justify-content: center; flex-wrap: wrap;">
+          <a href="#refer" class="cta cta-primary">Refer a client</a>
+          <a href="#book" class="cta cta-secondary">Book a session</a>
+          <a href="#refer" class="cta cta-secondary">Join the network</a>
+          <a href="webinars.html" class="cta cta-secondary">Register for the webinar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="ann-cell right"></div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="ann-cell left"></div>
+  <footer class="wf footer last">
+    <div class="wf-inner" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap;">
+      <a href="home.html" class="nav-logo">Active Property Investing</a>
+      <div style="display: flex; gap: clamp(24px, 5vw, 80px); flex-wrap: wrap;">
+        <div>
+          <h4>Campaign</h4>
+          <ul>
+            <li><a href="home.html">Main site</a></li>
+            <li><a href="partners.html">Partners overview</a></li>
+            <li><a href="partner-network.html">Join the network</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">Contact</a></li>
+            <li>1300 449 974</li>
+            <li>LinkedIn · Instagram</li>
+            <li><a href="#">Privacy · Terms · AI Notice</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="ann-cell right"></div>
+
+</div>
 
 </body>
 </html>
