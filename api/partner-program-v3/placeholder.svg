@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder image">
+  <rect width="400" height="400" fill="#EFEFF0"/>
+  <g transform="translate(200 200)" stroke="#A5A5A7" stroke-width="2.5" stroke-linejoin="round" fill="none">
+    <rect x="-28" y="-20" width="56" height="40" rx="4"/>
+    <circle cx="-10" cy="-6" r="4.5" fill="#A5A5A7" stroke="none"/>
+    <path d="M-28 12 L-8 -2 L4 8 L28 -8 L28 20 L-28 20 Z" fill="#A5A5A7" stroke="none"/>
+  </g>
+</svg>
