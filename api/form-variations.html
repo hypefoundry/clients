@@ -1,0 +1,1490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>API — Form variations</title>
+<style>
+  :root {
+    --tiffany-50:  #EDF7F7;
+    --tiffany-100: #E7EFEF;
+    --tiffany-200: #DCEFEF;
+    --tiffany-500: #8ACACA;
+    --tiffany-700: #75ACAC;
+    --tiffany-900: #2E5757;
+
+    --grey-950: #1E1E1F;
+    --grey-800: #4A4B4E;
+    --grey-600: #808183;
+    --grey-500: #A5A5A7;
+    --grey-400: #C9C9CA;
+    --grey-200: #E2E2E4;
+    --grey-100: #EFEFF0;
+    --grey-50:  #F7F7F8;
+
+    --font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  /* text selection — tiffany-500 with dark tiffany ink for readability */
+  ::selection {
+    background-color: var(--tiffany-500);
+    color: #1E3838;
+  }
+  ::-moz-selection {
+    background-color: var(--tiffany-500);
+    color: #1E3838;
+  }
+
+  html, body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--grey-950);
+    background: var(--grey-50);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ─── page frame ─────────────────────────────── */
+  .page-head {
+    padding: 72px 40px 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .page-head .kicker {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey-600);
+    margin: 0 0 12px;
+  }
+  .page-head h1 {
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+  }
+  .page-head p {
+    font-size: 15px;
+    color: var(--grey-800);
+    max-width: 62ch;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ─── variation container ────────────────────── */
+  .variation {
+    padding: 56px 40px;
+    border-top: 1px solid var(--grey-200);
+  }
+  .variation-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .variation-meta .tag {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey-600);
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .variation-meta h2 {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 12px;
+  }
+  .variation-meta p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--grey-800);
+    margin: 0 0 10px;
+  }
+  .variation-meta .notes {
+    font-size: 12px;
+    color: var(--grey-600);
+    line-height: 1.55;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .variation-meta .notes li {
+    padding: 4px 0;
+  }
+  .variation-meta .recommend {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tiffany-900);
+    background: var(--tiffany-100);
+    padding: 4px 8px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+
+  /* stage that hosts the form on its intended surface */
+  .stage {
+    border-radius: 4px;
+    padding: 56px 56px 48px;
+    min-height: 720px;
+  }
+  .stage--pale    { background: var(--tiffany-100); }
+  .stage--tiffany { background: var(--tiffany-500); }
+  .stage--deep    { background: var(--tiffany-900); }
+
+  /* ─── shared form primitives ─────────────────── */
+  .form {
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 32px;
+  }
+  .form .full { grid-column: 1 / -1; }
+  .field { display: flex; flex-direction: column; }
+  .actions { grid-column: 1 / -1; }
+
+  /* ─────────────────────────────────────────────
+     A — HAIRLINE (recommended) — light surface
+     Transparent inputs, single bottom hairline,
+     uppercase micro labels tight to the field.
+     ───────────────────────────────────────────── */
+  .form--hairline label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey-800);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .form--hairline input,
+  .form--hairline select,
+  .form--hairline textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(30, 30, 31, 0.18);
+    border-radius: 0;
+    padding: 8px 0 10px;
+    font: 400 16px/1.4 var(--font-sans);
+    color: var(--grey-950);
+    width: 100%;
+    outline: 0;
+    transition: border-color 180ms ease;
+  }
+  .form--hairline textarea { min-height: 96px; resize: vertical; }
+  .form--hairline input:focus,
+  .form--hairline select:focus,
+  .form--hairline textarea:focus { border-bottom-color: var(--tiffany-700); }
+  .form--hairline ::placeholder { color: var(--grey-500); opacity: 1; }
+
+  .form--hairline .select { position: relative; }
+  .form--hairline .select::after {
+    content: "";
+    position: absolute; right: 2px; top: 18px;
+    width: 8px; height: 8px;
+    border-right: 1px solid var(--grey-800);
+    border-bottom: 1px solid var(--grey-800);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  .form--hairline .hint {
+    font-size: 12px;
+    color: var(--grey-600);
+    margin: 6px 0 0;
+    line-height: 1.5;
+  }
+
+  .form--hairline .btn {
+    background: var(--grey-950);
+    color: var(--tiffany-50);
+    border: 0;
+    border-radius: 2px;
+    padding: 14px 28px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 180ms ease;
+  }
+  .form--hairline .btn:hover { background: #000; }
+  .form--hairline .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .form--hairline .foot {
+    font-size: 12px;
+    color: var(--grey-600);
+  }
+
+  /* ─────────────────────────────────────────────
+     B — HAIRLINE on TIFFANY — dark(er) surface
+     Same treatment, colours inverted for the
+     tiffany-500 background.
+     ───────────────────────────────────────────── */
+  .form--hairline-inv label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.86);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .form--hairline-inv input,
+  .form--hairline-inv select,
+  .form--hairline-inv textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 0;
+    padding: 8px 0 10px;
+    font: 400 16px/1.4 var(--font-sans);
+    color: #fff;
+    width: 100%;
+    outline: 0;
+    transition: border-color 180ms ease;
+  }
+  .form--hairline-inv textarea { min-height: 96px; resize: vertical; }
+  .form--hairline-inv input:focus,
+  .form--hairline-inv select:focus,
+  .form--hairline-inv textarea:focus { border-bottom-color: #fff; }
+  .form--hairline-inv ::placeholder { color: rgba(255,255,255,0.6); opacity: 1; }
+
+  .form--hairline-inv .select { position: relative; }
+  .form--hairline-inv .select::after {
+    content: "";
+    position: absolute; right: 2px; top: 18px;
+    width: 8px; height: 8px;
+    border-right: 1px solid rgba(255,255,255,0.86);
+    border-bottom: 1px solid rgba(255,255,255,0.86);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  .form--hairline-inv .hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin: 6px 0 0;
+    line-height: 1.5;
+  }
+
+  .form--hairline-inv .btn {
+    background: var(--tiffany-900);
+    color: #fff;
+    border: 0;
+    border-radius: 2px;
+    padding: 14px 28px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 180ms ease;
+  }
+  .form--hairline-inv .btn:hover { background: var(--grey-950); }
+  .form--hairline-inv .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .form--hairline-inv .foot {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* ─────────────────────────────────────────────
+     C — FRAMED CALM — light surface
+     Single 1px full border, transparent fill,
+     generous padding. Alternative if hairline
+     feels too austere.
+     ───────────────────────────────────────────── */
+  .form--framed label {
+    font-size: 13px;
+    color: var(--grey-800);
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .form--framed input,
+  .form--framed select,
+  .form--framed textarea {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(30, 30, 31, 0.14);
+    border-radius: 3px;
+    padding: 14px 16px;
+    font: 400 15px/1.4 var(--font-sans);
+    color: var(--grey-950);
+    width: 100%;
+    outline: 0;
+    transition: border-color 180ms ease, background 180ms ease;
+  }
+  .form--framed textarea { min-height: 128px; resize: vertical; }
+  .form--framed input:focus,
+  .form--framed select:focus,
+  .form--framed textarea:focus {
+    border-color: var(--grey-950);
+    background: rgba(255,255,255,0.4);
+  }
+  .form--framed ::placeholder { color: var(--grey-500); opacity: 1; }
+
+  .form--framed .select { position: relative; }
+  .form--framed .select::after {
+    content: "";
+    position: absolute; right: 20px; top: 22px;
+    width: 8px; height: 8px;
+    border-right: 1px solid var(--grey-800);
+    border-bottom: 1px solid var(--grey-800);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  .form--framed .btn {
+    background: var(--grey-950);
+    color: var(--tiffany-50);
+    border: 0;
+    border-radius: 3px;
+    padding: 16px 32px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+  .form--framed .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .form--framed .foot { font-size: 12px; color: var(--grey-600); }
+
+  /* ─────────────────────────────────────────────
+     D — EDITORIAL on DEEP TIFFANY
+     Serious, considered. Big number keys the eye,
+     labels stay in place. For high-value CTAs.
+     ───────────────────────────────────────────── */
+  .form--editorial {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 48px;
+    row-gap: 36px;
+  }
+  .form--editorial .field { position: relative; }
+  .form--editorial .num {
+    position: absolute;
+    left: -32px;
+    top: 4px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+  }
+  .form--editorial label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .form--editorial input,
+  .form--editorial select,
+  .form--editorial textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(237, 247, 247, 0.24);
+    border-radius: 0;
+    padding: 10px 0 12px;
+    font: 300 20px/1.3 var(--font-sans);
+    color: #fff;
+    width: 100%;
+    outline: 0;
+    letter-spacing: -0.005em;
+    transition: border-color 180ms ease;
+  }
+  .form--editorial textarea { min-height: 96px; resize: vertical; font-size: 17px; }
+  .form--editorial input:focus,
+  .form--editorial select:focus,
+  .form--editorial textarea:focus { border-bottom-color: var(--tiffany-500); }
+  .form--editorial ::placeholder { color: rgba(237, 247, 247, 0.45); opacity: 1; font-weight: 300; }
+
+  .form--editorial .select { position: relative; }
+  .form--editorial .select::after {
+    content: "";
+    position: absolute; right: 2px; top: 22px;
+    width: 8px; height: 8px;
+    border-right: 1px solid rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.7);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+
+  .form--editorial .hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin: 6px 0 0;
+    line-height: 1.5;
+  }
+
+  .form--editorial .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .form--editorial .btn {
+    background: var(--tiffany-500);
+    color: var(--tiffany-900);
+    border: 0;
+    border-radius: 2px;
+    padding: 15px 32px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .form--editorial .btn .arrow { transition: transform 180ms ease; }
+  .form--editorial .btn:hover .arrow { transform: translateX(4px); }
+  .form--editorial .foot { font-size: 12px; color: rgba(255,255,255,0.65); }
+
+  .form--editorial .field { padding-left: 0; }
+  @media (min-width: 900px) {
+    .form--editorial { padding-left: 40px; }
+    .form--editorial .num { display: block; }
+  }
+
+  /* ─────────────────────────────────────────────
+     E — PLACEHOLDER-ONLY — no visible labels
+     Cleanest look. Real UX costs: no reference
+     after the user types, weaker autofill states,
+     accessibility depends on aria-label being set.
+     ───────────────────────────────────────────── */
+  .form--ghost input,
+  .form--ghost select,
+  .form--ghost textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(30, 30, 31, 0.18);
+    border-radius: 0;
+    padding: 14px 0 14px;
+    font: 400 17px/1.4 var(--font-sans);
+    color: var(--grey-950);
+    width: 100%;
+    outline: 0;
+    transition: border-color 180ms ease;
+  }
+  .form--ghost textarea { min-height: 96px; resize: vertical; }
+  .form--ghost input:focus,
+  .form--ghost select:focus,
+  .form--ghost textarea:focus { border-bottom-color: var(--tiffany-700); }
+  .form--ghost ::placeholder { color: var(--grey-600); opacity: 1; font-weight: 400; }
+
+  .form--ghost .select { position: relative; }
+  .form--ghost .select::after {
+    content: "";
+    position: absolute; right: 2px; top: 22px;
+    width: 8px; height: 8px;
+    border-right: 1px solid var(--grey-800);
+    border-bottom: 1px solid var(--grey-800);
+    transform: rotate(45deg);
+    pointer-events: none;
+  }
+  .form--ghost .btn {
+    background: var(--grey-950);
+    color: var(--tiffany-50);
+    border: 0;
+    border-radius: 2px;
+    padding: 14px 28px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+  }
+  .form--ghost .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .form--ghost .foot { font-size: 12px; color: var(--grey-600); }
+
+  /* ─────────────────────────────────────────────
+     F — FLOATING LABEL — best of both
+     Placeholder look when empty. Label lifts and
+     shrinks on focus/fill. Neutrals tinted toward
+     tiffany so they belong to the palette.
+     ───────────────────────────────────────────── */
+  .form--float {
+    /* tiffany-tinted neutrals — everything sits on
+       the brand hue axis, only lightness changes */
+    --ink:            #1E3838;   /* input text */
+    --ink-soft:       #3D5D5D;   /* label (floated) */
+    --ink-quiet:      #6A8A8A;   /* placeholder-position label, hints, foot */
+    --rule:           #A6C4C4;   /* idle hairline */
+    --rule-strong:    #6A9E9E;   /* focused hairline (mid-tiffany) */
+    --btn-bg:         #8ACACA;   /* tiffany-500 */
+    --btn-bg-hover:   #A3D5D5;   /* lightens on hover */
+    --btn-text:       #1E3838;   /* dark tiffany ink for contrast */
+  }
+
+  .form--float .field { position: relative; padding-top: 18px; }
+  .form--float input,
+  .form--float select,
+  .form--float textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 8px 0 10px;
+    font: 400 17px/1.4 var(--font-sans);
+    color: var(--ink);
+    width: 100%;
+    outline: 0;
+    transition: border-color 180ms ease;
+  }
+  .form--float textarea { min-height: 96px; resize: vertical; }
+  .form--float input:focus,
+  .form--float select:focus,
+  .form--float textarea:focus { border-bottom-color: var(--rule-strong); }
+  .form--float ::placeholder { color: transparent; }
+
+  .form--float label {
+    position: absolute;
+    left: 0;
+    top: 26px;
+    font-size: 17px;
+    color: var(--ink-quiet);
+    pointer-events: none;
+    transform-origin: 0 0;
+    transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                color 180ms ease;
+  }
+
+  /* lifted state — position and size only. Colour,
+     case and tracking stay put; the move alone reads
+     as "this is now a label". */
+  .form--float input:focus + label,
+  .form--float input:not(:placeholder-shown) + label,
+  .form--float textarea:focus + label,
+  .form--float textarea:not(:placeholder-shown) + label,
+  .form--float select:focus + label,
+  .form--float select.has-value + label,
+  .form--float .field.is-active label {
+    transform: translateY(-26px) scale(0.82);
+  }
+
+  /* ── custom dropdown (fancy-select) ──────────
+     Native <option> lists cannot be styled across
+     browsers. This replaces them with a listbox
+     we can dress properly. Keeps the floating
+     label behaviour via .field.is-active. */
+  .form--float .fs {
+    position: relative;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 180ms ease;
+  }
+  .form--float .fs.is-open,
+  .form--float .fs:focus-within {
+    border-bottom-color: var(--rule-strong);
+  }
+  /* trigger padding mirrors the text-input padding exactly
+     (8px top, 10px bottom) so both fields resolve to the
+     same computed height */
+  .form--float .fs-trigger {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 8px 28px 10px 0;
+    font: 400 17px/1.4 var(--font-sans);
+    color: var(--ink);
+    width: 100%;
+    outline: 0;
+    text-align: left;
+    cursor: pointer;
+    display: block;
+    font-family: inherit;
+  }
+  /* empty triggers can collapse in some browsers — a
+     hidden NBSP holds the line-height */
+  .form--float .fs-trigger:empty::before {
+    content: "\00a0";
+  }
+  .form--float .fs::after {
+    content: "";
+    position: absolute;
+    right: 4px; top: 50%;
+    width: 8px; height: 8px;
+    border-right: 1px solid var(--ink-quiet);
+    border-bottom: 1px solid var(--ink-quiet);
+    transform: translateY(-90%) rotate(45deg);
+    transition: transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+  }
+  .form--float .fs.is-open::after {
+    transform: translateY(-20%) rotate(-135deg);
+  }
+  .form--float .fs-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; right: 0;
+    margin: 0;
+    padding: 6px 4px;
+    list-style: none;
+    background: #FBFDFD;
+    border: 1px solid rgba(46, 87, 87, 0.12);
+    border-radius: 3px;
+    box-shadow:
+      0 14px 36px -12px rgba(46, 87, 87, 0.22),
+      0 3px 8px rgba(46, 87, 87, 0.06);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 160ms ease,
+                transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    z-index: 20;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .form--float .fs.is-open .fs-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .form--float .fs-menu [role="option"] {
+    padding: 11px 20px;
+    font: 400 15px/1.35 var(--font-sans);
+    color: var(--ink);
+    cursor: pointer;
+    outline: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .form--float .fs-menu [role="option"]:hover,
+  .form--float .fs-menu [role="option"].is-focused {
+    background: #EDF7F7;
+  }
+  /* selected uses the checkmark alone — no background so
+     hover and selection remain independent signals */
+  .form--float .fs-menu [role="option"][aria-selected="true"] {
+    color: var(--ink);
+  }
+  .form--float .fs-menu [role="option"][aria-selected="true"]::after {
+    content: "";
+    width: 5px; height: 9px;
+    border-right: 1.5px solid var(--rule-strong);
+    border-bottom: 1.5px solid var(--rule-strong);
+    transform: rotate(45deg) translate(-1px, -1px);
+    flex-shrink: 0;
+  }
+  /* smaller, tint-matching scrollbar for the menu */
+  .form--float .fs-menu::-webkit-scrollbar { width: 6px; }
+  .form--float .fs-menu::-webkit-scrollbar-thumb {
+    background: rgba(46, 87, 87, 0.18);
+    border-radius: 3px;
+  }
+
+  .form--float .select { position: relative; }
+  .form--float .select::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 8px; height: 8px;
+    border-right: 1px solid var(--ink-quiet);
+    border-bottom: 1px solid var(--ink-quiet);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  .form--float select { color: transparent; padding-right: 24px; }
+  .form--float select.has-value { color: var(--ink); }
+  .form--float select option { color: var(--ink); }
+
+  /* action block — left-aligned stack, button as an
+     intentional object, response time as quiet
+     supporting meta below it in micro-caps */
+  .form--float .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .form--float .btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: 0;
+    border-radius: 2px;
+    padding: 15px 32px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 180ms ease;
+  }
+  .form--float .btn:hover { background: var(--btn-bg-hover); }
+  .form--float .btn .arrow { transition: transform 180ms ease; }
+  .form--float .btn:hover .arrow { transform: translateX(3px); }
+
+  .form--float .meta {
+    font-size: 13px;
+    color: var(--ink-quiet);
+    opacity: 0.75;
+    margin: 0;
+    letter-spacing: 0;
+  }
+
+  /* ─────────────────────────────────────────────
+     G — FLOATING LABEL on TIFFANY
+     Same behaviour as F, inverted for the
+     tiffany-500 (#8ACACA) surface.
+     ───────────────────────────────────────────── */
+  .form--float-inv .field { position: relative; padding-top: 18px; }
+  .form--float-inv input,
+  .form--float-inv select,
+  .form--float-inv textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 0;
+    padding: 8px 0 10px;
+    font: 400 17px/1.4 var(--font-sans);
+    color: #fff;
+    width: 100%;
+    outline: 0;
+    transition: border-color 180ms ease;
+  }
+  .form--float-inv textarea { min-height: 96px; resize: vertical; }
+  .form--float-inv input:focus,
+  .form--float-inv select:focus,
+  .form--float-inv textarea:focus { border-bottom-color: #fff; }
+  .form--float-inv ::placeholder { color: transparent; }
+
+  .form--float-inv label {
+    position: absolute;
+    left: 0;
+    top: 26px;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.72);
+    pointer-events: none;
+    transform-origin: 0 0;
+    transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                color 180ms ease;
+  }
+
+  .form--float-inv input:focus + label,
+  .form--float-inv input:not(:placeholder-shown) + label,
+  .form--float-inv textarea:focus + label,
+  .form--float-inv textarea:not(:placeholder-shown) + label,
+  .form--float-inv select:focus + label,
+  .form--float-inv select.has-value + label {
+    transform: translateY(-26px) scale(0.82);
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .form--float-inv .select { position: relative; }
+  .form--float-inv .select::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    width: 8px; height: 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.72);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.72);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  .form--float-inv select { color: transparent; }
+  .form--float-inv select.has-value { color: #fff; }
+  .form--float-inv select option { color: var(--grey-950); }
+
+  .form--float-inv .btn {
+    background: var(--tiffany-900);
+    color: #fff;
+    border: 0;
+    border-radius: 2px;
+    padding: 14px 28px;
+    font: 500 14px/1 var(--font-sans);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 180ms ease;
+  }
+  .form--float-inv .btn:hover { background: var(--grey-950); }
+  .form--float-inv .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 12px;
+  }
+  .form--float-inv .foot { font-size: 12px; color: rgba(255, 255, 255, 0.75); }
+
+  /* ─── responsive ─────────────────────────────── */
+  @media (max-width: 900px) {
+    .variation-inner { grid-template-columns: 1fr; gap: 32px; }
+    .stage { padding: 32px 24px; }
+    .form { grid-template-columns: 1fr; column-gap: 0; row-gap: 24px; }
+    .page-head { padding: 40px 24px 16px; }
+    .variation { padding: 40px 24px; }
+    .form--editorial .num { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <p class="kicker">Design review · form treatments</p>
+  <h1>Contact form — four elegance directions</h1>
+  <p>
+    Four alternatives to the current form. Each one drops the filled-white boxes, tightens
+    the label-to-field relationship, and gives the button a job. Two live on the current
+    pale tiffany surface, two on a deeper tiffany background so you can compare.
+  </p>
+</header>
+
+<!-- ─────────── A · HAIRLINE (light) ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation A</span>
+      <span class="recommend">Recommended</span>
+      <h2>Hairline</h2>
+      <p>Transparent inputs, one bottom hairline, uppercase micro-labels sitting tight to each field. On the current pale tiffany surface.</p>
+      <ul class="notes">
+        <li>· Confident, editorial, quiet.</li>
+        <li>· Works with the existing palette without changing anything else on the page.</li>
+        <li>· Reads as "considered", not "form".</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--pale">
+      <form class="form form--hairline" onsubmit="event.preventDefault()">
+        <div class="field">
+          <label for="a-name">Your name</label>
+          <input id="a-name" type="text" placeholder="First and last">
+        </div>
+        <div class="field">
+          <label for="a-email">Email</label>
+          <input id="a-email" type="email" placeholder="you@company.com">
+        </div>
+
+        <div class="field">
+          <label for="a-firm">Your firm</label>
+          <input id="a-firm" type="text" placeholder="Firm name">
+        </div>
+        <div class="field">
+          <label for="a-role">Your role</label>
+          <div class="select">
+            <select id="a-role">
+              <option value="" disabled selected>Select a role</option>
+              <option>Adviser</option>
+              <option>Partner / Principal</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="a-interest">What you are interested in</label>
+          <div class="select">
+            <select id="a-interest">
+              <option value="" disabled selected>Select one</option>
+              <option>Speaking engagement</option>
+              <option>Podcast interview</option>
+              <option>Media enquiry</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="a-notes">Additional notes</label>
+          <textarea id="a-notes" placeholder="Anything else we should know?"></textarea>
+          <p class="hint">Audience size, preferred timing, sector focus.</p>
+        </div>
+
+        <div class="actions">
+          <p class="foot">We reply within 3–5 working days.</p>
+          <button class="btn" type="submit">Send request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── B · HAIRLINE on TIFFANY ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation B</span>
+      <h2>Hairline on tiffany</h2>
+      <p>Same treatment as A, adapted for a full tiffany-500 background. White type, translucent hairlines, deeper button.</p>
+      <ul class="notes">
+        <li>· More brand presence; the form becomes a moment on the page, not a footer.</li>
+        <li>· Higher stakes feel. Good for a landing block, less right for a utility contact form.</li>
+        <li>· Requires the surrounding section to also be tiffany, or it will feel islanded.</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--tiffany">
+      <form class="form form--hairline-inv" onsubmit="event.preventDefault()">
+        <div class="field">
+          <label for="b-name">Your name</label>
+          <input id="b-name" type="text" placeholder="First and last">
+        </div>
+        <div class="field">
+          <label for="b-email">Email</label>
+          <input id="b-email" type="email" placeholder="you@company.com">
+        </div>
+
+        <div class="field">
+          <label for="b-firm">Your firm</label>
+          <input id="b-firm" type="text" placeholder="Firm name">
+        </div>
+        <div class="field">
+          <label for="b-role">Your role</label>
+          <div class="select">
+            <select id="b-role">
+              <option value="" disabled selected>Select a role</option>
+              <option>Adviser</option>
+              <option>Partner / Principal</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="b-interest">What you are interested in</label>
+          <div class="select">
+            <select id="b-interest">
+              <option value="" disabled selected>Select one</option>
+              <option>Speaking engagement</option>
+              <option>Podcast interview</option>
+              <option>Media enquiry</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="b-notes">Additional notes</label>
+          <textarea id="b-notes" placeholder="Anything else we should know?"></textarea>
+          <p class="hint">Audience size, preferred timing, sector focus.</p>
+        </div>
+
+        <div class="actions">
+          <p class="foot">We reply within 3–5 working days.</p>
+          <button class="btn" type="submit">Send request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── C · FRAMED CALM (light) ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation C</span>
+      <h2>Framed, calm</h2>
+      <p>A single 1px full border on a transparent input. Same palette, but each field is a self-contained object. More "utility form" than A, less austere.</p>
+      <ul class="notes">
+        <li>· Falls back to a familiar pattern; forgiving on mobile.</li>
+        <li>· Reads as a form, but a well-mannered one.</li>
+        <li>· Choose this if A feels too design-forward for a compliance-heavy audience.</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--pale">
+      <form class="form form--framed" onsubmit="event.preventDefault()">
+        <div class="field">
+          <label for="c-name">Your name</label>
+          <input id="c-name" type="text" placeholder="First and last">
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input id="c-email" type="email" placeholder="you@company.com">
+        </div>
+
+        <div class="field">
+          <label for="c-firm">Your firm</label>
+          <input id="c-firm" type="text" placeholder="Firm name">
+        </div>
+        <div class="field">
+          <label for="c-role">Your role</label>
+          <div class="select">
+            <select id="c-role">
+              <option value="" disabled selected>Select a role</option>
+              <option>Adviser</option>
+              <option>Partner / Principal</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="c-interest">What you are interested in</label>
+          <div class="select">
+            <select id="c-interest">
+              <option value="" disabled selected>Select one</option>
+              <option>Speaking engagement</option>
+              <option>Podcast interview</option>
+              <option>Media enquiry</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="c-notes">Additional notes</label>
+          <textarea id="c-notes" placeholder="Anything else we should know? Audience size, preferred timing, sector focus."></textarea>
+        </div>
+
+        <div class="actions">
+          <p class="foot">We reply within 3–5 working days.</p>
+          <button class="btn" type="submit">Send request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── D · EDITORIAL on DEEP TIFFANY ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation D</span>
+      <h2>Editorial, deep</h2>
+      <p>A darker tiffany surface with numbered fields, larger input type, and a considered rhythm. For contexts where the form is the destination, not the afterthought.</p>
+      <ul class="notes">
+        <li>· Feels like a private-office form, not a marketing capture.</li>
+        <li>· The bigger input type does the heavy lifting; labels stay small.</li>
+        <li>· Best paired with a short intro paragraph on the same panel.</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--deep">
+      <form class="form form--editorial" onsubmit="event.preventDefault()">
+        <div class="field">
+          <span class="num">01</span>
+          <label for="d-name">Your name</label>
+          <input id="d-name" type="text" placeholder="First and last">
+        </div>
+        <div class="field">
+          <span class="num">02</span>
+          <label for="d-email">Email</label>
+          <input id="d-email" type="email" placeholder="you@company.com">
+        </div>
+
+        <div class="field">
+          <span class="num">03</span>
+          <label for="d-firm">Your firm</label>
+          <input id="d-firm" type="text" placeholder="Firm name">
+        </div>
+        <div class="field">
+          <span class="num">04</span>
+          <label for="d-role">Your role</label>
+          <div class="select">
+            <select id="d-role">
+              <option value="" disabled selected>Select a role</option>
+              <option>Adviser</option>
+              <option>Partner / Principal</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <span class="num">05</span>
+          <label for="d-interest">What you are interested in</label>
+          <div class="select">
+            <select id="d-interest">
+              <option value="" disabled selected>Select one</option>
+              <option>Speaking engagement</option>
+              <option>Podcast interview</option>
+              <option>Media enquiry</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <span class="num">06</span>
+          <label for="d-notes">Additional notes</label>
+          <textarea id="d-notes" placeholder="Anything else we should know?"></textarea>
+          <p class="hint">Audience size, preferred timing, sector focus.</p>
+        </div>
+
+        <div class="actions">
+          <p class="foot">We reply within 3–5 working days.</p>
+          <button class="btn" type="submit">
+            Send request
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── E · PLACEHOLDER-ONLY ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation E</span>
+      <h2>Placeholder-only</h2>
+      <p>No visible labels. The placeholder does the labelling. Cleanest possible look on the page.</p>
+      <ul class="notes">
+        <li>· Aesthetically the calmest of the set. Nothing to read until you focus.</li>
+        <li>· UX cost: the label disappears the moment the user types, so if they lose track of what field they're in, there's no reference to check.</li>
+        <li>· Autofill can look broken (browser fills in a value with no label above it).</li>
+        <li>· Accessibility relies on aria-label being set on every input — placeholders alone don't reliably announce to screen readers.</li>
+        <li>· Fine for a 3–4 field form. Risky for a 6+ field form with selects and a textarea like this one.</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--pale">
+      <form class="form form--ghost" onsubmit="event.preventDefault()">
+        <div class="field">
+          <input type="text" placeholder="Your name" aria-label="Your name">
+        </div>
+        <div class="field">
+          <input type="email" placeholder="Email" aria-label="Email">
+        </div>
+
+        <div class="field">
+          <input type="text" placeholder="Your firm" aria-label="Your firm">
+        </div>
+        <div class="field">
+          <div class="select">
+            <select aria-label="Your role">
+              <option value="" disabled selected>Your role</option>
+              <option>Adviser</option>
+              <option>Partner / Principal</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <div class="select">
+            <select aria-label="What you are interested in">
+              <option value="" disabled selected>What you are interested in</option>
+              <option>Speaking engagement</option>
+              <option>Podcast interview</option>
+              <option>Media enquiry</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field full">
+          <textarea placeholder="Additional notes — audience size, preferred timing, sector focus" aria-label="Additional notes"></textarea>
+        </div>
+
+        <div class="actions">
+          <p class="foot">We reply within 3–5 working days.</p>
+          <button class="btn" type="submit">Send request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── F · FLOATING LABEL ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation F · revised</span>
+      <span class="recommend">Your pick</span>
+      <h2>Floating label, tiffany-tinted</h2>
+      <p>Same lift-on-focus behaviour, now with neutrals tinted toward tiffany so nothing fights the surface. Reworked action block: button as an intentional object, response time sits below as micro-caps meta.</p>
+      <ul class="notes">
+        <li>· All ink is on the tiffany hue axis (ranging from <code>#1E3838</code> to <code>#6A8A8A</code>). No grey against a tinted background.</li>
+        <li>· Hairlines are a muted tiffany (<code>#A6C4C4</code>), deepening to tiffany-900 on focus.</li>
+        <li>· Button left-aligned, natural width. Below it: "Response time · 3–5 working days" in micro-caps that echo the field labels.</li>
+        <li>· The action block reads as "one primary object with a footnote", not a form footer bar.</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--pale">
+      <form class="form form--float" onsubmit="event.preventDefault()">
+        <div class="field">
+          <input id="f-name" type="text" placeholder=" ">
+          <label for="f-name">Your name</label>
+        </div>
+        <div class="field">
+          <input id="f-email" type="email" placeholder=" ">
+          <label for="f-email">Email</label>
+        </div>
+
+        <div class="field">
+          <input id="f-firm" type="text" placeholder=" ">
+          <label for="f-firm">Your firm</label>
+        </div>
+        <div class="field field--custom">
+          <div class="fs" data-value="">
+            <button type="button" class="fs-trigger" id="f-role-trigger"
+                    aria-haspopup="listbox" aria-expanded="false"
+                    aria-controls="f-role-menu"></button>
+            <ul id="f-role-menu" class="fs-menu" role="listbox" aria-labelledby="f-role-label">
+              <li role="option" tabindex="-1" data-value="Adviser">Adviser</li>
+              <li role="option" tabindex="-1" data-value="Partner / Principal">Partner / Principal</li>
+              <li role="option" tabindex="-1" data-value="Other">Other</li>
+            </ul>
+          </div>
+          <label id="f-role-label" for="f-role-trigger">Your role</label>
+        </div>
+
+        <div class="field field--custom full">
+          <div class="fs" data-value="">
+            <button type="button" class="fs-trigger" id="f-interest-trigger"
+                    aria-haspopup="listbox" aria-expanded="false"
+                    aria-controls="f-interest-menu"></button>
+            <ul id="f-interest-menu" class="fs-menu" role="listbox" aria-labelledby="f-interest-label">
+              <li role="option" tabindex="-1" data-value="Speaking engagement">Speaking engagement</li>
+              <li role="option" tabindex="-1" data-value="Podcast interview">Podcast interview</li>
+              <li role="option" tabindex="-1" data-value="Media enquiry">Media enquiry</li>
+              <li role="option" tabindex="-1" data-value="Partnership">Partnership</li>
+            </ul>
+          </div>
+          <label id="f-interest-label" for="f-interest-trigger">What you are interested in</label>
+        </div>
+
+        <div class="field full">
+          <textarea id="f-notes" placeholder=" "></textarea>
+          <label for="f-notes">Additional notes</label>
+        </div>
+
+        <div class="actions full">
+          <button class="btn" type="submit">
+            Send request
+            <span class="arrow">→</span>
+          </button>
+          <p class="meta">Response time is 3–5 working days.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── G · FLOATING LABEL on TIFFANY ─────────── -->
+<section class="variation">
+  <div class="variation-inner">
+    <div class="variation-meta">
+      <span class="tag">Variation G</span>
+      <span class="recommend">Your pick — deeper</span>
+      <h2>Floating label on tiffany</h2>
+      <p>Variation F, on the tiffany-500 (#8ACACA) surface. Same lift-on-focus behaviour, inverted for the darker background.</p>
+      <ul class="notes">
+        <li>· More presence than F — the form becomes a moment on the page.</li>
+        <li>· Deep tiffany button reads as authority against the mid-tone surface.</li>
+        <li>· Click into any field to see the label lift.</li>
+        <li>· Best when the whole section band is tiffany, so the form doesn't look islanded.</li>
+      </ul>
+    </div>
+
+    <div class="stage stage--tiffany">
+      <form class="form form--float-inv" onsubmit="event.preventDefault()">
+        <div class="field">
+          <input id="g-name" type="text" placeholder=" ">
+          <label for="g-name">Your name</label>
+        </div>
+        <div class="field">
+          <input id="g-email" type="email" placeholder=" ">
+          <label for="g-email">Email</label>
+        </div>
+
+        <div class="field">
+          <input id="g-firm" type="text" placeholder=" ">
+          <label for="g-firm">Your firm</label>
+        </div>
+        <div class="field">
+          <div class="select">
+            <select id="g-role" onchange="this.classList.toggle('has-value', !!this.value)">
+              <option value="" selected></option>
+              <option>Adviser</option>
+              <option>Partner / Principal</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <label for="g-role">Your role</label>
+        </div>
+
+        <div class="field full">
+          <div class="select">
+            <select id="g-interest" onchange="this.classList.toggle('has-value', !!this.value)">
+              <option value="" selected></option>
+              <option>Speaking engagement</option>
+              <option>Podcast interview</option>
+              <option>Media enquiry</option>
+              <option>Partnership</option>
+            </select>
+          </div>
+          <label for="g-interest">What you are interested in</label>
+        </div>
+
+        <div class="field full">
+          <textarea id="g-notes" placeholder=" "></textarea>
+          <label for="g-notes">Additional notes</label>
+        </div>
+
+        <div class="actions">
+          <p class="foot">We reply within 3–5 working days.</p>
+          <button class="btn" type="submit">Send request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Custom listbox wiring for the .fs components in F.
+  // Handles click, click-outside, escape, arrow keys, and enter.
+  document.querySelectorAll('.form--float .fs').forEach(function (fs) {
+    var field   = fs.closest('.field');
+    var trigger = fs.querySelector('.fs-trigger');
+    var menu    = fs.querySelector('.fs-menu');
+    var options = Array.prototype.slice.call(fs.querySelectorAll('[role="option"]'));
+
+    function syncActive() {
+      var isFilled = !!fs.dataset.value;
+      var isOpen   = fs.classList.contains('is-open');
+      field.classList.toggle('is-active', isFilled || isOpen);
+    }
+
+    function open() {
+      // close any others first
+      document.querySelectorAll('.form--float .fs.is-open').forEach(function (other) {
+        if (other !== fs) other.dispatchEvent(new CustomEvent('fs:close'));
+      });
+      fs.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      syncActive();
+      // only pre-highlight if there's already a selection —
+      // acts as a memory aid rather than a false default
+      var current = fs.querySelector('[role="option"][aria-selected="true"]');
+      if (current) focusOption(current);
+    }
+
+    function close() {
+      fs.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      options.forEach(function (o) { o.classList.remove('is-focused'); });
+      syncActive();
+    }
+
+    fs.addEventListener('fs:close', close);
+
+    function select(opt) {
+      var val = opt.dataset.value;
+      fs.dataset.value = val;
+      trigger.textContent = val;
+      options.forEach(function (o) {
+        o.setAttribute('aria-selected', o === opt ? 'true' : 'false');
+      });
+      close();
+      trigger.focus();
+    }
+
+    function focusOption(opt) {
+      options.forEach(function (o) { o.classList.remove('is-focused'); });
+      opt.classList.add('is-focused');
+      // scroll into view within the menu
+      var top = opt.offsetTop;
+      var bottom = top + opt.offsetHeight;
+      if (top < menu.scrollTop) menu.scrollTop = top;
+      else if (bottom > menu.scrollTop + menu.clientHeight)
+        menu.scrollTop = bottom - menu.clientHeight;
+    }
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (fs.classList.contains('is-open')) close();
+      else open();
+    });
+
+    trigger.addEventListener('focus', syncActive);
+    trigger.addEventListener('blur',  syncActive);
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        select(opt);
+      });
+      opt.addEventListener('mouseenter', function () { focusOption(opt); });
+    });
+
+    fs.addEventListener('keydown', function (e) {
+      var focused = fs.querySelector('[role="option"].is-focused');
+      var idx = focused ? options.indexOf(focused) : -1;
+
+      if (e.key === 'Escape') {
+        if (fs.classList.contains('is-open')) { close(); trigger.focus(); }
+        return;
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (!fs.classList.contains('is-open')) { open(); focusOption(options[0]); return; }
+        // no option focused yet → first press lands on the first option
+        focusOption(idx < 0 ? options[0] : options[Math.min(idx + 1, options.length - 1)]);
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!fs.classList.contains('is-open')) { open(); focusOption(options[options.length - 1]); return; }
+        // no option focused yet → first press lands on the last option
+        focusOption(idx < 0 ? options[options.length - 1] : options[Math.max(idx - 1, 0)]);
+      }
+      if (e.key === 'Home') {
+        e.preventDefault();
+        if (fs.classList.contains('is-open')) focusOption(options[0]);
+      }
+      if (e.key === 'End') {
+        e.preventDefault();
+        if (fs.classList.contains('is-open')) focusOption(options[options.length - 1]);
+      }
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (fs.classList.contains('is-open') && focused) {
+          e.preventDefault();
+          select(focused);
+        } else if (!fs.classList.contains('is-open')) {
+          e.preventDefault();
+          open();
+        }
+      }
+      if (e.key === 'Tab' && fs.classList.contains('is-open')) {
+        close();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!fs.contains(e.target)) close();
+    });
+  });
+</script>
+
+</body>
+</html>

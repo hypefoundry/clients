@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>API — Referral card preview</title>
+<style>
+  :root {
+    --tiffany-50:  #EDF7F7;
+    --tiffany-100: #E7EFEF;
+    --tiffany-200: #DCEFEF;
+    --tiffany-500: #8ACACA;
+    --tiffany-700: #75ACAC;
+    --tiffany-900: #2E5757;
+    --tiffany-950: #1E3838;
+    --tiffany-body: #6A8A8A;
+    --font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--tiffany-950);
+    background: #F7F7F8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page-head {
+    padding: 64px 40px 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .page-head .kicker {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tiffany-body);
+    margin: 0 0 12px;
+  }
+  .page-head h1 {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0 0 12px;
+    color: var(--tiffany-900);
+  }
+  .page-head p {
+    font-size: 15px;
+    color: var(--tiffany-body);
+    max-width: 60ch;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .variants {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 40px 96px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px;
+  }
+
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .variant__label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tiffany-body);
+  }
+  .variant__notes {
+    font-size: 13px;
+    color: var(--tiffany-body);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ─── card frame ─────────────────────────────── */
+  .card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #E7EFEF;
+  }
+  .card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ─── chat bubble base ───────────────────────── */
+  .bubble {
+    position: absolute;
+    max-width: 62%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    box-shadow:
+      0 2px 4px rgba(30, 56, 56, 0.06),
+      0 12px 32px -12px rgba(30, 56, 56, 0.28);
+    backdrop-filter: blur(6px);
+  }
+  .bubble__time {
+    display: block;
+    margin-top: 4px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    opacity: 0.55;
+  }
+
+  /* Incoming (partner's message going out to API) — light bubble */
+  .bubble--light {
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--tiffany-950);
+    border: 1px solid rgba(46, 87, 87, 0.06);
+    border-bottom-right-radius: 6px;
+  }
+  /* Outgoing (API/Emma's reply) — dark tiffany bubble */
+  .bubble--dark {
+    background: var(--tiffany-900);
+    color: var(--tiffany-50);
+    border-bottom-left-radius: 6px;
+  }
+
+  /* ─── Variant A: two-way convo (incoming + outgoing) ── */
+  .card--a .bubble--light {
+    top: 8%;
+    right: 6%;
+  }
+  .card--a .bubble--dark {
+    top: 30%;
+    right: 10%;
+    max-width: 50%;
+  }
+
+  /* ─── Variant B: three light bubbles floating ──────── */
+  .card--b .bubble--light {
+    background: rgba(255, 255, 255, 0.94);
+  }
+  .card--b .bubble:nth-of-type(2) { top: 8%;  right: 6%;  }
+  .card--b .bubble:nth-of-type(3) { top: 26%; right: 12%; max-width: 44%; }
+  .card--b .bubble:nth-of-type(4) { top: 42%; right: 8%;  max-width: 50%; }
+
+  /* ─── Variant C: tiffany-tinted bubbles (all brand) ── */
+  .card--c .bubble {
+    background: var(--tiffany-100);
+    color: var(--tiffany-950);
+    border: 1px solid rgba(46, 87, 87, 0.10);
+  }
+  .card--c .bubble--dark {
+    background: var(--tiffany-900);
+    color: var(--tiffany-50);
+  }
+  .card--c .bubble:nth-of-type(2) { top: 8%;  right: 6%; }
+  .card--c .bubble:nth-of-type(3) { top: 30%; right: 10%; max-width: 50%; }
+
+  /* ─── Variant D: minimal, no bubble background ─────── */
+  .card--d .bubble {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    color: #FFFFFF;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+    max-width: 40%;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .card--d .bubble__time {
+    color: rgba(255, 255, 255, 0.75);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  }
+  .card--d .bubble:nth-of-type(2) { top: 6%;  right: 5%; }
+  .card--d .bubble:nth-of-type(3) { top: 24%; right: 8%; }
+  .card--d .bubble:nth-of-type(4) { top: 42%; right: 5%; }
+
+  @media (max-width: 900px) {
+    .variants { grid-template-columns: 1fr; padding: 24px 20px 64px; }
+    .page-head { padding: 40px 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <p class="kicker">Design review · card 2 (referrals)</p>
+  <h1>Chat overlay — four treatments</h1>
+  <p>
+    Four ways to overlay the "referral hand-off" chat onto the partner
+    portrait. Each keeps the image identical; only the bubble treatment
+    changes. Pick the one that feels most in-brand.
+  </p>
+</header>
+
+<div class="variants">
+
+  <!-- ─── A · Two-way conversation ─────────── -->
+  <div class="variant">
+    <span class="variant__label">Variant A · Two-way conversation</span>
+    <div class="card card--a">
+      <img src="/api-referral-partner.jpg" alt="Partner on phone" />
+      <div class="bubble bubble--light">
+        Chase family — ready for the reform conversation.
+        <span class="bubble__time">Tue 2:14 PM</span>
+      </div>
+      <div class="bubble bubble--dark">
+        Got it. Sending them the pre-read now.
+        <span class="bubble__time">Just now</span>
+      </div>
+    </div>
+    <p class="variant__notes">Classic messaging pattern — one white bubble (partner out), one dark tiffany bubble (Emma back). Reads as a real hand-off. Most literal.</p>
+  </div>
+
+  <!-- ─── B · Three snippets, all light ────── -->
+  <div class="variant">
+    <span class="variant__label">Variant B · Three snippets, all light</span>
+    <div class="card card--b">
+      <img src="/api-referral-partner.jpg" alt="Partner on phone" />
+      <div class="bubble bubble--light">
+        Third referral this quarter.
+        <span class="bubble__time">Tue 2:14 PM</span>
+      </div>
+      <div class="bubble bubble--light">
+        Client wants to move by June.
+        <span class="bubble__time">Tue 2:15 PM</span>
+      </div>
+      <div class="bubble bubble--light">
+        Emma flagged stock issues in Bris.
+        <span class="bubble__time">Tue 2:17 PM</span>
+      </div>
+    </div>
+    <p class="variant__notes">Ambient snippets from the referral pipeline. Less "conversation," more "volume of activity." Signals scale + trust.</p>
+  </div>
+
+  <!-- ─── C · Tiffany brand plate ──────────── -->
+  <div class="variant">
+    <span class="variant__label">Variant C · Tiffany-branded bubbles</span>
+    <div class="card card--c">
+      <img src="/api-referral-partner.jpg" alt="Partner on phone" />
+      <div class="bubble bubble--light">
+        Chase family — ready for the reform conversation.
+        <span class="bubble__time">Tue 2:14 PM</span>
+      </div>
+      <div class="bubble bubble--dark">
+        Got it. Sending them the pre-read now.
+        <span class="bubble__time">Just now</span>
+      </div>
+    </div>
+    <p class="variant__notes">Same as A but the light bubble uses tiffany-100 instead of white — reads more brand-owned, less "iOS Messages screenshot."</p>
+  </div>
+
+  <!-- ─── D · Minimal typographic ──────────── -->
+  <div class="variant">
+    <span class="variant__label">Variant D · Minimal type-only</span>
+    <div class="card card--d">
+      <img src="/api-referral-partner.jpg" alt="Partner on phone" />
+      <div class="bubble">
+        Third referral this quarter.
+        <span class="bubble__time">2:14 PM</span>
+      </div>
+      <div class="bubble">
+        Client wants to move by June.
+        <span class="bubble__time">2:15 PM</span>
+      </div>
+      <div class="bubble">
+        Stock flagged in Bris.
+        <span class="bubble__time">2:17 PM</span>
+      </div>
+    </div>
+    <p class="variant__notes">No bubbles at all. Just white type floating over the darker areas. Most editorial / high-end. Loses the "messaging" metaphor but gains restraint.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
