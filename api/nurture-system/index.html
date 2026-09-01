@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Investor Quiz Nurture System. For Active Property Investing</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-40 0 542 542'><path d='M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z' fill='%23D5FF02'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Inter:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F4F3;
+    --ink: #090909;
+    --muted: #63615E;
+    --soft: #7F7F80;
+    --rule: #E3E0DA;
+    --accent: #D5FF02;
+    --accent-wash: #D5FF02;
+    --measure: 680px;
+    --wide: 920px;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --display: "Bricolage Grotesque", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
+    max-width: 100%;
+    overscroll-behavior-x: none;
+  }
+
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-x: clip;
+    position: relative;
+    max-width: 100%;
+    overscroll-behavior-x: none;
+  }
+
+  ::selection { background: var(--accent); color: #090909; }
+
+  svg { max-width: 100%; }
+  a { overflow-wrap: anywhere; }
+
+  article {
+    padding: 0 24px;
+  }
+
+  .prose, footer.colophon, .section-head, .table-wrap, .cover-inner, .spec {
+    max-width: var(--measure);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .diagram {
+    max-width: var(--wide);
+    margin: 64px auto;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .caption {
+    font-family: var(--sans);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--soft);
+    text-align: center;
+    margin: 16px auto 0;
+    max-width: var(--measure);
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+  }
+
+  /* Cover */
+  header.cover {
+    background: #F5F4F3;
+    padding: 5vh 24px 4vh;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cover-inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .cover .logo {
+    display: block;
+    height: 28px;
+    width: auto;
+    margin: 0 auto 96px 0;
+    align-self: flex-start;
+  }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin: auto 0 24px;
+    font-weight: 500;
+  }
+
+  h1.title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(40px, 9vw, 90px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    margin: 0 0 32px;
+    align-self: flex-start;
+    width: max-content;
+    max-width: calc(100vw - 48px);
+    overflow-wrap: anywhere;
+  }
+
+  .subtitle {
+    font-family: var(--sans);
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  .subtitle .highlight {
+    background-color: var(--accent);
+    padding: 4px 8px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .prepared {
+    margin-top: auto;
+    padding-top: 96px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .prepared p { margin: 0; line-height: 1.55; }
+  .prepared .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--soft);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .prepared strong { color: var(--ink); font-weight: 600; }
+  .prepared a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
+
+  /* Section breaks */
+  hr.divider {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    max-width: var(--measure);
+    margin: 96px auto;
+  }
+
+  /* Section heads */
+  .section-head {
+    margin: 0 auto 40px;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 48px 0 14px;
+  }
+
+  h4 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 32px 0 10px;
+  }
+
+  /* Prose */
+  .prose p, .prose ul, .prose ol {
+    margin: 0 0 24px;
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 22px;
+  }
+
+  .prose li {
+    margin-bottom: 10px;
+  }
+
+  .prose ul li::marker,
+  .prose ol li::marker {
+    color: var(--soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prose strong { font-weight: 600; }
+  .prose em { font-style: italic; }
+
+  /* Spec rows (Who / Example / Goal / Feel) */
+  .spec { margin-top: 28px; margin-bottom: 8px; }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .spec-row:first-child { border-top: 1px solid var(--rule); }
+  .spec-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--soft);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .spec-row p { margin: 0; }
+
+  /* Sequence intro line above a timeline table */
+  .seq-lead {
+    font-family: var(--sans);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--soft);
+    margin: 40px 0 -8px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  /* Tables */
+  .table-wrap { margin: 32px auto; max-width: var(--measure); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+  }
+
+  table th, table td {
+    text-align: left;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  table th {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--soft);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 12px;
+  }
+
+  table td:last-child, table th:last-child {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* Left-aligned, wrapping last column (for text tables) */
+  table.left-last td:last-child,
+  table.left-last th:last-child {
+    text-align: left;
+    white-space: normal;
+  }
+
+  table.left-last td:first-child { font-weight: 600; }
+
+  /* Timeline table uses left-aligned right column */
+  table.timeline td:last-child,
+  table.timeline th:last-child {
+    text-align: left;
+    white-space: normal;
+  }
+
+  table.timeline td:first-child {
+    width: 90px;
+    color: var(--soft);
+    font-family: var(--sans);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  table.timeline th:first-child { width: 90px; }
+  table.timeline td strong { font-weight: 600; }
+
+  /* Footer */
+  footer.colophon {
+    margin: 120px auto 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--soft);
+    letter-spacing: 0.03em;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer.colophon a {
+    color: var(--soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  footer.colophon a:hover { color: var(--ink); }
+
+  /* Sign-off */
+  .signoff { margin-top: 48px; }
+  .signoff .name {
+    font-family: var(--display);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin: 0 0 6px;
+  }
+  .signoff .studio {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Footer logo */
+  .colophon .footer-logo {
+    height: 24px;
+    width: auto;
+    color: var(--ink);
+  }
+
+  /* Small screens */
+  @media (max-width: 600px) {
+    body { font-size: 17px; line-height: 1.65; }
+    article { padding: 0 20px; }
+    header.cover { padding: 5vh 20px 5vh; }
+    .eyebrow { margin-bottom: 40px; }
+    .prepared { grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 56px; font-size: 12px; }
+    .prepared .label { font-size: 10px; letter-spacing: 0.14em; margin-bottom: 6px; }
+    .prepared p { line-height: 1.45; }
+    .spec-row { grid-template-columns: 1fr; gap: 6px; padding: 16px 0; }
+    hr.divider { margin: 72px auto; }
+    table { font-size: 15px; }
+    table th, table td { padding: 12px 8px; }
+    table.timeline td:first-child,
+    table.timeline th:first-child { width: 64px; }
+    footer.colophon { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* Loader (initial page reveal) */
+  body.loading { overflow-y: hidden; }
+  body.loading > header.cover,
+  body.loading > article,
+  body.loading > footer.colophon { visibility: hidden; }
+  body:not(.loading):not(.revealing) #loader { display: none; }
+
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: #F5F4F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 1000;
+    transition: opacity 700ms ease-out, transform 700ms ease-out;
+  }
+
+  body.revealing #loader { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+
+  body.revealing > header.cover,
+  body.revealing > article,
+  body.revealing > footer.colophon {
+    visibility: visible;
+    animation: loader-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) 320ms both;
+  }
+
+  @keyframes loader-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .loader-card { max-width: 280px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+  .loader-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--soft);
+    font-weight: 500;
+    margin: 0 0 14px;
+  }
+
+  .loader-bar { height: 2px; background: var(--rule); position: relative; overflow: hidden; border-radius: 1px; width: 100%; }
+
+  .loader-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: loader-fill 1600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes loader-fill { to { transform: scaleX(1); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loader-bar::after,
+    #loader,
+    body.revealing > header.cover,
+    body.revealing > article,
+    body.revealing > footer.colophon {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Print */
+  @media print {
+    body { font-size: 11pt; line-height: 1.5; background: #fff; }
+    header.cover { min-height: auto; padding: 0 0 48px; }
+    hr.divider { margin: 48px auto; }
+  }
+</style>
+</head>
+<body class="loading">
+
+<div id="loader" role="status" aria-label="Loading">
+  <div class="loader-card">
+    <p class="loader-label">Strategy loading</p>
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<header class="cover">
+  <div class="cover-inner">
+    <svg class="logo" width="193" height="28" viewBox="0 0 3742 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hype Foundry">
+      <path d="M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z" fill="#D7F600"/>
+      <path d="M990.84 234C990.84 265 994.34 287.333 1001.34 301C1008.34 314.667 1019.01 321.5 1033.34 321.5C1041.01 321.5 1048.01 319.5 1054.34 315.5C1060.67 311.167 1066.01 305 1070.34 297C1075.01 289 1078.51 279.333 1080.84 268C1083.51 256.333 1084.84 243.167 1084.84 228.5V141.5H1156.84V334.5C1156.84 355.5 1155.01 374.667 1151.34 392C1147.67 409 1142.17 423.833 1134.84 436.5C1127.84 449.5 1118.84 460.333 1107.84 469C1096.84 477.667 1084.01 484.167 1069.34 488.5C1055.01 492.833 1038.67 495 1020.34 495C1007.01 495 993.34 493.667 979.34 491C965.673 488.667 952.673 484.833 940.34 479.5C928.34 474.5 918.007 468 909.34 460L929.84 398.5C940.507 409.5 953.84 417.667 969.84 423C985.84 428.667 1001.67 431.5 1017.34 431.5C1035.01 431.5 1049.67 427.833 1061.34 420.5C1073.34 413.5 1082.34 402.667 1088.34 388C1094.67 373 1098.34 354.333 1099.34 332L1102.34 286.5H1091.34C1088.01 308.5 1082.51 326.5 1074.84 340.5C1067.51 354.5 1058.01 364.833 1046.34 371.5C1035.01 377.833 1021.51 381 1005.84 381C986.84 381 970.84 376.167 957.84 366.5C944.84 356.833 935.007 342.333 928.34 323C922.007 303.667 918.84 279.833 918.84 251.5V141.5H990.84V234ZM3575.02 234C3575.02 265 3578.52 287.333 3585.52 301C3592.52 314.667 3603.19 321.5 3617.52 321.5C3625.19 321.5 3632.19 319.5 3638.52 315.5C3644.85 311.167 3650.19 305 3654.52 297C3659.19 289 3662.69 279.333 3665.02 268C3667.69 256.333 3669.02 243.167 3669.02 228.5V141.5H3741.02V334.5C3741.02 355.5 3739.19 374.667 3735.52 392C3731.85 409 3726.35 423.833 3719.02 436.5C3712.02 449.5 3703.02 460.333 3692.02 469C3681.02 477.667 3668.19 484.167 3653.52 488.5C3639.19 492.833 3622.85 495 3604.52 495C3591.19 495 3577.52 493.667 3563.52 491C3549.85 488.667 3536.85 484.833 3524.52 479.5C3512.52 474.5 3502.19 468 3493.52 460L3514.02 398.5C3524.69 409.5 3538.02 417.667 3554.02 423C3570.02 428.667 3585.85 431.5 3601.52 431.5C3619.19 431.5 3633.85 427.833 3645.52 420.5C3657.52 413.5 3666.52 402.667 3672.52 388C3678.85 373 3682.52 354.333 3683.52 332L3686.52 286.5H3675.52C3672.19 308.5 3666.69 326.5 3659.02 340.5C3651.69 354.5 3642.19 364.833 3630.52 371.5C3619.19 377.833 3605.69 381 3590.02 381C3571.02 381 3555.02 376.167 3542.02 366.5C3529.02 356.833 3519.19 342.333 3512.52 323C3506.19 303.667 3503.02 279.833 3503.02 251.5V141.5H3575.02V234ZM1357.12 134.5C1380.45 134.5 1400.45 140.333 1417.12 152C1433.79 163.333 1446.45 179.5 1455.12 200.5C1464.12 221.167 1468.62 245.667 1468.62 274C1468.62 300.333 1464.62 323.833 1456.62 344.5C1448.62 364.833 1436.62 381 1420.62 393C1404.95 405 1385.29 411 1361.62 411C1344.95 411 1330.79 407.833 1319.12 401.5C1307.79 395.167 1298.29 386.333 1290.62 375C1283.29 363.333 1277.12 349.5 1272.12 333.5H1262.62C1264.62 342.5 1266.45 351.667 1268.12 361C1269.79 370.333 1271.12 379.5 1272.12 388.5C1273.12 397.167 1273.62 405.667 1273.62 414V488H1201.62V141.5H1261.12L1261.62 214.5L1270.62 215C1273.62 197.333 1278.79 182.5 1286.12 170.5C1293.79 158.5 1303.62 149.5 1315.62 143.5C1327.62 137.5 1341.45 134.5 1357.12 134.5ZM1618.45 134.5C1638.45 134.5 1656.28 137.833 1671.95 144.5C1687.61 150.833 1700.61 160.5 1710.95 173.5C1721.61 186.5 1729.28 202.5 1733.95 221.5C1738.95 240.167 1740.78 261.667 1739.45 286L1555.83 287.782C1557.35 310.182 1563.39 327.088 1573.95 338.5C1586.61 351.833 1603.11 358.5 1623.45 358.5C1632.78 358.5 1640.61 357.333 1646.95 355C1653.61 352.333 1658.95 349 1662.95 345C1667.28 341 1670.61 336.5 1672.95 331.5C1675.61 326.5 1677.78 321.5 1679.45 316.5L1741.95 330C1738.95 342.333 1734.45 353.5 1728.45 363.5C1722.78 373.167 1715.11 381.667 1705.45 389C1695.78 396 1684.11 401.333 1670.45 405C1657.11 409 1641.45 411 1623.45 411C1601.78 411 1582.45 408 1565.45 402C1548.78 396 1534.61 387.333 1522.95 376C1511.28 364.667 1502.28 350.667 1495.95 334C1489.95 317.333 1486.95 298.5 1486.95 277.5C1486.95 256.833 1489.78 237.833 1495.45 220.5C1501.45 202.833 1510.11 187.667 1521.45 175C1532.78 162 1546.61 152 1562.95 145C1579.28 138 1597.78 134.5 1618.45 134.5ZM2256.73 134.5C2283.07 134.5 2306.23 139.667 2326.23 150C2346.57 160.333 2362.4 175.833 2373.73 196.5C2385.4 216.833 2391.23 242.333 2391.23 273C2391.23 304 2385.23 329.833 2373.23 350.5C2361.57 370.833 2345.57 386 2325.23 396C2305.23 406 2282.4 411 2256.73 411C2230.4 411 2207.23 405.833 2187.23 395.5C2167.23 384.833 2151.57 369.333 2140.23 349C2128.9 328.333 2123.23 302.667 2123.23 272C2123.23 241.333 2128.9 215.833 2140.23 195.5C2151.9 175.167 2167.73 160 2187.73 150C2208.07 139.667 2231.07 134.5 2256.73 134.5ZM2490.92 275.5C2490.92 301.167 2494.76 320.333 2502.42 333C2510.09 345.333 2521.76 351.5 2537.42 351.5C2546.76 351.5 2554.92 349.167 2561.92 344.5C2568.92 339.833 2574.92 333.333 2579.92 325C2584.92 316.667 2588.59 306.833 2590.92 295.5C2593.59 284.167 2595.09 272 2595.42 259V141.5H2667.42V404H2609.42L2608.92 322H2599.92C2594.92 342.667 2588.59 359.667 2580.92 373C2573.59 386 2564.09 395.667 2552.42 402C2541.09 408 2527.42 411 2511.42 411C2480.76 411 2457.59 400.667 2441.92 380C2426.59 359 2418.92 327.167 2418.92 284.5V141.5H2490.92V275.5ZM3261.89 404H3201.89V328H3191.89C3188.22 346.667 3182.55 362.167 3174.89 374.5C3167.22 386.833 3157.39 396 3145.39 402C3133.72 408 3120.05 411 3104.39 411C3082.39 411 3063.05 405.333 3046.39 394C3030.05 382.667 3017.39 366.667 3008.39 346C2999.39 325.333 2994.89 300.833 2994.89 272.5C2994.89 245.833 2998.89 222.167 3006.89 201.5C3014.89 180.833 3026.72 164.667 3042.39 153C3058.05 141.333 3077.55 135.5 3100.89 135.5C3117.89 135.5 3132.22 138.667 3143.89 145C3155.55 151.333 3165.05 160.667 3172.39 173C3180.05 185 3186.05 199.5 3190.39 216.5H3201.89C3199.55 205.833 3197.39 195.5 3195.39 185.5C3193.72 175.167 3192.39 165.333 3191.39 156C3190.39 146.667 3189.89 138.5 3189.89 131.5V46.5H3261.89V404ZM655.5 207.5H800V74H871.5V404H800V266.5H655.5V404H583.5V74H655.5V207.5ZM2116.21 135.5H1942.71V221.5H2097.71V280.5H1942.71V404H1870.71V74H2116.21V135.5ZM2873.96 134.5C2904.29 134.5 2927.29 145.167 2942.96 166.5C2958.96 187.833 2966.96 221.333 2966.96 267V404H2894.46V275C2894.46 247 2890.29 226.667 2881.96 214C2873.96 201 2862.12 194.5 2846.46 194.5C2833.12 194.5 2821.96 198.667 2812.96 207C2803.96 215.333 2797.12 226.333 2792.46 240C2788.12 253.333 2785.79 268.333 2785.46 285V404H2713.46V141.5H2772.46L2771.96 220H2781.96C2786.29 201 2792.46 185.167 2800.46 172.5C2808.46 159.833 2818.46 150.333 2830.46 144C2842.79 137.667 2857.29 134.5 2873.96 134.5ZM3462.22 135.5C3465.22 135.5 3468.39 135.667 3471.72 136C3475.39 136 3479.56 136.5 3484.22 137.5L3481.22 214C3476.22 211.667 3470.72 210 3464.72 209C3458.72 208 3453.39 207.5 3448.72 207.5C3435.72 207.5 3424.56 210.5 3415.22 216.5C3405.89 222.5 3398.22 231.167 3392.22 242.5C3386.56 253.5 3382.72 267 3380.72 283V404H3308.22V141.5H3367.72L3368.22 231H3377.72C3380.39 208.667 3384.89 190.5 3391.22 176.5C3397.89 162.5 3407.06 152.167 3418.72 145.5C3430.39 138.833 3444.89 135.5 3462.22 135.5ZM2254.73 190.5C2242.4 190.5 2231.73 193.5 2222.73 199.5C2213.73 205.167 2206.9 214.167 2202.23 226.5C2197.57 238.5 2195.23 253.333 2195.23 271C2195.23 299.333 2200.9 320.833 2212.23 335.5C2223.57 350.167 2239.23 357.5 2259.23 357.5C2272.23 357.5 2283.07 354.5 2291.73 348.5C2300.73 342.5 2307.4 333.5 2311.73 321.5C2316.4 309.167 2318.73 294.333 2318.73 277C2318.73 258.667 2316.23 243.167 2311.23 230.5C2306.57 217.5 2299.57 207.667 2290.23 201C2280.9 194 2269.07 190.5 2254.73 190.5ZM1335.12 194C1324.45 194 1315.29 196.333 1307.62 201C1299.95 205.667 1293.45 211.833 1288.12 219.5C1283.12 227.167 1279.45 235.5 1277.12 244.5C1274.79 253.167 1273.62 261.5 1273.62 269.5V279C1273.62 285.333 1274.45 292 1276.12 299C1277.79 305.667 1280.45 312.333 1284.12 319C1287.79 325.333 1292.12 331.167 1297.12 336.5C1302.12 341.5 1307.95 345.667 1314.62 349C1321.29 352 1328.62 353.5 1336.62 353.5C1348.62 353.5 1358.79 350.167 1367.12 343.5C1375.45 336.833 1381.79 327.5 1386.12 315.5C1390.79 303.5 1393.12 289.833 1393.12 274.5C1393.12 257.833 1390.79 243.667 1386.12 232C1381.45 220 1374.79 210.667 1366.12 204C1357.45 197.333 1347.12 194 1335.12 194ZM3127.39 193.5C3115.39 193.5 3105.22 196.833 3096.89 203.5C3088.55 210.167 3082.05 219.5 3077.39 231.5C3072.72 243.167 3070.39 256.833 3070.39 272.5C3070.39 288.5 3072.72 302.5 3077.39 314.5C3082.39 326.5 3089.22 335.833 3097.89 342.5C3106.55 348.833 3116.72 352 3128.39 352C3139.39 352 3148.72 349.667 3156.39 345C3164.05 340.333 3170.39 334.333 3175.39 327C3180.39 319.333 3184.05 311.167 3186.39 302.5C3188.72 293.5 3189.89 285.167 3189.89 277.5V268C3189.89 261.667 3188.89 255.167 3186.89 248.5C3185.22 241.5 3182.72 234.667 3179.39 228C3176.05 221.333 3171.89 215.5 3166.89 210.5C3161.89 205.167 3156.05 201 3149.39 198C3142.72 195 3135.39 193.5 3127.39 193.5ZM1619.45 190.5C1606.78 190.5 1595.61 193.833 1585.95 200.5C1576.28 207.167 1568.78 217 1563.45 230C1561.1 235.575 1559.27 241.668 1557.95 248.276L1673.56 247.222C1673.27 238.183 1671.74 230.275 1668.95 223.5C1664.28 212.167 1657.45 203.833 1648.45 198.5C1639.78 193.167 1630.11 190.5 1619.45 190.5Z" fill="#090909"/>
+    </svg>
+    <p class="eyebrow">Nurture strategy</p>
+    <h1 class="title">Investor Quiz<br>Nurture System</h1>
+    <p class="subtitle"><span class="highlight">For Active Property Investing</span></p>
+
+    <div style="margin-top: auto;" aria-hidden="true"></div>
+  </div>
+</header>
+
+<article>
+
+  <section class="prose" aria-labelledby="quiz" style="padding-top: 64px;">
+    <header class="section-head"><h2 id="quiz">What the quiz already gives us</h2></header>
+
+    <p>The Investor Quiz scores four factors, Finance, Focus, Support and Flexibility, and sorts every person who completes it into one of four internal routes.</p>
+  </section>
+
+  <div class="table-wrap">
+    <table class="left-last">
+      <thead>
+        <tr>
+          <th>Quiz route (internal)</th>
+          <th>Summary</th>
+          <th>Ready?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>active</td>
+          <td>Clear figure, wants to delegate, open on location</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>aspiring</td>
+          <td>Capable and keen, one or two pieces not yet in place</td>
+          <td>Close, not yet</td>
+        </tr>
+        <tr>
+          <td>self-directed</td>
+          <td>Capable, often finance-ready, wants to run it themselves</td>
+          <td>Not for our service</td>
+        </tr>
+        <tr>
+          <td>help</td>
+          <td>Early days, or wants something API doesn't do (e.g. a reno project)</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section aria-labelledby="active" style="padding-top: 40px;">
+    <div class="prose">
+      <header class="section-head"><h2 id="active">The Active Investor sequence</h2></header>
+
+      <div class="spec">
+        <div class="spec-row">
+          <span class="spec-label">Who</span>
+          <p>Clear on their figure, ready to hand research and shortlisting to a specialist team, open on where the opportunity sits. These are hot leads. The sequence is the safety net for the ones who don't pick up, and a warm-up for the ones who haven't booked.</p>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Example</span>
+          <p>A qualified active investor requests a call, you try for three days, silence. The sequence keeps the engagement alive and provides several low-friction ways back in, without you spending more calls on it.</p>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Goal</span>
+          <p>Get them onto the 15-minute strategy call.</p>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Look and Feel</span>
+          <p>These read like they came from Emma personally. Conversational, professional, warm, direct. A one-to-one email, not a newsletter.</p>
+        </div>
+      </div>
+
+      <p class="seq-lead" style="margin-top: 32px;">Suggested sequence &middot; 4 to 5 emails &middot; 2 to 3 weeks</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="timeline">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Day 0</td>
+            <td><strong>"I've been trying to reach you"</strong><br>From Emma. Mirrors back what we heard in the quiz (the quiz already writes these lines, e.g. "ready to hand the research and shortlisting to a specialist team"), restates what 15 minutes will do for them, and gives an easy way to reply or rebook.</td>
+          </tr>
+          <tr>
+            <td>Day 2-3</td>
+            <td><strong>"What actually happens on the call"</strong><br>Removes uncertainty. 15 minutes, no pressure, here's what we cover and what you walk away knowing. Speaks to the one thing that would help them most (the quiz already identifies it, e.g. a broker conversation about borrowing).</td>
+          </tr>
+          <tr>
+            <td>Day 5-7</td>
+            <td><strong>"What we recently found for someone in your position"</strong><br>A de-identified example: the opportunity, the numbers, why it passed our research. The Research Culling Process doing the selling.</td>
+          </tr>
+          <tr>
+            <td>Day 10-12</td>
+            <td><strong>"Why investors trust us with this"</strong><br>150+ Google reviews at 5.0, the fact that in FY2026 only 16% of properties we assessed reached a client, and the valet model (we carry the research and the legwork, your life stays intact). Soft, clear CTA.</td>
+          </tr>
+          <tr>
+            <td>Day 16-21</td>
+            <td><strong>"I'll stop chasing you about the call"</strong><br>The honest last email. Low pressure, high response. Call chasing stops, but they stay on the light nurture below, and the door's open when the timing's right.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="aspiring" style="padding-top: 40px;">
+    <div class="prose">
+      <header class="section-head"><h2 id="aspiring">Aspiring: "The Active Investor Path"</h2></header>
+
+      <div class="spec">
+        <div class="spec-row">
+          <span class="spec-label">Who</span>
+          <p>Capable and genuinely interested, but one or two pieces short of ready, most often finance not yet firmed up, or holding too tight to a single location. The whole idea here is to educate them and be of service while they build toward being ready, so that when they get there, API is the obvious first call.</p>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Example</span>
+          <p>They read as ready in almost every way, clear on the outcome they want, happy to hand the research and shortlisting to a specialist team, open to where the opportunity sits. The one gap is finance: their figure is not yet firmed up, and the quiz's own read was that the next step is a fresh broker conversation about borrowing and structure. That is a textbook aspiring investor, mentally ready with one practical piece to lock in. They do not need chasing for a call, they need to be kept close and taught until that piece is in place.</p>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Goal</span>
+          <p>Keep them close and keep being genuinely useful until the missing piece locks in, then move them to a strategy call. No pressure to book today.</p>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Feel</span>
+          <p>Generous and educational, API teaching rather than selling. Warm, in Emma's voice, useful whether or not they ever buy through API. It should read as a program they joined, "The Active Investor Path".</p>
+        </div>
+      </div>
+
+      <h3>Tailoring to the weakest factor</h3>
+      <p>In emails one and two, the quiz already knows whether the gap is Finance, Focus, Support or Flexibility, so a finance-capped person gets the borrowing-and-capacity thread first, and a location-rigid person gets the "why the strongest opportunities sit interstate" thread first.</p>
+
+      <p>Two emails vary by the weakest factor: the welcome email's resource (email one) and Emma's personal note on "the one area with the most impact" (email two), which is the same factor seen two ways. Everything else in the journey is shared. Out of the four factors we only need three, because a genuine Support gap (wanting to run it themselves) routes to Self-directed or Help, not Aspiring, so it rarely lands here. The resources are the bigger build and most can be adapted from existing content; the day-3 notes are just short emails.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="left-last">
+        <thead>
+          <tr>
+            <th>Weakest factor</th>
+            <th>Resource angle</th>
+            <th>Likely source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Finance</td>
+            <td>borrowing and capacity, what your figure unlocks</td>
+            <td>rentvesting eBook (finance-led), a broker-conversation explainer</td>
+          </tr>
+          <tr>
+            <td>Focus</td>
+            <td>judging on fundamentals over cosmetics</td>
+            <td>Research Culling Process explainer</td>
+          </tr>
+          <tr>
+            <td>Flexibility</td>
+            <td>why the strongest opportunities sit interstate</td>
+            <td>a market-openness / interstate piece</td>
+          </tr>
+          <tr>
+            <td>Support (fallback only)</td>
+            <td>how much to lean on the team, the valet model</td>
+            <td>existing process / team content</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <p class="seq-lead">Suggested sequence &middot; ~8 emails over ~90 days &middot; then general mailing list</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="timeline">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Day 0</td>
+            <td><strong>"Welcome to the Active Investor Path"</strong><br>What they've joined, what to expect, no pressure. A first resource matched to their weakest factor.</td>
+          </tr>
+          <tr>
+            <td>Day 3</td>
+            <td><strong>"The one area with the most impact"</strong><br>A personal note from Emma on their specific gap, and how clients have worked through the same thing.</td>
+          </tr>
+          <tr>
+            <td>Day ~10</td>
+            <td><strong>"Our Research Culling Process"</strong><br>The Research Culling Process in plain language, or a podcast episode relevant to their gap. Builds trust in the method.</td>
+          </tr>
+          <tr>
+            <td>Day ~20</td>
+            <td><strong>"A real client story"</strong><br>A market read or client journey relevant to what they came in for (rentvesting, family, SMSF).</td>
+          </tr>
+          <tr>
+            <td>Day ~35</td>
+            <td><strong>"Come to the next webinar"</strong><br>An invitation to the next live event.</td>
+          </tr>
+          <tr>
+            <td>Day ~55</td>
+            <td><strong>"Someone who started where you are"</strong><br>A founder-voice email from Emma about a client with a similar profile who got there.</td>
+          </tr>
+          <tr>
+            <td>Day ~75</td>
+            <td><strong>"Anything changed?"</strong><br>A light check-in, no agenda.</td>
+          </tr>
+          <tr>
+            <td>Day ~90</td>
+            <td><strong>"Retake the quiz whenever you're ready"</strong><br>A warm re-assessment invitation. Retake and score Active, and they move straight into the Active flow and a call. Still building, and they roll onto the ongoing cadence below.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <h3>After the 90 days</h3>
+      <p>General API updates, market notes, events and Property Letters, plus the redacted case-study "property blast" once there has been a progressed deal to feature. It's more education and real proof of what API finds, without handing live opportunities to people who haven't signalled they're ready. Every email includes a small line, "ready to see live opportunities?".</p>
+      <p>The live blasts themselves stay for people who have signalled readiness (see Enters and exits below). The redacted blast comes online as deals progress and once its template is set.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose" aria-labelledby="flow">
+    <header class="section-head"><h2 id="flow">Enters and exits</h2></header>
+
+    <h3>Active sequence</h3>
+    <ul>
+      <li><strong>Enters</strong> on completing the quiz on the active route.</li>
+      <li><strong>Exits early</strong> when they book a call or reply: the sequence stops immediately.</li>
+      <li><strong>Finishes with no response:</strong> they move to the general API updates mailing list.</li>
+    </ul>
+
+    <h3>Aspiring journey</h3>
+    <ul>
+      <li><strong>Enters</strong> on completing the quiz on the aspiring route (enrolled in the Active Investor Path).</li>
+      <li><strong>Exits early</strong> when they book a call: they're then handled as an active lead.</li>
+      <li><strong>Finishes the 90 days still building:</strong> they roll onto the general API updates mailing list.</li>
+      <li><strong>Retakes the quiz and now scores Active:</strong> straight into the Active flow and a call.</li>
+      <li><strong>Clicks "Ready to see live opportunities?":</strong> automatically adds the "property ready" tag, which includes them in the property blasts but doesn't remove them from the pathway.</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <section class="prose">
+    <p>This is the strategy layer before we build. Happy to adjust any of it before we take it into Mailchimp.</p>
+
+    <div class="signoff">
+      <p class="name">Clark</p>
+      <p class="studio">Hype Foundry Studio<br><a href="https://hypefoundry.studio" style="color: var(--muted); border-bottom: 1px solid var(--rule); text-decoration: none;">hypefoundry.studio</a></p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <svg class="footer-logo" width="166" height="24" viewBox="0 0 3742 542" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hype Foundry">
+      <path d="M306.5 0H89L0 429L225 361L186 541.5H285L463.5 142L186 211.5L306.5 0Z" fill="#D5FF02"/>
+      <path d="M990.84 234C990.84 265 994.34 287.333 1001.34 301C1008.34 314.667 1019.01 321.5 1033.34 321.5C1041.01 321.5 1048.01 319.5 1054.34 315.5C1060.67 311.167 1066.01 305 1070.34 297C1075.01 289 1078.51 279.333 1080.84 268C1083.51 256.333 1084.84 243.167 1084.84 228.5V141.5H1156.84V334.5C1156.84 355.5 1155.01 374.667 1151.34 392C1147.67 409 1142.17 423.833 1134.84 436.5C1127.84 449.5 1118.84 460.333 1107.84 469C1096.84 477.667 1084.01 484.167 1069.34 488.5C1055.01 492.833 1038.67 495 1020.34 495C1007.01 495 993.34 493.667 979.34 491C965.673 488.667 952.673 484.833 940.34 479.5C928.34 474.5 918.007 468 909.34 460L929.84 398.5C940.507 409.5 953.84 417.667 969.84 423C985.84 428.667 1001.67 431.5 1017.34 431.5C1035.01 431.5 1049.67 427.833 1061.34 420.5C1073.34 413.5 1082.34 402.667 1088.34 388C1094.67 373 1098.34 354.333 1099.34 332L1102.34 286.5H1091.34C1088.01 308.5 1082.51 326.5 1074.84 340.5C1067.51 354.5 1058.01 364.833 1046.34 371.5C1035.01 377.833 1021.51 381 1005.84 381C986.84 381 970.84 376.167 957.84 366.5C944.84 356.833 935.007 342.333 928.34 323C922.007 303.667 918.84 279.833 918.84 251.5V141.5H990.84V234ZM3575.02 234C3575.02 265 3578.52 287.333 3585.52 301C3592.52 314.667 3603.19 321.5 3617.52 321.5C3625.19 321.5 3632.19 319.5 3638.52 315.5C3644.85 311.167 3650.19 305 3654.52 297C3659.19 289 3662.69 279.333 3665.02 268C3667.69 256.333 3669.02 243.167 3669.02 228.5V141.5H3741.02V334.5C3741.02 355.5 3739.19 374.667 3735.52 392C3731.85 409 3726.35 423.833 3719.02 436.5C3712.02 449.5 3703.02 460.333 3692.02 469C3681.02 477.667 3668.19 484.167 3653.52 488.5C3639.19 492.833 3622.85 495 3604.52 495C3591.19 495 3577.52 493.667 3563.52 491C3549.85 488.667 3536.85 484.833 3524.52 479.5C3512.52 474.5 3502.19 468 3493.52 460L3514.02 398.5C3524.69 409.5 3538.02 417.667 3554.02 423C3570.02 428.667 3585.85 431.5 3601.52 431.5C3619.19 431.5 3633.85 427.833 3645.52 420.5C3657.52 413.5 3666.52 402.667 3672.52 388C3678.85 373 3682.52 354.333 3683.52 332L3686.52 286.5H3675.52C3672.19 308.5 3666.69 326.5 3659.02 340.5C3651.69 354.5 3642.19 364.833 3630.52 371.5C3619.19 377.833 3605.69 381 3590.02 381C3571.02 381 3555.02 376.167 3542.02 366.5C3529.02 356.833 3519.19 342.333 3512.52 323C3506.19 303.667 3503.02 279.833 3503.02 251.5V141.5H3575.02V234ZM1357.12 134.5C1380.45 134.5 1400.45 140.333 1417.12 152C1433.79 163.333 1446.45 179.5 1455.12 200.5C1464.12 221.167 1468.62 245.667 1468.62 274C1468.62 300.333 1464.62 323.833 1456.62 344.5C1448.62 364.833 1436.62 381 1420.62 393C1404.95 405 1385.29 411 1361.62 411C1344.95 411 1330.79 407.833 1319.12 401.5C1307.79 395.167 1298.29 386.333 1290.62 375C1283.29 363.333 1277.12 349.5 1272.12 333.5H1262.62C1264.62 342.5 1266.45 351.667 1268.12 361C1269.79 370.333 1271.12 379.5 1272.12 388.5C1273.12 397.167 1273.62 405.667 1273.62 414V488H1201.62V141.5H1261.12L1261.62 214.5L1270.62 215C1273.62 197.333 1278.79 182.5 1286.12 170.5C1293.79 158.5 1303.62 149.5 1315.62 143.5C1327.62 137.5 1341.45 134.5 1357.12 134.5ZM1618.45 134.5C1638.45 134.5 1656.28 137.833 1671.95 144.5C1687.61 150.833 1700.61 160.5 1710.95 173.5C1721.61 186.5 1729.28 202.5 1733.95 221.5C1738.95 240.167 1740.78 261.667 1739.45 286L1555.83 287.782C1557.35 310.182 1563.39 327.088 1573.95 338.5C1586.61 351.833 1603.11 358.5 1623.45 358.5C1632.78 358.5 1640.61 357.333 1646.95 355C1653.61 352.333 1658.95 349 1662.95 345C1667.28 341 1670.61 336.5 1672.95 331.5C1675.61 326.5 1677.78 321.5 1679.45 316.5L1741.95 330C1738.95 342.333 1734.45 353.5 1728.45 363.5C1722.78 373.167 1715.11 381.667 1705.45 389C1695.78 396 1684.11 401.333 1670.45 405C1657.11 409 1641.45 411 1623.45 411C1601.78 411 1582.45 408 1565.45 402C1548.78 396 1534.61 387.333 1522.95 376C1511.28 364.667 1502.28 350.667 1495.95 334C1489.95 317.333 1486.95 298.5 1486.95 277.5C1486.95 256.833 1489.78 237.833 1495.45 220.5C1501.45 202.833 1510.11 187.667 1521.45 175C1532.78 162 1546.61 152 1562.95 145C1579.28 138 1597.78 134.5 1618.45 134.5ZM2256.73 134.5C2283.07 134.5 2306.23 139.667 2326.23 150C2346.57 160.333 2362.4 175.833 2373.73 196.5C2385.4 216.833 2391.23 242.333 2391.23 273C2391.23 304 2385.23 329.833 2373.23 350.5C2361.57 370.833 2345.57 386 2325.23 396C2305.23 406 2282.4 411 2256.73 411C2230.4 411 2207.23 405.833 2187.23 395.5C2167.23 384.833 2151.57 369.333 2140.23 349C2128.9 328.333 2123.23 302.667 2123.23 272C2123.23 241.333 2128.9 215.833 2140.23 195.5C2151.9 175.167 2167.73 160 2187.73 150C2208.07 139.667 2231.07 134.5 2256.73 134.5ZM2490.92 275.5C2490.92 301.167 2494.76 320.333 2502.42 333C2510.09 345.333 2521.76 351.5 2537.42 351.5C2546.76 351.5 2554.92 349.167 2561.92 344.5C2568.92 339.833 2574.92 333.333 2579.92 325C2584.92 316.667 2588.59 306.833 2590.92 295.5C2593.59 284.167 2595.09 272 2595.42 259V141.5H2667.42V404H2609.42L2608.92 322H2599.92C2594.92 342.667 2588.59 359.667 2580.92 373C2573.59 386 2564.09 395.667 2552.42 402C2541.09 408 2527.42 411 2511.42 411C2480.76 411 2457.59 400.667 2441.92 380C2426.59 359 2418.92 327.167 2418.92 284.5V141.5H2490.92V275.5ZM3261.89 404H3201.89V328H3191.89C3188.22 346.667 3182.55 362.167 3174.89 374.5C3167.22 386.833 3157.39 396 3145.39 402C3133.72 408 3120.05 411 3104.39 411C3082.39 411 3063.05 405.333 3046.39 394C3030.05 382.667 3017.39 366.667 3008.39 346C2999.39 325.333 2994.89 300.833 2994.89 272.5C2994.89 245.833 2998.89 222.167 3006.89 201.5C3014.89 180.833 3026.72 164.667 3042.39 153C3058.05 141.333 3077.55 135.5 3100.89 135.5C3117.89 135.5 3132.22 138.667 3143.89 145C3155.55 151.333 3165.05 160.667 3172.39 173C3180.05 185 3186.05 199.5 3190.39 216.5H3201.89C3199.55 205.833 3197.39 195.5 3195.39 185.5C3193.72 175.167 3192.39 165.333 3191.39 156C3190.39 146.667 3189.89 138.5 3189.89 131.5V46.5H3261.89V404ZM655.5 207.5H800V74H871.5V404H800V266.5H655.5V404H583.5V74H655.5V207.5ZM2116.21 135.5H1942.71V221.5H2097.71V280.5H1942.71V404H1870.71V74H2116.21V135.5ZM2873.96 134.5C2904.29 134.5 2927.29 145.167 2942.96 166.5C2958.96 187.833 2966.96 221.333 2966.96 267V404H2894.46V275C2894.46 247 2890.29 226.667 2881.96 214C2873.96 201 2862.12 194.5 2846.46 194.5C2833.12 194.5 2821.96 198.667 2812.96 207C2803.96 215.333 2797.12 226.333 2792.46 240C2788.12 253.333 2785.79 268.333 2785.46 285V404H2713.46V141.5H2772.46L2771.96 220H2781.96C2786.29 201 2792.46 185.167 2800.46 172.5C2808.46 159.833 2818.46 150.333 2830.46 144C2842.79 137.667 2857.29 134.5 2873.96 134.5ZM3462.22 135.5C3465.22 135.5 3468.39 135.667 3471.72 136C3475.39 136 3479.56 136.5 3484.22 137.5L3481.22 214C3476.22 211.667 3470.72 210 3464.72 209C3458.72 208 3453.39 207.5 3448.72 207.5C3435.72 207.5 3424.56 210.5 3415.22 216.5C3405.89 222.5 3398.22 231.167 3392.22 242.5C3386.56 253.5 3382.72 267 3380.72 283V404H3308.22V141.5H3367.72L3368.22 231H3377.72C3380.39 208.667 3384.89 190.5 3391.22 176.5C3397.89 162.5 3407.06 152.167 3418.72 145.5C3430.39 138.833 3444.89 135.5 3462.22 135.5ZM2254.73 190.5C2242.4 190.5 2231.73 193.5 2222.73 199.5C2213.73 205.167 2206.9 214.167 2202.23 226.5C2197.57 238.5 2195.23 253.333 2195.23 271C2195.23 299.333 2200.9 320.833 2212.23 335.5C2223.57 350.167 2239.23 357.5 2259.23 357.5C2272.23 357.5 2283.07 354.5 2291.73 348.5C2300.73 342.5 2307.4 333.5 2311.73 321.5C2316.4 309.167 2318.73 294.333 2318.73 277C2318.73 258.667 2316.23 243.167 2311.23 230.5C2306.57 217.5 2299.57 207.667 2290.23 201C2280.9 194 2269.07 190.5 2254.73 190.5ZM1335.12 194C1324.45 194 1315.29 196.333 1307.62 201C1299.95 205.667 1293.45 211.833 1288.12 219.5C1283.12 227.167 1279.45 235.5 1277.12 244.5C1274.79 253.167 1273.62 261.5 1273.62 269.5V279C1273.62 285.333 1274.45 292 1276.12 299C1277.79 305.667 1280.45 312.333 1284.12 319C1287.79 325.333 1292.12 331.167 1297.12 336.5C1302.12 341.5 1307.95 345.667 1314.62 349C1321.29 352 1328.62 353.5 1336.62 353.5C1348.62 353.5 1358.79 350.167 1367.12 343.5C1375.45 336.833 1381.79 327.5 1386.12 315.5C1390.79 303.5 1393.12 289.833 1393.12 274.5C1393.12 257.833 1390.79 243.667 1386.12 232C1381.45 220 1374.79 210.667 1366.12 204C1357.45 197.333 1347.12 194 1335.12 194ZM3127.39 193.5C3115.39 193.5 3105.22 196.833 3096.89 203.5C3088.55 210.167 3082.05 219.5 3077.39 231.5C3072.72 243.167 3070.39 256.833 3070.39 272.5C3070.39 288.5 3072.72 302.5 3077.39 314.5C3082.39 326.5 3089.22 335.833 3097.89 342.5C3106.55 348.833 3116.72 352 3128.39 352C3139.39 352 3148.72 349.667 3156.39 345C3164.05 340.333 3170.39 334.333 3175.39 327C3180.39 319.333 3184.05 311.167 3186.39 302.5C3188.72 293.5 3189.89 285.167 3189.89 277.5V268C3189.89 261.667 3188.89 255.167 3186.89 248.5C3185.22 241.5 3182.72 234.667 3179.39 228C3176.05 221.333 3171.89 215.5 3166.89 210.5C3161.89 205.167 3156.05 201 3149.39 198C3142.72 195 3135.39 193.5 3127.39 193.5ZM1619.45 190.5C1606.78 190.5 1595.61 193.833 1585.95 200.5C1576.28 207.167 1568.78 217 1563.45 230C1561.1 235.575 1559.27 241.668 1557.95 248.276L1673.56 247.222C1673.27 238.183 1671.74 230.275 1668.95 223.5C1664.28 212.167 1657.45 203.833 1648.45 198.5C1639.78 193.167 1630.11 190.5 1619.45 190.5Z" fill="currentColor"/>
+    </svg>
+    <a href="mailto:hello@hypefoundry.studio">hello@hypefoundry.studio</a>
+  </footer>
+
+</article>
+
+<script>
+  (function () {
+    const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const LOADER_MS = REDUCED ? 0 : 1700;
+    const FADE_MS   = REDUCED ? 0 : 700;
+
+    setTimeout(() => {
+      document.body.classList.add('revealing');
+      document.body.classList.remove('loading');
+      setTimeout(() => {
+        document.body.classList.remove('revealing');
+      }, FADE_MS + 900);
+    }, LOADER_MS);
+  })();
+</script>
+
+</body>
+</html>
